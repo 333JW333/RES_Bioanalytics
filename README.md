@@ -1,6 +1,6 @@
-# RES Bioanalytics
+# EcoPeps 
 
-Website for RES Bioanalytics — a research-use-only (RUO) peptide and
+Website for EcoPeps — a research-use-only (RUO) peptide and
 research-compound supplier. Built with Next.js (App Router), TypeScript,
 and Tailwind CSS.
 
