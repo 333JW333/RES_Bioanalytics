@@ -1,4 +1,4 @@
-# EcoPeps 
+# EcoPeps
 
 Website for EcoPeps — a research-use-only (RUO) peptide and
 research-compound supplier. Built with Next.js (App Router), TypeScript,
