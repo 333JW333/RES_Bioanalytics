@@ -18,7 +18,7 @@ export default function Home() {
             High-purity reference peptides, built for the lab.
           </h1>
           <p className="mt-5 max-w-xl text-white/70 text-lg leading-relaxed">
-            RES Bioanalytics supplies COA-verified peptides and research
+            EcoPeps supplies COA-verified peptides and research
             compounds to laboratories and qualified researchers. Rigorous
             purity standards, transparent documentation, fast dispatch.
           </p>
@@ -76,7 +76,7 @@ export default function Home() {
             For Laboratory &amp; Research Use Only
           </h2>
           <p className="max-w-2xl mx-auto text-brand-slate-light text-sm leading-relaxed">
-            All products offered by RES Bioanalytics are intended strictly
+            All products offered by EcoPeps are intended strictly
             for in-vitro laboratory research and are not drugs, supplements,
             cosmetics, or foods. They are not for human or animal
             consumption, and are not evaluated by the FDA to diagnose,

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const FAQS: { q: string; a: React.ReactNode }[] = [
   {
-    q: "Who can purchase from RES Bioanalytics?",
+    q: "Who can purchase from EcoPeps?",
     a: "Our products are sold exclusively to qualified researchers, laboratories, and institutions for laboratory, analytical, and non-clinical research purposes. At checkout you must confirm you are purchasing for permitted research use only.",
   },
   {

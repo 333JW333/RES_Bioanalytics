@@ -3,7 +3,7 @@ import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Refund Policy",
-  description: "RES Bioanalytics Refund Policy.",
+  description: "EcoPeps Refund Policy.",
 };
 
 export default function RefundsPage() {
@@ -21,7 +21,7 @@ export default function RefundsPage() {
             If your order arrives damaged, incorrect, or fails to meet the
             purity/identity specifications on its certificate of analysis,
             contact us within 7 days of delivery at
-            support@resbioanalytics.com with your order number and photos
+            support@ecopeps.com with your order number and photos
             of the issue. We will replace the item or issue a refund at our
             discretion.
           </p>
@@ -53,7 +53,7 @@ export default function RefundsPage() {
         </section>
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">5. Contact</h2>
-          <p>To request a refund or replacement, email support@resbioanalytics.com with your order number.</p>
+          <p>To request a refund or replacement, email support@ecopeps.com with your order number.</p>
         </section>
       </div>
     </div>

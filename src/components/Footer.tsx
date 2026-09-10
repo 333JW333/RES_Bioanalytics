@@ -8,7 +8,7 @@ export default function Footer() {
         <div>
           <div className="flex items-center gap-2.5 mb-3">
             <LogoMark />
-            <span className="text-white font-bold text-lg">RES Bioanalytics</span>
+            <span className="text-white font-bold text-lg">EcoPeps</span>
           </div>
           <p className="text-sm leading-relaxed text-white/60">
             High-purity reference peptides and research compounds for
@@ -53,11 +53,11 @@ export default function Footer() {
             <span className="inline-flex items-center gap-1.5"><CardIcon className="h-4 w-4" /> Card</span>
             <span className="inline-flex items-center gap-1.5 opacity-40"><CardIcon className="h-4 w-4" /> PayPal (coming soon)</span>
           </div>
-          <p>© {new Date().getFullYear()} RES Bioanalytics. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} EcoPeps. All rights reserved.</p>
         </div>
         <div className="container-page pb-8">
           <p className="text-[11px] leading-relaxed text-white/40">
-            All products sold by RES Bioanalytics are intended strictly for
+            All products sold by EcoPeps are intended strictly for
             laboratory, analytical, and in-vitro research use by qualified
             professionals and institutions. These products are not drugs,
             biologics, dietary supplements, cosmetics, or foods, are not

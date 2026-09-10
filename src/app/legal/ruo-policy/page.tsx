@@ -3,7 +3,7 @@ import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Research Use Only Policy",
-  description: "RES Bioanalytics Research Use Only (RUO) Policy.",
+  description: "EcoPeps Research Use Only (RUO) Policy.",
 };
 
 export default function RuoPolicyPage() {
@@ -19,7 +19,7 @@ export default function RuoPolicyPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">1. Scope</h2>
           <p>
             This Research Use Only (&ldquo;RUO&rdquo;) Policy governs all
-            products sold by RES Bioanalytics (&ldquo;RES Bioanalytics,&rdquo;
+            products sold by EcoPeps (&ldquo;EcoPeps,&rdquo;
             &ldquo;we,&rdquo; &ldquo;us&rdquo;). It applies to every visitor
             and customer of this website.
           </p>
@@ -27,8 +27,8 @@ export default function RuoPolicyPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">2. Intended Use</h2>
           <p>
-            All peptides, compounds, and reagents offered by RES
-            Bioanalytics are sold strictly for in-vitro laboratory research,
+            All peptides, compounds, and reagents offered by EcoPeps
+            are sold strictly for in-vitro laboratory research,
             analytical testing, and other non-clinical research purposes by
             qualified researchers, laboratories, and institutions. Products
             are not intended for, and may not be used for, any of the
@@ -56,7 +56,7 @@ export default function RuoPolicyPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">4. Customer Certification</h2>
           <p>
             By creating an account, placing an order, or otherwise
-            purchasing from RES Bioanalytics, you represent and warrant
+            purchasing from EcoPeps, you represent and warrant
             that:
           </p>
           <ul className="list-disc list-inside mt-2 space-y-1">
@@ -70,7 +70,7 @@ export default function RuoPolicyPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">5. Enforcement</h2>
           <p>
-            RES Bioanalytics reserves the right to refuse service, cancel
+            EcoPeps reserves the right to refuse service, cancel
             orders, or terminate accounts at our sole discretion, including
             where we have reason to believe a product will be used contrary
             to this policy.
@@ -78,7 +78,7 @@ export default function RuoPolicyPage() {
         </section>
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">6. Contact</h2>
-          <p>Questions about this policy can be directed to support@resbioanalytics.com.</p>
+          <p>Questions about this policy can be directed to support@ecopeps.com.</p>
         </section>
       </div>
     </div>

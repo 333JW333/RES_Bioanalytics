@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { ShieldCheckIcon } from "@/components/icons";
 
-const CONSENT_KEY = "res-bioanalytics-ruo-consent";
+const CONSENT_KEY = "ecopeps-ruo-consent";
 
 export default function RuoGateModal() {
   const [visible, setVisible] = useState(false);
@@ -49,7 +49,7 @@ export default function RuoGateModal() {
           </h2>
         </div>
         <p className="text-sm text-brand-slate leading-relaxed mb-4">
-          RES Bioanalytics supplies laboratory reagents and reference compounds
+          EcoPeps supplies laboratory reagents and reference compounds
           exclusively for in-vitro research, analytical testing, and
           non-clinical laboratory use by qualified professionals and
           institutions. Products sold on this site are{" "}

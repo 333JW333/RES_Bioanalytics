@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Shipping & Handling",
-  description: "Shipping timelines, packaging, and handling information for RES Bioanalytics research compounds.",
+  description: "Shipping timelines, packaging, and handling information for EcoPeps research compounds.",
 };
 
 export default function ShippingPage() {

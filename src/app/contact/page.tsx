@@ -2,7 +2,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with the RES Bioanalytics team.",
+  description: "Get in touch with the EcoPeps team.",
 };
 
 export default function ContactPage() {
@@ -16,13 +16,13 @@ export default function ContactPage() {
       </p>
 
       <div className="card p-6 space-y-4">
-        <ContactRow label="Email" value="support@resbioanalytics.com" />
+        <ContactRow label="Email" value="support@ecopeps.com" />
         <ContactRow label="Hours" value="Mon–Fri, 9am–5pm ET" />
         <ContactRow label="Purpose" value="Laboratory & institutional research inquiries only" />
       </div>
 
       <p className="text-xs text-brand-slate-light mt-6">
-        RES Bioanalytics does not provide medical, dosing, or health advice.
+        EcoPeps does not provide medical, dosing, or health advice.
         For research-use inquiries only.
       </p>
     </div>

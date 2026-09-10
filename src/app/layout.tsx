@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "RES Bioanalytics | Research-Use-Only Peptides & Reagents",
-    template: "%s | RES Bioanalytics",
+    default: "EcoPeps | Research-Use-Only Peptides & Reagents",
+    template: "%s | EcoPeps",
   },
   description:
-    "RES Bioanalytics supplies high-purity, COA-verified peptides and research compounds for laboratory and analytical research use only.",
+    "EcoPeps supplies high-purity, COA-verified peptides and research compounds for laboratory and analytical research use only.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

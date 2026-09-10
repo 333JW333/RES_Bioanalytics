@@ -3,7 +3,7 @@ import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Terms of Sale",
-  description: "RES Bioanalytics Terms of Sale.",
+  description: "EcoPeps Terms of Sale.",
 };
 
 export default function TermsPage() {
@@ -18,7 +18,7 @@ export default function TermsPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">1. Agreement to Terms</h2>
           <p>
-            By accessing this website or purchasing from RES Bioanalytics,
+            By accessing this website or purchasing from EcoPeps,
             you agree to be bound by these Terms of Sale, our{" "}
             <a href="/legal/ruo-policy" className="text-brand-teal-dark underline">Research Use Only Policy</a>,
             and our{" "}
@@ -69,7 +69,7 @@ export default function TermsPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">6. ACH Bank Transfers</h2>
           <p>
-            By initiating an ACH transfer you authorize RES Bioanalytics and
+            By initiating an ACH transfer you authorize EcoPeps and
             our payment processors (Plaid and Dwolla) to debit the linked
             bank account for the order total. Returned or reversed
             transfers may result in order cancellation and additional fees.
@@ -79,7 +79,7 @@ export default function TermsPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">7. Card Payments</h2>
           <p>
             Card payments are processed through PayRam, which accepts Visa
-            and Mastercard and settles the proceeds to RES Bioanalytics in
+            and Mastercard and settles the proceeds to EcoPeps in
             stablecoin rather than through a traditional card-acquiring
             relationship. By paying with a card, you authorize this
             processing arrangement. Card payments are subject to the same
@@ -100,7 +100,7 @@ export default function TermsPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">9. Limitation of Liability</h2>
           <p>
             Products are sold &ldquo;as is&rdquo; for research use only. To
-            the maximum extent permitted by law, RES Bioanalytics disclaims
+            the maximum extent permitted by law, EcoPeps disclaims
             all warranties, express or implied, and is not liable for any
             indirect, incidental, or consequential damages arising from use
             or misuse of our products, including any use inconsistent with
@@ -111,7 +111,7 @@ export default function TermsPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">10. Governing Law</h2>
           <p>
             These Terms are governed by the laws of the jurisdiction in
-            which RES Bioanalytics is incorporated, without regard to
+            which EcoPeps is incorporated, without regard to
             conflict-of-law principles.
           </p>
         </section>
