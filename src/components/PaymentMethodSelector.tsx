@@ -50,6 +50,33 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
     }
   }
 
+  async function handleCardPay() {
+    setError(null);
+    setBusy(true);
+    try {
+      const res = await fetch("/api/checkout/card-payram", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: contact.email,
+          items: items.map((i) => ({
+            name: i.name,
+            sizeLabel: i.sizeLabel,
+            qty: i.qty,
+            unitPrice: i.unitPrice,
+          })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
+      clearCart();
+      window.location.href = data.url;
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="card p-6 space-y-6">
       <div>
@@ -67,7 +94,12 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             icon={<BankIcon className="h-5 w-5" />}
             label="ACH Bank"
           />
-          <MethodTab disabled icon={<CardIcon className="h-5 w-5" />} label="Card" />
+          <MethodTab
+            active={method === "card"}
+            onClick={() => setMethod("card")}
+            icon={<CardIcon className="h-5 w-5" />}
+            label="Card"
+          />
           <MethodTab disabled icon={<CardIcon className="h-5 w-5" />} label="PayPal" />
         </div>
       </div>
@@ -114,6 +146,24 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             router.push(`/checkout/success?method=ach&order=${orderId}${demo ? "&demo=1" : ""}`);
           }}
         />
+      )}
+
+      {method === "card" && (
+        <div className="space-y-3">
+          <p className="text-sm text-brand-slate-light leading-relaxed">
+            Card payments are processed through PayRam, which settles funds
+            to us in stablecoin — you can pay with Visa or Mastercard
+            without leaving this checkout.
+          </p>
+          <button
+            type="button"
+            className="btn-primary w-full disabled:opacity-40"
+            disabled={!contactComplete || items.length === 0 || busy}
+            onClick={handleCardPay}
+          >
+            {busy ? "Redirecting…" : "Pay with Card"}
+          </button>
+        </div>
       )}
     </div>
   );

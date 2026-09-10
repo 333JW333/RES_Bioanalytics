@@ -27,8 +27,11 @@ export async function createCoinbaseCharge(
   const apiKey = process.env.COINBASE_COMMERCE_API_KEY;
 
   if (!apiKey) {
+    const demoUrl = new URL(input.redirectUrl);
+    demoUrl.searchParams.set("demo", "1");
+    demoUrl.searchParams.set("order", input.orderId);
     return {
-      hostedUrl: `${input.redirectUrl}?demo=1&order=${encodeURIComponent(input.orderId)}`,
+      hostedUrl: demoUrl.toString(),
       chargeCode: `DEMO-${input.orderId}`,
       demo: true,
     };
