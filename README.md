@@ -28,8 +28,15 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
     hosted checkout, supports BTC/ETH/USDC and more.
   - **ACH bank transfer** via [Plaid](https://plaid.com/) (bank account
     linking) + [Dwolla](https://www.dwolla.com/) (ACH transfer processing).
-  - **Credit card & PayPal** — shown in the UI as "coming soon"; not yet
-    wired up.
+  - **Card** via [PayRam](https://payram.com/) — accepts Visa/Mastercard
+    and settles to you in stablecoin, avoiding traditional high-risk
+    card-acquirer underwriting. PayRam is **self-hosted**: you run your own
+    PayRam instance and point `PAYRAM_API_BASE_URL` at it. This app's
+    integration (`src/lib/payments/payram.ts`) was built from publicly
+    indexed integration examples, not a verified live API reference —
+    confirm field names against your PayRam instance's docs before
+    enabling with a real key.
+  - **PayPal** — shown in the UI as "coming soon"; not yet wired up.
 
 ## Environment variables
 
@@ -45,6 +52,8 @@ cp .env.example .env.local
 | `PLAID_CLIENT_ID` / `PLAID_SECRET` | From the Plaid dashboard. `PLAID_ENV` is `sandbox`, `development`, or `production`. |
 | `DWOLLA_KEY` / `DWOLLA_SECRET` | From the Dwolla dashboard. `DWOLLA_ENV` is `sandbox` or `production`. |
 | `DWOLLA_MASTER_FUNDING_SOURCE_URL` | The verified Dwolla funding source (your business bank account) that receives customer ACH payments. |
+| `PAYRAM_API_BASE_URL` | The base URL of your **self-hosted** PayRam instance (not a shared PayRam domain). |
+| `PAYRAM_API_KEY` | API key generated from your PayRam instance's dashboard. |
 
 **Demo mode:** if any of the above are left unset, the checkout API routes
 automatically fall back to a simulated "demo" response instead of failing,

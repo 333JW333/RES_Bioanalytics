@@ -50,7 +50,8 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <span className="inline-flex items-center gap-1.5"><CoinIcon className="h-4 w-4" /> Crypto</span>
             <span className="inline-flex items-center gap-1.5"><BankIcon className="h-4 w-4" /> ACH Bank Transfer</span>
-            <span className="inline-flex items-center gap-1.5 opacity-40"><CardIcon className="h-4 w-4" /> Card &amp; PayPal (coming soon)</span>
+            <span className="inline-flex items-center gap-1.5"><CardIcon className="h-4 w-4" /> Card</span>
+            <span className="inline-flex items-center gap-1.5 opacity-40"><CardIcon className="h-4 w-4" /> PayPal (coming soon)</span>
           </div>
           <p>© {new Date().getFullYear()} RES Bioanalytics. All rights reserved.</p>
         </div>

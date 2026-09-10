@@ -38,11 +38,9 @@ export default function TermsPage() {
           <h2 className="font-semibold text-brand-navy text-lg mb-2">3. Product Descriptions</h2>
           <p>
             We strive to ensure product descriptions, purity data, and
-            specifications are accurate. Research applications listed on
-            product pages summarize published literature discussing a
-            compound class and are provided for scientific context only —
-            they are not performance, safety, or efficacy claims about our
-            specific products.
+            specifications are accurate. Product listings describe compound
+            identity, purity, and form only, and do not make any
+            performance, safety, or efficacy claims.
           </p>
         </section>
         <section>
@@ -50,11 +48,12 @@ export default function TermsPage() {
           <p>
             Prices are listed in U.S. Dollars and are subject to change
             without notice. We currently accept payment via cryptocurrency
-            (processed by Coinbase Commerce) and ACH bank transfer
-            (processed via Plaid and Dwolla). Additional payment methods,
-            including credit card and PayPal, may be added in the future.
-            Orders are not confirmed or shipped until payment has been
-            received and, where applicable, settled.
+            (processed by Coinbase Commerce), ACH bank transfer (processed
+            via Plaid and Dwolla), and card payments (processed via PayRam,
+            which settles funds to us in stablecoin). Additional payment
+            methods, including PayPal, may be added in the future. Orders
+            are not confirmed or shipped until payment has been received
+            and, where applicable, settled.
           </p>
         </section>
         <section>
@@ -77,7 +76,19 @@ export default function TermsPage() {
           </p>
         </section>
         <section>
-          <h2 className="font-semibold text-brand-navy text-lg mb-2">7. Research Use Only</h2>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">7. Card Payments</h2>
+          <p>
+            Card payments are processed through PayRam, which accepts Visa
+            and Mastercard and settles the proceeds to RES Bioanalytics in
+            stablecoin rather than through a traditional card-acquiring
+            relationship. By paying with a card, you authorize this
+            processing arrangement. Card payments are subject to the same
+            finality considerations as cryptocurrency payments once
+            settlement is confirmed.
+          </p>
+        </section>
+        <section>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">8. Research Use Only</h2>
           <p>
             All purchases are subject to our{" "}
             <a href="/legal/ruo-policy" className="text-brand-teal-dark underline">Research Use Only Policy</a>.
@@ -86,7 +97,7 @@ export default function TermsPage() {
           </p>
         </section>
         <section>
-          <h2 className="font-semibold text-brand-navy text-lg mb-2">8. Limitation of Liability</h2>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">9. Limitation of Liability</h2>
           <p>
             Products are sold &ldquo;as is&rdquo; for research use only. To
             the maximum extent permitted by law, RES Bioanalytics disclaims
@@ -97,7 +108,7 @@ export default function TermsPage() {
           </p>
         </section>
         <section>
-          <h2 className="font-semibold text-brand-navy text-lg mb-2">9. Governing Law</h2>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">10. Governing Law</h2>
           <p>
             These Terms are governed by the laws of the jurisdiction in
             which RES Bioanalytics is incorporated, without regard to
