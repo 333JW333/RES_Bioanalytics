@@ -73,25 +73,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           </div>
         </div>
       </div>
-
-      <section className="mt-16">
-        <h2 className="text-xl font-bold text-brand-navy mb-4">Research Applications</h2>
-        <ul className="grid gap-3 sm:grid-cols-2">
-          {product.researchAreas.map((area) => (
-            <li key={area} className="card p-4 text-sm text-brand-slate flex items-start gap-2">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-teal" />
-              {area}
-            </li>
-          ))}
-        </ul>
-        <p className="text-xs text-brand-slate-light mt-6 max-w-2xl">
-          Listed research applications reflect published literature discussing
-          this compound class and are provided for scientific context only.
-          They are not claims about the performance, safety, or efficacy of
-          this specific product, and are not intended as instructions for
-          human or animal use.
-        </p>
-      </section>
     </div>
   );
 }

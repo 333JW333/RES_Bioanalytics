@@ -18,7 +18,6 @@ export interface Product {
   storage: string;
   shortDescription: string;
   description: string;
-  researchAreas: string[];
   sizes: ProductSize[];
   featured?: boolean;
 }
