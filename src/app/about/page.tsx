@@ -3,7 +3,7 @@ import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "RES Bioanalytics supplies high-purity research peptides and compounds to laboratories and qualified researchers.",
+  description: "EcoPeps supplies high-purity research peptides and compounds to laboratories and qualified researchers.",
 };
 
 export default function AboutPage() {
@@ -11,9 +11,9 @@ export default function AboutPage() {
     <div className="container-page py-16">
       <div className="max-w-3xl">
         <span className="badge-ruo mb-4">Research Use Only</span>
-        <h1 className="text-3xl font-bold text-brand-navy mb-5">About RES Bioanalytics</h1>
+        <h1 className="text-3xl font-bold text-brand-navy mb-5">About EcoPeps</h1>
         <p className="text-brand-slate leading-relaxed mb-4">
-          RES Bioanalytics was founded to give laboratories and research
+          EcoPeps was founded to give laboratories and research
           institutions reliable access to high-purity reference peptides and
           research compounds, backed by transparent, batch-level quality
           documentation. We started with a focused catalog of core research

@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
       .join(", ");
 
     const charge = await createCoinbaseCharge({
-      name: "RES Bioanalytics Order",
+      name: "EcoPeps Order",
       description,
       amountUsd: total,
       orderId,

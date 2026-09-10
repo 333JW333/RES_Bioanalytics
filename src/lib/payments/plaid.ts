@@ -40,7 +40,7 @@ export async function createLinkToken(clientUserId: string) {
   const plaid = getPlaidClient();
   const response = await plaid.linkTokenCreate({
     user: { client_user_id: clientUserId },
-    client_name: "RES Bioanalytics",
+    client_name: "EcoPeps",
     products: [Products.Auth],
     country_codes: [CountryCode.Us],
     language: "en",

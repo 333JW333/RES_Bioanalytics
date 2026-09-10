@@ -4,7 +4,7 @@ import { getAllProducts } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Shop Research Peptides",
-  description: "Browse the full RES Bioanalytics catalog of COA-verified research peptides and compounds.",
+  description: "Browse the full EcoPeps catalog of COA-verified research peptides and compounds.",
 };
 
 export default async function ShopPage(props: PageProps<"/shop">) {

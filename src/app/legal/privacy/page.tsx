@@ -3,7 +3,7 @@ import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "RES Bioanalytics Privacy Policy.",
+  description: "EcoPeps Privacy Policy.",
 };
 
 export default function PrivacyPage() {
@@ -55,7 +55,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">5. Your Choices</h2>
           <p>
-            You may contact us at support@resbioanalytics.com to request
+            You may contact us at support@ecopeps.com to request
             access to, correction of, or deletion of your personal
             information, subject to our legal recordkeeping obligations.
           </p>
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
         </section>
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">7. Contact</h2>
-          <p>Questions about this policy can be directed to support@resbioanalytics.com.</p>
+          <p>Questions about this policy can be directed to support@ecopeps.com.</p>
         </section>
       </div>
     </div>

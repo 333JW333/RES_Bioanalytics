@@ -30,7 +30,7 @@ export default function Header() {
         <Link href="/" className="flex items-center gap-2.5">
           <LogoMark />
           <span className="text-lg font-bold tracking-tight text-brand-navy">
-            RES Bioanalytics
+            EcoPeps
           </span>
         </Link>
 
