@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/data/products";
 import AddToCartPanel from "@/components/AddToCartPanel";
@@ -147,29 +146,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               </dl>
             </div>
 
-            {product.structureImage && (
-              <div>
-                <h3 className="text-sm font-semibold text-brand-navy mb-3">Molecular Structure</h3>
-                <div className="rounded-xl border border-brand-line bg-white p-4 max-w-xs">
-                  <Image
-                    src={product.structureImage}
-                    alt={`2D molecular structure of ${product.name}`}
-                    width={500}
-                    height={500}
-                    className="w-full h-auto"
-                  />
-                </div>
-                <a
-                  href={`https://pubchem.ncbi.nlm.nih.gov/#query=${pubchemQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal-dark hover:underline"
-                >
-                  View on PubChem <ExternalLinkIcon />
-                </a>
-              </div>
-            )}
-
             {product.computedProperties && (
               <div>
                 <h3 className="text-sm font-semibold text-brand-navy mb-3">Computed Properties</h3>
@@ -219,18 +195,16 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               </div>
             )}
 
-            {!product.structureImage && (
-              <div className="flex flex-wrap gap-4 pt-2 border-t border-brand-line">
-                <a
-                  href={`https://pubchem.ncbi.nlm.nih.gov/#query=${pubchemQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal-dark hover:underline"
-                >
-                  View on PubChem <ExternalLinkIcon />
-                </a>
-              </div>
-            )}
+            <div className="flex flex-wrap gap-4 pt-2 border-t border-brand-line">
+              <a
+                href={`https://pubchem.ncbi.nlm.nih.gov/#query=${pubchemQuery}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal-dark hover:underline"
+              >
+                View on PubChem <ExternalLinkIcon />
+              </a>
+            </div>
           </div>
         </Disclosure>
 
