@@ -12,15 +12,6 @@ import { Product } from "@/types/product";
  * confirmed PubChem values; add the rest once you pull each compound's
  * real PubChem record (leave the field undefined until then rather than
  * guessing).
- *
- * `structureImage` files (public/structures/*.png) are 2D depictions
- * generated with RDKit from each compound's known sequence/SMILES, then
- * cross-checked by confirming RDKit's computed molecular formula matches
- * the verified formula already in this file. Populated for BPC-157,
- * TB-500, Ipamorelin, and GHK-Cu. Deliberately left unset for Tirzepatide
- * (a 39-residue lipidated peptide) rather than hand-drawing a structure
- * this complex without a way to independently verify it — add a real
- * PubChem-sourced image for that one instead.
  */
 export const products: Product[] = [
   {
@@ -44,7 +35,6 @@ export const products: Product[] = [
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
       "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    structureImage: "/structures/bpc-157.png",
     computedProperties: {
       exactMass: "1418.70415882 g/mol",
       xLogP: "-9",
@@ -95,7 +85,6 @@ export const products: Product[] = [
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    structureImage: "/structures/tb-500.png",
     documents: [
       {
         label: "Certificate of Analysis",
@@ -132,7 +121,6 @@ export const products: Product[] = [
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    structureImage: "/structures/ipamorelin.png",
     documents: [
       {
         label: "Certificate of Analysis",
@@ -204,7 +192,6 @@ export const products: Product[] = [
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    structureImage: "/structures/ghk-cu.png",
     documents: [
       {
         label: "Certificate of Analysis",
