@@ -42,6 +42,7 @@ export interface Product {
   description: string;
   structuralNotes?: string;
   technicalNotes?: string;
+  structureImage?: string;
   computedProperties?: ComputedProperties;
   documents?: ProductDocument[];
   sizes: ProductSize[];
