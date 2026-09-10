@@ -17,10 +17,10 @@ import { Product } from "@/types/product";
  * generated with RDKit from each compound's known sequence/SMILES, then
  * cross-checked by confirming RDKit's computed molecular formula matches
  * the verified formula already in this file. Populated for BPC-157,
- * TB-500, Ipamorelin, and GHK-Cu. Deliberately left unset for Semaglutide
- * (a large lipidated 31-residue analog) rather than hand-drawing a
- * structure this complex without a way to independently verify it —
- * add a real PubChem-sourced image for that one instead.
+ * TB-500, Ipamorelin, and GHK-Cu. Deliberately left unset for Tirzepatide
+ * (a 39-residue lipidated peptide) rather than hand-drawing a structure
+ * this complex without a way to independently verify it — add a real
+ * PubChem-sourced image for that one instead.
  */
 export const products: Product[] = [
   {
@@ -150,20 +150,20 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "semaglutide",
-    name: "Semaglutide",
+    slug: "tirzepatide",
+    name: "Tirzepatide",
     category: "Peptide",
-    casNumber: "910463-68-2",
-    sequenceOrFormula: "C187H291N45O59",
-    molecularFormula: "C187H291N45O59",
-    molecularWeight: "4113.58 g/mol",
-    alsoKnownAs: ["Semaglutide", "NN9535"],
+    casNumber: "2023788-19-2",
+    sequenceOrFormula: "C225H348N48O68",
+    molecularFormula: "C225H348N48O68",
+    molecularWeight: "4813.45 g/mol",
+    alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
-      "Semaglutide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -172,14 +172,14 @@ export const products: Product[] = [
       {
         label: "Certificate of Analysis",
         subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "semaglutide-coa-sample.pdf",
-        fileSizeLabel: "3.6 KB",
-        url: "/coas/semaglutide-coa-sample.pdf",
+        fileName: "tirzepatide-coa-sample.pdf",
+        fileSizeLabel: "3.5 KB",
+        url: "/coas/tirzepatide-coa-sample.pdf",
       },
     ],
     sizes: [
-      { label: "5 mg", mg: 5, price: 149, sku: "RES-SEMA-5" },
-      { label: "10 mg", mg: 10, price: 259, sku: "RES-SEMA-10" },
+      { label: "5 mg", mg: 5, price: 169, sku: "RES-TIRZ-5" },
+      { label: "10 mg", mg: 10, price: 289, sku: "RES-TIRZ-10" },
     ],
     featured: true,
   },
