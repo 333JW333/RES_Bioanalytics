@@ -38,6 +38,21 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
     enabling with a real key.
   - **PayPal** — shown in the UI as "coming soon"; not yet wired up.
 
+> **⚠️ This branch (`feature/truevo-card-integration`) also adds an
+> EXPERIMENTAL Truevo card integration that is intentionally NOT merged
+> into `main`.** Truevo is a Malta-licensed EU acquirer willing to
+> underwrite peptide/RUO merchants, but it comes with the usual high-risk
+> acquirer tradeoffs — documented cases of abrupt merchant termination and
+> held reserves (see the ASF 115-2023 Malta Financial Arbiter decision).
+> The integration (`src/lib/payments/truevo.ts`) is also built from public
+> search summaries rather than a verified live API reference, since this
+> build environment's network egress blocked docs.truevo.com. Read the
+> code comments in that file, verify against
+> [docs.truevo.com](https://docs.truevo.com/hosted-payment-page/), and
+> review Truevo's merchant agreement (reserve %, hold duration, chargeback
+> fees, termination terms) before ever merging this branch or enabling it
+> with real credentials.
+
 ## Environment variables
 
 Copy `.env.example` to `.env.local` and fill in your credentials:
@@ -54,6 +69,7 @@ cp .env.example .env.local
 | `DWOLLA_MASTER_FUNDING_SOURCE_URL` | The verified Dwolla funding source (your business bank account) that receives customer ACH payments. |
 | `PAYRAM_API_BASE_URL` | The base URL of your **self-hosted** PayRam instance (not a shared PayRam domain). |
 | `PAYRAM_API_KEY` | API key generated from your PayRam instance's dashboard. |
+| `TRUEVO_MERCHANT_ID` / `TRUEVO_API_KEY` / `TRUEVO_SIGNATURE_SECRET` | **Experimental, this branch only.** From your Truevo merchant dashboard — verify against live docs first. |
 
 **Demo mode:** if any of the above are left unset, the checkout API routes
 automatically fall back to a simulated "demo" response instead of failing,

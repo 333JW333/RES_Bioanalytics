@@ -17,7 +17,12 @@ export default async function CheckoutSuccessPage(
       <h1 className="text-3xl font-bold text-brand-navy mb-3">Order Received</h1>
       <p className="text-brand-slate-light max-w-md mx-auto mb-2">
         Thank you for your order via{" "}
-        {method === "ach" ? "ACH bank transfer" : method === "card" ? "card" : "crypto"}.
+        {method === "ach"
+          ? "ACH bank transfer"
+          : method === "card" || method === "truevo"
+          ? "card"
+          : "crypto"}
+        .
         A confirmation email with tracking details will follow once payment
         is verified.
       </p>

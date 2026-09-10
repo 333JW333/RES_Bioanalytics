@@ -6,7 +6,7 @@ import { usePlaidLink } from "react-plaid-link";
 import { useCart } from "@/lib/cart-context";
 import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
 
-type Method = "crypto" | "ach" | "card" | "paypal";
+type Method = "crypto" | "ach" | "card" | "truevo" | "paypal";
 
 interface ContactInfo {
   email: string;
@@ -77,11 +77,38 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
     }
   }
 
+  async function handleTruevoPay() {
+    setError(null);
+    setBusy(true);
+    try {
+      const res = await fetch("/api/checkout/card-truevo", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: contact.email,
+          items: items.map((i) => ({
+            name: i.name,
+            sizeLabel: i.sizeLabel,
+            qty: i.qty,
+            unitPrice: i.unitPrice,
+          })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
+      clearCart();
+      window.location.href = data.url;
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+      setBusy(false);
+    }
+  }
+
   return (
     <div className="card p-6 space-y-6">
       <div>
         <p className="text-sm font-semibold text-brand-navy mb-3">Payment Method</p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
           <MethodTab
             active={method === "crypto"}
             onClick={() => setMethod("crypto")}
@@ -100,8 +127,18 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             icon={<CardIcon className="h-5 w-5" />}
             label="Card"
           />
+          <MethodTab
+            active={method === "truevo"}
+            onClick={() => setMethod("truevo")}
+            icon={<CardIcon className="h-5 w-5" />}
+            label="Truevo"
+          />
           <MethodTab disabled icon={<CardIcon className="h-5 w-5" />} label="PayPal" />
         </div>
+        <p className="mt-2 text-[11px] text-brand-slate-light">
+          Card = PayRam (crypto-settled). Truevo = experimental EU
+          card-acquirer integration, not yet reviewed for production use.
+        </p>
       </div>
 
       {!contactComplete && (
@@ -162,6 +199,23 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             onClick={handleCardPay}
           >
             {busy ? "Redirecting…" : "Pay with Card"}
+          </button>
+        </div>
+      )}
+
+      {method === "truevo" && (
+        <div className="space-y-3">
+          <p className="text-sm text-brand-slate-light leading-relaxed">
+            You&apos;ll be redirected to a secure Truevo payment page to
+            complete your card payment.
+          </p>
+          <button
+            type="button"
+            className="btn-primary w-full disabled:opacity-40"
+            disabled={!contactComplete || items.length === 0 || busy}
+            onClick={handleTruevoPay}
+          >
+            {busy ? "Redirecting…" : "Pay with Truevo"}
           </button>
         </div>
       )}
