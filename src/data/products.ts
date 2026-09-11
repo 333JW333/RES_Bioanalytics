@@ -206,6 +206,40 @@ export const products: Product[] = [
       { label: "100 mg", mg: 100, price: 79, sku: "RES-GHK-100" },
     ],
   },
+  {
+    id: "p6",
+    slug: "ss-31",
+    name: "SS-31",
+    synonym: "Mitochondria-Targeted Tetrapeptide",
+    category: "Peptide",
+    sequenceOrFormula: "D-Arg-Dmt-Lys-Phe-NH2",
+    alsoKnownAs: ["SS-31", "Elamipretide"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -20°C, protected from light; reconstituted solution at 2–8°C.",
+    shortDescription: "A synthetic aromatic-cationic tetrapeptide reference compound supplied for laboratory research use.",
+    description:
+      "SS-31 is a synthetic tetrapeptide incorporating alternating cationic and aromatic residues, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
+    structuralNotes:
+      "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
+    technicalNotes:
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/ss-31-front.png",
+      back: "/products/ss-31-back.png",
+    },
+    documents: [
+      {
+        label: "Certificate of Analysis",
+        subLabel: "Identity & Purity (HPLC/MS) — sample",
+        fileName: "ss-31-coa-sample.pdf",
+        fileSizeLabel: "3.5 KB",
+        url: "/coas/ss-31-coa-sample.pdf",
+      },
+    ],
+    sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
+    featured: true,
+  },
 ];
 
 export function getAllProducts(): Product[] {

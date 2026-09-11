@@ -5,6 +5,7 @@ import { getAllProducts, getProductBySlug } from "@/data/products";
 import AddToCartPanel from "@/components/AddToCartPanel";
 import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
+import ProductGallery from "@/components/ProductGallery";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -45,9 +46,13 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
       </nav>
 
       <div className="grid gap-10 lg:grid-cols-2">
-        <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-brand-navy to-brand-navy-2 py-24">
-          <VialIcon className="h-32 w-32" />
-        </div>
+        {product.images ? (
+          <ProductGallery images={product.images} name={product.name} />
+        ) : (
+          <div className="flex items-center justify-center rounded-2xl bg-gradient-to-br from-brand-navy to-brand-navy-2 py-24">
+            <VialIcon className="h-32 w-32" />
+          </div>
+        )}
 
         <div>
           <span className="badge-ruo mb-4">Research Use Only</span>

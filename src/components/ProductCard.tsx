@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Product } from "@/types/product";
 import { formatUSD } from "@/lib/format";
@@ -11,8 +12,18 @@ export default function ProductCard({ product }: { product: Product }) {
       href={`/shop/${product.slug}`}
       className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
     >
-      <div className="flex items-center justify-center bg-gradient-to-br from-brand-navy to-brand-navy-2 py-10">
-        <VialIcon className="h-16 w-16 transition-transform group-hover:scale-105" />
+      <div className="relative flex items-center justify-center bg-gradient-to-br from-brand-navy to-brand-navy-2 py-10">
+        {product.images ? (
+          <Image
+            src={product.images.front}
+            alt={`${product.name} vial`}
+            width={160}
+            height={160}
+            className="h-32 w-32 object-contain drop-shadow-lg transition-transform group-hover:scale-105"
+          />
+        ) : (
+          <VialIcon className="h-16 w-16 transition-transform group-hover:scale-105" />
+        )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-5">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-brand-teal-dark">

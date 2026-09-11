@@ -24,6 +24,11 @@ export interface ProductDocument {
   url: string;
 }
 
+export interface ProductImages {
+  front: string;
+  back: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -46,4 +51,6 @@ export interface Product {
   documents?: ProductDocument[];
   sizes: ProductSize[];
   featured?: boolean;
+  /** Real product vial photos (public/products/*). Falls back to the generic icon when absent. */
+  images?: ProductImages;
 }
