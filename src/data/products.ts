@@ -35,6 +35,10 @@ export const products: Product[] = [
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
       "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/bpc-157-front.png",
+      back: "/products/bpc-157-back.png",
+    },
     computedProperties: {
       exactMass: "1418.70415882 g/mol",
       xLogP: "-9",
