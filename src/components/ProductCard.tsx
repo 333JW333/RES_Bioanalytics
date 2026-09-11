@@ -12,17 +12,19 @@ export default function ProductCard({ product }: { product: Product }) {
       href={`/shop/${product.slug}`}
       className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
     >
-      <div className="relative flex items-center justify-center bg-gradient-to-br from-brand-navy to-brand-navy-2 py-10">
+      <div className="relative aspect-square overflow-hidden bg-brand-ice">
         {product.images ? (
           <Image
             src={product.images.front}
             alt={`${product.name} vial`}
-            width={160}
-            height={160}
-            className="h-32 w-32 object-contain drop-shadow-lg transition-transform group-hover:scale-105"
+            fill
+            sizes="(min-width: 1024px) 260px, (min-width: 640px) 45vw, 90vw"
+            className="object-contain p-8 transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <VialIcon className="h-16 w-16 transition-transform group-hover:scale-105" />
+          <div className="flex h-full items-center justify-center bg-gradient-to-br from-brand-navy to-brand-navy-2">
+            <VialIcon className="h-16 w-16 transition-transform group-hover:scale-105" />
+          </div>
         )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-5">
