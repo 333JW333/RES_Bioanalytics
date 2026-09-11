@@ -89,6 +89,10 @@ export const products: Product[] = [
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/tb-500-front.png",
+      back: "/products/tb-500-back.png",
+    },
     documents: [
       {
         label: "Certificate of Analysis",
@@ -125,6 +129,10 @@ export const products: Product[] = [
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/ipamorelin-front.png",
+      back: "/products/ipamorelin-back.png",
+    },
     documents: [
       {
         label: "Certificate of Analysis",
@@ -160,6 +168,10 @@ export const products: Product[] = [
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/tirzepatide-front.png",
+      back: "/products/tirzepatide-back.png",
+    },
     documents: [
       {
         label: "Certificate of Analysis",
@@ -196,6 +208,10 @@ export const products: Product[] = [
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/ghk-cu-front.png",
+      back: "/products/ghk-cu-back.png",
+    },
     documents: [
       {
         label: "Certificate of Analysis",
