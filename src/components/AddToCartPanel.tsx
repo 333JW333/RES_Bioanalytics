@@ -93,7 +93,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
         </div>
         {product.sizes.some((s) => s.inStock === false) && (
           <p className="mt-2 text-xs text-brand-slate-light">
-            Some quantities are awaiting lot-specific COA verification.
+            *Restock quantities are awaiting COA verification.
           </p>
         )}
       </div>
