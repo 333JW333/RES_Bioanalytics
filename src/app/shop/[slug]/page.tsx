@@ -262,13 +262,23 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                         {doc.fileName} · {doc.fileSizeLabel}
                       </p>
                     </div>
-                    <div className="flex gap-2 shrink-0">
+                    <div className="flex flex-wrap gap-2 shrink-0">
                       <a href={doc.url} target="_blank" rel="noopener noreferrer" className="btn-secondary !py-1.5 !px-3 text-sm">
                         View
                       </a>
                       <a href={doc.url} download className="btn-primary !py-1.5 !px-3 text-sm">
                         <DownloadIcon /> Download
                       </a>
+                      {doc.verifyUrl && (
+                        <a
+                          href={doc.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 self-center text-xs font-medium text-brand-teal-dark hover:underline"
+                        >
+                          Verify with lab <ExternalLinkIcon />
+                        </a>
+                      )}
                     </div>
                   </li>
                 ))}

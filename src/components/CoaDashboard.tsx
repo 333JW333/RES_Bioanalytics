@@ -70,7 +70,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
 
       <div className="mt-5 grid grid-cols-2 gap-3">
         <a
-          href={coa.pdfUrl}
+          href={coa.reportUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center rounded-lg border border-white/20 px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:border-white/40"

@@ -22,6 +22,8 @@ export interface ProductDocument {
   fileName: string;
   fileSizeLabel: string;
   url: string;
+  /** Official third-party lab page to independently verify this report. */
+  verifyUrl?: string;
 }
 
 export interface ProductImages {
@@ -45,8 +47,8 @@ export interface CoaPanel {
   tests: CoaTestResult[];
   lot: string;
   searchCode: string;
-  /** Certificate of Analysis PDF hosted on this site. */
-  pdfUrl: string;
+  /** Certificate of Analysis file (PDF or image) hosted on this site. */
+  reportUrl: string;
   /** Official third-party lab page to independently verify this result. */
   verifyUrl: string;
 }
