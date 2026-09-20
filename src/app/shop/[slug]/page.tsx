@@ -24,9 +24,30 @@ export async function generateMetadata(
   const { slug } = await props.params;
   const product = getProductBySlug(slug);
   if (!product) return {};
+  const image = product.images?.front;
+
   return {
     title: product.name,
     description: product.shortDescription,
+    alternates: {
+      canonical: `/shop/${product.slug}`,
+    },
+    openGraph: {
+      title: `${product.name} | EcoPeps`,
+      description: product.shortDescription,
+      url: `/shop/${product.slug}`,
+      type: "website",
+      ...(image
+        ? {
+            images: [
+              {
+                url: image,
+                alt: `${product.name} research vial`,
+              },
+            ],
+          }
+        : {}),
+    },
   };
 }
 

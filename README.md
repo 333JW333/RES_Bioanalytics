@@ -15,9 +15,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## What's included
 
-- **Product catalog** (`src/data/products.ts`) — 5 sample/placeholder
-  peptide listings. The data model is designed to scale past 30+ products;
-  just append new entries to the `products` array.
+- **Product catalog** (`src/data/products.ts`) — 6 research peptide
+  listings with vial photos and sample COAs. The data model is designed
+  to scale past 30+ products; just append new entries to the `products`
+  array.
 - **Shop, product detail, cart, and checkout flow**, with a research-use
   attestation required before payment.
 - **RUO compliance UX** — an entry gate modal, disclaimer banners, and
@@ -79,5 +80,11 @@ regulations before launch.
 ## Deploying
 
 This is a standard Next.js app and can be deployed to
-[Vercel](https://vercel.com/new) or any Node.js hosting platform. Set the
-environment variables above in your hosting provider's dashboard.
+[Vercel](https://vercel.com/new) or any Node.js hosting platform. Production
+currently ships to [www.ecopeps.com](https://www.ecopeps.com) via the Vercel
+**EcoPeps** team. Set the environment variables above in the project
+dashboard before enabling live payments (unset keys keep checkout in demo
+mode).
+
+CI runs lint + build on pushes and pull requests to `main`
+(`.github/workflows/ci.yml`).

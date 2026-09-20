@@ -44,7 +44,7 @@ export default function AboutPage() {
         <ValueCard
           icon={<DnaIcon className="h-6 w-6" />}
           title="Growing Catalog"
-          body="Launching with 5 core peptides, expanding toward a comprehensive 30+ SKU research line."
+          body="Launching with 6 core peptides, expanding toward a comprehensive 30+ SKU research line."
         />
       </div>
     </div>
