@@ -46,7 +46,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         <div>
           <p className="text-2xl font-bold">{coa.testedMassMg} mg</p>
           <p className="mt-1 text-xs text-white/60">
-            Tested mass · {coa.labeledMassMg} mg labeled · {sign}
+            Quantity · {coa.labeledMassMg} mg labeled · {sign}
             {coa.massVariancePercent}%
           </p>
         </div>
@@ -59,11 +59,13 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         {coa.tests.map((t) => (
           <div
             key={t.label}
-            className="flex items-center gap-2 rounded-lg bg-white/5 px-3 py-2.5 text-xs"
+            className="flex items-start gap-2 rounded-lg bg-white/5 px-3 py-2.5 text-xs"
           >
-            <CheckIcon className="h-3.5 w-3.5 shrink-0 text-brand-teal" />
-            <span className="truncate text-white/90">{t.label}</span>
-            <span className="ml-auto shrink-0 text-white/60 text-right">{t.result}</span>
+            <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-teal" />
+            <div className="min-w-0">
+              <p className="leading-snug text-white/90">{t.label}</p>
+              <p className="text-white/60">{t.result}</p>
+            </div>
           </div>
         ))}
       </div>
