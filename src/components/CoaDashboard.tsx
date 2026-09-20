@@ -106,10 +106,6 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
           Verify COA <ExternalLinkIcon className="h-3 w-3" />
         </a>
       </div>
-
-      <p className="mt-4 text-[11px] text-brand-slate-light">
-        Lot {coa.lot} · Search code {coa.searchCode}
-      </p>
     </div>
   );
 }

@@ -45,8 +45,6 @@ export interface CoaPanel {
   labeledMassMg: number;
   massVariancePercent: number;
   tests: CoaTestResult[];
-  lot: string;
-  searchCode: string;
   /** Certificate of Analysis file (PDF or image) hosted on this site. */
   reportUrl: string;
   /** Official third-party lab page to independently verify this result. */
