@@ -327,11 +327,11 @@ export const products: Product[] = [
       massVariancePercent: 18.3,
       tests: [
         { label: "Identity", result: "CONFIRMED" },
-        { label: "USP <85> Endotoxin (< 10 EU/vial)", result: "PASS" },
+        { label: "USP <85> Endotoxin", result: "PASS" },
         { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
         { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
         { label: "USP <61> Microbial Enumeration", result: "PASS" },
-        { label: "Lot PSRETA15-1", result: "PASS" },
+        { label: "Lot PSRETA15-1", result: "CONFIRMED" },
       ],
       reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
       verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
@@ -354,6 +354,7 @@ export const products: Product[] = [
       { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
     ],
     featured: true,
+    showDisclaimer: true,
   },
 ];
 

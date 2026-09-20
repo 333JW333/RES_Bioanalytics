@@ -7,6 +7,7 @@ import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
 import ProductGallery from "@/components/ProductGallery";
 import CoaDashboard from "@/components/CoaDashboard";
+import ProductDisclaimer from "@/components/ProductDisclaimer";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -297,6 +298,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             )}
           </Disclosure>
         </div>
+
+        {product.showDisclaimer && <ProductDisclaimer />}
       </section>
     </div>
   );

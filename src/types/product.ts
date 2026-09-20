@@ -87,4 +87,6 @@ export interface Product {
   coaPanel?: CoaPanel;
   /** Per-quantity discount tiers, shown under Add to Cart and applied to cart pricing. */
   volumeTiers?: VolumeTier[];
+  /** Shows the RUO/IP disclaimer box at the bottom of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
+  showDisclaimer?: boolean;
 }
