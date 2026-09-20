@@ -280,6 +280,10 @@ export const products: Product[] = [
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/retatrutide-front.png",
+      back: "/products/retatrutide-back.png",
+    },
     documents: [
       {
         label: "Certificate of Analysis — Sample 1",
