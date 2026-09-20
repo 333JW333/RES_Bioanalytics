@@ -77,7 +77,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
                 type="button"
                 disabled={outOfStock}
                 onClick={() => !outOfStock && setSizeIndex(i)}
-                title={outOfStock ? `${s.label} — not currently in stock` : undefined}
+                title={outOfStock ? `${s.label} — awaiting lot-specific COA verification` : undefined}
                 className={`rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors ${
                   outOfStock
                     ? "cursor-not-allowed border-brand-line text-brand-slate-light/60 bg-brand-ice"
@@ -87,15 +87,13 @@ export default function AddToCartPanel({ product }: { product: Product }) {
                 }`}
               >
                 {s.label}
-                {outOfStock && <span className="ml-1 text-[10px]">(out of stock)</span>}
               </button>
             );
           })}
         </div>
         {product.sizes.some((s) => s.inStock === false) && (
           <p className="mt-2 text-xs text-brand-slate-light">
-            Additional sizes are carried but not yet in stock — each ships once its
-            lot-specific COA is verified.
+            Some quantities are awaiting lot-specific COA verification.
           </p>
         )}
       </div>

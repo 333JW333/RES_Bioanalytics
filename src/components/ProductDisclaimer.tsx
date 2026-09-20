@@ -1,7 +1,7 @@
 export default function ProductDisclaimer() {
   return (
-    <div className="rounded-xl border border-brand-warn-border bg-white p-6 text-sm leading-relaxed text-brand-slate">
-      <p className="mb-3 text-center font-semibold text-brand-navy">
+    <div className="rounded-xl border border-red-300 bg-white p-6 text-sm leading-relaxed text-brand-slate">
+      <p className="mb-3 text-center font-semibold text-red-600">
         <span aria-hidden="true">⚠</span> Disclaimer
       </p>
       <p>
