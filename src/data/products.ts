@@ -285,6 +285,14 @@ export const products: Product[] = [
     },
     documents: [
       {
+        label: "Certificate of Analysis — Full Panel",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1 (Identity, Purity, Endotoxin, Sterility)",
+        fileName: "retatrutide-15mg-full-coa.pdf",
+        fileSizeLabel: "610 KB",
+        url: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+      },
+      {
         label: "Certificate of Analysis — Identity & Purity",
         subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
         fileName: "identity-purity-214265.png",
@@ -325,7 +333,7 @@ export const products: Product[] = [
       ],
       lot: "PSRETA15-1",
       searchCode: "5X9DNCQIS949",
-      reportUrl: "/coas/retatrutide/15mg/identity-purity-214265.png",
+      reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
       verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
     },
     volumeTiers: [
