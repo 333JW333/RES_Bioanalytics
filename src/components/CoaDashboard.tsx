@@ -15,6 +15,12 @@ function CheckIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
   );
 }
 
+const POSITIVE_RESULTS = new Set(["PASS", "CONFIRMED"]);
+
+function isPositiveResult(result: string): boolean {
+  return POSITIVE_RESULTS.has(result.trim().toUpperCase());
+}
+
 export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
   const sign = coa.massVariancePercent > 0 ? "+" : "";
 
@@ -64,7 +70,9 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
             <CheckIcon className="mt-0.5 h-3.5 w-3.5 shrink-0 text-brand-teal" />
             <div className="min-w-0">
               <p className="leading-snug text-white/90">{t.label}</p>
-              <p className="text-white/60">{t.result}</p>
+              <p className={isPositiveResult(t.result) ? "font-semibold text-brand-teal" : "text-white/60"}>
+                {t.result}
+              </p>
             </div>
           </div>
         ))}

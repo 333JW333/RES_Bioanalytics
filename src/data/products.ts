@@ -326,8 +326,8 @@ export const products: Product[] = [
       labeledMassMg: 15,
       massVariancePercent: 18.3,
       tests: [
-        { label: "Identity", result: "Confirmed" },
-        { label: "Endotoxin", result: "PASS (< 10 EU/vial)" },
+        { label: "Identity", result: "CONFIRMED" },
+        { label: "Endotoxin (< 10 EU/vial)", result: "PASS" },
         { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
         { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
         { label: "USP <61> Microbial Enumeration", result: "PASS" },
