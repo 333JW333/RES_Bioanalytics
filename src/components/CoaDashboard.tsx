@@ -29,7 +29,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
   const sign = coa.massVariancePercent > 0 ? "+" : "";
 
   return (
-    <div className="rounded-2xl border border-brand-teal/20 bg-gradient-to-br from-brand-teal/10 via-white to-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-brand-line bg-gradient-to-br from-slate-50 via-white to-white p-6 shadow-sm">
       <div className="flex items-start justify-between gap-3">
         <div>
           <h3 className="text-lg font-bold text-brand-navy">Certificate of Analysis</h3>
