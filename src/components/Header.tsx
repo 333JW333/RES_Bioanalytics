@@ -8,6 +8,7 @@ import { useCart } from "@/lib/cart-context";
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
   { href: "/quality", label: "Quality & COAs" },
+  { href: "/testing-safety", label: "Testing & Safety" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
