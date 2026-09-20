@@ -1,17 +1,16 @@
 import { Product } from "@/types/product";
 
 /**
- * SAMPLE CATALOG DATA — placeholder listings for initial development.
- * Replace names, sequences, purities, sizes, and pricing with your verified
- * COA-backed data before launch. Add new entries to this array to scale
- * past the initial 5 SKUs (designed to comfortably hold 30+).
+ * Catalog data for the current EcoPeps shop (6 products).
+ * Replace names, sequences, purities, sizes, and pricing with verified
+ * COA-backed data before treating listings as final. Add new entries to
+ * this array to scale toward 30+ SKUs.
  *
- * `documents` point to placeholder Certificates of Analysis generated for
- * development (public/coas/*.pdf) — replace with real lab-issued COAs
- * before launch. `computedProperties` are only populated for BPC-157 using
- * confirmed PubChem values; add the rest once you pull each compound's
- * real PubChem record (leave the field undefined until then rather than
- * guessing).
+ * `documents` currently point to sample Certificates of Analysis
+ * (public/coas/*.pdf) — replace with real lab-issued COAs before launch.
+ * `computedProperties` are only populated for BPC-157 using confirmed
+ * PubChem values; add the rest once you pull each compound's real PubChem
+ * record (leave the field undefined until then rather than guessing).
  */
 export const products: Product[] = [
   {

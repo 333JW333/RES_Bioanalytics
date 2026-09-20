@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import RuoGateModal from "@/components/RuoGateModal";
 import { CartProvider } from "@/lib/cart-context";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,12 +18,42 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "EcoPeps | Research-Use-Only Peptides & Reagents",
-    template: "%s | EcoPeps",
+    default: `${SITE_NAME} | Research-Use-Only Peptides & Reagents`,
+    template: `%s | ${SITE_NAME}`,
   },
-  description:
-    "EcoPeps supplies high-purity, COA-verified peptides and research compounds for laboratory and analytical research use only.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "research peptides",
+    "RUO",
+    "certificate of analysis",
+    "laboratory reagents",
+    "EcoPeps",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} | Research-Use-Only Peptides & Reagents`,
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} | Research-Use-Only Peptides & Reagents`,
+    description: SITE_DESCRIPTION,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
