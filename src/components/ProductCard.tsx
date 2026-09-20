@@ -5,7 +5,10 @@ import { formatUSD } from "@/lib/format";
 import { VialIcon } from "@/components/icons";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const lowestPrice = Math.min(...product.sizes.map((s) => s.price));
+  const inStockSizes = product.sizes.filter((s) => s.inStock !== false);
+  const lowestPrice = Math.min(
+    ...(inStockSizes.length > 0 ? inStockSizes : product.sizes).map((s) => s.price)
+  );
 
   return (
     <Link

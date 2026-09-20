@@ -327,7 +327,7 @@ export const products: Product[] = [
       massVariancePercent: 18.3,
       tests: [
         { label: "Identity", result: "CONFIRMED" },
-        { label: "Endotoxin (< 10 EU/vial)", result: "PASS" },
+        { label: "USP <85> Endotoxin (< 10 EU/vial)", result: "PASS" },
         { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
         { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
         { label: "USP <61> Microbial Enumeration", result: "PASS" },
@@ -342,10 +342,16 @@ export const products: Product[] = [
       { label: "5–9 vials", minQty: 5, discountPercent: 20 },
       { label: "10+ vials", minQty: 10, discountPercent: 30 },
     ],
+    // Only 15 mg is currently in stock (it's the batch we have a real,
+    // lab-verified COA for — see coaPanel/documents above). The other sizes
+    // are listed so customers know we carry them, but stay disabled with no
+    // price set until each has its own verified COA and goes into stock.
     sizes: [
-      { label: "5 mg", mg: 5, price: 199, sku: "RES-RETA-5" },
-      { label: "10 mg", mg: 10, price: 349, sku: "RES-RETA-10" },
-      { label: "15 mg", mg: 15, price: 459, sku: "RES-RETA-15" },
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-RETA-10", inStock: false },
+      { label: "15 mg", mg: 15, price: 65, sku: "RES-RETA-15" },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-RETA-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-RETA-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
     ],
     featured: true,
   },

@@ -3,6 +3,8 @@ export interface ProductSize {
   mg: number;
   price: number;
   sku: string;
+  /** Whether this size can currently be purchased. Defaults to true when omitted; set false to list a size as carried but not yet in stock (e.g. no COA for that batch yet). */
+  inStock?: boolean;
 }
 
 export interface ComputedProperties {

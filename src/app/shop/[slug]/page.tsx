@@ -171,6 +171,9 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                       {product.sizes.map((s) => (
                         <li key={s.sku}>
                           {s.label} — <span className="font-mono text-xs">{s.sku}</span>
+                          {s.inStock === false && (
+                            <span className="text-brand-slate-light"> (not in stock)</span>
+                          )}
                         </li>
                       ))}
                     </ul>
