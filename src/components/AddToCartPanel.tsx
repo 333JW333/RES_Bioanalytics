@@ -14,6 +14,13 @@ export default function AddToCartPanel({ product }: { product: Product }) {
   const router = useRouter();
 
   const size = product.sizes[sizeIndex];
+  const tiers = product.volumeTiers ?? [];
+  const activeTier = [...tiers].reverse().find((t) => qty >= t.minQty);
+  const discountPercent = activeTier?.discountPercent ?? 0;
+  const unitPrice = Math.round(size.price * (1 - discountPercent / 100) * 100) / 100;
+  const quickPicks = Array.from(new Set([1, ...tiers.map((t) => t.minQty)])).sort(
+    (a, b) => a - b
+  );
 
   function handleAdd() {
     addItem(
@@ -23,7 +30,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
         name: product.name,
         sizeLabel: size.label,
         sku: size.sku,
-        unitPrice: size.price,
+        unitPrice,
       },
       qty
     );
@@ -39,7 +46,19 @@ export default function AddToCartPanel({ product }: { product: Product }) {
   return (
     <div className="card p-6 space-y-5">
       <div>
-        <span className="text-3xl font-bold text-brand-navy">{formatUSD(size.price)}</span>
+        {discountPercent > 0 ? (
+          <>
+            <span className="text-3xl font-bold text-brand-navy">{formatUSD(unitPrice)}</span>
+            <span className="ml-2 text-base font-medium text-brand-slate-light line-through">
+              {formatUSD(size.price)}
+            </span>
+            <span className="ml-2 rounded-full bg-brand-teal/10 px-2 py-0.5 text-xs font-semibold text-brand-teal-dark">
+              {discountPercent}% off
+            </span>
+          </>
+        ) : (
+          <span className="text-3xl font-bold text-brand-navy">{formatUSD(size.price)}</span>
+        )}
         <span className="ml-2 text-sm text-brand-slate-light">/ {size.label}</span>
       </div>
 
@@ -86,6 +105,28 @@ export default function AddToCartPanel({ product }: { product: Product }) {
         </div>
       </div>
 
+      {quickPicks.length > 1 && (
+        <div>
+          <p className="text-sm font-semibold text-brand-navy mb-2">Quick Pick</p>
+          <div className="flex flex-wrap gap-2">
+            {quickPicks.map((q) => (
+              <button
+                key={q}
+                type="button"
+                onClick={() => setQty(q)}
+                className={`h-9 w-9 rounded-full border text-sm font-medium transition-colors ${
+                  q === qty
+                    ? "border-brand-teal bg-brand-teal/10 text-brand-teal-dark"
+                    : "border-brand-line text-brand-slate hover:border-brand-teal"
+                }`}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div className="flex flex-col gap-3 pt-2">
         <button type="button" onClick={handleBuyNow} className="btn-primary w-full">
           Buy Now
@@ -94,6 +135,43 @@ export default function AddToCartPanel({ product }: { product: Product }) {
           {justAdded ? "Added ✓" : "Add to Cart"}
         </button>
       </div>
+
+      {tiers.length > 0 && (
+        <div className="overflow-hidden rounded-xl border border-brand-line">
+          <div className="bg-brand-ice px-4 py-2.5 text-[11px] font-semibold uppercase tracking-wide text-brand-slate-light">
+            Volume Pricing
+          </div>
+          <div className="divide-y divide-brand-line">
+            {tiers.map((tier) => {
+              const tierUnitPrice =
+                Math.round(size.price * (1 - tier.discountPercent / 100) * 100) / 100;
+              const isActive = activeTier?.label === tier.label;
+              return (
+                <button
+                  key={tier.label}
+                  type="button"
+                  onClick={() => setQty(tier.minQty)}
+                  className={`flex w-full items-center justify-between px-4 py-3 text-sm transition-colors ${
+                    isActive ? "bg-brand-teal/5" : "hover:bg-brand-ice"
+                  }`}
+                >
+                  <span className={isActive ? "font-semibold text-brand-teal-dark" : "text-brand-slate"}>
+                    {tier.label}
+                  </span>
+                  <span className="flex items-center gap-2">
+                    <span className="font-semibold text-brand-navy">
+                      {formatUSD(tierUnitPrice)} ea
+                    </span>
+                    <span className="text-xs font-semibold text-brand-teal-dark">
+                      {tier.discountPercent}% off
+                    </span>
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
 
       <p className="text-[11px] text-brand-slate-light leading-relaxed border-t border-brand-line pt-4">
         SKU: {size.sku} · For laboratory research use only. Not for human or

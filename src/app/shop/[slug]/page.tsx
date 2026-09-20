@@ -6,6 +6,7 @@ import AddToCartPanel from "@/components/AddToCartPanel";
 import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
 import ProductGallery from "@/components/ProductGallery";
+import CoaDashboard from "@/components/CoaDashboard";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -77,6 +78,12 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               below. Storage: {product.storage}
             </p>
           </div>
+
+          {product.coaPanel && (
+            <div className="mt-6">
+              <CoaDashboard coa={product.coaPanel} />
+            </div>
+          )}
         </div>
       </div>
 
