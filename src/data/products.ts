@@ -260,6 +260,56 @@ export const products: Product[] = [
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
   },
+  {
+    id: "p7",
+    slug: "retatrutide",
+    name: "Retatrutide",
+    category: "Peptide",
+    casNumber: "2381089-83-2",
+    sequenceOrFormula: "C221H342N46O68",
+    molecularFormula: "C221H342N46O68",
+    molecularWeight: "4731.42 g/mol",
+    alsoKnownAs: ["Retatrutide", "LY3437943"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
+    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    description:
+      "Retatrutide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+    structuralNotes:
+      "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
+    technicalNotes:
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    documents: [
+      {
+        label: "Certificate of Analysis — Sample 1",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Round 1",
+        fileName: "verify.janoshik.com/tests/214265",
+        fileSizeLabel: "External verification",
+        url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+      },
+      {
+        label: "Certificate of Analysis — Sample 2",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Round 1",
+        fileName: "verify.janoshik.com/tests/214266",
+        fileSizeLabel: "External verification",
+        url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
+      },
+      {
+        label: "Certificate of Analysis — Sample 3",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Round 1",
+        fileName: "verify.janoshik.com/tests/214267",
+        fileSizeLabel: "External verification",
+        url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
+      },
+    ],
+    sizes: [
+      { label: "5 mg", mg: 5, price: 199, sku: "RES-RETA-5" },
+      { label: "10 mg", mg: 10, price: 349, sku: "RES-RETA-10" },
+      { label: "15 mg", mg: 15, price: 459, sku: "RES-RETA-15" },
+    ],
+    featured: true,
+  },
 ];
 
 export function getAllProducts(): Product[] {
