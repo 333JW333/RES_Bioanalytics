@@ -1,19 +1,19 @@
 export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
-      <rect width="40" height="40" rx="10" fill="#14B8A6" />
+      <rect width="40" height="40" rx="6" fill="#0B1F33" />
       <path
         d="M14 10v7.2c0 1.1-.4 2.16-1.13 2.96L10 23.6c-1.8 1.98-.4 5.15 2.27 5.15h15.46c2.67 0 4.07-3.17 2.27-5.15l-2.87-3.44A4.5 4.5 0 0126 17.2V10"
-        stroke="#04211D"
+        stroke="#F4F7FA"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M12.5 10h15" stroke="#04211D" strokeWidth="2" strokeLinecap="round" />
-      <path d="M13.5 22.5h13" stroke="#04211D" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="20" cy="26" r="1.4" fill="#04211D" />
-      <circle cx="24" cy="25" r="1" fill="#04211D" />
-      <circle cx="17" cy="25.5" r="0.8" fill="#04211D" />
+      <path d="M12.5 10h15" stroke="#F4F7FA" strokeWidth="2" strokeLinecap="round" />
+      <path d="M13.5 22.5h13" stroke="#F4F7FA" strokeWidth="1.5" strokeLinecap="round" />
+      <circle cx="20" cy="26" r="1.4" fill="#F4F7FA" />
+      <circle cx="24" cy="25" r="1" fill="#F4F7FA" />
+      <circle cx="17" cy="25.5" r="0.8" fill="#F4F7FA" />
     </svg>
   );
 }

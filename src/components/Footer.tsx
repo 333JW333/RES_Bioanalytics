@@ -19,28 +19,29 @@ export default function Footer() {
         <div>
           <h3 className="text-white font-semibold text-sm mb-3 tracking-wide uppercase">Shop</h3>
           <ul className="space-y-2 text-sm text-white/60">
-            <li><Link href="/shop" className="hover:text-brand-teal">All Products</Link></li>
-            <li><Link href="/quality" className="hover:text-brand-teal">Quality &amp; COAs</Link></li>
-            <li><Link href="/shipping" className="hover:text-brand-teal">Shipping &amp; Handling</Link></li>
+            <li><Link href="/shop" className="hover:text-white">All Products</Link></li>
+            <li><Link href="/certificates" className="hover:text-white">Verify a Lot</Link></li>
+            <li><Link href="/quality" className="hover:text-white">Quality &amp; Testing</Link></li>
+            <li><Link href="/shipping" className="hover:text-white">Shipping &amp; Handling</Link></li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-white font-semibold text-sm mb-3 tracking-wide uppercase">Company</h3>
           <ul className="space-y-2 text-sm text-white/60">
-            <li><Link href="/about" className="hover:text-brand-teal">About Us</Link></li>
-            <li><Link href="/faq" className="hover:text-brand-teal">FAQ</Link></li>
-            <li><Link href="/contact" className="hover:text-brand-teal">Contact</Link></li>
+            <li><Link href="/about" className="hover:text-white">About Us</Link></li>
+            <li><Link href="/faq" className="hover:text-white">FAQ</Link></li>
+            <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
           </ul>
         </div>
 
         <div>
           <h3 className="text-white font-semibold text-sm mb-3 tracking-wide uppercase">Legal</h3>
           <ul className="space-y-2 text-sm text-white/60">
-            <li><Link href="/legal/ruo-policy" className="hover:text-brand-teal">RUO Policy</Link></li>
-            <li><Link href="/legal/terms" className="hover:text-brand-teal">Terms of Sale</Link></li>
-            <li><Link href="/legal/privacy" className="hover:text-brand-teal">Privacy Policy</Link></li>
-            <li><Link href="/legal/refunds" className="hover:text-brand-teal">Refund Policy</Link></li>
+            <li><Link href="/legal/ruo-policy" className="hover:text-white">RUO Policy</Link></li>
+            <li><Link href="/legal/terms" className="hover:text-white">Terms of Sale</Link></li>
+            <li><Link href="/legal/privacy" className="hover:text-white">Privacy Policy</Link></li>
+            <li><Link href="/legal/refunds" className="hover:text-white">Refund Policy</Link></li>
           </ul>
         </div>
       </div>

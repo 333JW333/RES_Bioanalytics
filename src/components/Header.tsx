@@ -7,7 +7,8 @@ import { useCart } from "@/lib/cart-context";
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
-  { href: "/quality", label: "Quality & COAs" },
+  { href: "/certificates", label: "Verify a Lot" },
+  { href: "/quality", label: "Quality" },
   { href: "/faq", label: "FAQ" },
   { href: "/about", label: "About" },
   { href: "/contact", label: "Contact" },
@@ -36,7 +37,7 @@ export default function Header() {
 
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-brand-slate">
           {NAV_LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-brand-teal-dark transition-colors">
+            <Link key={link.href} href={link.href} className="transition-colors hover:text-brand-navy">
               {link.label}
             </Link>
           ))}
@@ -45,19 +46,19 @@ export default function Header() {
         <div className="flex items-center gap-3">
           <Link
             href="/cart"
-            className="relative flex h-10 w-10 items-center justify-center rounded-full border border-brand-line text-brand-navy hover:border-brand-teal transition-colors"
+            className="relative flex h-10 w-10 items-center justify-center rounded-md border border-brand-line text-brand-navy transition-colors hover:border-brand-navy"
             aria-label="View cart"
           >
             <CartIcon className="h-5 w-5" />
             {itemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-brand-teal px-1 text-[11px] font-bold text-white">
+              <span className="absolute -top-1.5 -right-1.5 flex h-5 min-w-5 items-center justify-center rounded-sm bg-brand-navy px-1 text-[11px] font-bold text-white">
                 {itemCount}
               </span>
             )}
           </Link>
           <button
             type="button"
-            className="lg:hidden flex h-10 w-10 items-center justify-center rounded-full border border-brand-line text-brand-navy"
+            className="flex h-10 w-10 items-center justify-center rounded-md border border-brand-line text-brand-navy lg:hidden"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle navigation menu"
             aria-expanded={open}
@@ -79,7 +80,7 @@ export default function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="py-2.5 text-sm font-medium text-brand-slate hover:text-brand-teal-dark"
+                className="py-2.5 text-sm font-medium text-brand-slate hover:text-brand-navy"
                 onClick={() => setOpen(false)}
               >
                 {link.label}
