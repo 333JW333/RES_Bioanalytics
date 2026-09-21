@@ -42,8 +42,8 @@ export const products: Product[] = [
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
     images: {
-      front: "/products/retatrutide-front.png",
-      back: "/products/retatrutide-back.png",
+      front: "/products/ep-glp3-r-front.png",
+      back: "/products/ep-glp3-r-back.png",
       backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
