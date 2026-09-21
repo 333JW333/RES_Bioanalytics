@@ -1,5 +1,7 @@
 export const AGE_KEY = "ecopeps-age-verified";
 export const ACCOUNT_KEY = "ecopeps-account";
+export const AGE_COOKIE = "ecopeps-age";
+export const ACCESS_COOKIE = "ecopeps-access";
 
 export const BUSINESS_TYPES = [
   "Business / Institution (EIN Required)",
@@ -35,10 +37,20 @@ export type GateAccount = {
   phone: string;
 };
 
+function setCookie(name: string, value: string, maxAgeDays = 365) {
+  try {
+    const maxAge = maxAgeDays * 24 * 60 * 60;
+    document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+  } catch {
+    // ignore
+  }
+}
+
 export function readAgeVerified(): boolean {
   if (typeof window === "undefined") return false;
   try {
-    return window.localStorage.getItem(AGE_KEY) === "true";
+    if (window.localStorage.getItem(AGE_KEY) === "true") return true;
+    return document.cookie.split("; ").some((c) => c.startsWith(`${AGE_COOKIE}=1`));
   } catch {
     return false;
   }
@@ -50,6 +62,7 @@ export function writeAgeVerified(): void {
   } catch {
     // ignore
   }
+  setCookie(AGE_COOKIE, "1");
 }
 
 export function readAccount(): GateAccount | null {
@@ -69,4 +82,5 @@ export function writeAccount(account: GateAccount): void {
   } catch {
     // ignore
   }
+  setCookie(ACCESS_COOKIE, "1");
 }
