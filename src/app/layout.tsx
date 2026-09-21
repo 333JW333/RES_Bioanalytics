@@ -1,9 +1,6 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import RuoGateModal from "@/components/RuoGateModal";
 import { CartProvider } from "@/lib/cart-context";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
@@ -16,6 +13,13 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f6f9fb",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -51,6 +55,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [{ url: "/brand/ecopeps-logo.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/brand/ecopeps-logo.svg", type: "image/svg+xml" }],
+  },
   alternates: {
     canonical: "/",
   },
@@ -62,13 +70,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        <CartProvider>
-          <RuoGateModal />
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </CartProvider>
+      <body className="flex min-h-full flex-col overflow-x-hidden bg-background text-foreground">
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   );
