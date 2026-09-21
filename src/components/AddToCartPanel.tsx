@@ -190,7 +190,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
       )}
 
       <p className="text-[11px] text-brand-slate-light leading-relaxed border-t border-brand-line pt-4">
-        SKU: {size.sku} · For laboratory research use only. Not for human or
+        For laboratory research use only. Not for human or
         animal consumption. By adding this item to your cart you confirm
         acceptance of our{" "}
         <a href="/legal/ruo-policy" className="underline">RUO Policy</a>.

@@ -56,7 +56,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         <div>
           <p className="text-2xl font-bold text-brand-navy">{coa.testedMassMg} mg</p>
           <p className="mt-1 text-xs text-brand-slate-light">
-            Quantity · {coa.labeledMassMg} mg labeled · {sign}
+            Quantity · {sign}
             {coa.massVariancePercent}%
           </p>
         </div>

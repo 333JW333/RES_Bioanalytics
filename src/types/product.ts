@@ -28,9 +28,16 @@ export interface ProductDocument {
   verifyUrl?: string;
 }
 
+export interface ProductGalleryImage {
+  label: string;
+  src: string;
+}
+
 export interface ProductImages {
   front: string;
   back: string;
+  /** Extra gallery images shown after front/back, e.g. COA scans. */
+  extra?: ProductGalleryImage[];
 }
 
 export interface CoaTestResult {
@@ -91,4 +98,6 @@ export interface Product {
   showDisclaimer?: boolean;
   /** Shows the amber Product Usage Notice banner at the top of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
   showUsageNotice?: boolean;
+  /** Overrides the default "certificate of analysis / storage" note shown next to Add to Cart. Falls back to the generic COA + storage copy when absent. */
+  infoNote?: string;
 }

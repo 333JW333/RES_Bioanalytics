@@ -96,12 +96,16 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div className="flex items-start gap-3 rounded-xl border border-brand-line bg-brand-ice p-4">
             <ShieldCheckIcon className="h-5 w-5 shrink-0 text-brand-teal-dark mt-0.5" />
             <p className="text-xs text-brand-slate-light leading-relaxed">
-              Each lot ships with a certificate of analysis confirming
-              identity and purity by HPLC/MS — see{" "}
-              <a href="#documents" className="text-brand-teal-dark underline">
-                Documents &amp; Files
-              </a>{" "}
-              below. Storage: {product.storage}
+              {product.infoNote ?? (
+                <>
+                  Each lot ships with a certificate of analysis confirming
+                  identity and purity by HPLC/MS — see{" "}
+                  <a href="#documents" className="text-brand-teal-dark underline">
+                    Documents &amp; Files
+                  </a>{" "}
+                  below. Storage: {product.storage}
+                </>
+              )}
             </p>
           </div>
 

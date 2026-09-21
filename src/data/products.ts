@@ -42,16 +42,17 @@ export const products: Product[] = [
     images: {
       front: "/products/retatrutide-front.png",
       back: "/products/retatrutide-back.png",
+      extra: [
+        {
+          label: "Identity & Purity",
+          src: "/coas/retatrutide/15mg/identity-purity-214265.png",
+        },
+        { label: "Endotoxin", src: "/coas/retatrutide/15mg/endotoxin-214266.png" },
+        { label: "Sterility", src: "/coas/retatrutide/15mg/sterility-214267.png" },
+      ],
     },
+    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     documents: [
-      {
-        label: "Certificate of Analysis — Full Panel",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1 (Identity, Purity, Endotoxin, Sterility)",
-        fileName: "retatrutide-15mg-full-coa.pdf",
-        fileSizeLabel: "610 KB",
-        url: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-      },
       {
         label: "Certificate of Analysis — Identity & Purity",
         subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
