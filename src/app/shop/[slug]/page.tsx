@@ -8,6 +8,7 @@ import ChemFormula from "@/components/ChemFormula";
 import ProductGallery from "@/components/ProductGallery";
 import CoaDashboard from "@/components/CoaDashboard";
 import ProductDisclaimer from "@/components/ProductDisclaimer";
+import ProductUsageNotice from "@/components/ProductUsageNotice";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -62,6 +63,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
   return (
     <div className="container-page py-14">
+      {product.showUsageNotice && <ProductUsageNotice />}
+
       <nav className="text-sm text-brand-slate-light mb-8">
         <Link href="/shop" className="hover:text-brand-teal-dark">Shop</Link>
         <span className="mx-2">/</span>

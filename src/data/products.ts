@@ -109,6 +109,7 @@ export const products: Product[] = [
     ],
     featured: true,
     showDisclaimer: true,
+    showUsageNotice: true,
   },
   {
     id: "p1",

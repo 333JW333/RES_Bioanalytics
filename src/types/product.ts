@@ -89,4 +89,6 @@ export interface Product {
   volumeTiers?: VolumeTier[];
   /** Shows the RUO/IP disclaimer box at the bottom of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
   showDisclaimer?: boolean;
+  /** Shows the amber Product Usage Notice banner at the top of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
+  showUsageNotice?: boolean;
 }
