@@ -77,7 +77,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
                 type="button"
                 disabled={outOfStock}
                 onClick={() => !outOfStock && setSizeIndex(i)}
-                title={outOfStock ? `${s.label} — awaiting lot-specific COA verification` : undefined}
+                title={outOfStock ? `${s.label} — awaiting batch-specific COA verification` : undefined}
                 className={`rounded-lg border px-3.5 py-2 text-sm font-medium transition-colors ${
                   outOfStock
                     ? "cursor-not-allowed border-brand-line text-brand-slate-light/60 bg-brand-ice"
@@ -93,7 +93,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
         </div>
         {product.sizes.some((s) => s.inStock === false) && (
           <p className="mt-2 text-xs text-brand-slate-light">
-            *Restock quantities are awaiting COA verification
+            *Restock quantities are waiting on COA verifications
           </p>
         )}
       </div>

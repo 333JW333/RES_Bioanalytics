@@ -23,7 +23,7 @@ export default function ShippingPage() {
         <section>
           <h2 className="font-semibold text-brand-navy mb-2">Packaging</h2>
           <p>
-            Compounds are shipped in sealed vials or containers with lot
+            Compounds are shipped in sealed vials or containers with batch
             numbers and labeling identifying them as for research use only.
             Temperature-sensitive items are packed with appropriate cold-chain
             materials when required.

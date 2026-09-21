@@ -56,8 +56,8 @@ export interface CoaPanel {
   tests: CoaTestResult[];
   /** Certificate of Analysis file (PDF or image) hosted on this site. */
   reportUrl: string;
-  /** Official third-party lab page to independently verify this result. */
-  verifyUrl: string;
+  /** One official lab verification link per test/report, e.g. Identity, Endotoxin, TAMC/TYMC. */
+  verifyLinks: { label: string; url: string }[];
 }
 
 export interface VolumeTier {
@@ -100,4 +100,6 @@ export interface Product {
   showUsageNotice?: boolean;
   /** Overrides the default "certificate of analysis / storage" note shown next to Add to Cart. Falls back to the generic COA + storage copy when absent. */
   infoNote?: string;
+  /** Hides the "Available Sizes" row in Technical Specifications (redundant with the Size selector next to Add to Cart). Opt-in while we finalize the simplified layout on Retatrutide. */
+  hideSizesSpec?: boolean;
 }

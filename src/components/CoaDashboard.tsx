@@ -56,7 +56,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         <div>
           <p className="text-2xl font-bold text-brand-navy">{coa.testedMassMg} mg</p>
           <p className="mt-1 text-xs text-brand-slate-light">
-            Quantity · {sign}
+            Quantity {sign}
             {coa.massVariancePercent}%
           </p>
         </div>
@@ -88,23 +88,27 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         ))}
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        <a
-          href={coa.reportUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-secondary w-full text-sm"
-        >
-          View Full COA
-        </a>
-        <a
-          href={coa.verifyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-primary w-full text-sm"
-        >
-          Verify COA <ExternalLinkIcon className="h-3 w-3" />
-        </a>
+      <a
+        href={coa.reportUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-secondary mt-5 w-full text-sm"
+      >
+        View Full COA
+      </a>
+
+      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+        {coa.verifyLinks.map((v) => (
+          <a
+            key={v.label}
+            href={v.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary text-sm"
+          >
+            Verify COA: {v.label} <ExternalLinkIcon className="h-3 w-3" />
+          </a>
+        ))}
       </div>
     </div>
   );

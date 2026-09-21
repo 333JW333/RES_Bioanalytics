@@ -23,7 +23,7 @@ export default async function ShopPage(props: PageProps<"/shop">) {
         <p className="text-brand-slate-light mt-2 max-w-2xl">
           {products.length} products currently available. Every listing
           includes purity data and a certificate of analysis for the
-          matching lot.
+          matching batch.
         </p>
       </div>
 

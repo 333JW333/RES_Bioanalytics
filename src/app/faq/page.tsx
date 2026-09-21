@@ -24,7 +24,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     a: (
       <>
         Yes. Every batch is tested by HPLC/MS and ships with a
-        lot-specific certificate of analysis. See our{" "}
+        batch-specific certificate of analysis. See our{" "}
         <Link href="/quality" className="text-brand-teal-dark underline">
           Quality &amp; COAs
         </Link>{" "}

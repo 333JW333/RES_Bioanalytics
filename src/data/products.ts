@@ -19,16 +19,16 @@ export const products: Product[] = [
     name: "EP-GLP3-R",
     // Sold under EcoPeps' internal designation rather than the INN
     // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
-    // notice) — the slug, synonym, alsoKnownAs, and body copy below
-    // intentionally still say "Retatrutide" so search engines and
-    // researchers looking that term up can still find this listing.
+    // notice) — the slug, synonym, and body copy below intentionally still
+    // say "Retatrutide" so search engines and researchers looking that term
+    // up can still find this listing. No alsoKnownAs badge list on this one
+    // (by request) since the synonym line already surfaces it.
     synonym: "Retatrutide Analog (LY3437943)",
     category: "Peptide",
     casNumber: "2381089-83-2",
     sequenceOrFormula: "C221H342N46O68",
     molecularFormula: "C221H342N46O68",
     molecularWeight: "4731.42 g/mol",
-    alsoKnownAs: ["Retatrutide", "LY3437943"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
@@ -92,10 +92,23 @@ export const products: Product[] = [
         { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
         { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
         { label: "USP <61> Microbial Enumeration", result: "PASS" },
-        { label: "Lot PSRETA15-1", result: "CONFIRMED" },
+        { label: "Batch PSRETA15-1", result: "CONFIRMED" },
       ],
       reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-      verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+      verifyLinks: [
+        {
+          label: "Identity",
+          url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+        },
+        {
+          label: "Endotoxin",
+          url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
+        },
+        {
+          label: "TAMC/TYMC",
+          url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
+        },
+      ],
     },
     volumeTiers: [
       { label: "2 vials", minQty: 2, discountPercent: 5 },
@@ -117,6 +130,7 @@ export const products: Product[] = [
     featured: true,
     showDisclaimer: true,
     showUsageNotice: true,
+    hideSizesSpec: true,
   },
   {
     id: "p1",

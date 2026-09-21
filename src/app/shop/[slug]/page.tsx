@@ -98,7 +98,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <p className="text-xs text-brand-slate-light leading-relaxed">
               {product.infoNote ?? (
                 <>
-                  Each lot ships with a certificate of analysis confirming
+                  Each batch ships with a certificate of analysis confirming
                   identity and purity by HPLC/MS — see{" "}
                   <a href="#documents" className="text-brand-teal-dark underline">
                     Documents &amp; Files
@@ -173,21 +173,23 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 <SpecItem label="Purity" value={product.purity} />
                 <SpecItem label="Form" value={product.form} />
                 <SpecItem label="Category" value={product.category} />
-                <SpecItem
-                  label="Available Sizes"
-                  value={
-                    <ul className="space-y-0.5">
-                      {product.sizes.map((s) => (
-                        <li key={s.sku}>
-                          {s.label} — <span className="font-mono text-xs">{s.sku}</span>
-                          {s.inStock === false && (
-                            <span className="text-brand-slate-light"> (not in stock)</span>
-                          )}
-                        </li>
-                      ))}
-                    </ul>
-                  }
-                />
+                {!product.hideSizesSpec && (
+                  <SpecItem
+                    label="Available Sizes"
+                    value={
+                      <ul className="space-y-0.5">
+                        {product.sizes.map((s) => (
+                          <li key={s.sku}>
+                            {s.label} — <span className="font-mono text-xs">{s.sku}</span>
+                            {s.inStock === false && (
+                              <span className="text-brand-slate-light"> (not in stock)</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  />
+                )}
               </dl>
             </div>
 
@@ -270,9 +272,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                       {doc.subLabel && (
                         <p className="text-xs text-brand-slate-light">{doc.subLabel}</p>
                       )}
-                      <p className="text-xs text-brand-slate-light font-mono truncate">
-                        {doc.fileName} · {doc.fileSizeLabel}
-                      </p>
                     </div>
                     <div className="flex flex-wrap gap-2 shrink-0">
                       <a href={doc.url} target="_blank" rel="noopener noreferrer" className="btn-secondary !py-1.5 !px-3 text-sm">
