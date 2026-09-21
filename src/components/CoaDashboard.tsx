@@ -25,6 +25,15 @@ function isPositiveResult(result: string): boolean {
   return POSITIVE_RESULTS.has(result.trim().toUpperCase());
 }
 
+// Colors the variance pill by whether the tested quantity ran over, under,
+// or right on the labeled amount — recalculates automatically from
+// coa.massVariancePercent, no manual updates needed as new COAs come in.
+function varianceBadgeClasses(percent: number): string {
+  if (percent > 0) return "bg-brand-teal/10 text-brand-teal-dark";
+  if (percent < 0) return "bg-red-50 text-red-600";
+  return "bg-brand-ice text-brand-slate-light";
+}
+
 export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
   const sign = coa.massVariancePercent > 0 ? "+" : "";
 
@@ -55,10 +64,20 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         </div>
         <div>
           <p className="text-2xl font-bold text-brand-navy">{coa.testedMassMg} mg</p>
-          <p className="mt-1 text-xs text-brand-slate-light">
-            Quantity {sign}
-            {coa.massVariancePercent}%
-          </p>
+          <p className="mt-1 text-xs text-brand-slate-light">Quantity</p>
+          <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+            <span className="text-xs text-brand-slate-light">
+              {coa.labeledMassMg} mg labeled
+            </span>
+            <span
+              className={`inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold ${varianceBadgeClasses(
+                coa.massVariancePercent
+              )}`}
+            >
+              {sign}
+              {coa.massVariancePercent}%
+            </span>
+          </div>
         </div>
       </div>
 
