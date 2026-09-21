@@ -28,15 +28,16 @@ export async function generateMetadata(
   const product = getProductBySlug(slug);
   if (!product) return {};
   const image = product.images?.front;
+  const displayTitle = product.synonym ? `${product.name} — ${product.synonym}` : product.name;
 
   return {
-    title: product.name,
+    title: displayTitle,
     description: product.shortDescription,
     alternates: {
       canonical: `/shop/${product.slug}`,
     },
     openGraph: {
-      title: `${product.name} | EcoPeps`,
+      title: `${displayTitle} | EcoPeps`,
       description: product.shortDescription,
       url: `/shop/${product.slug}`,
       type: "website",

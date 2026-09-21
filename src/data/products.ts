@@ -16,7 +16,13 @@ export const products: Product[] = [
   {
     id: "p7",
     slug: "retatrutide",
-    name: "Retatrutide",
+    name: "EP-GLP3-R",
+    // Sold under EcoPeps' internal designation rather than the INN
+    // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
+    // notice) — the slug, synonym, alsoKnownAs, and body copy below
+    // intentionally still say "Retatrutide" so search engines and
+    // researchers looking that term up can still find this listing.
+    synonym: "Retatrutide Analog (LY3437943)",
     category: "Peptide",
     casNumber: "2381089-83-2",
     sequenceOrFormula: "C221H342N46O68",
@@ -26,9 +32,9 @@ export const products: Product[] = [
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    shortDescription: "EcoPeps' internal designation for a Retatrutide-class synthetic peptide reference compound, supplied for laboratory research use.",
     description:
-      "Retatrutide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP3-R is EcoPeps' internal designation for a Retatrutide-class (LY3437943) synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
