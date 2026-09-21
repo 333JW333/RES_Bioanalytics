@@ -60,6 +60,14 @@ export interface CoaPanel {
   reportUrl: string;
   /** One official lab verification link per test/report, e.g. Identity, Endotoxin, TAMC/TYMC. */
   verifyLinks: { label: string; url: string }[];
+  /**
+   * Short code (e.g. "PSRETA15-1") that resolves via /c/[code] to reportUrl.
+   * Exists so a vial's printed QR code can encode a short URL
+   * (ecopeps.com/c/CODE) instead of the full reportUrl path — a QR
+   * encoding a 20-30 char URL prints small enough to scan reliably on a
+   * 40x20mm vial label; one encoding a 70+ char path does not.
+   */
+  batchCode?: string;
 }
 
 export interface VolumeTier {

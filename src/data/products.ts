@@ -112,6 +112,7 @@ export const products: Product[] = [
           url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
         },
       ],
+      batchCode: "PSRETA15-1",
     },
     volumeTiers: [
       { label: "2 vials", minQty: 2, discountPercent: 5 },
