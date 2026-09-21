@@ -1,7 +1,7 @@
 import { Product } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (6 products).
+ * Catalog data for the current EcoPeps shop (7 products).
  * Replace names, sequences, purities, sizes, and pricing with verified
  * COA-backed data before treating listings as final. Add new entries to
  * this array to scale toward 30+ SKUs.
@@ -13,6 +13,103 @@ import { Product } from "@/types/product";
  * record (leave the field undefined until then rather than guessing).
  */
 export const products: Product[] = [
+  {
+    id: "p7",
+    slug: "retatrutide",
+    name: "Retatrutide",
+    category: "Peptide",
+    casNumber: "2381089-83-2",
+    sequenceOrFormula: "C221H342N46O68",
+    molecularFormula: "C221H342N46O68",
+    molecularWeight: "4731.42 g/mol",
+    alsoKnownAs: ["Retatrutide", "LY3437943"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
+    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    description:
+      "Retatrutide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+    structuralNotes:
+      "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
+    technicalNotes:
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    images: {
+      front: "/products/retatrutide-front.png",
+      back: "/products/retatrutide-back.png",
+    },
+    documents: [
+      {
+        label: "Certificate of Analysis — Full Panel",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1 (Identity, Purity, Endotoxin, Sterility)",
+        fileName: "retatrutide-15mg-full-coa.pdf",
+        fileSizeLabel: "610 KB",
+        url: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+      },
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        fileName: "identity-purity-214265.png",
+        fileSizeLabel: "208 KB",
+        url: "/coas/retatrutide/15mg/identity-purity-214265.png",
+        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+      },
+      {
+        label: "Certificate of Analysis — Endotoxin",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        fileName: "endotoxin-214266.png",
+        fileSizeLabel: "194 KB",
+        url: "/coas/retatrutide/15mg/endotoxin-214266.png",
+        verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
+      },
+      {
+        label: "Certificate of Analysis — Sterility",
+        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        fileName: "sterility-214267.png",
+        fileSizeLabel: "194 KB",
+        url: "/coas/retatrutide/15mg/sterility-214267.png",
+        verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
+      },
+    ],
+    coaPanel: {
+      labName: "Janoshik Analytical",
+      // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
+      // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
+      purityPercent: 99.53,
+      testedMassMg: 17.74,
+      labeledMassMg: 15,
+      massVariancePercent: 18.3,
+      tests: [
+        { label: "Identity", result: "CONFIRMED" },
+        { label: "USP <85> Endotoxin", result: "PASS" },
+        { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+        { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+        { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        { label: "Lot PSRETA15-1", result: "CONFIRMED" },
+      ],
+      reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+      verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+    },
+    volumeTiers: [
+      { label: "2 vials", minQty: 2, discountPercent: 5 },
+      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
+      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
+      { label: "10+ vials", minQty: 10, discountPercent: 30 },
+    ],
+    // Only 15 mg is currently in stock (it's the batch we have a real,
+    // lab-verified COA for — see coaPanel/documents above). The other sizes
+    // are listed so customers know we carry them, but stay disabled with no
+    // price set until each has its own verified COA and goes into stock.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-RETA-10", inStock: false },
+      { label: "15 mg", mg: 15, price: 65, sku: "RES-RETA-15" },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-RETA-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-RETA-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
+    ],
+    featured: true,
+    showDisclaimer: true,
+  },
   {
     id: "p1",
     slug: "bpc-157",
@@ -258,103 +355,6 @@ export const products: Product[] = [
     ],
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
-  },
-  {
-    id: "p7",
-    slug: "retatrutide",
-    name: "Retatrutide",
-    category: "Peptide",
-    casNumber: "2381089-83-2",
-    sequenceOrFormula: "C221H342N46O68",
-    molecularFormula: "C221H342N46O68",
-    molecularWeight: "4731.42 g/mol",
-    alsoKnownAs: ["Retatrutide", "LY3437943"],
-    purity: "≥ 99% (HPLC)",
-    form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
-    description:
-      "Retatrutide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
-    structuralNotes:
-      "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
-    technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    images: {
-      front: "/products/retatrutide-front.png",
-      back: "/products/retatrutide-back.png",
-    },
-    documents: [
-      {
-        label: "Certificate of Analysis — Full Panel",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1 (Identity, Purity, Endotoxin, Sterility)",
-        fileName: "retatrutide-15mg-full-coa.pdf",
-        fileSizeLabel: "610 KB",
-        url: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-      },
-      {
-        label: "Certificate of Analysis — Identity & Purity",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
-        fileName: "identity-purity-214265.png",
-        fileSizeLabel: "208 KB",
-        url: "/coas/retatrutide/15mg/identity-purity-214265.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-      },
-      {
-        label: "Certificate of Analysis — Endotoxin",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
-        fileName: "endotoxin-214266.png",
-        fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/endotoxin-214266.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
-      },
-      {
-        label: "Certificate of Analysis — Sterility",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
-        fileName: "sterility-214267.png",
-        fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/sterility-214267.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
-      },
-    ],
-    coaPanel: {
-      labName: "Janoshik Analytical",
-      // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
-      // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
-      purityPercent: 99.53,
-      testedMassMg: 17.74,
-      labeledMassMg: 15,
-      massVariancePercent: 18.3,
-      tests: [
-        { label: "Identity", result: "CONFIRMED" },
-        { label: "USP <85> Endotoxin", result: "PASS" },
-        { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
-        { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
-        { label: "USP <61> Microbial Enumeration", result: "PASS" },
-        { label: "Lot PSRETA15-1", result: "CONFIRMED" },
-      ],
-      reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-      verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-    },
-    volumeTiers: [
-      { label: "2 vials", minQty: 2, discountPercent: 5 },
-      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
-      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
-      { label: "10+ vials", minQty: 10, discountPercent: 30 },
-    ],
-    // Only 15 mg is currently in stock (it's the batch we have a real,
-    // lab-verified COA for — see coaPanel/documents above). The other sizes
-    // are listed so customers know we carry them, but stay disabled with no
-    // price set until each has its own verified COA and goes into stock.
-    sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-RETA-10", inStock: false },
-      { label: "15 mg", mg: 15, price: 65, sku: "RES-RETA-15" },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-RETA-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-RETA-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
-    ],
-    featured: true,
-    showDisclaimer: true,
   },
 ];
 
