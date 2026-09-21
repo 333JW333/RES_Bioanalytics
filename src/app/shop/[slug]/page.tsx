@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/data/products";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import AddToCartPanel from "@/components/AddToCartPanel";
 import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
@@ -61,9 +62,42 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   if (!product) notFound();
 
   const pubchemQuery = encodeURIComponent(product.casNumber ?? product.name);
+  const primarySize = product.sizes.find((s) => s.inStock !== false) ?? product.sizes[0];
+  // Structured data only — search engines read this; nothing here renders
+  // on the visible page. seoAlternateNames lets a product surface for a
+  // widely-searched generic name without that name appearing on-page.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    ...(product.seoAlternateNames && product.seoAlternateNames.length > 0
+      ? { alternateName: product.seoAlternateNames }
+      : {}),
+    description: product.shortDescription,
+    category: product.category,
+    url: `${SITE_URL}/shop/${product.slug}`,
+    ...(product.images?.front ? { image: `${SITE_URL}${product.images.front}` } : {}),
+    brand: { "@type": "Brand", name: SITE_NAME },
+    sku: primarySize.sku,
+    offers: {
+      "@type": "Offer",
+      url: `${SITE_URL}/shop/${product.slug}`,
+      priceCurrency: "USD",
+      price: primarySize.price,
+      availability:
+        primarySize.inStock === false
+          ? "https://schema.org/OutOfStock"
+          : "https://schema.org/InStock",
+    },
+  };
 
   return (
-    <div className="container-page py-14">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="container-page py-14">
       {product.showUsageNotice && <ProductUsageNotice />}
 
       <nav className="text-sm text-brand-slate-light mb-8">
@@ -308,7 +342,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
         {product.showDisclaimer && <ProductDisclaimer />}
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

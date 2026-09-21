@@ -104,4 +104,12 @@ export interface Product {
   infoNote?: string;
   /** Hides the "Available Sizes" row in Technical Specifications (redundant with the Size selector next to Add to Cart). Opt-in while we finalize the simplified layout on Retatrutide. */
   hideSizesSpec?: boolean;
+  /**
+   * Alternate/generic names surfaced ONLY in JSON-LD structured data for
+   * search engines — never rendered anywhere on the visible page. Use this
+   * (instead of alsoKnownAs, which renders a visible badge list) when a
+   * widely-searched generic name shouldn't appear on-page for legal
+   * reasons but should still help the page get found.
+   */
+  seoAlternateNames?: string[];
 }

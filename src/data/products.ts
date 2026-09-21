@@ -19,11 +19,12 @@ export const products: Product[] = [
     name: "EP-GLP3-R",
     // Sold under EcoPeps' internal designation rather than the INN
     // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
-    // notice). The synonym line describes the pharmacological class
-    // (mechanism of action) rather than naming the compound, by request.
-    // The slug and body copy below still say "Retatrutide" so search
-    // engines and researchers looking that term up can still find this
-    // listing; no alsoKnownAs badge list on this one (by earlier request).
+    // notice). The synonym line and body copy below describe the
+    // pharmacological class (mechanism of action) rather than naming the
+    // compound — "Retatrutide" does not appear anywhere on the rendered
+    // page. It's still searchable via seoAlternateNames in this page's
+    // JSON-LD structured data (invisible, read by search engines only) and
+    // via the /shop/retatrutide URL slug.
     synonym: "Triple GIP/GLP-1/Glucagon Receptor Agonist",
     category: "Peptide",
     casNumber: "2381089-83-2",
@@ -33,9 +34,9 @@ export const products: Product[] = [
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
-    shortDescription: "EcoPeps' internal designation for a Retatrutide-class synthetic peptide reference compound, supplied for laboratory research use.",
+    shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "EP-GLP3-R is EcoPeps' internal designation for a Retatrutide-class (LY3437943) synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
@@ -57,7 +58,7 @@ export const products: Product[] = [
     documents: [
       {
         label: "Certificate of Analysis — Identity & Purity",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "identity-purity-214265.png",
         fileSizeLabel: "208 KB",
         url: "/coas/retatrutide/15mg/identity-purity-214265.png",
@@ -65,7 +66,7 @@ export const products: Product[] = [
       },
       {
         label: "Certificate of Analysis — Endotoxin",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "endotoxin-214266.png",
         fileSizeLabel: "194 KB",
         url: "/coas/retatrutide/15mg/endotoxin-214266.png",
@@ -73,7 +74,7 @@ export const products: Product[] = [
       },
       {
         label: "Certificate of Analysis — Sterility",
-        subLabel: "Janoshik Analytical — Retatrutide 15 mg, Batch PSRETA15-1",
+        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "sterility-214267.png",
         fileSizeLabel: "194 KB",
         url: "/coas/retatrutide/15mg/sterility-214267.png",
@@ -133,6 +134,7 @@ export const products: Product[] = [
     showDisclaimer: true,
     showUsageNotice: true,
     hideSizesSpec: true,
+    seoAlternateNames: ["Retatrutide", "LY3437943"],
   },
   {
     id: "p1",
