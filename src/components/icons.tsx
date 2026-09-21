@@ -1,19 +1,25 @@
 export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
   return (
     <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
-      <rect width="40" height="40" rx="10" fill="#14B8A6" />
+      <rect width="40" height="40" rx="10" fill="#E8F4F1" />
       <path
-        d="M14 10v7.2c0 1.1-.4 2.16-1.13 2.96L10 23.6c-1.8 1.98-.4 5.15 2.27 5.15h15.46c2.67 0 4.07-3.17 2.27-5.15l-2.87-3.44A4.5 4.5 0 0126 17.2V10"
-        stroke="#04211D"
+        d="M20 5.5 L31.5 12.2 V25.8 L20 32.5 L8.5 25.8 V12.2 Z"
+        stroke="#071A2C"
         strokeWidth="2"
-        strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <path d="M12.5 10h15" stroke="#04211D" strokeWidth="2" strokeLinecap="round" />
-      <path d="M13.5 22.5h13" stroke="#04211D" strokeWidth="1.5" strokeLinecap="round" />
-      <circle cx="20" cy="26" r="1.4" fill="#04211D" />
-      <circle cx="24" cy="25" r="1" fill="#04211D" />
-      <circle cx="17" cy="25.5" r="0.8" fill="#04211D" />
+      <path
+        d="M20 10.5 L27 14.6 V22.8 L20 26.9 L13 22.8 V14.6 Z"
+        fill="#14B8A6"
+      />
+      <circle cx="16.4" cy="18.7" r="2.15" fill="#071A2C" />
+      <circle cx="23.6" cy="18.7" r="2.15" fill="#071A2C" />
+      <path
+        d="M18.4 18.7 H21.6"
+        stroke="#E8F4F1"
+        strokeWidth="1.9"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
