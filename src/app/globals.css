@@ -1,18 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f6f9fb;
-  --foreground: #17222f;
+  /* Pharmaceutical system: white / graphite / blue */
+  --background: #ffffff;
+  --foreground: #1a2332;
 
-  --brand-navy: #071a2c;
-  --brand-navy-2: #0f2a45;
-  --brand-teal: #14b8a6;
-  --brand-teal-dark: #0d8f81;
-  --brand-ice: #f6f9fb;
+  --brand-navy: #0b1f33;
+  --brand-navy-2: #14324f;
+  --brand-blue: #1e4a73;
+  --brand-graphite: #2c3642;
+  --brand-slate: #4a5563;
+  --brand-slate-light: #6b7785;
+  --brand-ice: #f4f7fa;
   --brand-card: #ffffff;
-  --brand-slate: #3e4c59;
-  --brand-slate-light: #64748b;
-  --brand-line: #e2e8f0;
+  --brand-line: #d7dee7;
+
+  /* Verification accent — used sparingly for evidence/COA signals */
+  --brand-teal: #0f766e;
+  --brand-teal-dark: #0b5f59;
+
   --brand-warn-bg: #fffaeb;
   --brand-warn-border: #fbbf24;
   --brand-warn-text: #92400e;
@@ -23,6 +29,8 @@
   --color-foreground: var(--foreground);
   --color-brand-navy: var(--brand-navy);
   --color-brand-navy-2: var(--brand-navy-2);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-graphite: var(--brand-graphite);
   --color-brand-teal: var(--brand-teal);
   --color-brand-teal-dark: var(--brand-teal-dark);
   --color-brand-ice: var(--brand-ice);
@@ -30,6 +38,9 @@
   --color-brand-slate: var(--brand-slate);
   --color-brand-slate-light: var(--brand-slate-light);
   --color-brand-line: var(--brand-line);
+  --color-brand-warn-bg: var(--brand-warn-bg);
+  --color-brand-warn-border: var(--brand-warn-border);
+  --color-brand-warn-text: var(--brand-warn-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -52,11 +63,25 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
-  border-radius: 9999px;
+  border-radius: 0.25rem;
   border: 1px solid var(--brand-warn-border);
   background: var(--brand-warn-bg);
   color: var(--brand-warn-text);
   padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.badge-verified {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 0.25rem;
+  border: 1px solid color-mix(in srgb, var(--brand-teal) 35%, white);
+  background: color-mix(in srgb, var(--brand-teal) 8%, white);
+  color: var(--brand-teal-dark);
+  padding: 0.25rem 0.65rem;
   font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -67,15 +92,15 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.6rem;
-  background: var(--brand-teal);
-  color: #04211d;
+  border-radius: 0.375rem;
+  background: var(--brand-navy);
+  color: #ffffff;
   font-weight: 600;
-  padding: 0.7rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   transition: background-color 150ms ease, transform 150ms ease;
 }
 .btn-primary:hover {
-  background: var(--brand-teal-dark);
+  background: var(--brand-blue);
   color: #ffffff;
 }
 
@@ -84,28 +109,28 @@ body {
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.6rem;
+  border-radius: 0.375rem;
   border: 1px solid var(--brand-line);
   background: #ffffff;
   color: var(--brand-navy);
   font-weight: 600;
-  padding: 0.7rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   transition: border-color 150ms ease, background-color 150ms ease;
 }
 .btn-secondary:hover {
-  border-color: var(--brand-teal);
-  background: #f0fdfa;
+  border-color: var(--brand-navy);
+  background: var(--brand-ice);
 }
 
 .card {
   background: var(--brand-card);
   border: 1px solid var(--brand-line);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
 }
 
 .input {
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   border: 1px solid var(--brand-line);
   background: #ffffff;
   padding: 0.55rem 0.75rem;
@@ -114,6 +139,6 @@ body {
 }
 .input:focus {
   outline: none;
-  border-color: var(--brand-teal);
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 3px rgba(30, 74, 115, 0.12);
 }
