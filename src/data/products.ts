@@ -91,11 +91,11 @@ export const products: Product[] = [
       massVariancePercent: 18.3,
       tests: [
         { label: "Identity", result: "CONFIRMED" },
+        { label: "Batch PSRETA15-1", result: "CONFIRMED" },
         { label: "USP <85> Endotoxin", result: "PASS" },
         { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
         { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
         { label: "USP <61> Microbial Enumeration", result: "PASS" },
-        { label: "Batch PSRETA15-1", result: "CONFIRMED" },
       ],
       reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
       verifyLinks: [
