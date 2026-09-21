@@ -14,7 +14,14 @@ import {
   type GateAccount,
   type IndustryAffiliation,
 } from "@/lib/gate";
-import { REGISTRATION_TERMS } from "@/lib/registration-terms";
+import {
+  AcknowledgmentBlock,
+  TermsScrollBox,
+  Field,
+  DualField,
+  SelectField,
+} from "./RegisterFormParts";
+
 
 type Mode = "register" | "signin";
 
