@@ -106,7 +106,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
             rel="noopener noreferrer"
             className="btn-primary text-sm"
           >
-            Verify COA: {v.label} <ExternalLinkIcon className="h-3 w-3" />
+            Verify COA {v.label} <ExternalLinkIcon className="h-3 w-3" />
           </a>
         ))}
       </div>

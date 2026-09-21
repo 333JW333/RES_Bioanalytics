@@ -19,11 +19,12 @@ export const products: Product[] = [
     name: "EP-GLP3-R",
     // Sold under EcoPeps' internal designation rather than the INN
     // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
-    // notice) — the slug, synonym, and body copy below intentionally still
-    // say "Retatrutide" so search engines and researchers looking that term
-    // up can still find this listing. No alsoKnownAs badge list on this one
-    // (by request) since the synonym line already surfaces it.
-    synonym: "Retatrutide Analog (LY3437943)",
+    // notice). The synonym line describes the pharmacological class
+    // (mechanism of action) rather than naming the compound, by request.
+    // The slug and body copy below still say "Retatrutide" so search
+    // engines and researchers looking that term up can still find this
+    // listing; no alsoKnownAs badge list on this one (by earlier request).
+    synonym: "Triple GIP/GLP-1/Glucagon Receptor Agonist",
     category: "Peptide",
     casNumber: "2381089-83-2",
     sequenceOrFormula: "C221H342N46O68",
