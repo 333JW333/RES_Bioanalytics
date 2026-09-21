@@ -15,6 +15,10 @@ const PUBLIC_PREFIXES = [
   "/legal",
   "/faq",
   "/shipping",
+  // Vial QR codes link here (see src/app/c/[code]/route.ts). A customer
+  // scanning a physical vial they already own must land on the COA
+  // without being routed through the registration gate first.
+  "/c",
 ];
 
 function isPublicPath(pathname: string): boolean {
@@ -34,7 +38,7 @@ function isPublicPath(pathname: string): boolean {
   );
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (isPublicPath(pathname) || pathname.startsWith("/api/")) {

@@ -383,39 +383,6 @@ export const products: Product[] = [
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
   },
-  {
-    id: "p7",
-    slug: "ep-glp3-r",
-    name: "EP-GLP3-R",
-    synonym: "Retatrutide",
-    category: "Peptide",
-    casNumber: "2381089-83-2",
-    sequenceOrFormula: "C221H342N46O67",
-    molecularFormula: "C221H342N46O67",
-    molecularWeight: "≈ 4731 g/mol",
-    alsoKnownAs: ["EP-GLP3-R", "Retatrutide", "LY3437943", "GLP-3R"],
-    purity: "≥ 99% (HPLC)",
-    form: "Lyophilized powder",
-    storage:
-      "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
-    shortDescription:
-      "A synthetic peptide reference compound (EP-GLP3-R) supplied for laboratory research use.",
-    description:
-      "EP-GLP3-R (retatrutide) is a synthetic peptide analog supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
-    structuralNotes:
-      "A long-chain synthetic peptide analog supplied as a research reference material for in-vitro laboratory work only.",
-    technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    images: {
-      front: "/products/EP-GLP3-R_front.png",
-      back: "/products/EP-GLP3-R_back.png",
-    },
-    sizes: [
-      { label: "5 mg", mg: 5, price: 189, sku: "EP-GLP3-R-5" },
-      { label: "10 mg", mg: 10, price: 329, sku: "EP-GLP3-R-10" },
-    ],
-    featured: true,
-  },
 ];
 
 export function getAllProducts(): Product[] {
