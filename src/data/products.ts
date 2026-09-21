@@ -42,6 +42,7 @@ export const products: Product[] = [
     images: {
       front: "/products/retatrutide-front.png",
       back: "/products/retatrutide-back.png",
+      backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
           label: "Identity & Purity",

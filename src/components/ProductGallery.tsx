@@ -35,6 +35,11 @@ export default function ProductGallery({
           priority
         />
       </div>
+      {activeShot.key === "back" && images.backCaption && (
+        <p className="-mt-2 text-center text-xs text-brand-slate-light">
+          {images.backCaption}
+        </p>
+      )}
       <div className="flex flex-wrap justify-center gap-3">
         {shots.map((shot) => (
           <button
