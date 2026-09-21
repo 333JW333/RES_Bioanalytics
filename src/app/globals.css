@@ -30,6 +30,9 @@
   --color-brand-slate: var(--brand-slate);
   --color-brand-slate-light: var(--brand-slate-light);
   --color-brand-line: var(--brand-line);
+  --color-brand-warn-bg: var(--brand-warn-bg);
+  --color-brand-warn-border: var(--brand-warn-border);
+  --color-brand-warn-text: var(--brand-warn-text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
