@@ -23,38 +23,13 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
 
   const contactComplete = Boolean(contact.email && contact.firstName && contact.lastName);
 
-  async function handleCryptoPay() {
+  // Crypto (Coinbase Commerce) and card (PayRam) both create a hosted
+  // payment page server-side and redirect the browser to it.
+  async function startHostedCheckout(endpoint: string) {
     setError(null);
     setBusy(true);
     try {
-      const res = await fetch("/api/checkout/crypto", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: contact.email,
-          items: items.map((i) => ({
-            name: i.name,
-            sizeLabel: i.sizeLabel,
-            qty: i.qty,
-            unitPrice: i.unitPrice,
-          })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
-      clearCart();
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
-      setBusy(false);
-    }
-  }
-
-  async function handleCardPay() {
-    setError(null);
-    setBusy(true);
-    try {
-      const res = await fetch("/api/checkout/card-payram", {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -127,7 +102,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={handleCryptoPay}
+            onClick={() => startHostedCheckout("/api/checkout/crypto")}
           >
             {busy ? "Redirecting…" : "Pay with Crypto"}
           </button>
@@ -159,7 +134,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={handleCardPay}
+            onClick={() => startHostedCheckout("/api/checkout/card-payram")}
           >
             {busy ? "Redirecting…" : "Pay with Card"}
           </button>

@@ -6,6 +6,10 @@ import { Product } from "@/types/product";
 import { useCart } from "@/lib/cart-context";
 import { formatUSD } from "@/lib/format";
 
+function discountedPrice(price: number, discountPercent: number): number {
+  return Math.round(price * (1 - discountPercent / 100) * 100) / 100;
+}
+
 export default function AddToCartPanel({ product }: { product: Product }) {
   const defaultSizeIndex = Math.max(
     0,
@@ -21,7 +25,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
   const tiers = product.volumeTiers ?? [];
   const activeTier = [...tiers].reverse().find((t) => qty >= t.minQty);
   const discountPercent = activeTier?.discountPercent ?? 0;
-  const unitPrice = Math.round(size.price * (1 - discountPercent / 100) * 100) / 100;
+  const unitPrice = discountedPrice(size.price, discountPercent);
   const quickPicks = Array.from(new Set([1, ...tiers.map((t) => t.minQty)])).sort(
     (a, b) => a - b
   );
@@ -159,8 +163,7 @@ export default function AddToCartPanel({ product }: { product: Product }) {
           </div>
           <div className="divide-y divide-brand-line">
             {tiers.map((tier) => {
-              const tierUnitPrice =
-                Math.round(size.price * (1 - tier.discountPercent / 100) * 100) / 100;
+              const tierUnitPrice = discountedPrice(size.price, tier.discountPercent);
               const isActive = activeTier?.label === tier.label;
               return (
                 <button

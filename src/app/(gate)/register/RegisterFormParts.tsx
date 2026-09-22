@@ -142,6 +142,15 @@ export function Field({
   );
 }
 
+type SubField = {
+  id: string;
+  subLabel: string;
+  type?: string;
+  autoComplete?: string;
+  value: string;
+  onChange: (v: string) => void;
+};
+
 export function DualField({
   label,
   left,
@@ -149,22 +158,8 @@ export function DualField({
   required,
 }: {
   label: string;
-  left: {
-    id: string;
-    subLabel: string;
-    type?: string;
-    autoComplete?: string;
-    value: string;
-    onChange: (v: string) => void;
-  };
-  right: {
-    id: string;
-    subLabel: string;
-    type?: string;
-    autoComplete?: string;
-    value: string;
-    onChange: (v: string) => void;
-  };
+  left: SubField;
+  right: SubField;
   required?: boolean;
 }) {
   return (

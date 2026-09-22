@@ -38,7 +38,7 @@ export async function generateMetadata(
       canonical: `/shop/${product.slug}`,
     },
     openGraph: {
-      title: `${displayTitle} | EcoPeps`,
+      title: `${displayTitle} | ${SITE_NAME}`,
       description: product.shortDescription,
       url: `/shop/${product.slug}`,
       type: "website",
