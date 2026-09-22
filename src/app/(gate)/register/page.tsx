@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RegisterPage() {
-  return <RegisterClient />;
+export default async function RegisterPage(props: PageProps<"/register">) {
+  const { mode } = await props.searchParams;
+  return <RegisterClient initialMode={mode === "signin" ? "signin" : "register"} />;
 }
