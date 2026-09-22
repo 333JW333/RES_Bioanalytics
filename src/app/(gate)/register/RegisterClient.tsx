@@ -22,6 +22,12 @@ import {
 } from "./RegisterFormParts";
 
 export type Mode = "register" | "signin";
+
+// Supabase answers a resend with success even when it sends nothing
+// (the account is already confirmed), so "email resent" would be untrue
+// in that case. This wording is accurate either way.
+const RESENT_NOTE =
+  "If your account still needs confirming, we've sent a new link. Already confirmed? Just sign in.";
 type View = "form" | "confirmPending";
 
 export default function RegisterClient({
@@ -80,7 +86,10 @@ export default function RegisterClient({
   }
 
   async function handleResend() {
-    setError(null);
+    // On the sign-in form the resend button and its result live inside
+    // the "confirm your email" error box, so clearing the error there
+    // would hide both.
+    if (view === "confirmPending") setError(null);
     const token = takeCaptchaToken();
     if (!token) return;
     setResending(true);
@@ -280,9 +289,14 @@ export default function RegisterClient({
               {resending
                 ? "Resending…"
                 : resent
-                  ? "Email resent"
+                  ? "Resend again"
                   : "Didn't get it? Resend the email"}
             </button>
+            {resent && (
+              <p role="status" className="mt-2 text-sm text-brand-slate">
+                {RESENT_NOTE}
+              </p>
+            )}
 
             <div className="mt-6 border-t border-brand-line pt-4">
               <button
@@ -510,9 +524,14 @@ export default function RegisterClient({
                       {resending
                         ? "Resending…"
                         : resent
-                          ? "Email resent"
+                          ? "Resend again"
                           : "Resend confirmation email"}
                     </button>
+                  )}
+                  {needsConfirmation && resent && (
+                    <p role="status" className="mt-1">
+                      {RESENT_NOTE}
+                    </p>
                   )}
                 </div>
               )}
