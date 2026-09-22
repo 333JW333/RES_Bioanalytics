@@ -445,6 +445,14 @@ export default function RegisterClient({
                     onChange={setPassword}
                     required
                   />
+                  <p className="-mt-2 text-right">
+                    <Link
+                      href="/forgot-password"
+                      className="text-xs font-medium text-brand-navy hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </p>
                 </>
               )}
 

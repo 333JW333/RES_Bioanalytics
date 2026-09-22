@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 export async function confirmEmail(formData: FormData) {
   const tokenHash = formData.get("token_hash");
   const type = formData.get("type");
+  const isRecovery = type === "recovery";
 
   if (typeof tokenHash === "string" && typeof type === "string") {
     const supabase = await createClient();
@@ -15,12 +16,14 @@ export async function confirmEmail(formData: FormData) {
       token_hash: tokenHash,
     });
     if (!error) {
-      redirect("/shop");
+      // A recovery link signs the user in so they can choose a new
+      // password; every other link type finishes at the catalog.
+      redirect(isRecovery ? "/reset-password" : "/shop");
     }
   }
 
-  // Expired, already used, or malformed. With no session, the callback
-  // page shows its "link expired" screen (and a visitor who is already
-  // signed in is sent on to /shop).
-  redirect("/auth/callback");
+  // Expired, already used, or malformed. For signup links, with no
+  // session the callback page shows its "link expired" screen (and a
+  // visitor who is already signed in is sent on to /shop).
+  redirect(isRecovery ? "/forgot-password?expired=1" : "/auth/callback");
 }
