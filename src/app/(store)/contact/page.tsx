@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import SacredGeometryBackground from "@/components/SacredGeometryBackground";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -7,24 +8,27 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="container-page py-16 max-w-xl">
-      <h1 className="text-3xl font-bold text-brand-navy mb-4">Contact Us</h1>
-      <p className="text-brand-slate leading-relaxed mb-8">
-        Have a question about an order, a certificate of analysis, or bulk
-        research pricing? Reach out and our team will respond within one
-        business day.
-      </p>
+    <div className="relative min-h-[calc(100dvh-6.5rem)] bg-linear-to-b from-brand-navy to-brand-navy-2">
+      <SacredGeometryBackground />
+      <div className="container-page relative z-10 py-16 max-w-xl">
+        <h1 className="text-3xl font-bold text-white mb-4">Contact Us</h1>
+        <p className="text-slate-300 leading-relaxed mb-8">
+          Have a question about an order, a certificate of analysis, or bulk
+          research pricing? Reach out and our team will respond within one
+          business day.
+        </p>
 
-      <div className="card p-6 space-y-4">
-        <ContactRow label="Email" value="support@ecopeps.com" />
-        <ContactRow label="Hours" value="Mon–Fri, 9am–5pm ET" />
-        <ContactRow label="Purpose" value="Laboratory & institutional research inquiries only" />
+        <div className="card p-6 space-y-4">
+          <ContactRow label="Email" value="support@ecopeps.com" />
+          <ContactRow label="Hours" value="Mon–Fri, 9am–5pm ET" />
+          <ContactRow label="Purpose" value="Laboratory & institutional research inquiries only" />
+        </div>
+
+        <p className="text-xs text-slate-300 mt-6">
+          EcoPeps does not provide medical, dosing, or health advice.
+          For research-use inquiries only.
+        </p>
       </div>
-
-      <p className="text-xs text-brand-slate-light mt-6">
-        EcoPeps does not provide medical, dosing, or health advice.
-        For research-use inquiries only.
-      </p>
     </div>
   );
 }

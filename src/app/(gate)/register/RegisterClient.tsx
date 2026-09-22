@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { LogoMark } from "@/components/icons";
+import SacredGeometryBackground from "@/components/SacredGeometryBackground";
 import Turnstile from "@/components/Turnstile";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -239,33 +240,25 @@ export default function RegisterClient({
 
   if (!ready) {
     return (
-      <div className="flex min-h-full flex-1 items-center justify-center bg-brand-ice text-sm text-brand-slate-light">
+      <div className="flex min-h-full flex-1 items-center justify-center bg-brand-navy text-sm text-slate-300">
         Loading…
       </div>
     );
   }
 
   return (
-    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.35]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, rgba(7,26,44,0.08) 1px, transparent 0)",
-          backgroundSize: "28px 28px",
-        }}
-      />
+    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden bg-linear-to-b from-brand-navy to-brand-navy-2">
+      <SacredGeometryBackground />
 
       <main className="relative z-10 mx-auto flex w-full max-w-xl flex-1 flex-col px-3.5 py-7 sm:px-6 sm:py-10">
         <header className="mb-5 flex flex-col items-center text-center sm:mb-6">
           <Link href="/enter" className="inline-flex items-center gap-2.5">
             <LogoMark className="h-9 w-9 sm:h-8 sm:w-8" />
-            <span className="text-xl font-bold tracking-tight text-brand-navy">
+            <span className="text-xl font-bold tracking-tight text-white">
               EcoPeps
             </span>
           </Link>
-          <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-brand-slate-light sm:text-xs">
+          <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300 sm:text-xs">
             Research account access
           </p>
         </header>
@@ -578,14 +571,14 @@ export default function RegisterClient({
         )}
 
         <footer className="mt-auto pt-8 text-center sm:pt-10">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-navy">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-white">
             For research use only
           </p>
-          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-brand-slate-light">
+          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-slate-300">
             Products are supplied for in vitro laboratory research. Not for
             human or veterinary use, food, or household use.
           </p>
-          <p className="mt-4 text-[11px] uppercase tracking-wide text-brand-slate-light">
+          <p className="mt-4 text-[11px] uppercase tracking-wide text-slate-300">
             © EcoPeps {new Date().getFullYear()}
           </p>
         </footer>

@@ -4,6 +4,6 @@ export default function GateLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-full flex-1 flex-col bg-brand-ice">{children}</div>
+    <div className="flex min-h-full flex-1 flex-col bg-brand-navy">{children}</div>
   );
 }
