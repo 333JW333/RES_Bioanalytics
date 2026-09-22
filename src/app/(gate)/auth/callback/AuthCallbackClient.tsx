@@ -44,7 +44,7 @@ export default function AuthCallbackClient() {
             confirmation email from the registration page.
           </p>
           <Link
-            href="/register"
+            href="/register?mode=signin"
             className="btn-primary mt-5 inline-flex min-h-11 items-center justify-center px-6"
           >
             Back to sign in

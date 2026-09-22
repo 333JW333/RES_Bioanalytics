@@ -20,12 +20,16 @@ import {
   SelectField,
 } from "./RegisterFormParts";
 
-type Mode = "register" | "signin";
+export type Mode = "register" | "signin";
 type View = "form" | "confirmPending";
 
-export default function RegisterClient() {
+export default function RegisterClient({
+  initialMode = "register",
+}: {
+  initialMode?: Mode;
+}) {
   const router = useRouter();
-  const [mode, setMode] = useState<Mode>("register");
+  const [mode, setMode] = useState<Mode>(initialMode);
   const [view, setView] = useState<View>("form");
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);

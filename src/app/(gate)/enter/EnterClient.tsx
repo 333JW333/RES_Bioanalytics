@@ -102,7 +102,7 @@ export default function EnterClient() {
           <p className="mt-5 text-center text-sm text-brand-slate-light">
             Already registered?{" "}
             <Link
-              href="/register"
+              href="/register?mode=signin"
               className="font-medium text-brand-teal-dark hover:underline"
             >
               Sign in
