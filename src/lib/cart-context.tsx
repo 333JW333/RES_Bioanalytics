@@ -7,8 +7,9 @@ import {
   useEffect,
   useMemo,
   useState,
-  ReactNode,
+  type ReactNode,
 } from "react";
+import { unitPriceForSku } from "@/lib/pricing";
 
 export interface CartItem {
   productId: string;
@@ -22,7 +23,7 @@ export interface CartItem {
 
 interface CartContextValue {
   items: CartItem[];
-  addItem: (item: Omit<CartItem, "qty">, qty?: number) => void;
+  addItem: (item: Omit<CartItem, "qty" | "unitPrice">, qty?: number) => void;
   removeItem: (sku: string) => void;
   updateQty: (sku: string, qty: number) => void;
   clearCart: () => void;
@@ -35,6 +36,18 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const STORAGE_KEY = "ecopeps-cart";
 
+// Unit prices always come from the catalog at the line's current quantity,
+// so volume discounts track quantity changes and match what checkout
+// charges. Returns null for SKUs no longer in the catalog.
+function withCatalogPrice(item: Omit<CartItem, "unitPrice">): CartItem | null {
+  const unitPrice = unitPriceForSku(item.sku, item.qty);
+  return unitPrice === undefined ? null : { ...item, unitPrice };
+}
+
+function repriceAll(items: Omit<CartItem, "unitPrice">[]): CartItem[] {
+  return items.flatMap((i) => withCatalogPrice(i) ?? []);
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isHydrated, setIsHydrated] = useState(false);
@@ -45,7 +58,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const raw = window.localStorage.getItem(STORAGE_KEY);
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (raw) setItems(JSON.parse(raw));
+      if (raw) setItems(repriceAll(JSON.parse(raw)));
     } catch {
       // ignore corrupted storage
     } finally {
@@ -62,17 +75,20 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   }, [items, isHydrated]);
 
-  const addItem = useCallback((item: Omit<CartItem, "qty">, qty = 1) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.sku === item.sku);
-      if (existing) {
-        return prev.map((i) =>
-          i.sku === item.sku ? { ...i, qty: i.qty + qty } : i
-        );
-      }
-      return [...prev, { ...item, qty }];
-    });
-  }, []);
+  const addItem = useCallback(
+    (item: Omit<CartItem, "qty" | "unitPrice">, qty = 1) => {
+      setItems((prev) => {
+        const existing = prev.find((i) => i.sku === item.sku);
+        if (existing) {
+          return repriceAll(
+            prev.map((i) => (i.sku === item.sku ? { ...i, qty: i.qty + qty } : i))
+          );
+        }
+        return repriceAll([...prev, { ...item, qty }]);
+      });
+    },
+    []
+  );
 
   const removeItem = useCallback((sku: string) => {
     setItems((prev) => prev.filter((i) => i.sku !== sku));
@@ -82,7 +98,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((prev) =>
       qty <= 0
         ? prev.filter((i) => i.sku !== sku)
-        : prev.map((i) => (i.sku === sku ? { ...i, qty } : i))
+        : repriceAll(prev.map((i) => (i.sku === sku ? { ...i, qty } : i)))
     );
   }, []);
 

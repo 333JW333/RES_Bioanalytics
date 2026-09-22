@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Product } from "@/types/product";
+import type { Product } from "@/types/product";
 import { formatUSD } from "@/lib/format";
 import { VialIcon } from "@/components/icons";
 

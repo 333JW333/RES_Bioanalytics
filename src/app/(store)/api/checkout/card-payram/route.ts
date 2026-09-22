@@ -1,27 +1,17 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createPayramPayment } from "@/lib/payments/payram";
-
-interface CheckoutItem {
-  name: string;
-  sizeLabel: string;
-  qty: number;
-  unitPrice: number;
-}
+import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const items: CheckoutItem[] = body.items ?? [];
     const email: string | undefined = body.email;
 
-    if (!Array.isArray(items) || items.length === 0) {
-      return NextResponse.json({ error: "Cart is empty." }, { status: 400 });
+    const order = priceOrder(body.items);
+    if (!order.ok) {
+      return NextResponse.json({ error: order.error }, { status: 400 });
     }
-
-    const total = items.reduce((sum, i) => sum + i.unitPrice * i.qty, 0);
-    if (total <= 0) {
-      return NextResponse.json({ error: "Invalid order total." }, { status: 400 });
-    }
+    const { total } = order;
 
     const orderId = crypto.randomUUID();
     const origin = req.nextUrl.origin;

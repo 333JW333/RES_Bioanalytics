@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 // signInWithPassword, resend and resetPasswordForEmail. Site keys are
 // public; the env var only exists to override it (e.g. with Cloudflare's
 // always-passes test key "1x00000000000000000000AA" in local dev).
-export const TURNSTILE_SITE_KEY =
+const TURNSTILE_SITE_KEY =
   process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "0x4AAAAAAFAYmqEcVO_kxL05";
 
 const SCRIPT_SRC =

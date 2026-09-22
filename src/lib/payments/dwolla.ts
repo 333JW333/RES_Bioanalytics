@@ -10,7 +10,7 @@ export function isDwollaConfigured(): boolean {
 
 let client: Client | null = null;
 
-export function getDwollaClient(): Client {
+function getDwollaClient(): Client {
   if (client) return client;
   client = new Client({
     key: process.env.DWOLLA_KEY ?? "",

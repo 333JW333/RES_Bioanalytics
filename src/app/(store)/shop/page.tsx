@@ -1,6 +1,6 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import ProductCard from "@/components/ProductCard";
-import { getAllProducts } from "@/data/products";
+import { getAllProducts, getCategories } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "Shop Research Peptides",
@@ -10,10 +10,10 @@ export const metadata: Metadata = {
 export default async function ShopPage(props: PageProps<"/shop">) {
   const searchParams = await props.searchParams;
   const products = getAllProducts();
-  const categoryParam = searchParams?.category;
+  const categoryParam = searchParams.category;
   const category = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam;
   const filtered = category ? products.filter((p) => p.category === category) : products;
-  const categories = Array.from(new Set(products.map((p) => p.category)));
+  const categories = getCategories();
 
   return (
     <div className="container-page py-14">

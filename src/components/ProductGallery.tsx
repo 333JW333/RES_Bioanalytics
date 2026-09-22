@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { ProductImages } from "@/types/product";
+import type { ProductImages } from "@/types/product";
 
 export default function ProductGallery({
   images,
@@ -32,7 +32,7 @@ export default function ProductGallery({
           fill
           sizes="(min-width: 1024px) 480px, 90vw"
           className="object-contain p-10 sm:p-14"
-          priority
+          preload
         />
       </div>
       {activeShot.key === "back" && images.backCaption && (

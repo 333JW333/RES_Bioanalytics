@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { usePlaidLink } from "react-plaid-link";
 import { useCart } from "@/lib/cart-context";
@@ -15,56 +15,32 @@ interface ContactInfo {
 }
 
 export default function PaymentMethodSelector({ contact }: { contact: ContactInfo }) {
-  const { items, subtotal, clearCart } = useCart();
+  const { items, clearCart } = useCart();
   const router = useRouter();
   const [method, setMethod] = useState<Method>("crypto");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  // Only SKUs and quantities are sent; the server prices the order.
+  const orderItems = useMemo(
+    () => items.map((i) => ({ sku: i.sku, qty: i.qty })),
+    [items]
+  );
+
   const contactComplete = Boolean(contact.email && contact.firstName && contact.lastName);
 
-  async function handleCryptoPay() {
+  // Crypto (Coinbase Commerce) and card (PayRam) both create a hosted
+  // payment page server-side and redirect the browser to it.
+  async function startHostedCheckout(endpoint: string) {
     setError(null);
     setBusy(true);
     try {
-      const res = await fetch("/api/checkout/crypto", {
+      const res = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email: contact.email,
-          items: items.map((i) => ({
-            name: i.name,
-            sizeLabel: i.sizeLabel,
-            qty: i.qty,
-            unitPrice: i.unitPrice,
-          })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
-      clearCart();
-      window.location.href = data.url;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
-      setBusy(false);
-    }
-  }
-
-  async function handleCardPay() {
-    setError(null);
-    setBusy(true);
-    try {
-      const res = await fetch("/api/checkout/card-payram", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email: contact.email,
-          items: items.map((i) => ({
-            name: i.name,
-            sizeLabel: i.sizeLabel,
-            qty: i.qty,
-            unitPrice: i.unitPrice,
-          })),
+          items: orderItems,
         }),
       });
       const data = await res.json();
@@ -127,7 +103,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={handleCryptoPay}
+            onClick={() => startHostedCheckout("/api/checkout/crypto")}
           >
             {busy ? "Redirecting…" : "Pay with Crypto"}
           </button>
@@ -138,8 +114,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
         <AchFlow
           contact={contact}
           contactComplete={contactComplete}
-          amount={subtotal}
-          itemCount={items.length}
+          orderItems={orderItems}
           onError={setError}
           onSuccess={(orderId, demo) => {
             clearCart();
@@ -159,7 +134,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={handleCardPay}
+            onClick={() => startHostedCheckout("/api/checkout/card-payram")}
           >
             {busy ? "Redirecting…" : "Pay with Card"}
           </button>
@@ -205,15 +180,13 @@ function MethodTab({
 function AchFlow({
   contact,
   contactComplete,
-  amount,
-  itemCount,
+  orderItems,
   onError,
   onSuccess,
 }: {
   contact: ContactInfo;
   contactComplete: boolean;
-  amount: number;
-  itemCount: number;
+  orderItems: { sku: string; qty: number }[];
   onError: (msg: string | null) => void;
   onSuccess: (orderId: string, demo: boolean) => void;
 }) {
@@ -263,7 +236,7 @@ function AchFlow({
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             fundingSourceUrl: exchangeData.fundingSourceUrl,
-            amount,
+            items: orderItems,
           }),
         });
         const transferData = await transferRes.json();
@@ -276,7 +249,7 @@ function AchFlow({
         setBusy(false);
       }
     },
-    [amount, contact, onError, onSuccess]
+    [orderItems, contact, onError, onSuccess]
   );
 
   const { open, ready } = usePlaidLink({
@@ -294,7 +267,7 @@ function AchFlow({
       <button
         type="button"
         className="btn-primary w-full disabled:opacity-40"
-        disabled={!contactComplete || !ready || itemCount === 0 || busy}
+        disabled={!contactComplete || !ready || orderItems.length === 0 || busy}
         onClick={() => open()}
       >
         {busy ? "Processing…" : linked ? "Bank Linked — Processing…" : "Connect Bank & Pay"}

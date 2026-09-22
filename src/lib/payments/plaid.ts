@@ -13,7 +13,7 @@ export function isPlaidConfigured(): boolean {
 
 let client: PlaidApi | null = null;
 
-export function getPlaidClient(): PlaidApi {
+function getPlaidClient(): PlaidApi {
   if (client) return client;
 
   const env = (process.env.PLAID_ENV ?? "sandbox") as keyof typeof PlaidEnvironments;

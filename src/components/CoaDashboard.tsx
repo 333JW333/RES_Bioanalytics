@@ -1,4 +1,4 @@
-import { CoaPanel } from "@/types/product";
+import type { CoaPanel } from "@/types/product";
 import { ExternalLinkIcon } from "@/components/icons";
 
 function CheckIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {

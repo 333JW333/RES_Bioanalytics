@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function TermsPage() {
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">2. Eligibility</h2>
           <p>
-            You must be at least 18 years old and purchasing on behalf of
+            You must be at least 21 years old and purchasing on behalf of
             yourself, your laboratory, or your institution for lawful
             research purposes only.
           </p>

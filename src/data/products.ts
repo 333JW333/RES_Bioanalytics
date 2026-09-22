@@ -1,4 +1,4 @@
-import { Product } from "@/types/product";
+import type { Product } from "@/types/product";
 
 /**
  * Catalog data for the current EcoPeps shop (7 products).

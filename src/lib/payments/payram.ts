@@ -14,10 +14,6 @@
  * with a real PAYRAM_API_KEY.
  */
 
-export function isPayramConfigured(): boolean {
-  return Boolean(process.env.PAYRAM_API_BASE_URL && process.env.PAYRAM_API_KEY);
-}
-
 export interface CreatePayramPaymentInput {
   amountUsd: number;
   orderId: string;

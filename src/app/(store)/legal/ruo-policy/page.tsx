@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export default function RuoPolicyPage() {
 
       <LegalNotice />
 
-      <div className="prose-legal space-y-6 text-brand-slate leading-relaxed">
+      <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">1. Scope</h2>
           <p>
@@ -60,7 +60,7 @@ export default function RuoPolicyPage() {
             that:
           </p>
           <ul className="list-disc list-inside mt-2 space-y-1">
-            <li>You are at least 18 years of age and legally capable of entering into a binding contract;</li>
+            <li>You are at least 21 years of age and legally capable of entering into a binding contract;</li>
             <li>You are purchasing solely for lawful laboratory, analytical, or research purposes;</li>
             <li>You will not resell, distribute, or transfer these products for human or animal use;</li>
             <li>You will comply with all applicable local, state, federal, and international laws and regulations governing the purchase, possession, and use of research chemicals in your jurisdiction; and</li>
