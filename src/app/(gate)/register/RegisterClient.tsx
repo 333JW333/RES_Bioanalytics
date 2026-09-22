@@ -21,7 +21,7 @@ import {
   SelectField,
 } from "./RegisterFormParts";
 
-export type Mode = "register" | "signin";
+type Mode = "register" | "signin";
 
 // Supabase answers a resend with success even when it sends nothing
 // (the account is already confirmed), so "email resent" would be untrue

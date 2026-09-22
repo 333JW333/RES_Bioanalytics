@@ -1,5 +1,5 @@
-export const AGE_KEY = "ecopeps-age-verified";
-export const AGE_COOKIE = "ecopeps-age";
+const AGE_KEY = "ecopeps-age-verified";
+const AGE_COOKIE = "ecopeps-age";
 
 export const BUSINESS_TYPES = [
   "Business / Institution (EIN Required)",

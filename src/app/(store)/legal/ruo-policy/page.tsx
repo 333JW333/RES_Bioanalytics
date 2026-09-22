@@ -14,7 +14,7 @@ export default function RuoPolicyPage() {
 
       <LegalNotice />
 
-      <div className="prose-legal space-y-6 text-brand-slate leading-relaxed">
+      <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>
           <h2 className="font-semibold text-brand-navy text-lg mb-2">1. Scope</h2>
           <p>

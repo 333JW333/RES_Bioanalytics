@@ -1,10 +1,6 @@
 const COINBASE_API_BASE = "https://api.commerce.coinbase.com";
 const COINBASE_API_VERSION = "2018-03-22";
 
-export function isCoinbaseConfigured(): boolean {
-  return Boolean(process.env.COINBASE_COMMERCE_API_KEY);
-}
-
 export interface CreateChargeInput {
   name: string;
   description: string;
