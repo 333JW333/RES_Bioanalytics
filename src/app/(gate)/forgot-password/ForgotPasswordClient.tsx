@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { FormEvent, useState } from "react";
+import Turnstile from "@/components/Turnstile";
 import { createClient } from "@/lib/supabase/client";
 import { Field } from "../register/RegisterFormParts";
 
@@ -14,6 +15,8 @@ export default function ForgotPasswordClient({
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [sentTo, setSentTo] = useState<string | null>(null);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -24,11 +27,21 @@ export default function ForgotPasswordClient({
       return;
     }
 
+    if (!captchaToken) {
+      setError(
+        "Please wait for the security check below to finish, then try again."
+      );
+      return;
+    }
+    // Turnstile tokens are single-use; get a fresh one for any retry.
+    setCaptchaResetKey((k) => k + 1);
+
     setSubmitting(true);
     // The "Reset password" email template links to
     // /auth/confirm?token_hash=...&type=recovery, so no redirectTo here.
     const { error: resetError } = await createClient().auth.resetPasswordForEmail(
-      trimmedEmail
+      trimmedEmail,
+      { captchaToken }
     );
     setSubmitting(false);
 
@@ -79,6 +92,10 @@ export default function ForgotPasswordClient({
                 value={email}
                 onChange={setEmail}
                 required
+              />
+              <Turnstile
+                onToken={setCaptchaToken}
+                resetKey={captchaResetKey}
               />
               {error && (
                 <p
