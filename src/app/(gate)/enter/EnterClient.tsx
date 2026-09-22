@@ -22,18 +22,18 @@ export default function EnterClient() {
   }
 
   return (
-    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden bg-linear-to-b from-brand-navy to-brand-navy-2">
+    <div className="relative flex min-h-full flex-1 flex-col overflow-x-hidden">
       <SacredGeometryBackground />
 
       <main className="relative z-10 mx-auto flex w-full max-w-xl flex-1 flex-col px-3.5 py-7 sm:px-6 sm:py-10">
         <header className="mb-5 flex flex-col items-center text-center sm:mb-6">
           <Link href="/enter" className="inline-flex items-center gap-2.5">
             <LogoMark className="h-9 w-9 sm:h-8 sm:w-8" />
-            <span className="text-xl font-bold tracking-tight text-white">
+            <span className="text-xl font-bold tracking-tight text-brand-navy">
               EcoPeps
             </span>
           </Link>
-          <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-slate-300 sm:text-xs">
+          <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-brand-slate-light sm:text-xs">
             Research Peptides
           </p>
         </header>
@@ -104,30 +104,30 @@ export default function EnterClient() {
         </section>
 
         <footer className="mt-auto pt-8 text-center sm:pt-10">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-white">
+          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-navy">
             For research use only
           </p>
-          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-slate-300">
+          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-brand-slate-light">
             Products are supplied for in vitro laboratory research. Not for
             human or veterinary use, food, or household use.
           </p>
-          <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-slate-300">
+          <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-brand-slate-light">
             <Link
               href="/quality"
-              className="font-medium text-brand-teal hover:underline"
+              className="font-medium text-brand-teal-dark hover:underline"
             >
               Quality &amp; COAs
             </Link>
-            <span className="text-white/25" aria-hidden>
+            <span className="text-brand-line" aria-hidden>
               ·
             </span>
-            <Link href="/about" className="hover:text-white">
+            <Link href="/about" className="hover:text-brand-navy">
               About
             </Link>
-            <span className="text-white/25" aria-hidden>
+            <span className="text-brand-line" aria-hidden>
               ·
             </span>
-            <Link href="/contact" className="hover:text-white">
+            <Link href="/contact" className="hover:text-brand-navy">
               Contact
             </Link>
           </nav>

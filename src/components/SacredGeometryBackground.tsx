@@ -16,55 +16,37 @@ for (let row = -2; row <= 4; row++) {
   }
 }
 
-// Fade the pattern out behind the form so it never competes with text.
-const FADE =
-  "radial-gradient(ellipse 70% 60% at 50% 38%, transparent 30%, black 85%)";
-
-// Decorative background for the dark gate/enquiry pages. Place inside a
-// `relative` container with the navy gradient and give the page content
-// `relative z-10`. The pattern is pinned to the viewport and clipped to the
-// container, so it also works on pages that sit between the store header and
-// footer. It turns slowly unless the visitor prefers reduced motion.
+// Faint Flower of Life texture for the light gate/enquiry pages. Place inside
+// a `relative` container and give the page content `relative`.
 export default function SacredGeometryBackground() {
   const patternId = `flower-of-life-${useId().replace(/:/g, "")}`;
 
   return (
-    <div
+    <svg
       aria-hidden
-      className="pointer-events-none absolute inset-0 [clip-path:inset(0)]"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.12]"
     >
-      <div
-        className="fixed inset-0"
-        style={{ maskImage: FADE, WebkitMaskImage: FADE }}
-      >
-        {/* Square larger than the viewport diagonal so corners never show while it turns. */}
-        <svg className="absolute top-1/2 left-1/2 size-[150vmax] -translate-x-1/2 -translate-y-1/2 opacity-40 motion-safe:animate-[spin_240s_linear_infinite]">
-          <defs>
-            <pattern
-              id={patternId}
-              width={TILE_W}
-              height={TILE_H}
-              patternUnits="userSpaceOnUse"
-            >
-              {CIRCLES.map(([cx, cy]) => (
-                <circle
-                  key={`${cx}-${cy}`}
-                  cx={cx}
-                  cy={cy}
-                  r={R}
-                  fill="none"
-                  stroke="#14b8a6"
-                  strokeWidth={0.8}
-                />
-              ))}
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill={`url(#${patternId})`} />
-        </svg>
-      </div>
-
-      <div className="fixed -top-28 -left-28 h-80 w-80 rounded-full bg-brand-teal/35 blur-[70px]" />
-      <div className="fixed -right-28 -bottom-28 h-80 w-80 rounded-full bg-brand-teal/25 blur-[70px]" />
-    </div>
+      <defs>
+        <pattern
+          id={patternId}
+          width={TILE_W}
+          height={TILE_H}
+          patternUnits="userSpaceOnUse"
+        >
+          {CIRCLES.map(([cx, cy]) => (
+            <circle
+              key={`${cx}-${cy}`}
+              cx={cx}
+              cy={cy}
+              r={R}
+              fill="none"
+              stroke="#0d8f81"
+              strokeWidth={0.75}
+            />
+          ))}
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill={`url(#${patternId})`} />
+    </svg>
   );
 }
