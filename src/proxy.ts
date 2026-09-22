@@ -54,10 +54,9 @@ export async function proxy(request: NextRequest) {
   // before the visitor ever hits a page that needs it.
   const { claims, response } = await refreshSession(request);
 
-  // Signed-in but not yet confirmed their email: Supabase only issues
-  // claims for a confirmed session (email confirmations are required on
-  // this project — see registration/README notes), so reaching this point
-  // with claims already implies a verified account.
+  // Supabase only issues claims for a confirmed session (email
+  // confirmations are required on this project), so having claims here
+  // already implies a verified account.
   if (!claims && !isPublicPath(pathname)) {
     const enterUrl = request.nextUrl.clone();
     enterUrl.pathname = "/enter";
@@ -75,8 +74,8 @@ export async function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all paths except static assets handled above via isPublicPath.
-     * Excluding common static file extensions keeps the matcher lean.
+     * Match all paths except Next's static/image assets and common static
+     * file extensions; other public paths are let through by isPublicPath.
      */
     "/((?!_next/static|_next/image|.*\\.(?:png|jpg|jpeg|gif|webp|svg|ico|pdf)$).*)",
   ],

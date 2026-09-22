@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/data/products";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import AddToCartPanel from "@/components/AddToCartPanel";

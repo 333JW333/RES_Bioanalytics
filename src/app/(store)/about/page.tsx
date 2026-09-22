@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 
 export const metadata: Metadata = {

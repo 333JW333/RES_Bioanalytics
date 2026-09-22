@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Product } from "@/types/product";
+import type { Product } from "@/types/product";
 import { useCart } from "@/lib/cart-context";
 import { formatUSD } from "@/lib/format";
 

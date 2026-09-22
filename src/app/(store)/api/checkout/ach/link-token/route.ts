@@ -3,8 +3,8 @@ import { createLinkToken } from "@/lib/payments/plaid";
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json().catch(() => ({}));
-    const userId: string = body.userId ?? crypto.randomUUID();
+    const body: { userId?: string } = await req.json().catch(() => ({}));
+    const userId = body.userId ?? crypto.randomUUID();
     const result = await createLinkToken(userId);
     return NextResponse.json(result);
   } catch (err) {

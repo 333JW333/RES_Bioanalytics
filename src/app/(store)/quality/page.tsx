@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { getAllProducts } from "@/data/products";
 import { ShieldCheckIcon } from "@/components/icons";
 
