@@ -29,3 +29,11 @@ export async function GET(request: NextRequest) {
   // signed in is sent on to /shop).
   return NextResponse.redirect(new URL("/auth/callback", request.url));
 }
+
+// Email security scanners (e.g. university and corporate mail gateways)
+// often probe links with HEAD before the recipient clicks. Without this,
+// Next.js answers HEAD by running GET, which would spend the one-time
+// token and leave the real click with "link expired".
+export function HEAD() {
+  return new NextResponse(null, { status: 200 });
+}
