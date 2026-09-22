@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function EnterPage() {
-  return <EnterClient />;
+export default async function EnterPage(props: PageProps<"/enter">) {
+  const { mode } = await props.searchParams;
+  return <EnterClient initialSignIn={mode === "signin"} />;
 }

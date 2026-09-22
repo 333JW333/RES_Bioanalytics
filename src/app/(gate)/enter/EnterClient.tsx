@@ -8,17 +8,35 @@ import { LogoMark } from "@/components/icons";
 import SacredGeometryBackground from "@/components/SacredGeometryBackground";
 import { writeAgeVerified } from "@/lib/gate";
 
-export default function EnterClient() {
+export default function EnterClient({
+  initialSignIn = false,
+}: {
+  initialSignIn?: boolean;
+}) {
   const router = useRouter();
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [ruoConfirmed, setRuoConfirmed] = useState(false);
+  // Returning researchers still confirm eligibility here, then go straight
+  // to the sign-in form instead of account creation.
+  const [signIn, setSignIn] = useState(initialSignIn);
+  const [signInPrompt, setSignInPrompt] = useState(false);
 
   const canContinue = ageConfirmed && ruoConfirmed;
 
   function handleContinue() {
     if (!canContinue) return;
     writeAgeVerified();
-    router.push("/register");
+    router.push(signIn ? "/register?mode=signin" : "/register");
+  }
+
+  function handleSignIn() {
+    if (canContinue) {
+      writeAgeVerified();
+      router.push("/register?mode=signin");
+      return;
+    }
+    setSignIn(true);
+    setSignInPrompt(true);
   }
 
   return (
@@ -88,18 +106,24 @@ export default function EnterClient() {
               disabled={!canContinue}
               className="btn-primary mt-3 min-h-11 w-full disabled:cursor-not-allowed disabled:bg-brand-line disabled:text-brand-slate-light disabled:opacity-100"
             >
-              Continue to registration
+              {signIn ? "Continue to sign in" : "Continue to registration"}
             </button>
+            {signInPrompt && !canContinue && (
+              <p role="status" className="text-center text-sm text-brand-slate">
+                Confirm both statements above to continue to sign in.
+              </p>
+            )}
           </div>
 
           <p className="mt-5 text-center text-sm text-brand-slate-light">
             Already registered?{" "}
-            <Link
-              href="/register?mode=signin"
+            <button
+              type="button"
+              onClick={handleSignIn}
               className="font-medium text-brand-teal-dark hover:underline"
             >
               Sign in
-            </Link>
+            </button>
           </p>
         </section>
 

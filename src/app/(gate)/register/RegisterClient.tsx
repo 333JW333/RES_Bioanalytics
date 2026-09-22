@@ -65,12 +65,14 @@ export default function RegisterClient({
     // One-time client-only auth-gate check on mount (SSR-safe: readAgeVerified
     // reads localStorage/cookies, unavailable during server render).
     if (!readAgeVerified()) {
-      router.replace("/enter");
+      // Keep a sign-in request through the age gate so the visitor lands
+      // back on the sign-in form, not account creation.
+      router.replace(initialMode === "signin" ? "/enter?mode=signin" : "/enter");
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
-  }, [router]);
+  }, [router, initialMode]);
 
   // Supabase rejects auth requests without a Turnstile token once captcha
   // protection is on. Each token is single-use, so the widget is reset
