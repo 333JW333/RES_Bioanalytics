@@ -5,6 +5,10 @@ import { refreshSession } from "@/lib/supabase/proxy";
 const PUBLIC_PREFIXES = [
   "/enter",
   "/register",
+  // Password recovery: reached signed out (forgot-password) or with only
+  // the short-lived recovery session (reset-password).
+  "/forgot-password",
+  "/reset-password",
   // Lands the browser after clicking the email-confirmation link, before
   // a session exists yet (see src/app/(gate)/auth/callback/page.tsx).
   "/auth",
