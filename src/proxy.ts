@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-
-/** Cookie set after successful registration / sign-in. */
-export const ACCESS_COOKIE = "ecopeps-access";
-/** Cookie set after age + RUO confirm on /enter. */
-export const AGE_COOKIE = "ecopeps-age";
+import { refreshSession } from "@/lib/supabase/proxy";
 
 const PUBLIC_PREFIXES = [
   "/enter",
   "/register",
+  // Lands the browser after clicking the email-confirmation link, before
+  // a session exists yet (see src/app/(gate)/auth/callback/page.tsx).
+  "/auth",
   "/quality",
   "/about",
   "/contact",
@@ -38,24 +37,36 @@ function isPublicPath(pathname: string): boolean {
   );
 }
 
-export function proxy(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  if (isPublicPath(pathname) || pathname.startsWith("/api/")) {
+  if (pathname.startsWith("/api/")) {
     return NextResponse.next();
   }
 
-  const hasAccess = request.cookies.get(ACCESS_COOKIE)?.value === "1";
+  // Do not run code between refreshSession and the claims check below — a
+  // simple mistake here can make it very hard to debug users being
+  // randomly signed out. This runs on every request (not just gated ones)
+  // so a session that's expired after a long idle period gets refreshed
+  // before the visitor ever hits a page that needs it.
+  const { claims, response } = await refreshSession(request);
 
-  // Unregistered visitors: send storefront traffic through the Enter gate.
-  if (!hasAccess) {
+  // Signed-in but not yet confirmed their email: Supabase only issues
+  // claims for a confirmed session (email confirmations are required on
+  // this project — see registration/README notes), so reaching this point
+  // with claims already implies a verified account.
+  if (!claims && !isPublicPath(pathname)) {
     const enterUrl = request.nextUrl.clone();
     enterUrl.pathname = "/enter";
     enterUrl.search = "";
-    return NextResponse.redirect(enterUrl);
+    const redirectResponse = NextResponse.redirect(enterUrl);
+    response.cookies.getAll().forEach((cookie) => {
+      redirectResponse.cookies.set(cookie);
+    });
+    return redirectResponse;
   }
 
-  return NextResponse.next();
+  return response;
 }
 
 export const config = {
