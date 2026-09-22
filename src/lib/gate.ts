@@ -1,7 +1,5 @@
 export const AGE_KEY = "ecopeps-age-verified";
-export const ACCOUNT_KEY = "ecopeps-account";
 export const AGE_COOKIE = "ecopeps-age";
-export const ACCESS_COOKIE = "ecopeps-access";
 
 export const BUSINESS_TYPES = [
   "Business / Institution (EIN Required)",
@@ -25,18 +23,6 @@ export const INDUSTRY_AFFILIATIONS = [
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
 export type IndustryAffiliation = (typeof INDUSTRY_AFFILIATIONS)[number];
 
-export type GateAccount = {
-  name: string;
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  institution: string;
-  businessType: BusinessType | "";
-  industry: IndustryAffiliation | "";
-  website: string;
-  phone: string;
-};
-
 function setCookie(name: string, value: string, maxAgeDays = 365) {
   try {
     const maxAge = maxAgeDays * 24 * 60 * 60;
@@ -46,6 +32,12 @@ function setCookie(name: string, value: string, maxAgeDays = 365) {
   }
 }
 
+// Age/RUO confirmation on /enter is a lightweight UX gate ahead of the
+// real account system, not a compliance record — it just decides whether
+// to show the registration form. The actual "I certify research use only"
+// acknowledgment made *during* registration is a real, stored fact (see
+// profiles.terms_accepted_at, set from Supabase Auth user_metadata in
+// RegisterClient.tsx), not client-only state.
 export function readAgeVerified(): boolean {
   if (typeof window === "undefined") return false;
   try {
@@ -63,24 +55,4 @@ export function writeAgeVerified(): void {
     // ignore
   }
   setCookie(AGE_COOKIE, "1");
-}
-
-export function readAccount(): GateAccount | null {
-  if (typeof window === "undefined") return null;
-  try {
-    const raw = window.localStorage.getItem(ACCOUNT_KEY);
-    if (!raw) return null;
-    return JSON.parse(raw) as GateAccount;
-  } catch {
-    return null;
-  }
-}
-
-export function writeAccount(account: GateAccount): void {
-  try {
-    window.localStorage.setItem(ACCOUNT_KEY, JSON.stringify(account));
-  } catch {
-    // ignore
-  }
-  setCookie(ACCESS_COOKIE, "1");
 }
