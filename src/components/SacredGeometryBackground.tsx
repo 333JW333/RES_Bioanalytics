@@ -24,7 +24,7 @@ export default function SacredGeometryBackground() {
   return (
     <svg
       aria-hidden
-      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.06]"
+      className="pointer-events-none absolute inset-0 h-full w-full opacity-[0.03]"
     >
       <defs>
         <pattern
