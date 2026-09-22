@@ -1,16 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initiateAchTransfer, isDwollaConfigured } from "@/lib/payments/dwolla";
+import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { fundingSourceUrl, amount } = body as {
-      fundingSourceUrl: string;
-      amount: number;
-    };
+    const { fundingSourceUrl } = body as { fundingSourceUrl?: string };
 
-    if (!fundingSourceUrl || !amount || amount <= 0) {
+    if (!fundingSourceUrl) {
       return NextResponse.json({ error: "Invalid transfer request." }, { status: 400 });
+    }
+
+    const order = priceOrder(body.items);
+    if (!order.ok) {
+      return NextResponse.json({ error: order.error }, { status: 400 });
     }
 
     const orderId = crypto.randomUUID();
@@ -25,7 +28,7 @@ export async function POST(req: NextRequest) {
 
     const transferUrl = await initiateAchTransfer({
       sourceFundingSourceUrl: fundingSourceUrl,
-      amountUsd: amount,
+      amountUsd: order.total,
       orderId,
     });
 

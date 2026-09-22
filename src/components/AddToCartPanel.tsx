@@ -5,10 +5,7 @@ import { useRouter } from "next/navigation";
 import type { Product } from "@/types/product";
 import { useCart } from "@/lib/cart-context";
 import { formatUSD } from "@/lib/format";
-
-function discountedPrice(price: number, discountPercent: number): number {
-  return Math.round(price * (1 - discountPercent / 100) * 100) / 100;
-}
+import { discountedPrice } from "@/lib/pricing";
 
 export default function AddToCartPanel({ product }: { product: Product }) {
   const defaultSizeIndex = Math.max(
@@ -38,7 +35,6 @@ export default function AddToCartPanel({ product }: { product: Product }) {
         name: product.name,
         sizeLabel: size.label,
         sku: size.sku,
-        unitPrice,
       },
       qty
     );
