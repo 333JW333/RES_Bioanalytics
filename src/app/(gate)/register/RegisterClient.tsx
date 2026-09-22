@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
 import { LogoMark } from "@/components/icons";
+import Turnstile from "@/components/Turnstile";
 import { createClient } from "@/lib/supabase/client";
 import {
   BUSINESS_TYPES,
@@ -37,6 +38,8 @@ export default function RegisterClient({
   const [submitting, setSubmitting] = useState(false);
   const [resending, setResending] = useState(false);
   const [resent, setResent] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const [captchaResetKey, setCaptchaResetKey] = useState(0);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -62,13 +65,30 @@ export default function RegisterClient({
     setReady(true);
   }, [router]);
 
+  // Supabase rejects auth requests without a Turnstile token once captcha
+  // protection is on. Each token is single-use, so the widget is reset
+  // after every request that sent one.
+  function takeCaptchaToken(): string | null {
+    if (!captchaToken) {
+      setError(
+        "Please wait for the security check below to finish, then try again."
+      );
+      return null;
+    }
+    setCaptchaResetKey((k) => k + 1);
+    return captchaToken;
+  }
+
   async function handleResend() {
-    setResending(true);
     setError(null);
+    const token = takeCaptchaToken();
+    if (!token) return;
+    setResending(true);
     const supabase = createClient();
     const { error: resendError } = await supabase.auth.resend({
       type: "signup",
       email: email.trim().toLowerCase(),
+      options: { captchaToken: token },
     });
     setResending(false);
     if (resendError) {
@@ -126,11 +146,14 @@ export default function RegisterClient({
         return;
       }
 
+      const token = takeCaptchaToken();
+      if (!token) return;
       setSubmitting(true);
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: trimmedEmail,
         password,
         options: {
+          captchaToken: token,
           emailRedirectTo: `${window.location.origin}/auth/callback`,
           data: {
             first_name: firstName.trim(),
@@ -164,10 +187,13 @@ export default function RegisterClient({
       return;
     }
 
+    const token = takeCaptchaToken();
+    if (!token) return;
     setSubmitting(true);
     const { data, error: signInError } = await supabase.auth.signInWithPassword({
       email: trimmedEmail,
       password,
+      options: { captchaToken: token },
     });
     setSubmitting(false);
 
@@ -238,11 +264,18 @@ export default function RegisterClient({
               </p>
             )}
 
+            <div className="mt-5">
+              <Turnstile
+                onToken={setCaptchaToken}
+                resetKey={captchaResetKey}
+              />
+            </div>
+
             <button
               type="button"
               onClick={handleResend}
               disabled={resending}
-              className="mt-5 text-sm font-medium text-brand-teal-dark hover:underline disabled:cursor-wait disabled:opacity-70"
+              className="mt-3 text-sm font-medium text-brand-teal-dark hover:underline disabled:cursor-wait disabled:opacity-70"
             >
               {resending
                 ? "Resending…"
@@ -455,6 +488,11 @@ export default function RegisterClient({
                   </p>
                 </>
               )}
+
+              <Turnstile
+                onToken={setCaptchaToken}
+                resetKey={captchaResetKey}
+              />
 
               {error && (
                 <div
