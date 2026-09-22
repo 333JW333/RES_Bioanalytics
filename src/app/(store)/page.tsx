@@ -38,7 +38,7 @@ export default function Home() {
           <FeatureItem
             icon={<ShieldCheckIcon className="h-6 w-6" />}
             title="COA-Verified Purity"
-            description="Every batch is tested by third-party HPLC/MS analysis, with certificates of analysis available for every lot."
+            description="Every batch is tested by third-party HPLC/MS analysis, with a certificate of analysis available for each one."
           />
           <FeatureItem
             icon={<FlaskIcon className="h-6 w-6" />}

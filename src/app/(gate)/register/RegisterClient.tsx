@@ -27,14 +27,16 @@ type Mode = "register" | "signin";
 
 export default function RegisterClient() {
   const router = useRouter();
-  const [mode, setMode] = useState<Mode>("register");
+  const [mode, setMode] = useState<Mode>(() =>
+    readAccount()?.email ? "signin" : "register"
+  );
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => readAccount()?.email ?? "");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [businessType, setBusinessType] = useState<BusinessType | "">("");
   const [industry, setIndustry] = useState<IndustryAffiliation | "">("");
@@ -46,15 +48,13 @@ export default function RegisterClient() {
   const [ackTouched, setAckTouched] = useState(false);
 
   useEffect(() => {
+    // One-time client-only auth-gate check on mount (SSR-safe: readAgeVerified
+    // reads localStorage/cookies, unavailable during server render).
     if (!readAgeVerified()) {
       router.replace("/enter");
       return;
     }
-    const existing = readAccount();
-    if (existing?.email) {
-      setEmail(existing.email);
-      setMode("signin");
-    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
   }, [router]);
 

@@ -2,10 +2,14 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/data/products";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import AddToCartPanel from "@/components/AddToCartPanel";
 import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
 import ProductGallery from "@/components/ProductGallery";
+import CoaDashboard from "@/components/CoaDashboard";
+import ProductDisclaimer from "@/components/ProductDisclaimer";
+import ProductUsageNotice from "@/components/ProductUsageNotice";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -25,15 +29,16 @@ export async function generateMetadata(
   const product = getProductBySlug(slug);
   if (!product) return {};
   const image = product.images?.front;
+  const displayTitle = product.synonym ? `${product.name} — ${product.synonym}` : product.name;
 
   return {
-    title: product.name,
+    title: displayTitle,
     description: product.shortDescription,
     alternates: {
       canonical: `/shop/${product.slug}`,
     },
     openGraph: {
-      title: `${product.name} | EcoPeps`,
+      title: `${displayTitle} | EcoPeps`,
       description: product.shortDescription,
       url: `/shop/${product.slug}`,
       type: "website",
@@ -57,9 +62,44 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   if (!product) notFound();
 
   const pubchemQuery = encodeURIComponent(product.casNumber ?? product.name);
+  const primarySize = product.sizes.find((s) => s.inStock !== false) ?? product.sizes[0];
+  // Structured data only — search engines read this; nothing here renders
+  // on the visible page. seoAlternateNames lets a product surface for a
+  // widely-searched generic name without that name appearing on-page.
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    ...(product.seoAlternateNames && product.seoAlternateNames.length > 0
+      ? { alternateName: product.seoAlternateNames }
+      : {}),
+    description: product.shortDescription,
+    category: product.category,
+    url: `${SITE_URL}/shop/${product.slug}`,
+    ...(product.images?.front ? { image: `${SITE_URL}${product.images.front}` } : {}),
+    brand: { "@type": "Brand", name: SITE_NAME },
+    sku: primarySize.sku,
+    offers: {
+      "@type": "Offer",
+      url: `${SITE_URL}/shop/${product.slug}`,
+      priceCurrency: "USD",
+      price: primarySize.price,
+      availability:
+        primarySize.inStock === false
+          ? "https://schema.org/OutOfStock"
+          : "https://schema.org/InStock",
+    },
+  };
 
   return (
-    <div className="container-page py-14">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <div className="container-page py-14">
+      {product.showUsageNotice && <ProductUsageNotice />}
+
       <nav className="text-sm text-brand-slate-light mb-8">
         <Link href="/shop" className="hover:text-brand-teal-dark">Shop</Link>
         <span className="mx-2">/</span>
@@ -90,14 +130,24 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div className="flex items-start gap-3 rounded-xl border border-brand-line bg-brand-ice p-4">
             <ShieldCheckIcon className="h-5 w-5 shrink-0 text-brand-teal-dark mt-0.5" />
             <p className="text-xs text-brand-slate-light leading-relaxed">
-              Each lot ships with a certificate of analysis confirming
-              identity and purity by HPLC/MS — see{" "}
-              <a href="#documents" className="text-brand-teal-dark underline">
-                Documents &amp; Files
-              </a>{" "}
-              below. Storage: {product.storage}
+              {product.infoNote ?? (
+                <>
+                  Each batch ships with a certificate of analysis confirming
+                  identity and purity by HPLC/MS — see{" "}
+                  <a href="#documents" className="text-brand-teal-dark underline">
+                    Documents &amp; Files
+                  </a>{" "}
+                  below. Storage: {product.storage}
+                </>
+              )}
             </p>
           </div>
+
+          {product.coaPanel && (
+            <div className="mt-6">
+              <CoaDashboard coa={product.coaPanel} />
+            </div>
+          )}
         </div>
       </div>
 
@@ -157,18 +207,23 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 <SpecItem label="Purity" value={product.purity} />
                 <SpecItem label="Form" value={product.form} />
                 <SpecItem label="Category" value={product.category} />
-                <SpecItem
-                  label="Available Sizes"
-                  value={
-                    <ul className="space-y-0.5">
-                      {product.sizes.map((s) => (
-                        <li key={s.sku}>
-                          {s.label} — <span className="font-mono text-xs">{s.sku}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  }
-                />
+                {!product.hideSizesSpec && (
+                  <SpecItem
+                    label="Available Sizes"
+                    value={
+                      <ul className="space-y-0.5">
+                        {product.sizes.map((s) => (
+                          <li key={s.sku}>
+                            {s.label} — <span className="font-mono text-xs">{s.sku}</span>
+                            {s.inStock === false && (
+                              <span className="text-brand-slate-light"> (not in stock)</span>
+                            )}
+                          </li>
+                        ))}
+                      </ul>
+                    }
+                  />
+                )}
               </dl>
             </div>
 
@@ -251,17 +306,24 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                       {doc.subLabel && (
                         <p className="text-xs text-brand-slate-light">{doc.subLabel}</p>
                       )}
-                      <p className="text-xs text-brand-slate-light font-mono truncate">
-                        {doc.fileName} · {doc.fileSizeLabel}
-                      </p>
                     </div>
-                    <div className="flex gap-2 shrink-0">
+                    <div className="flex flex-wrap gap-2 shrink-0">
                       <a href={doc.url} target="_blank" rel="noopener noreferrer" className="btn-secondary !py-1.5 !px-3 text-sm">
                         View
                       </a>
                       <a href={doc.url} download className="btn-primary !py-1.5 !px-3 text-sm">
                         <DownloadIcon /> Download
                       </a>
+                      {doc.verifyUrl && (
+                        <a
+                          href={doc.verifyUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 self-center text-xs font-medium text-brand-teal-dark hover:underline"
+                        >
+                          Verify with lab <ExternalLinkIcon />
+                        </a>
+                      )}
                     </div>
                   </li>
                 ))}
@@ -277,8 +339,11 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             )}
           </Disclosure>
         </div>
+
+        {product.showDisclaimer && <ProductDisclaimer />}
       </section>
-    </div>
+      </div>
+    </>
   );
 }
 

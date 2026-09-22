@@ -16,9 +16,9 @@ export default function QualityPage() {
         <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy mb-5">Quality &amp; Certificates of Analysis</h1>
         <p className="text-brand-slate leading-relaxed mb-4">
-          Every production lot is independently tested by HPLC and mass
+          Every production batch is independently tested by HPLC and mass
           spectrometry to confirm identity and purity before release. A
-          certificate of analysis (COA) is generated for each lot and made
+          certificate of analysis (COA) is generated for each batch and made
           available with your order.
         </p>
         <ol className="list-decimal list-inside space-y-2 text-sm text-brand-slate">
@@ -26,7 +26,7 @@ export default function QualityPage() {
           <li>Synthesis and lyophilization under controlled conditions</li>
           <li>Third-party HPLC purity analysis (≥98–99%, compound dependent)</li>
           <li>Mass spectrometry confirmation of molecular identity</li>
-          <li>Lot-specific COA issued prior to release for sale</li>
+          <li>Batch-specific COA issued prior to release for sale</li>
         </ol>
       </div>
 
@@ -45,7 +45,7 @@ export default function QualityPage() {
         ))}
       </div>
       <p className="text-xs text-brand-slate-light mt-6">
-        Lot-specific COAs are issued with each shipment. Contact us if you
+        Batch-specific COAs are issued with each shipment. Contact us if you
         need a COA for a product before purchasing.
       </p>
     </div>

@@ -11,11 +11,16 @@ export default function ProductGallery({
   images: ProductImages;
   name: string;
 }) {
-  const shots: { key: "front" | "back"; label: string; src: string }[] = [
+  const shots = [
     { key: "front", label: "Front", src: images.front },
     { key: "back", label: "Back", src: images.back },
+    ...(images.extra ?? []).map((e, i) => ({
+      key: `extra-${i}`,
+      label: e.label,
+      src: e.src,
+    })),
   ];
-  const [active, setActive] = useState<"front" | "back">("front");
+  const [active, setActive] = useState(shots[0].key);
   const activeShot = shots.find((s) => s.key === active) ?? shots[0];
 
   return (
@@ -23,14 +28,19 @@ export default function ProductGallery({
       <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-brand-line bg-brand-ice shadow-sm">
         <Image
           src={activeShot.src}
-          alt={`${name} vial — ${activeShot.label.toLowerCase()}`}
+          alt={`${name} — ${activeShot.label.toLowerCase()}`}
           fill
           sizes="(min-width: 1024px) 480px, 90vw"
           className="object-contain p-10 sm:p-14"
           priority
         />
       </div>
-      <div className="flex justify-center gap-3">
+      {activeShot.key === "back" && images.backCaption && (
+        <p className="-mt-2 text-center text-xs text-brand-slate-light">
+          {images.backCaption}
+        </p>
+      )}
+      <div className="flex flex-wrap justify-center gap-3">
         {shots.map((shot) => (
           <button
             key={shot.key}
@@ -46,7 +56,7 @@ export default function ProductGallery({
             <span className="relative h-16 w-16 overflow-hidden rounded-lg bg-brand-ice sm:h-20 sm:w-20">
               <Image
                 src={shot.src}
-                alt={`${name} vial thumbnail — ${shot.label.toLowerCase()}`}
+                alt={`${name} thumbnail — ${shot.label.toLowerCase()}`}
                 fill
                 sizes="80px"
                 className="object-contain p-2"
