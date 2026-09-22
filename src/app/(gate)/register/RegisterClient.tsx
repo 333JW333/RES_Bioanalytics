@@ -182,12 +182,26 @@ export default function RegisterClient({
         return;
       }
 
+      // For an email that already has a confirmed account, Supabase
+      // returns success with a placeholder user whose identities list is
+      // empty, and sends no email. Say so and move to sign-in rather than
+      // showing a "check your email" screen for an email that never comes.
+      // (This does reveal that the email is registered — an accepted
+      // trade-off for clearer guidance on a B2B signup form.) An existing
+      // but unconfirmed account gets a fresh confirmation email and falls
+      // through to the normal "check your email" view.
+      if (data.user && data.user.identities?.length === 0) {
+        setMode("signin");
+        setPassword("");
+        setError(
+          "An account with this email already exists. Sign in below, or use Forgot password if you don't remember your password."
+        );
+        return;
+      }
+
       // Email confirmations are required on this project, so a fresh
       // signUp never returns an active session — it always needs the
-      // confirmation link. (Supabase also returns success-with-no-error
-      // here for an email that's already registered, to avoid leaking
-      // which emails have accounts — the "check your email" message
-      // covers that case correctly either way.)
+      // confirmation link.
       if (data.session) {
         router.push("/shop");
         return;
