@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import EnquiryForm from "./EnquiryForm";
+import InquiryForm from "./InquiryForm";
 
 export const metadata: Metadata = {
-  title: "Submit an enquiry",
+  title: "Submit an inquiry",
   description:
-    "Questions about specifications, documentation, orders, bulk allocation, or the site — send the EcoPeps team an enquiry.",
+    "Questions about specifications, documentation, orders, bulk allocation, or the site — send the EcoPeps team an inquiry.",
 };
 
 export default function ContactPage() {
@@ -15,7 +15,7 @@ export default function ContactPage() {
         Contact
       </p>
       <h1 className="mt-2 text-3xl font-bold text-brand-navy">
-        Submit an enquiry
+        Submit an inquiry
       </h1>
       <p className="mt-3 mb-8 leading-relaxed text-brand-slate">
         Questions about specifications, certificates of analysis, order
@@ -23,7 +23,7 @@ export default function ContactPage() {
         Send us the details and we&apos;ll respond within one business day.
       </p>
 
-      <EnquiryForm />
+      <InquiryForm />
 
       <div className="card mt-8 space-y-4 p-6">
         <ContactRow label="Email" value="support@ecopeps.com" />
