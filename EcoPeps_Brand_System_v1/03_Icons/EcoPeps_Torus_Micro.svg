@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">EcoPeps micro torus mark</title>
+  <desc id="desc">EcoPeps identity artwork built from original mathematical torus geometry. Center opening is 10 percent of the visible torus diameter.</desc>
+
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="13.86">
+      <circle cx="350.50" cy="256.00" r="115.50" stroke="#14B8A6"/>
+      <circle cx="322.82" cy="322.82" r="115.50" stroke="#0D8F81"/>
+      <circle cx="256.00" cy="350.50" r="115.50" stroke="#14B8A6"/>
+      <circle cx="189.18" cy="322.82" r="115.50" stroke="#0D8F81"/>
+      <circle cx="161.50" cy="256.00" r="115.50" stroke="#14B8A6"/>
+      <circle cx="189.18" cy="189.18" r="115.50" stroke="#0D8F81"/>
+      <circle cx="256.00" cy="161.50" r="115.50" stroke="#14B8A6"/>
+      <circle cx="322.82" cy="189.18" r="115.50" stroke="#0D8F81"/>
+    </g>
+    <circle cx="256.00" cy="256.00" r="210.00" fill="none" stroke="#071A2C" stroke-width="14.70"/>
+    <circle cx="256.00" cy="256.00" r="21.00" fill="none" stroke="#071A2C" stroke-width="13.65"/>
+</svg>

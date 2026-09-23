@@ -1,0 +1,63 @@
+{
+  "$schema": "https://design-tokens.github.io/community-group/format/",
+  "color": {
+    "ice": {
+      "$type": "color",
+      "$value": "#F6F9FB"
+    },
+    "navy": {
+      "$type": "color",
+      "$value": "#071A2C"
+    },
+    "navy_2": {
+      "$type": "color",
+      "$value": "#0F2A45"
+    },
+    "teal": {
+      "$type": "color",
+      "$value": "#14B8A6"
+    },
+    "teal_dark": {
+      "$type": "color",
+      "$value": "#0D8F81"
+    },
+    "graphite": {
+      "$type": "color",
+      "$value": "#17222F"
+    },
+    "line": {
+      "$type": "color",
+      "$value": "#E2E8F0"
+    },
+    "amber": {
+      "$type": "color",
+      "$value": "#FBBF24"
+    },
+    "white": {
+      "$type": "color",
+      "$value": "#FFFFFF"
+    },
+    "black": {
+      "$type": "color",
+      "$value": "#000000"
+    }
+  },
+  "geometry": {
+    "torus-opening-ratio": {
+      "$type": "number",
+      "$value": 0.1
+    },
+    "display-loop-count": {
+      "$type": "number",
+      "$value": 28
+    },
+    "flat-loop-count": {
+      "$type": "number",
+      "$value": 20
+    },
+    "micro-loop-count": {
+      "$type": "number",
+      "$value": 8
+    }
+  }
+}
