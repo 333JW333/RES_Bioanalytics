@@ -30,7 +30,7 @@ export default function Header() {
       </div>
       <div className="container-page flex items-center justify-between gap-3 py-3">
         <Link href="/" className="flex items-center">
-          <Logo className="h-11 w-auto sm:h-12" />
+          <Logo className="h-11 w-auto sm:h-14" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-brand-slate">
