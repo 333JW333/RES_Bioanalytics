@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { LogoMark, CartIcon } from "@/components/icons";
+import { CartIcon } from "@/components/icons";
+import Logo from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
 import { createClient } from "@/lib/supabase/client";
 
@@ -48,11 +49,8 @@ export default function Header() {
         </div>
       </div>
       <div className="container-page flex items-center justify-between py-3">
-        <Link href="/" className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="text-lg font-bold tracking-tight text-brand-navy">
-            EcoPeps
-          </span>
+        <Link href="/" className="flex items-center">
+          <Logo className="h-11 w-auto sm:h-12" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-brand-slate">

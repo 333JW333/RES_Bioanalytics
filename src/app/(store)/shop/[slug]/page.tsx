@@ -42,16 +42,13 @@ export async function generateMetadata(
       description: product.shortDescription,
       url: `/shop/${product.slug}`,
       type: "website",
-      ...(image
-        ? {
-            images: [
-              {
-                url: image,
-                alt: `${product.name} research vial`,
-              },
-            ],
-          }
-        : {}),
+      // A page-level openGraph replaces the root one, so fall back to the
+      // site share image when a product has no vial photo.
+      images: [
+        image
+          ? { url: image, alt: `${product.name} research vial` }
+          : { url: "/brand/ecopeps-og.png", width: 1200, height: 630, alt: `${SITE_NAME} logo` },
+      ],
     },
   };
 }
