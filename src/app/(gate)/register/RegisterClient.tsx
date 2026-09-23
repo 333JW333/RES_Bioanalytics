@@ -571,7 +571,7 @@ export default function RegisterClient({
                 href="/contact"
                 className="shrink-0 text-xs font-semibold uppercase tracking-[0.12em] text-brand-navy underline underline-offset-2 hover:text-brand-teal-dark"
               >
-                Submit an enquiry →
+                Submit an inquiry →
               </Link>
             </div>
           </section>

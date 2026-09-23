@@ -3,11 +3,11 @@
 import Link from "next/link";
 import { useActionState, useState } from "react";
 import Turnstile from "@/components/Turnstile";
-import { submitEnquiry, type EnquiryState } from "./actions";
+import { submitInquiry, type InquiryState } from "./actions";
 
-const initialState: EnquiryState = { status: "idle" };
+const initialState: InquiryState = { status: "idle" };
 
-export default function EnquiryForm() {
+export default function InquiryForm() {
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const [captchaResetKey, setCaptchaResetKey] = useState(0);
   const [values, setValues] = useState({
@@ -21,8 +21,8 @@ export default function EnquiryForm() {
   });
 
   const [state, formAction, pending] = useActionState(
-    async (prev: EnquiryState, formData: FormData) => {
-      const result = await submitEnquiry(prev, formData);
+    async (prev: InquiryState, formData: FormData) => {
+      const result = await submitInquiry(prev, formData);
       // The Turnstile token was spent on that attempt; issue a new one so
       // a retry can pass the check.
       if (result.status === "error") setCaptchaResetKey((k) => k + 1);
@@ -35,7 +35,7 @@ export default function EnquiryForm() {
     return (
       <div className="card p-6 text-center sm:p-8">
         <h2 className="text-lg font-semibold text-brand-navy">
-          Thanks — your enquiry is on its way
+          Thanks — your inquiry is on its way
         </h2>
         <p className="mt-2 text-sm leading-relaxed text-brand-slate">
           We&apos;ll reply to <strong>{values.email}</strong> within one
@@ -74,7 +74,7 @@ export default function EnquiryForm() {
       </label>
 
       <fieldset>
-        <FieldLabel required>By sending this enquiry</FieldLabel>
+        <FieldLabel required>By sending this inquiry</FieldLabel>
         <label className="flex cursor-pointer items-start gap-3 text-sm leading-relaxed text-brand-navy">
           <input
             type="checkbox"
@@ -113,7 +113,7 @@ export default function EnquiryForm() {
         disabled={pending}
         className="btn-primary min-h-11 w-full disabled:cursor-wait disabled:opacity-70"
       >
-        {pending ? "Sending…" : "Send enquiry"}
+        {pending ? "Sending…" : "Send inquiry"}
       </button>
     </form>
   );

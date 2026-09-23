@@ -3,13 +3,13 @@
 import { headers } from "next/headers";
 import { createClient } from "@/lib/supabase/server";
 
-export type EnquiryState =
+export type InquiryState =
   | { status: "idle" }
   | { status: "error"; message: string }
   | { status: "sent" };
 
 const SUPPORT_EMAIL = "support@ecopeps.com";
-const FROM = "EcoPeps Enquiry Form <enquiries@ecopeps.com>";
+const FROM = "EcoPeps Inquiry Form <inquiries@ecopeps.com>";
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function field(formData: FormData, name: string, max: number): string {
@@ -22,7 +22,7 @@ function field(formData: FormData, name: string, max: number): string {
 async function verifyTurnstile(token: string): Promise<boolean> {
   const secret = process.env.TURNSTILE_SECRET_KEY;
   if (!secret) {
-    console.error("TURNSTILE_SECRET_KEY is not set; rejecting enquiry");
+    console.error("TURNSTILE_SECRET_KEY is not set; rejecting inquiry");
     return false;
   }
   const ip = (await headers()).get("x-forwarded-for")?.split(",")[0]?.trim();
@@ -52,7 +52,7 @@ async function emailSupport(e: {
 }): Promise<void> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
-    console.error("RESEND_API_KEY is not set; enquiry saved but not emailed");
+    console.error("RESEND_API_KEY is not set; inquiry saved but not emailed");
     return;
   }
   // Plain text only, so nothing the visitor typed is rendered as HTML.
@@ -75,22 +75,22 @@ async function emailSupport(e: {
         from: FROM,
         to: [SUPPORT_EMAIL],
         reply_to: e.email,
-        subject: `Enquiry: ${e.subject}`,
+        subject: `Inquiry: ${e.subject}`,
         text,
       }),
     });
     if (!res.ok) {
-      console.error("Resend rejected enquiry email", res.status, await res.text());
+      console.error("Resend rejected inquiry email", res.status, await res.text());
     }
   } catch (err) {
-    console.error("Sending enquiry email failed", err);
+    console.error("Sending inquiry email failed", err);
   }
 }
 
-export async function submitEnquiry(
-  _prev: EnquiryState,
+export async function submitInquiry(
+  _prev: InquiryState,
   formData: FormData
-): Promise<EnquiryState> {
+): Promise<InquiryState> {
   const firstName = field(formData, "firstName", 100);
   const lastName = field(formData, "lastName", 100);
   const email = field(formData, "email", 254).toLowerCase();
@@ -109,7 +109,7 @@ export async function submitEnquiry(
   if (!agreed) {
     return {
       status: "error",
-      message: "Please confirm the research-use agreement to send your enquiry.",
+      message: "Please confirm the research-use agreement to send your inquiry.",
     };
   }
   if (!token || !(await verifyTurnstile(token))) {
@@ -124,6 +124,7 @@ export async function submitEnquiry(
   const { data: claims } = await supabase.auth.getClaims();
   const userId = claims?.claims?.sub ?? null;
 
+  // The table predates the switch to US spelling and keeps its original name.
   const { error } = await supabase.from("enquiries").insert({
     user_id: userId,
     first_name: firstName,
@@ -135,10 +136,10 @@ export async function submitEnquiry(
     terms_accepted_at: new Date().toISOString(),
   });
   if (error) {
-    console.error("Saving enquiry failed", error);
+    console.error("Saving inquiry failed", error);
     return {
       status: "error",
-      message: `We couldn't send your enquiry. Please try again, or email ${SUPPORT_EMAIL}.`,
+      message: `We couldn't send your inquiry. Please try again, or email ${SUPPORT_EMAIL}.`,
     };
   }
 
