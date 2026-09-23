@@ -179,3 +179,12 @@ export function ChevronDownIcon({ className = "h-4 w-4" }: { className?: string 
     </svg>
   );
 }
+
+export function UserIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor" aria-hidden="true">
+      <circle cx="12" cy="7.5" r="4.5" />
+      <path d="M3.5 20.5c0-4.4 3.8-7.5 8.5-7.5s8.5 3.1 8.5 7.5a.5.5 0 01-.5.5H4a.5.5 0 01-.5-.5z" />
+    </svg>
+  );
+}
