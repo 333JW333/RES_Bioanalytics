@@ -61,15 +61,18 @@ export default function RegisterClient({
   const [ackTouched, setAckTouched] = useState(false);
 
   useEffect(() => {
-    // One-time client-only auth-gate check on mount (SSR-safe: readAgeVerified
-    // reads localStorage/cookies, unavailable during server render).
-    if (!readAgeVerified()) {
+    // Client-only auth-gate check (SSR-safe: readAgeVerified reads
+    // localStorage/cookies, unavailable during server render). Only new
+    // registrations need the /enter confirmation: returning customers
+    // certified age and research use when they registered, and a new browser
+    // or device has no flag, so gating sign-in bounced them back to /enter.
+    if (mode === "register" && !readAgeVerified()) {
       router.replace("/enter");
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
-  }, [router]);
+  }, [mode, router]);
 
   // Supabase rejects auth requests without a Turnstile token once captcha
   // protection is on. Each token is single-use, so the widget is reset
