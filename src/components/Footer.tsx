@@ -1,15 +1,13 @@
 import Link from "next/link";
-import { LogoMark, CoinIcon, BankIcon, CardIcon } from "@/components/icons";
+import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   return (
     <footer className="mt-20 bg-brand-navy text-white/80">
       <div className="container-page py-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
         <div>
-          <div className="flex items-center gap-2.5 mb-3">
-            <LogoMark />
-            <span className="text-white font-bold text-lg">EcoPeps</span>
-          </div>
+          <Logo variant="reverse" className="-ml-2 mb-2 h-14 w-auto" />
           <p className="text-sm leading-relaxed text-white/60">
             High-purity reference peptides and research compounds for
             laboratory, analytical, and non-clinical research applications.

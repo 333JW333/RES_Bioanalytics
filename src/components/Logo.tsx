@@ -1,18 +1,28 @@
 import Image from "next/image";
 
+const SOURCES = {
+  color: "/brand/ecopeps-logo-compact.svg",
+  reverse: "/brand/ecopeps-logo-compact-reverse.svg",
+};
+
 /**
- * Full EcoPeps lockup (torus mark + wordmark) for light backgrounds. The
- * dark-background version is pending from the designer, so the navy
- * footer still uses LogoMark.
+ * Compact EcoPeps lockup (flat torus + wordmark) from the brand system in
+ * brand/EcoPeps_Brand_System_v1. "color" is for light backgrounds,
+ * "reverse" for navy. The artwork includes the guideline clear space.
  */
-export default function Logo({ className = "h-10 w-auto" }: { className?: string }) {
+export default function Logo({
+  variant = "color",
+  className = "h-12 w-auto",
+}: {
+  variant?: keyof typeof SOURCES;
+  className?: string;
+}) {
   return (
     <Image
-      src="/brand/ecopeps-logo-full.png"
+      src={SOURCES[variant]}
       alt="EcoPeps"
-      width={1567}
-      height={616}
-      sizes="160px"
+      width={920}
+      height={280}
       className={className}
     />
   );

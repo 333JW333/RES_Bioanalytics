@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: [{ url: "/brand/ecopeps-icon-512.png", sizes: "512x512", type: "image/png" }],
+    icon: [{ url: "/brand/ecopeps-mark.svg", type: "image/svg+xml" }],
     apple: [{ url: "/brand/ecopeps-apple-touch.png", sizes: "180x180", type: "image/png" }],
   },
   alternates: {
