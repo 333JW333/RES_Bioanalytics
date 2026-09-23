@@ -28,7 +28,7 @@ export default function Header() {
           </span>
         </div>
       </div>
-      <div className="container-page flex items-center justify-between py-3">
+      <div className="container-page flex items-center justify-between gap-3 py-3">
         <Link href="/" className="flex items-center">
           <Logo className="h-11 w-auto sm:h-12" />
         </Link>
