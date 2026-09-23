@@ -45,19 +45,28 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: `${SITE_NAME} | Research-Use-Only Peptides & Reagents`,
     description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: "/brand/ecopeps-og.png",
+        width: 1200,
+        height: 630,
+        alt: `${SITE_NAME} logo`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE_NAME} | Research-Use-Only Peptides & Reagents`,
     description: SITE_DESCRIPTION,
+    images: ["/brand/ecopeps-og.png"],
   },
   robots: {
     index: true,
     follow: true,
   },
   icons: {
-    icon: [{ url: "/brand/ecopeps-logo.svg", type: "image/svg+xml" }],
-    apple: [{ url: "/brand/ecopeps-logo.svg", type: "image/svg+xml" }],
+    icon: [{ url: "/brand/ecopeps-mark.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/brand/ecopeps-apple-touch.png", sizes: "180x180", type: "image/png" }],
   },
   alternates: {
     canonical: "/",

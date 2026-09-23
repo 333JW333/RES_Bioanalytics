@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
-import { LogoMark } from "@/components/icons";
+import Logo from "@/components/Logo";
 import Turnstile from "@/components/Turnstile";
 import { createClient } from "@/lib/supabase/client";
 import {
@@ -259,11 +259,8 @@ export default function RegisterClient({
 
       <main className="relative z-10 mx-auto flex w-full max-w-xl flex-1 flex-col px-3.5 py-7 sm:px-6 sm:py-10">
         <header className="mb-5 flex flex-col items-center text-center sm:mb-6">
-          <Link href="/enter" className="inline-flex items-center gap-2.5">
-            <LogoMark className="h-9 w-9 sm:h-8 sm:w-8" />
-            <span className="text-xl font-bold tracking-tight text-brand-navy">
-              EcoPeps
-            </span>
+          <Link href="/enter" className="inline-flex items-center">
+            <Logo className="h-14 w-auto" />
           </Link>
           <p className="mt-2 text-[11px] font-medium uppercase tracking-[0.16em] text-brand-slate-light sm:text-xs">
             Research account access

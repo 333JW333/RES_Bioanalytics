@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import AccountMenu from "@/components/AccountMenu";
-import { LogoMark, CartIcon } from "@/components/icons";
+import { CartIcon } from "@/components/icons";
+import Logo from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
 
 const NAV_LINKS = [
@@ -27,12 +28,9 @@ export default function Header() {
           </span>
         </div>
       </div>
-      <div className="container-page flex items-center justify-between py-3">
-        <Link href="/" className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="text-lg font-bold tracking-tight text-brand-navy">
-            EcoPeps
-          </span>
+      <div className="container-page flex items-center justify-between gap-3 py-3">
+        <Link href="/" className="flex items-center">
+          <Logo className="h-11 w-auto sm:h-12" />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-7 text-sm font-medium text-brand-slate">

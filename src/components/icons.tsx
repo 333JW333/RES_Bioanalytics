@@ -1,29 +1,3 @@
-export function LogoMark({ className = "h-8 w-8" }: { className?: string }) {
-  return (
-    <svg viewBox="0 0 40 40" className={className} fill="none" aria-hidden="true">
-      <rect width="40" height="40" rx="10" fill="#E8F4F1" />
-      <path
-        d="M20 5.5 L31.5 12.2 V25.8 L20 32.5 L8.5 25.8 V12.2 Z"
-        stroke="#071A2C"
-        strokeWidth="2"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M20 10.5 L27 14.6 V22.8 L20 26.9 L13 22.8 V14.6 Z"
-        fill="#14B8A6"
-      />
-      <circle cx="16.4" cy="18.7" r="2.15" fill="#071A2C" />
-      <circle cx="23.6" cy="18.7" r="2.15" fill="#071A2C" />
-      <path
-        d="M18.4 18.7 H21.6"
-        stroke="#E8F4F1"
-        strokeWidth="1.9"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
 export function FlaskIcon({ className = "h-6 w-6" }: { className?: string }) {
   return (
     <svg viewBox="0 0 24 24" className={className} fill="none" aria-hidden="true">
