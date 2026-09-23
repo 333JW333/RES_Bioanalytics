@@ -124,8 +124,7 @@ export async function submitInquiry(
   const { data: claims } = await supabase.auth.getClaims();
   const userId = claims?.claims?.sub ?? null;
 
-  // The table predates the switch to US spelling and keeps its original name.
-  const { error } = await supabase.from("enquiries").insert({
+  const { error } = await supabase.from("inquiries").insert({
     user_id: userId,
     first_name: firstName,
     last_name: lastName || null,
