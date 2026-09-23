@@ -30,7 +30,7 @@ EcoPeps sells research-use-only (RUO) peptides and research compounds to laborat
 
 **Primary colors** (defined as CSS custom properties in `src/app/globals.css`, exposed to Tailwind via `@theme inline`):
 - Navy (primary/authority): `--brand-navy: #071a2c`, `--brand-navy-2: #0f2a45` — used for header top-bar, hero section, footer, product image panels
-- Teal (accent/CTA): `--brand-teal: #14b8a6`, `--brand-teal-dark: #0d8f81` — used sparingly for primary buttons, links, active states
+- Teal (accent/CTA): `--brand-teal: #01a2a9`, `--brand-teal-dark: #01767c` (matched to the approved raster logo's P, not the guidelines' #14B8A6) — used sparingly for primary buttons, links, active states
 - Ice/background: `--brand-ice: #f6f9fb` — page background and subtle section dividers
 - Card surface: `--brand-card: #ffffff`
 - Text: `--brand-slate: #3e4c59` (body), `--brand-slate-light: #64748b` (secondary/meta)

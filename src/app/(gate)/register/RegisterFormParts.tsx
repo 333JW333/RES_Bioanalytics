@@ -31,7 +31,7 @@ export function AcknowledgmentBlock({
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
-          className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-teal-600"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-brand-teal-dark"
           required
         />
         <span>

@@ -24,6 +24,9 @@ removed); the artwork itself is otherwise unchanged.
 Render the raster lockup at least 44 px tall (see `src/components/Logo.tsx`)
 so its torus stays above that 40 px minimum.
 
-The brand colors in the guidelines already match the site's tokens in
-`src/app/globals.css`. When the package is updated, add it as a new
-versioned folder and refresh the copies above.
+The site's teal follows the approved raster logo rather than the
+guidelines' Peptide Teal `#14B8A6`: `--brand-teal` in `src/app/globals.css`
+is the wordmark P's `#01a2a9`, and `--brand-teal-dark` (`#01767c`) is the
+same hue darkened for text. The other brand colors match the guidelines.
+When the package is updated, add it as a new versioned folder and refresh
+the copies above.

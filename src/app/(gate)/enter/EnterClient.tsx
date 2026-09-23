@@ -59,7 +59,7 @@ export default function EnterClient() {
                 type="checkbox"
                 checked={ageConfirmed}
                 onChange={(e) => setAgeConfirmed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-teal-600"
+                className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-brand-teal-dark"
               />
               <span>I confirm that I am at least 21 years of age.</span>
             </label>
@@ -69,7 +69,7 @@ export default function EnterClient() {
                 type="checkbox"
                 checked={ruoConfirmed}
                 onChange={(e) => setRuoConfirmed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-teal-600"
+                className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-brand-teal-dark"
               />
               <span>
                 I understand these products are for{" "}

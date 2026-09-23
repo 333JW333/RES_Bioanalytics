@@ -52,7 +52,7 @@ export function VialIcon({ className = "h-16 w-16" }: { className?: string }) {
         stroke="#0F2A45"
         strokeWidth="1.6"
       />
-      <path d="M26 34h12v8a6 6 0 01-6 6v0a6 6 0 01-6-6v-8z" fill="#14B8A6" />
+      <path d="M26 34h12v8a6 6 0 01-6 6v0a6 6 0 01-6-6v-8z" fill="#01A2A9" />
       <path d="M26 34h12" stroke="#0F2A45" strokeWidth="1.2" />
     </svg>
   );

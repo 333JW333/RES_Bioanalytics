@@ -37,7 +37,7 @@ You are an elite UI designer with obsessive attention to detail and deep mastery
 **Color variables** (`src/app/globals.css`):
 ```
 --brand-navy: #071a2c;       --brand-navy-2: #0f2a45;
---brand-teal: #14b8a6;       --brand-teal-dark: #0d8f81;
+--brand-teal: #01a2a9;       --brand-teal-dark: #01767c;
 --brand-ice: #f6f9fb;        --brand-card: #ffffff;
 --brand-slate: #3e4c59;      --brand-slate-light: #64748b;
 --brand-line: #e2e8f0;

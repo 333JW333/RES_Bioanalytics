@@ -6,8 +6,12 @@
 
   --brand-navy: #071a2c;
   --brand-navy-2: #0f2a45;
-  --brand-teal: #14b8a6;
-  --brand-teal-dark: #0d8f81;
+  /* Teal matches the approved raster logo rather than the guidelines'
+     #14B8A6 (see brand/README.md): the accent is the wordmark P's color, and
+     the dark variant is the same hue darkened for text (at least 4.5:1 on
+     white and ice). */
+  --brand-teal: #01a2a9;
+  --brand-teal-dark: #01767c;
   --brand-ice: #f6f9fb;
   --brand-card: #ffffff;
   --brand-slate: #3e4c59;
@@ -72,7 +76,7 @@ body {
   gap: 0.5rem;
   border-radius: 0.6rem;
   background: var(--brand-teal);
-  color: #04211d;
+  color: var(--brand-navy);
   font-weight: 600;
   padding: 0.7rem 1.4rem;
   transition: background-color 150ms ease, transform 150ms ease;
@@ -97,7 +101,7 @@ body {
 }
 .btn-secondary:hover {
   border-color: var(--brand-teal);
-  background: #f0fdfa;
+  background: #edf8f9;
 }
 
 .card {
@@ -118,5 +122,5 @@ body {
 .input:focus {
   outline: none;
   border-color: var(--brand-teal);
-  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.15);
+  box-shadow: 0 0 0 3px rgba(1, 162, 169, 0.15);
 }

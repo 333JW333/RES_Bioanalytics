@@ -68,7 +68,7 @@ export default function CheckoutPage() {
                 type="checkbox"
                 checked={agreed}
                 onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-0.5 h-4 w-4 rounded border-brand-line accent-teal-600"
+                className="mt-0.5 h-4 w-4 rounded border-brand-line accent-brand-teal-dark"
               />
               <span>
                 I certify that I am purchasing these products solely for

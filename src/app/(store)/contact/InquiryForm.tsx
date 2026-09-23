@@ -81,7 +81,7 @@ export default function InquiryForm() {
             name="agree"
             checked={values.agree}
             onChange={(e) => setValues((v) => ({ ...v, agree: e.target.checked }))}
-            className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-teal-600"
+            className="mt-0.5 h-4 w-4 shrink-0 rounded border-brand-line accent-brand-teal-dark"
           />
           <span>
             I agree to the{" "}

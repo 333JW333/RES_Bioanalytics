@@ -194,8 +194,8 @@ function Chromatogram({
         <defs>
           <linearGradient id="coaPeakFill" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#22d3ee" stopOpacity="0.35" />
-            <stop offset="55%" stopColor="#14b8a6" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#14b8a6" stopOpacity="0" />
+            <stop offset="55%" stopColor="#01a2a9" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#01a2a9" stopOpacity="0" />
           </linearGradient>
           <linearGradient id="coaTraceStroke" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor="#67e8f9" />
