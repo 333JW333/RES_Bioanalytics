@@ -11,7 +11,6 @@ This folder is **not** served by the website. The site uses copies in
 |---|---|
 | `ecopeps-logo-compact.svg` (header, entry/register pages) | `02_Responsive_Lockups/EcoPeps_Compact_Color_Transparent.svg` |
 | `ecopeps-logo-compact-reverse.svg` (navy footer) | `02_Responsive_Lockups/EcoPeps_Compact_Reverse_Dark.svg`, background rectangle removed |
-| `ecopeps-logo-display-reverse.svg` (home page hero) | `01_Master_Vector/EcoPeps_Display_Metallic_Dark.svg`, background rectangle removed |
 | `ecopeps-mark.svg` (browser icon) | `03_Icons/EcoPeps_Torus_Flat.svg` |
 | `ecopeps-apple-touch.png` | Rendered from `03_Icons/EcoPeps_Torus_Flat.svg` on white |
 | `src/app/favicon.ico` | `03_Icons/EcoPeps_Favicon.ico` |
