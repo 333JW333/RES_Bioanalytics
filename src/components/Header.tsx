@@ -1,11 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import AccountMenu from "@/components/AccountMenu";
 import { LogoMark, CartIcon } from "@/components/icons";
 import { useCart } from "@/lib/cart-context";
-import { createClient } from "@/lib/supabase/client";
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
@@ -17,26 +16,7 @@ const NAV_LINKS = [
 
 export default function Header() {
   const { itemCount } = useCart();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [signedIn, setSignedIn] = useState(false);
-
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
-    const { data } = supabase.auth.onAuthStateChange((_event, session) =>
-      setSignedIn(!!session)
-    );
-    return () => data.subscription.unsubscribe();
-  }, []);
-
-  async function handleSignOut() {
-    await createClient().auth.signOut();
-    setOpen(false);
-    router.replace("/enter");
-    // Drop cached store pages so the proxy re-checks the session next visit.
-    router.refresh();
-  }
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-line bg-white/95 backdrop-blur">
@@ -63,16 +43,10 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-3">
-          {signedIn && (
-            <button
-              type="button"
-              onClick={handleSignOut}
-              className="hidden lg:inline-flex text-sm font-medium text-brand-slate hover:text-brand-teal-dark transition-colors"
-            >
-              Sign out
-            </button>
-          )}
+        {/* relative: the account dropdown anchors here on phones. */}
+        <div className="relative flex items-center gap-3">
+          <AccountMenu />
+          <span className="hidden sm:block h-6 w-px bg-brand-line" aria-hidden="true" />
           <Link
             href="/cart"
             className="relative flex h-10 w-10 items-center justify-center rounded-full border border-brand-line text-brand-navy hover:border-brand-teal transition-colors"
@@ -115,15 +89,6 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
-            {signedIn && (
-              <button
-                type="button"
-                onClick={handleSignOut}
-                className="py-2.5 text-left text-sm font-medium text-brand-slate hover:text-brand-teal-dark"
-              >
-                Sign out
-              </button>
-            )}
           </div>
         </nav>
       )}
