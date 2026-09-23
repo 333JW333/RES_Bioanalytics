@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
 import { getFeaturedProducts } from "@/data/products";
@@ -8,27 +9,38 @@ export default function Home() {
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-brand-navy text-white">
-        <div className="pointer-events-none absolute inset-0 opacity-20">
-          <DnaIcon className="absolute -right-10 top-0 h-96 w-96 text-brand-teal" />
-        </div>
-        <div className="container-page relative py-20 sm:py-28">
-          <span className="badge-ruo mb-6">Research Use Only</span>
-          <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
-            High-purity reference peptides, built for the lab.
-          </h1>
-          <p className="mt-5 max-w-xl text-white/70 text-lg leading-relaxed">
-            EcoPeps supplies COA-verified peptides and research
-            compounds to laboratories and qualified researchers. Rigorous
-            purity standards, transparent documentation, fast dispatch.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/shop" className="btn-primary">
-              Browse Catalog
-            </Link>
-            <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
-              View Sample COAs
-            </Link>
+      <section className="bg-brand-navy text-white">
+        <div className="container-page grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_auto]">
+          {/* Display signature from the brand system. Its guidelines set a
+              360px minimum width, so phones rely on the header's compact
+              lockup instead. Decorative: the header logo already names the
+              brand to screen readers. */}
+          <Image
+            src="/brand/ecopeps-logo-display-reverse.svg"
+            alt=""
+            width={1600}
+            height={600}
+            preload
+            className="hidden w-[26rem] sm:block lg:order-last xl:w-[32rem]"
+          />
+          <div>
+            <span className="badge-ruo mb-6">Research Use Only</span>
+            <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
+              High-purity reference peptides, built for the lab.
+            </h1>
+            <p className="mt-5 max-w-xl text-white/70 text-lg leading-relaxed">
+              EcoPeps supplies COA-verified peptides and research
+              compounds to laboratories and qualified researchers. Rigorous
+              purity standards, transparent documentation, fast dispatch.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href="/shop" className="btn-primary">
+                Browse Catalog
+              </Link>
+              <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
+                View Sample COAs
+              </Link>
+            </div>
           </div>
         </div>
       </section>
