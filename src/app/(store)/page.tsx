@@ -1,35 +1,75 @@
+import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
-import { getFeaturedProducts } from "@/data/products";
+import { getFeaturedProducts, getProductBySlug } from "@/data/products";
 import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
+import { formatUSD } from "@/lib/format";
+import { startingPrice } from "@/lib/pricing";
+
+// EP-GLP3-R, our lead product, fronts the hero.
+const HERO_PRODUCT_SLUG = "retatrutide";
 
 export default function Home() {
   const featured = getFeaturedProducts();
+  const heroProduct = getProductBySlug(HERO_PRODUCT_SLUG);
 
   return (
     <div>
-      <section className="relative overflow-hidden bg-brand-navy text-white">
-        <div className="pointer-events-none absolute inset-0 opacity-20">
-          <DnaIcon className="absolute -right-10 top-0 h-96 w-96 text-brand-teal" />
-        </div>
-        <div className="container-page relative py-20 sm:py-28">
-          <span className="badge-ruo mb-6">Research Use Only</span>
-          <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
-            High-purity reference peptides, built for the lab.
-          </h1>
-          <p className="mt-5 max-w-xl text-white/70 text-lg leading-relaxed">
-            EcoPeps supplies COA-verified peptides and research
-            compounds to laboratories and qualified researchers. Rigorous
-            purity standards, transparent documentation, fast dispatch.
-          </p>
-          <div className="mt-8 flex flex-wrap gap-4">
-            <Link href="/shop" className="btn-primary">
-              Browse Catalog
-            </Link>
-            <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
-              View Sample COAs
-            </Link>
+      <section className="bg-brand-navy text-white">
+        <div className="container-page grid items-center gap-10 py-20 sm:py-28 lg:grid-cols-[minmax(0,1fr)_auto]">
+          <div>
+            <span className="badge-ruo mb-6">Research Use Only</span>
+            <h1 className="max-w-2xl text-4xl font-bold leading-tight sm:text-5xl">
+              High-purity reference peptides, built for the lab.
+            </h1>
+            <p className="mt-5 max-w-xl text-white/70 text-lg leading-relaxed">
+              EcoPeps supplies COA-verified peptides and research
+              compounds to laboratories and qualified researchers. Rigorous
+              purity standards, transparent documentation, fast dispatch.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <Link href="/shop" className="btn-primary">
+                Browse Catalog
+              </Link>
+              <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
+                View Sample COAs
+              </Link>
+            </div>
           </div>
+          {heroProduct?.images && (
+            <Link
+              href={`/shop/${heroProduct.slug}`}
+              className="group w-full max-w-sm overflow-hidden rounded-2xl bg-white text-brand-navy shadow-2xl lg:w-[22rem] xl:w-[26rem] xl:max-w-none"
+            >
+              <div className="relative aspect-square overflow-hidden">
+                <Image
+                  src={heroProduct.images.front}
+                  alt={`${heroProduct.name} vial`}
+                  fill
+                  preload
+                  sizes="(min-width: 1280px) 416px, (min-width: 1024px) 352px, 384px"
+                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+              <div className="flex items-start justify-between gap-4 p-5">
+                <div className="min-w-0">
+                  <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-teal-dark">
+                    Featured
+                  </p>
+                  <p className="mt-1 text-lg font-semibold">{heroProduct.name}</p>
+                  <p className="text-xs text-brand-slate-light">{heroProduct.synonym}</p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="text-sm font-semibold">
+                    From {formatUSD(startingPrice(heroProduct))}
+                  </p>
+                  <p className="mt-1 text-xs font-medium text-brand-teal-dark">
+                    {heroProduct.purity}
+                  </p>
+                </div>
+              </div>
+            </Link>
+          )}
         </div>
       </section>
 

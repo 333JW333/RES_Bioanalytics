@@ -2,14 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Product } from "@/types/product";
 import { formatUSD } from "@/lib/format";
+import { startingPrice } from "@/lib/pricing";
 import { VialIcon } from "@/components/icons";
 
 export default function ProductCard({ product }: { product: Product }) {
-  const inStockSizes = product.sizes.filter((s) => s.inStock !== false);
-  const lowestPrice = Math.min(
-    ...(inStockSizes.length > 0 ? inStockSizes : product.sizes).map((s) => s.price)
-  );
-
   return (
     <Link
       href={`/shop/${product.slug}`}
@@ -40,7 +36,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
         <div className="mt-auto flex items-center justify-between pt-3">
           <span className="text-sm font-semibold text-brand-navy">
-            From {formatUSD(lowestPrice)}
+            From {formatUSD(startingPrice(product))}
           </span>
           <span className="text-xs font-medium text-brand-teal-dark">
             {product.purity}

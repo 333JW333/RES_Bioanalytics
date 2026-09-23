@@ -7,6 +7,12 @@ export function discountedPrice(price: number, discountPercent: number): number 
   return Math.round(price * (1 - discountPercent / 100) * 100) / 100;
 }
 
+/** Lowest in-stock size price (any size if none are in stock), for "From $X" labels. */
+export function startingPrice(product: Product): number {
+  const inStock = product.sizes.filter((s) => s.inStock !== false);
+  return Math.min(...(inStock.length > 0 ? inStock : product.sizes).map((s) => s.price));
+}
+
 /** Discount from the highest volume tier the quantity reaches, or 0. */
 export function volumeDiscountPercent(product: Product, qty: number): number {
   const tier = [...(product.volumeTiers ?? [])]
