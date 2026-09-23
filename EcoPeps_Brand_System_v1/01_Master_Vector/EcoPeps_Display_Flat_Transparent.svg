@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="600" viewBox="0 0 1600 600" role="img" aria-labelledby="title desc">
+  <title id="title">EcoPeps display signature</title>
+  <desc id="desc">EcoPeps identity artwork built from original mathematical torus geometry. Center opening is 10 percent of the visible torus diameter.</desc>
+  <defs>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#31444E"/><stop offset="0.16" stop-color="#F5FFFF"/>
+      <stop offset="0.33" stop-color="#7F949E"/><stop offset="0.52" stop-color="#FFFFFF"/>
+      <stop offset="0.71" stop-color="#536C76"/><stop offset="0.88" stop-color="#D6EBEE"/>
+      <stop offset="1" stop-color="#6A7B83"/>
+    </linearGradient>
+    <linearGradient id="tealMetal" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#075765"/><stop offset="0.24" stop-color="#0D8F81"/>
+      <stop offset="0.48" stop-color="#7AF4E6"/><stop offset="0.66" stop-color="#14B8A6"/>
+      <stop offset="1" stop-color="#064A58"/>
+    </linearGradient>
+    <radialGradient id="softShadow"><stop offset="0" stop-color="#071A2C" stop-opacity=".20"/><stop offset="1" stop-color="#071A2C" stop-opacity="0"/></radialGradient>
+    <filter id="softGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2.2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="8.00">
+      <circle cx="412.50" cy="300.00" r="137.50" stroke="#14B8A6"/>
+      <circle cx="406.99" cy="334.76" r="137.50" stroke="#0D8F81"/>
+      <circle cx="391.01" cy="366.13" r="137.50" stroke="#14B8A6"/>
+      <circle cx="366.13" cy="391.01" r="137.50" stroke="#0D8F81"/>
+      <circle cx="334.76" cy="406.99" r="137.50" stroke="#14B8A6"/>
+      <circle cx="300.00" cy="412.50" r="137.50" stroke="#0D8F81"/>
+      <circle cx="265.24" cy="406.99" r="137.50" stroke="#14B8A6"/>
+      <circle cx="233.87" cy="391.01" r="137.50" stroke="#0D8F81"/>
+      <circle cx="208.99" cy="366.13" r="137.50" stroke="#14B8A6"/>
+      <circle cx="193.01" cy="334.76" r="137.50" stroke="#0D8F81"/>
+      <circle cx="187.50" cy="300.00" r="137.50" stroke="#14B8A6"/>
+      <circle cx="193.01" cy="265.24" r="137.50" stroke="#0D8F81"/>
+      <circle cx="208.99" cy="233.87" r="137.50" stroke="#14B8A6"/>
+      <circle cx="233.87" cy="208.99" r="137.50" stroke="#0D8F81"/>
+      <circle cx="265.24" cy="193.01" r="137.50" stroke="#14B8A6"/>
+      <circle cx="300.00" cy="187.50" r="137.50" stroke="#0D8F81"/>
+      <circle cx="334.76" cy="193.01" r="137.50" stroke="#14B8A6"/>
+      <circle cx="366.13" cy="208.99" r="137.50" stroke="#0D8F81"/>
+      <circle cx="391.01" cy="233.87" r="137.50" stroke="#14B8A6"/>
+      <circle cx="406.99" cy="265.24" r="137.50" stroke="#0D8F81"/>
+    </g>
+    <circle cx="300.00" cy="300.00" r="250.00" fill="none" stroke="#071A2C" stroke-width="9.50"/>
+    <circle cx="300.00" cy="300.00" r="25.00" fill="none" stroke="#071A2C" stroke-width="8.50"/>
+    <g aria-label="EcoPeps">
+      <path d="M229 314H578V439H229V604H606V729H79V0H624V125H229Z" fill="#071A2C" transform="translate(620.000 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M522 338C512 470 425 549 289 549C127 549 34 443 34 259C34 81 127 -23 287 -23C418 -23 509 58 522 187H388C371 117 343 90 287 90C216 90 174 153 174 259C174 311 184 358 201 390C217 420 248 436 288 436C345 436 372 409 388 338Z" fill="#071A2C" transform="translate(770.745 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M301 549C136 549 35 440 35 263C35 85 136 -23 302 -23C467 -23 569 85 569 259C569 442 470 549 301 549ZM302 436C379 436 429 367 429 261C429 160 377 90 302 90C226 90 175 159 175 263C175 367 226 436 302 436Z" fill="#071A2C" transform="translate(895.405 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M226 260H413C547 260 633 355 633 503C633 649 550 729 398 729H76V0H226ZM226 385V604H366C446 604 483 569 483 495C483 420 446 385 366 385Z" fill="#14B8A6" transform="translate(1032.990 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M524 226C525 238 525 243 525 250C525 304 517 354 504 392C468 490 381 549 272 549C117 549 22 437 22 256C22 83 116 -23 269 -23C390 -23 488 45 519 152H381C364 109 325 84 274 84C234 84 202 101 182 131C169 151 164 175 162 226ZM164 319C173 402 208 442 270 442C334 442 372 399 379 319Z" fill="#071A2C" transform="translate(1183.735 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M198 540H58V-218H198V64C232 4 280 -24 348 -24C478 -24 574 98 574 262C574 338 552 414 516 464C480 515 413 549 348 549C280 549 232 520 198 460ZM316 432C387 432 434 364 434 260C434 161 386 93 316 93C245 93 198 161 198 262C198 364 245 432 316 432Z" fill="#071A2C" transform="translate(1308.395 390.000) scale(0.235000 -0.235000)"/>
+      <path d="M505 366C503 480 415 549 270 549C133 549 48 480 48 369C48 333 59 302 78 281C97 262 114 253 166 236L333 184C368 173 380 162 380 140C380 107 341 87 276 87C239 87 211 93 193 106C178 117 172 128 166 157H29C33 38 120 -23 284 -23C359 -23 416 -7 456 25C496 57 520 107 520 160C520 230 485 275 414 296L237 347C198 359 188 367 188 389C188 419 220 439 269 439C336 439 369 415 370 366Z" fill="#071A2C" transform="translate(1445.980 390.000) scale(0.235000 -0.235000)"/>
+    </g>
+</svg>

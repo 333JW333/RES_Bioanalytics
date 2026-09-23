@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">EcoPeps flat torus mark</title>
+  <desc id="desc">EcoPeps identity artwork built from original mathematical torus geometry. Center opening is 10 percent of the visible torus diameter.</desc>
+
+    <g fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="6.72">
+      <circle cx="350.50" cy="256.00" r="115.50" stroke="#14B8A6"/>
+      <circle cx="345.87" cy="285.20" r="115.50" stroke="#0D8F81"/>
+      <circle cx="332.45" cy="311.55" r="115.50" stroke="#14B8A6"/>
+      <circle cx="311.55" cy="332.45" r="115.50" stroke="#0D8F81"/>
+      <circle cx="285.20" cy="345.87" r="115.50" stroke="#14B8A6"/>
+      <circle cx="256.00" cy="350.50" r="115.50" stroke="#0D8F81"/>
+      <circle cx="226.80" cy="345.87" r="115.50" stroke="#14B8A6"/>
+      <circle cx="200.45" cy="332.45" r="115.50" stroke="#0D8F81"/>
+      <circle cx="179.55" cy="311.55" r="115.50" stroke="#14B8A6"/>
+      <circle cx="166.13" cy="285.20" r="115.50" stroke="#0D8F81"/>
+      <circle cx="161.50" cy="256.00" r="115.50" stroke="#14B8A6"/>
+      <circle cx="166.13" cy="226.80" r="115.50" stroke="#0D8F81"/>
+      <circle cx="179.55" cy="200.45" r="115.50" stroke="#14B8A6"/>
+      <circle cx="200.45" cy="179.55" r="115.50" stroke="#0D8F81"/>
+      <circle cx="226.80" cy="166.13" r="115.50" stroke="#14B8A6"/>
+      <circle cx="256.00" cy="161.50" r="115.50" stroke="#0D8F81"/>
+      <circle cx="285.20" cy="166.13" r="115.50" stroke="#14B8A6"/>
+      <circle cx="311.55" cy="179.55" r="115.50" stroke="#0D8F81"/>
+      <circle cx="332.45" cy="200.45" r="115.50" stroke="#14B8A6"/>
+      <circle cx="345.87" cy="226.80" r="115.50" stroke="#0D8F81"/>
+    </g>
+    <circle cx="256.00" cy="256.00" r="210.00" fill="none" stroke="#071A2C" stroke-width="7.98"/>
+    <circle cx="256.00" cy="256.00" r="21.00" fill="none" stroke="#071A2C" stroke-width="7.14"/>
+</svg>
