@@ -1,4 +1,4 @@
-import type { CoaPanel, Product } from "@/types/product";
+import type { Product } from "@/types/product";
 
 /**
  * Catalog data for the current EcoPeps shop (7 products).
@@ -115,7 +115,6 @@ export const products: Product[] = [
           },
         ],
         batchCode: "PSRETA15-1",
-        qrCode: "R1",
       },
     ],
     volumeTiers: [
@@ -395,34 +394,6 @@ export function getAllProducts(): Product[] {
 
 export function getFeaturedProducts(): Product[] {
   return products.filter((p) => p.featured);
-}
-
-// Every code a vial QR label can carry (qrCode, plus batchCode for labels
-// printed with the lab batch number), lowercased. Built when this module
-// loads, so a repeated or malformed code fails `next build` rather than
-// sending some vials to the wrong batch's COA.
-const batchesByCode = new Map<string, CoaPanel>();
-for (const product of products) {
-  for (const batch of product.batches ?? []) {
-    if (batch.qrCode !== undefined && !/^[0-9A-Z]{1,3}$/.test(batch.qrCode)) {
-      throw new Error(
-        `${product.name} batch ${batch.batchCode}: qrCode "${batch.qrCode}" must be 1-3 capital letters or digits`
-      );
-    }
-    for (const code of [batch.qrCode, batch.batchCode]) {
-      if (!code) continue;
-      const key = code.toLowerCase();
-      if (batchesByCode.has(key)) {
-        throw new Error(`Vial code "${code}" (${product.name}) is already used by another batch`);
-      }
-      batchesByCode.set(key, batch);
-    }
-  }
-}
-
-/** The batch a vial QR code (or printed batch number) belongs to, any case. */
-export function getBatchByCode(code: string): CoaPanel | undefined {
-  return batchesByCode.get(code.toLowerCase());
 }
 
 export function getProductBySlug(slug: string): Product | undefined {

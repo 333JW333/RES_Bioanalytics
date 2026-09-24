@@ -60,17 +60,8 @@ export interface CoaPanel {
   reportUrl: string;
   /** One official lab verification link per test/report, e.g. Identity, Endotoxin, TAMC/TYMC. */
   verifyLinks: { label: string; url: string }[];
-  /** Lab batch number (e.g. "PSRETA15-1"). Also resolves via /c/[code] to reportUrl, for any label printed with it. */
+  /** Lab batch number (e.g. "PSRETA15-1"). Its vial QR code is in src/data/vial-codes.ts. */
   batchCode?: string;
-  /**
-   * 1-3 letter/digit code (e.g. "R1") for the vial QR code, which encodes
-   * HTTPS://ECOPEPS.COM/C/R1 and resolves via /c/[code] to reportUrl.
-   * Written in capitals and kept to 25 characters so the QR is the
-   * smallest size (21x21 modules), which prints the largest dots and so
-   * scans best on a curved 3 mL vial. Must be unique across all batches;
-   * `next build` fails on a repeat (see getBatchByCode).
-   */
-  qrCode?: string;
 }
 
 export interface VolumeTier {
@@ -105,9 +96,8 @@ export interface Product {
   images?: ProductImages;
   /**
    * Every batch that has shipped, newest first. The product page shows the
-   * first one's lab results near Add to Cart; older batches stay listed so
-   * the QR codes on their vials keep opening their own COA. Never remove a
-   * batch once its vials have shipped.
+   * first one's lab results near Add to Cart. Vial QR codes don't read
+   * this: each batch's code is fixed in src/data/vial-codes.ts.
    */
   batches?: CoaPanel[];
   /** Per-quantity discount tiers, shown under Add to Cart and applied to cart pricing. */

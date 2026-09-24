@@ -1,4 +1,6 @@
 import type { NextConfig } from "next";
+import { PHASE_PRODUCTION_BUILD } from "next/constants";
+import { checkVialCodes } from "./src/data/check-vial-codes";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -23,4 +25,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+export default function config(phase: string): NextConfig {
+  // Stop a deploy, not a customer's scan, when a vial QR code would open
+  // the wrong batch's COA.
+  if (phase === PHASE_PRODUCTION_BUILD) checkVialCodes();
+  return nextConfig;
+}
