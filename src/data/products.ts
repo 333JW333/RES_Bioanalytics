@@ -113,6 +113,7 @@ export const products: Product[] = [
         },
       ],
       batchCode: "PSRETA15-1",
+      qrCode: "R1",
     },
     volumeTiers: [
       { label: "2 vials", minQty: 2, discountPercent: 5 },
