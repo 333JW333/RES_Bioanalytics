@@ -81,39 +81,42 @@ export const products: Product[] = [
         verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
       },
     ],
-    coaPanel: {
-      labName: "Janoshik Analytical",
-      // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
-      // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
-      purityPercent: 99.53,
-      testedMassMg: 17.74,
-      labeledMassMg: 15,
-      massVariancePercent: 18.3,
-      tests: [
-        { label: "Identity", result: "CONFIRMED" },
-        { label: "Batch PSRETA15-1", result: "CONFIRMED" },
-        { label: "USP <85> Endotoxin", result: "PASS" },
-        { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
-        { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
-        { label: "USP <61> Microbial Enumeration", result: "PASS" },
-      ],
-      reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-      verifyLinks: [
-        {
-          label: "Identity",
-          url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-        },
-        {
-          label: "Endotoxin",
-          url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
-        },
-        {
-          label: "TAMC/TYMC",
-          url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
-        },
-      ],
-      batchCode: "PSRETA15-1",
-    },
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
+        // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
+        purityPercent: 99.53,
+        testedMassMg: 17.74,
+        labeledMassMg: 15,
+        massVariancePercent: 18.3,
+        tests: [
+          { label: "Identity", result: "CONFIRMED" },
+          { label: "Batch PSRETA15-1", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+          { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        ],
+        reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity",
+            url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
+          },
+          {
+            label: "TAMC/TYMC",
+            url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
+          },
+        ],
+        batchCode: "PSRETA15-1",
+      },
+    ],
     volumeTiers: [
       { label: "2 vials", minQty: 2, discountPercent: 5 },
       { label: "3–4 vials", minQty: 3, discountPercent: 10 },
@@ -121,7 +124,7 @@ export const products: Product[] = [
       { label: "10+ vials", minQty: 10, discountPercent: 30 },
     ],
     // Only 15 mg is currently in stock (it's the batch we have a real,
-    // lab-verified COA for — see coaPanel/documents above). The other sizes
+    // lab-verified COA for — see batches/documents above). The other sizes
     // are listed so customers know we carry them, but stay disabled with no
     // price set until each has its own verified COA and goes into stock.
     sizes: [

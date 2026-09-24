@@ -60,13 +60,7 @@ export interface CoaPanel {
   reportUrl: string;
   /** One official lab verification link per test/report, e.g. Identity, Endotoxin, TAMC/TYMC. */
   verifyLinks: { label: string; url: string }[];
-  /**
-   * Short code (e.g. "PSRETA15-1") that resolves via /c/[code] to reportUrl.
-   * Exists so a vial's printed QR code can encode a short URL
-   * (ecopeps.com/c/CODE) instead of the full reportUrl path — a QR
-   * encoding a 20-30 char URL prints small enough to scan reliably on a
-   * 40x20mm vial label; one encoding a 70+ char path does not.
-   */
+  /** Lab batch number (e.g. "PSRETA15-1"). Its vial QR code is in src/data/vial-codes.ts. */
   batchCode?: string;
 }
 
@@ -100,8 +94,12 @@ export interface Product {
   featured?: boolean;
   /** Real product vial photos (public/products/*). Falls back to the generic icon when absent. */
   images?: ProductImages;
-  /** Dashboard summary of the most recent lab test, shown near Add to Cart. */
-  coaPanel?: CoaPanel;
+  /**
+   * Every batch that has shipped, newest first. The product page shows the
+   * first one's lab results near Add to Cart. Vial QR codes don't read
+   * this: each batch's code is fixed in src/data/vial-codes.ts.
+   */
+  batches?: CoaPanel[];
   /** Per-quantity discount tiers, shown under Add to Cart and applied to cart pricing. */
   volumeTiers?: VolumeTier[];
   /** Shows the RUO/IP disclaimer box at the bottom of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */

@@ -47,6 +47,16 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  // Vial QR codes encode their URL in all capitals (HTTPS://ECOPEPS.COM/C/R1)
+  // so the QR can use its compact alphanumeric mode and print at the
+  // smallest size. Paths are case-sensitive, so serve /C/... from the
+  // /c/[code] route.
+  if (pathname.startsWith("/C/")) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/c/${pathname.slice(3)}`;
+    return NextResponse.rewrite(url);
+  }
+
   // Do not run code between refreshSession and the claims check below — a
   // simple mistake here can make it very hard to debug users being
   // randomly signed out. This runs on every request (not just gated ones)
