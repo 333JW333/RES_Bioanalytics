@@ -67,7 +67,8 @@ export interface CoaPanel {
    * HTTPS://ECOPEPS.COM/C/R1 and resolves via /c/[code] to reportUrl.
    * Written in capitals and kept to 25 characters so the QR is the
    * smallest size (21x21 modules), which prints the largest dots and so
-   * scans best on a curved 3 mL vial. Must be unique across products.
+   * scans best on a curved 3 mL vial. Must be unique across all batches;
+   * `next build` fails on a repeat (see getBatchByCode).
    */
   qrCode?: string;
 }
@@ -102,8 +103,13 @@ export interface Product {
   featured?: boolean;
   /** Real product vial photos (public/products/*). Falls back to the generic icon when absent. */
   images?: ProductImages;
-  /** Dashboard summary of the most recent lab test, shown near Add to Cart. */
-  coaPanel?: CoaPanel;
+  /**
+   * Every batch that has shipped, newest first. The product page shows the
+   * first one's lab results near Add to Cart; older batches stay listed so
+   * the QR codes on their vials keep opening their own COA. Never remove a
+   * batch once its vials have shipped.
+   */
+  batches?: CoaPanel[];
   /** Per-quantity discount tiers, shown under Add to Cart and applied to cart pricing. */
   volumeTiers?: VolumeTier[];
   /** Shows the RUO/IP disclaimer box at the bottom of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */

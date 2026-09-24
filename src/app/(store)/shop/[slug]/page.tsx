@@ -140,9 +140,9 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             </p>
           </div>
 
-          {product.coaPanel && (
+          {product.batches?.[0] && (
             <div className="mt-6">
-              <CoaDashboard coa={product.coaPanel} />
+              <CoaDashboard coa={product.batches[0]} />
             </div>
           )}
         </div>

@@ -70,6 +70,35 @@ one entry in `sizes` (label, mg, price, sku). No other code changes are
 required — the shop grid, product page, cart, and checkout all read from
 this single source of truth.
 
+## Adding a batch
+
+Each batch keeps its own COA and its own vial QR code for good: vials from
+older batches are still out there, and their QR codes must keep opening
+*their* COA, not the newest one.
+
+1. **COA files**: put them in a new folder for the batch,
+   `public/coas/<product>/<size>/<batch number>/` (e.g.
+   `public/coas/retatrutide/15mg/PSRETA15-2/`). Never overwrite, rename, or
+   delete an older batch's files. (Batch PSRETA15-1 predates this and sits
+   directly in `public/coas/retatrutide/15mg/`.)
+2. **Batch entry**: in `src/data/products.ts`, add the batch to the **top**
+   of that product's `batches` list with its lab results, `reportUrl` (the
+   full COA PDF), `verifyLinks`, `batchCode`, and a new `qrCode`. Leave the
+   older batches in the list.
+3. **QR code**: the product's letter plus the next number. EP-GLP3-R uses
+   `R1`, `R2`, `R3`, … (1–3 capital letters or digits). The build fails if
+   a code is already taken or badly formed.
+4. **Product page**: it shows the newest batch's results automatically.
+   Also point the product's `documents` and `images.extra` at the new
+   batch's files.
+5. **Vial label**: in Nimbot, encode `HTTPS://ECOPEPS.COM/C/<qrCode>` in
+   capitals (e.g. `HTTPS://ECOPEPS.COM/C/R2`). Capitals keep the QR at the
+   smallest 21×21 size, which scans on a 3 mL vial. It should have only the
+   three corner squares; a small fourth square means it came out larger.
+
+Once deployed, check that `https://www.ecopeps.com/C/<qrCode>` opens the
+new COA and that an older code (e.g. `/C/R1`) still opens its own.
+
 ## Legal pages
 
 `src/app/legal/*` contains starting-point Research Use Only, Terms of Sale,

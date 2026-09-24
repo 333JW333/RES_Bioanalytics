@@ -1,4 +1,4 @@
-import type { Product } from "@/types/product";
+import type { CoaPanel, Product } from "@/types/product";
 
 /**
  * Catalog data for the current EcoPeps shop (7 products).
@@ -81,40 +81,43 @@ export const products: Product[] = [
         verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
       },
     ],
-    coaPanel: {
-      labName: "Janoshik Analytical",
-      // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
-      // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
-      purityPercent: 99.53,
-      testedMassMg: 17.74,
-      labeledMassMg: 15,
-      massVariancePercent: 18.3,
-      tests: [
-        { label: "Identity", result: "CONFIRMED" },
-        { label: "Batch PSRETA15-1", result: "CONFIRMED" },
-        { label: "USP <85> Endotoxin", result: "PASS" },
-        { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
-        { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
-        { label: "USP <61> Microbial Enumeration", result: "PASS" },
-      ],
-      reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-      verifyLinks: [
-        {
-          label: "Identity",
-          url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-        },
-        {
-          label: "Endotoxin",
-          url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
-        },
-        {
-          label: "TAMC/TYMC",
-          url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
-        },
-      ],
-      batchCode: "PSRETA15-1",
-      qrCode: "R1",
-    },
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
+        // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
+        purityPercent: 99.53,
+        testedMassMg: 17.74,
+        labeledMassMg: 15,
+        massVariancePercent: 18.3,
+        tests: [
+          { label: "Identity", result: "CONFIRMED" },
+          { label: "Batch PSRETA15-1", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+          { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        ],
+        reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity",
+            url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
+          },
+          {
+            label: "TAMC/TYMC",
+            url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
+          },
+        ],
+        batchCode: "PSRETA15-1",
+        qrCode: "R1",
+      },
+    ],
     volumeTiers: [
       { label: "2 vials", minQty: 2, discountPercent: 5 },
       { label: "3–4 vials", minQty: 3, discountPercent: 10 },
@@ -122,7 +125,7 @@ export const products: Product[] = [
       { label: "10+ vials", minQty: 10, discountPercent: 30 },
     ],
     // Only 15 mg is currently in stock (it's the batch we have a real,
-    // lab-verified COA for — see coaPanel/documents above). The other sizes
+    // lab-verified COA for — see batches/documents above). The other sizes
     // are listed so customers know we carry them, but stay disabled with no
     // price set until each has its own verified COA and goes into stock.
     sizes: [
@@ -392,6 +395,34 @@ export function getAllProducts(): Product[] {
 
 export function getFeaturedProducts(): Product[] {
   return products.filter((p) => p.featured);
+}
+
+// Every code a vial QR label can carry (qrCode, plus batchCode for labels
+// printed with the lab batch number), lowercased. Built when this module
+// loads, so a repeated or malformed code fails `next build` rather than
+// sending some vials to the wrong batch's COA.
+const batchesByCode = new Map<string, CoaPanel>();
+for (const product of products) {
+  for (const batch of product.batches ?? []) {
+    if (batch.qrCode !== undefined && !/^[0-9A-Z]{1,3}$/.test(batch.qrCode)) {
+      throw new Error(
+        `${product.name} batch ${batch.batchCode}: qrCode "${batch.qrCode}" must be 1-3 capital letters or digits`
+      );
+    }
+    for (const code of [batch.qrCode, batch.batchCode]) {
+      if (!code) continue;
+      const key = code.toLowerCase();
+      if (batchesByCode.has(key)) {
+        throw new Error(`Vial code "${code}" (${product.name}) is already used by another batch`);
+      }
+      batchesByCode.set(key, batch);
+    }
+  }
+}
+
+/** The batch a vial QR code (or printed batch number) belongs to, any case. */
+export function getBatchByCode(code: string): CoaPanel | undefined {
+  return batchesByCode.get(code.toLowerCase());
 }
 
 export function getProductBySlug(slug: string): Product | undefined {
