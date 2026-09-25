@@ -36,6 +36,9 @@ function varianceBadgeClasses(percent: number): string {
 
 export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
   const sign = coa.massVariancePercent > 0 ? "+" : "";
+  // One column per verify link, up to 3, so a lone link spans the panel.
+  // Tailwind needs literal class names, hence the lookup.
+  const verifyCols = ["", "", "sm:grid-cols-2"][coa.verifyLinks.length] ?? "sm:grid-cols-3";
 
   return (
     <div className="rounded-2xl border border-brand-line bg-gradient-to-br from-slate-50 via-white to-white p-6 shadow-sm">
@@ -116,7 +119,7 @@ export default function CoaDashboard({ coa }: { coa: CoaPanel }) {
         View Full COA
       </a>
 
-      <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-3">
+      <div className={`mt-3 grid grid-cols-1 gap-2 ${verifyCols}`}>
         {coa.verifyLinks.map((v) => (
           <a
             key={v.label}

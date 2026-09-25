@@ -480,7 +480,10 @@ export const products: Product[] = [
     name: "SS-31",
     synonym: "Mitochondria-Targeted Tetrapeptide",
     category: "Peptide",
+    casNumber: "736992-21-5",
     sequenceOrFormula: "D-Arg-Dmt-Lys-Phe-NH2",
+    molecularFormula: "C32H49N9O5",
+    molecularWeight: "639.79 g/mol",
     alsoKnownAs: ["SS-31", "Elamipretide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
@@ -495,14 +498,48 @@ export const products: Product[] = [
     images: {
       front: "/products/ss-31-front.png",
       back: "/products/ss-31-back.png",
+      extra: [
+        {
+          label: "Identity & Purity",
+          src: "/coas/ss-31/10mg/2S31-0817/identity-purity-rpt-2026-356713.png",
+        },
+      ],
     },
+    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     documents: [
       {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "ss-31-coa-sample.pdf",
-        fileSizeLabel: "3.5 KB",
-        url: "/coas/ss-31-coa-sample.pdf",
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "SteriGenix — SS-31 10 mg, Batch 2S31-0817",
+        fileName: "ss-31-10mg-full-coa.pdf",
+        fileSizeLabel: "2.0 MB",
+        url: "/coas/ss-31/10mg/2S31-0817/ss-31-10mg-full-coa.pdf",
+        verifyUrl: "https://sterigenixanalytical.com/verify/RPT-2026-356713",
+      },
+    ],
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "SteriGenix",
+        // Report RPT-2026-356713 covers identity and purity only; heavy
+        // metals and batch conformity were not tested.
+        purityPercent: 99.68,
+        testedMassMg: 10.16,
+        labeledMassMg: 10,
+        massVariancePercent: 1.6,
+        tests: [
+          { label: "Identity (LC-MS)", result: "CONFIRMED" },
+          { label: "Batch 2S31-0817", result: "CONFIRMED" },
+          { label: "HPLC Purity (> 98%)", result: "PASS" },
+          { label: "Net Peptide Content (10 mg ± 10%)", result: "PASS" },
+        ],
+        reportUrl: "/coas/ss-31/10mg/2S31-0817/ss-31-10mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity & Purity",
+            url: "https://sterigenixanalytical.com/verify/RPT-2026-356713",
+          },
+        ],
+        batchCode: "2S31-0817",
       },
     ],
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
