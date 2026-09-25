@@ -1,7 +1,7 @@
 import type { Product } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (7 products).
+ * Catalog data for the current EcoPeps shop (8 products).
  * Replace names, sequences, purities, sizes, and pricing with verified
  * COA-backed data before treating listings as final. Add new entries to
  * this array to scale toward 30+ SKUs.
@@ -139,6 +139,47 @@ export const products: Product[] = [
     showUsageNotice: true,
     hideSizesSpec: true,
     seoAlternateNames: ["Retatrutide", "LY3437943"],
+  },
+  {
+    id: "p8",
+    slug: "thymosin-alpha-1",
+    name: "Thymosin Alpha-1",
+    synonym: "Thymalfasin",
+    category: "Peptide",
+    casNumber: "62304-98-7",
+    sequenceOrFormula:
+      "Ac-Ser-Asp-Ala-Ala-Val-Asp-Thr-Ser-Ser-Glu-Ile-Thr-Thr-Lys-Asp-Leu-Lys-Glu-Lys-Lys-Glu-Val-Val-Glu-Glu-Ala-Glu-Asn",
+    molecularFormula: "C129H215N33O55",
+    molecularWeight: "3108.28 g/mol",
+    alsoKnownAs: ["Thymalfasin", "Tα1", "TA1"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
+    shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
+    description:
+      "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+    structuralNotes:
+      "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
+    technicalNotes:
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
+    volumeTiers: [
+      { label: "2 vials", minQty: 2, discountPercent: 5 },
+      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
+      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
+      { label: "10+ vials", minQty: 10, discountPercent: 30 },
+    ],
+    // Only 10 mg is in stock. 20 mg and 30 mg are listed so customers know
+    // we carry them, but stay disabled with no price set until each has its
+    // own verified COA and goes into stock.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-TA1-10" },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-TA1-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-TA1-30", inStock: false },
+    ],
+    showDisclaimer: true,
+    showUsageNotice: true,
+    hideSizesSpec: true,
   },
   {
     id: "p1",
