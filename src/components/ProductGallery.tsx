@@ -4,6 +4,10 @@ import { useState } from "react";
 import Image from "next/image";
 import type { ProductImages } from "@/types/product";
 
+// Vial photos show a sample label, so every Back shot notes that the
+// vial that ships carries the current batch's details.
+const DEFAULT_BACK_CAPTION = "*Batch and Expiration will be the same as the current batch's COAs";
+
 export default function ProductGallery({
   images,
   name,
@@ -35,9 +39,9 @@ export default function ProductGallery({
           preload
         />
       </div>
-      {activeShot.key === "back" && images.backCaption && (
+      {activeShot.key === "back" && (
         <p className="-mt-2 text-center text-xs text-brand-slate-light">
-          {images.backCaption}
+          {images.backCaption ?? DEFAULT_BACK_CAPTION}
         </p>
       )}
       <div className="flex flex-wrap justify-center gap-3">
