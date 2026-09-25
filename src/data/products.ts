@@ -340,10 +340,14 @@ export const products: Product[] = [
         batchCode: "BP10-0719",
       },
     ],
+    // Only 10 mg is in stock (batch BP10-0719, with a lab-verified COA —
+    // see batches/documents above). 20 mg and 40 mg are listed so customers
+    // know we carry them, but stay disabled with no price set until each has
+    // its own verified COA and goes into stock.
     sizes: [
-      { label: "2 mg", mg: 2, price: 39, sku: "RES-BPC-2" },
-      { label: "5 mg", mg: 5, price: 69, sku: "RES-BPC-5" },
       { label: "10 mg", mg: 10, price: 119, sku: "RES-BPC-10" },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-BPC-20", inStock: false },
+      { label: "40 mg", mg: 40, price: 0, sku: "RES-BPC-40", inStock: false },
     ],
     featured: true,
   },
