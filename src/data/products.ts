@@ -162,9 +162,11 @@ export const products: Product[] = [
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
-    // No vial photos yet, so the gallery shows just the COA scans. Add
-    // front/back here once they land in public/products/.
+    // No back photo yet, so the gallery goes Front, then the COA scans.
+    // Add back (and a backCaption like EP-GLP3-R's) once it lands in
+    // public/products/.
     images: {
+      front: "/products/thymosin-alpha-1-front.png",
       extra: [
         {
           label: "Identity & Purity",
