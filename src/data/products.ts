@@ -273,7 +273,8 @@ export const products: Product[] = [
     molecularFormula: "C62H98N16O22",
     molecularWeight: "1419.55 g/mol",
     alsoKnownAs: ["BPC 157", "PL 14736", "PL-10", "Bepecin"],
-    purity: "≥ 99% (HPLC)",
+    // Batch BP10-0719 tested 98.56–98.70% (see batches below).
+    purity: "≥ 98% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
     shortDescription: "A synthetic pentadecapeptide reference compound supplied for laboratory research use.",
@@ -286,7 +287,14 @@ export const products: Product[] = [
     images: {
       front: "/products/bpc-157-front.png",
       back: "/products/bpc-157-back.png",
+      extra: [
+        {
+          label: "Identity & Purity",
+          src: "/coas/bpc-157/10mg/BP10-0719/identity-purity-213018.png",
+        },
+      ],
     },
+    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     computedProperties: {
       exactMass: "1418.70415882 g/mol",
       xLogP: "-9",
@@ -299,11 +307,37 @@ export const products: Product[] = [
     },
     documents: [
       {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "bpc-157-coa-sample.pdf",
-        fileSizeLabel: "3.5 KB",
-        url: "/coas/bpc-157-coa-sample.pdf",
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — BPC-157 10 mg, Batch BP10-0719",
+        fileName: "identity-purity-213018.png",
+        fileSizeLabel: "388 KB",
+        url: "/coas/bpc-157/10mg/BP10-0719/identity-purity-213018.png",
+        verifyUrl: "https://verify.janoshik.com/tests/213018_TE5WQJ8L28H9",
+      },
+    ],
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials Janoshik tested from batch BP10-0719:
+        // mass 11.24/11.20/11.07 mg, purity 98.703/98.562/98.633%
+        // (Task #213018). Identity and purity only.
+        purityPercent: 98.63,
+        testedMassMg: 11.17,
+        labeledMassMg: 10,
+        massVariancePercent: 11.7,
+        tests: [
+          { label: "Identity", result: "CONFIRMED" },
+          { label: "Batch BP10-0719", result: "CONFIRMED" },
+        ],
+        reportUrl: "/coas/bpc-157/10mg/BP10-0719/bpc-157-10mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity & Purity",
+            url: "https://verify.janoshik.com/tests/213018_TE5WQJ8L28H9",
+          },
+        ],
+        batchCode: "BP10-0719",
       },
     ],
     sizes: [
