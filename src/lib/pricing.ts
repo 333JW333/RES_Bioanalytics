@@ -7,6 +7,11 @@ export function discountedPrice(price: number, discountPercent: number): number 
   return Math.round(price * (1 - discountPercent / 100) * 100) / 100;
 }
 
+/** No size is in stock, so the product page offers "Notify me" instead of Add to Cart. */
+export function isSoldOut(product: Product): boolean {
+  return product.sizes.every((s) => s.inStock === false);
+}
+
 /** Lowest in-stock size price (any size if none are in stock), for "From $X" labels. */
 export function startingPrice(product: Product): number {
   const inStock = product.sizes.filter((s) => s.inStock !== false);
@@ -29,10 +34,10 @@ export function findBySku(sku: string): { product: Product; size: ProductSize } 
   return undefined;
 }
 
-/** Catalog unit price for a SKU at a line quantity, or undefined for an unknown SKU. */
+/** Catalog unit price for a SKU at a line quantity, or undefined for an unknown or out-of-stock SKU. */
 export function unitPriceForSku(sku: string, qty: number): number | undefined {
   const match = findBySku(sku);
-  if (!match) return undefined;
+  if (!match || match.size.inStock === false) return undefined;
   return discountedPrice(match.size.price, volumeDiscountPercent(match.product, qty));
 }
 

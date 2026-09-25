@@ -103,14 +103,8 @@ export interface Product {
   batches?: CoaPanel[];
   /** Per-quantity discount tiers, shown under Add to Cart and applied to cart pricing. */
   volumeTiers?: VolumeTier[];
-  /** Shows the RUO/IP disclaimer box at the bottom of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
-  showDisclaimer?: boolean;
-  /** Shows the amber Product Usage Notice banner at the top of the product page. Opt-in while we finalize the wording on Retatrutide before rolling it out to the rest of the catalog. */
-  showUsageNotice?: boolean;
-  /** Overrides the default "certificate of analysis / storage" note shown next to Add to Cart. Falls back to the generic COA + storage copy when absent. */
+  /** Overrides the note shown next to Add to Cart (by default, that each vial's QR code opens its batch's COAs). */
   infoNote?: string;
-  /** Hides the "Available Sizes" row in Technical Specifications (redundant with the Size selector next to Add to Cart). Opt-in while we finalize the simplified layout on Retatrutide. */
-  hideSizesSpec?: boolean;
   /**
    * Alternate/generic names surfaced ONLY in JSON-LD structured data for
    * search engines — never rendered anywhere on the visible page. Use this

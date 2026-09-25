@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllProducts, getProductBySlug } from "@/data/products";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { isSoldOut } from "@/lib/pricing";
 import AddToCartPanel from "@/components/AddToCartPanel";
 import Disclosure from "@/components/Disclosure";
 import ChemFormula from "@/components/ChemFormula";
@@ -76,16 +77,19 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
     ...(product.images?.front ? { image: `${SITE_URL}${product.images.front}` } : {}),
     brand: { "@type": "Brand", name: SITE_NAME },
     sku: primarySize.sku,
-    offers: {
-      "@type": "Offer",
-      url: `${SITE_URL}/shop/${product.slug}`,
-      priceCurrency: "USD",
-      price: primarySize.price,
-      availability:
-        primarySize.inStock === false
-          ? "https://schema.org/OutOfStock"
-          : "https://schema.org/InStock",
-    },
+    // A sold-out product has no price yet, so it lists no offer rather
+    // than a $0 one.
+    ...(isSoldOut(product)
+      ? {}
+      : {
+          offers: {
+            "@type": "Offer",
+            url: `${SITE_URL}/shop/${product.slug}`,
+            priceCurrency: "USD",
+            price: primarySize.price,
+            availability: "https://schema.org/InStock",
+          },
+        }),
   };
 
   return (
@@ -95,7 +99,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container-page py-14">
-      {product.showUsageNotice && <ProductUsageNotice />}
+      <ProductUsageNotice />
 
       <nav className="text-sm text-brand-slate-light mb-8">
         <Link href="/shop" className="hover:text-brand-teal-dark">Shop</Link>
@@ -127,16 +131,8 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           <div className="flex items-start gap-3 rounded-xl border border-brand-line bg-brand-ice p-4">
             <ShieldCheckIcon className="h-5 w-5 shrink-0 text-brand-teal-dark mt-0.5" />
             <p className="text-xs text-brand-slate-light leading-relaxed">
-              {product.infoNote ?? (
-                <>
-                  Each batch ships with a certificate of analysis confirming
-                  identity and purity by HPLC/MS — see{" "}
-                  <a href="#documents" className="text-brand-teal-dark underline">
-                    Documents &amp; Files
-                  </a>{" "}
-                  below. Storage: {product.storage}
-                </>
-              )}
+              {product.infoNote ??
+                "Each vial has a scannable QR code linking the batch to its respective COAs."}
             </p>
           </div>
 
@@ -204,23 +200,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 <SpecItem label="Purity" value={product.purity} />
                 <SpecItem label="Form" value={product.form} />
                 <SpecItem label="Category" value={product.category} />
-                {!product.hideSizesSpec && (
-                  <SpecItem
-                    label="Available Sizes"
-                    value={
-                      <ul className="space-y-0.5">
-                        {product.sizes.map((s) => (
-                          <li key={s.sku}>
-                            {s.label} — <span className="font-mono text-xs">{s.sku}</span>
-                            {s.inStock === false && (
-                              <span className="text-brand-slate-light"> (not in stock)</span>
-                            )}
-                          </li>
-                        ))}
-                      </ul>
-                    }
-                  />
-                )}
               </dl>
             </div>
 
@@ -327,9 +306,10 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               </ul>
             ) : (
               <p className="text-sm text-brand-slate-light">
-                Certificate of analysis available upon request — contact{" "}
+                Certificates of analysis are posted here as soon as this
+                product&apos;s batch passes third-party testing. Questions?{" "}
                 <Link href="/contact" className="text-brand-teal-dark underline">
-                  our team
+                  Contact our team
                 </Link>
                 .
               </p>
@@ -337,7 +317,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
           </Disclosure>
         </div>
 
-        {product.showDisclaimer && <ProductDisclaimer />}
+        <ProductDisclaimer />
       </section>
       </div>
     </>

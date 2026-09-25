@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import ProductCard from "@/components/ProductCard";
 import { getAllProducts, getCategories } from "@/data/products";
+import { isSoldOut } from "@/lib/pricing";
 
 export const metadata: Metadata = {
   title: "Shop Research Peptides",
@@ -21,9 +22,9 @@ export default async function ShopPage(props: PageProps<"/shop">) {
         <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy">Research Catalog</h1>
         <p className="text-brand-slate-light mt-2 max-w-2xl">
-          {products.length} products currently available. Every listing
-          includes purity data and a certificate of analysis for the
-          matching batch.
+          {products.filter((p) => !isSoldOut(p)).length} of {products.length}{" "}
+          products in stock now, each with third-party certificates of
+          analysis for its current batch.
         </p>
       </div>
 

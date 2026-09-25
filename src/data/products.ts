@@ -1,17 +1,28 @@
-import type { Product } from "@/types/product";
+import type { Product, VolumeTier } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (8 products).
- * Replace names, sequences, purities, sizes, and pricing with verified
- * COA-backed data before treating listings as final. Add new entries to
- * this array to scale toward 30+ SKUs.
+ * Catalog data for the current EcoPeps shop (8 products). Add new entries
+ * to this array to scale toward 30+ SKUs.
  *
- * `documents` currently point to sample Certificates of Analysis
- * (public/coas/*.pdf) — replace with real lab-issued COAs before launch.
+ * Every product page uses the same template (usage notice, disclaimer, QR
+ * note, volume pricing). We sell 10 mg vials and up only. A size is in
+ * stock only once its batch has a real lab COA (see `batches` and
+ * "Adding a batch" in README.md); until then it's listed with
+ * `inStock: false` and no price. A product with nothing in stock offers
+ * "Notify me when available" instead of Add to Cart (src/lib/restock.ts).
+ *
  * `computedProperties` are only populated for BPC-157 using confirmed
  * PubChem values; add the rest once you pull each compound's real PubChem
  * record (leave the field undefined until then rather than guessing).
  */
+
+const STANDARD_VOLUME_TIERS: VolumeTier[] = [
+  { label: "2 vials", minQty: 2, discountPercent: 5 },
+  { label: "3–4 vials", minQty: 3, discountPercent: 10 },
+  { label: "5–9 vials", minQty: 5, discountPercent: 20 },
+  { label: "10+ vials", minQty: 10, discountPercent: 30 },
+];
+
 export const products: Product[] = [
   {
     id: "p7",
@@ -53,7 +64,6 @@ export const products: Product[] = [
         { label: "Sterility", src: "/coas/retatrutide/15mg/sterility-214267.png" },
       ],
     },
-    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     documents: [
       {
         label: "Certificate of Analysis — Identity & Purity",
@@ -116,12 +126,7 @@ export const products: Product[] = [
         batchCode: "PSRETA15-1",
       },
     ],
-    volumeTiers: [
-      { label: "2 vials", minQty: 2, discountPercent: 5 },
-      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
-      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
-      { label: "10+ vials", minQty: 10, discountPercent: 30 },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
     // Only 15 mg is currently in stock (it's the batch we have a real,
     // lab-verified COA for — see batches/documents above). The other sizes
     // are listed so customers know we carry them, but stay disabled with no
@@ -134,9 +139,6 @@ export const products: Product[] = [
       { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
     ],
     featured: true,
-    showDisclaimer: true,
-    showUsageNotice: true,
-    hideSizesSpec: true,
     seoAlternateNames: ["Retatrutide", "LY3437943"],
   },
   {
@@ -175,7 +177,6 @@ export const products: Product[] = [
         { label: "Sterility", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
       ],
     },
-    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     documents: [
       {
         label: "Certificate of Analysis — Identity & Purity",
@@ -238,12 +239,7 @@ export const products: Product[] = [
         batchCode: "PSTA110-2",
       },
     ],
-    volumeTiers: [
-      { label: "2 vials", minQty: 2, discountPercent: 5 },
-      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
-      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
-      { label: "10+ vials", minQty: 10, discountPercent: 30 },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
     // Only 10 mg is in stock (batch PSTA110-2, with a lab-verified COA —
     // see batches/documents above). 20 mg and 30 mg are listed so customers
     // know we carry them, but stay disabled with no price set until each has
@@ -256,9 +252,6 @@ export const products: Product[] = [
     // Featured lists follow this array's order, so it shows second on the
     // home page, as it does in the shop.
     featured: true,
-    showDisclaimer: true,
-    showUsageNotice: true,
-    hideSizesSpec: true,
   },
   {
     id: "p1",
@@ -294,7 +287,6 @@ export const products: Product[] = [
         { label: "Heavy Metals", src: "/coas/bpc-157/10mg/BP10-0719/heavy-metals-213019.png" },
       ],
     },
-    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     computedProperties: {
       exactMass: "1418.70415882 g/mol",
       xLogP: "-9",
@@ -367,12 +359,7 @@ export const products: Product[] = [
         batchCode: "BP10-0719",
       },
     ],
-    volumeTiers: [
-      { label: "2 vials", minQty: 2, discountPercent: 5 },
-      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
-      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
-      { label: "10+ vials", minQty: 10, discountPercent: 30 },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
     // Only 10 mg is in stock (batch BP10-0719, with a lab-verified COA —
     // see batches/documents above). 20 mg and 40 mg are listed so customers
     // know we carry them, but stay disabled with no price set until each has
@@ -383,9 +370,6 @@ export const products: Product[] = [
       { label: "40 mg", mg: 40, price: 0, sku: "RES-BPC-40", inStock: false },
     ],
     featured: true,
-    showDisclaimer: true,
-    showUsageNotice: true,
-    hideSizesSpec: true,
   },
   {
     id: "p2",
@@ -415,20 +399,9 @@ export const products: Product[] = [
       front: "/products/tb-500-front.png",
       back: "/products/tb-500-back.png",
     },
-    documents: [
-      {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "tb-500-coa-sample.pdf",
-        fileSizeLabel: "3.6 KB",
-        url: "/coas/tb-500-coa-sample.pdf",
-      },
-    ],
-    sizes: [
-      { label: "2 mg", mg: 2, price: 45, sku: "RES-TB5-2" },
-      { label: "5 mg", mg: 5, price: 79, sku: "RES-TB5-5" },
-      { label: "10 mg", mg: 10, price: 139, sku: "RES-TB5-10" },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Not in stock until a batch passes COA testing.
+    sizes: [{ label: "10 mg", mg: 10, price: 0, sku: "RES-TB5-10", inStock: false }],
     featured: true,
   },
   {
@@ -455,20 +428,9 @@ export const products: Product[] = [
       front: "/products/ipamorelin-front.png",
       back: "/products/ipamorelin-back.png",
     },
-    documents: [
-      {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "ipamorelin-coa-sample.pdf",
-        fileSizeLabel: "3.5 KB",
-        url: "/coas/ipamorelin-coa-sample.pdf",
-      },
-    ],
-    sizes: [
-      { label: "2 mg", mg: 2, price: 35, sku: "RES-IPA-2" },
-      { label: "5 mg", mg: 5, price: 59, sku: "RES-IPA-5" },
-      { label: "10 mg", mg: 10, price: 99, sku: "RES-IPA-10" },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Not in stock until a batch passes COA testing.
+    sizes: [{ label: "10 mg", mg: 10, price: 0, sku: "RES-IPA-10", inStock: false }],
   },
   {
     id: "p4",
@@ -494,19 +456,9 @@ export const products: Product[] = [
       front: "/products/tirzepatide-front.png",
       back: "/products/tirzepatide-back.png",
     },
-    documents: [
-      {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "tirzepatide-coa-sample.pdf",
-        fileSizeLabel: "3.5 KB",
-        url: "/coas/tirzepatide-coa-sample.pdf",
-      },
-    ],
-    sizes: [
-      { label: "5 mg", mg: 5, price: 169, sku: "RES-TIRZ-5" },
-      { label: "10 mg", mg: 10, price: 289, sku: "RES-TIRZ-10" },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Not in stock until a batch passes COA testing.
+    sizes: [{ label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false }],
     featured: true,
   },
   {
@@ -534,18 +486,11 @@ export const products: Product[] = [
       front: "/products/ghk-cu-front.png",
       back: "/products/ghk-cu-back.png",
     },
-    documents: [
-      {
-        label: "Certificate of Analysis",
-        subLabel: "Identity & Purity (HPLC/MS) — sample",
-        fileName: "ghk-cu-coa-sample.pdf",
-        fileSizeLabel: "3.5 KB",
-        url: "/coas/ghk-cu-coa-sample.pdf",
-      },
-    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Not in stock until a batch passes COA testing.
     sizes: [
-      { label: "50 mg", mg: 50, price: 45, sku: "RES-GHK-50" },
-      { label: "100 mg", mg: 100, price: 79, sku: "RES-GHK-100" },
+      { label: "50 mg", mg: 50, price: 0, sku: "RES-GHK-50", inStock: false },
+      { label: "100 mg", mg: 100, price: 0, sku: "RES-GHK-100", inStock: false },
     ],
   },
   {
@@ -579,7 +524,6 @@ export const products: Product[] = [
         },
       ],
     },
-    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
     documents: [
       {
         label: "Certificate of Analysis — Identity & Purity",
@@ -616,6 +560,7 @@ export const products: Product[] = [
         batchCode: "2S31-0817",
       },
     ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
   },
