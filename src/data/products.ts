@@ -345,7 +345,7 @@ export const products: Product[] = [
     // know we carry them, but stay disabled with no price set until each has
     // its own verified COA and goes into stock.
     sizes: [
-      { label: "10 mg", mg: 10, price: 119, sku: "RES-BPC-10" },
+      { label: "10 mg", mg: 10, price: 79, sku: "RES-BPC-10" },
       { label: "20 mg", mg: 20, price: 0, sku: "RES-BPC-20", inStock: false },
       { label: "40 mg", mg: 40, price: 0, sku: "RES-BPC-40", inStock: false },
     ],
