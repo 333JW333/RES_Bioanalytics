@@ -290,6 +290,8 @@ export const products: Product[] = [
           label: "Identity & Purity",
           src: "/coas/bpc-157/10mg/BP10-0719/identity-purity-213018.png",
         },
+        { label: "Endotoxin", src: "/coas/bpc-157/10mg/BP10-0719/endotoxin-213020.png" },
+        { label: "Heavy Metals", src: "/coas/bpc-157/10mg/BP10-0719/heavy-metals-213019.png" },
       ],
     },
     infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
@@ -312,6 +314,22 @@ export const products: Product[] = [
         url: "/coas/bpc-157/10mg/BP10-0719/identity-purity-213018.png",
         verifyUrl: "https://verify.janoshik.com/tests/213018_TE5WQJ8L28H9",
       },
+      {
+        label: "Certificate of Analysis — Endotoxin",
+        subLabel: "Janoshik Analytical — BPC-157 10 mg, Batch BP10-0719",
+        fileName: "endotoxin-213020.png",
+        fileSizeLabel: "385 KB",
+        url: "/coas/bpc-157/10mg/BP10-0719/endotoxin-213020.png",
+        verifyUrl: "https://verify.janoshik.com/tests/213020-bpc_10mg_BP100719_YSHV682U69ZE",
+      },
+      {
+        label: "Certificate of Analysis — Heavy Metals",
+        subLabel: "Janoshik Analytical — BPC-157 10 mg, Batch BP10-0719",
+        fileName: "heavy-metals-213019.png",
+        fileSizeLabel: "401 KB",
+        url: "/coas/bpc-157/10mg/BP10-0719/heavy-metals-213019.png",
+        verifyUrl: "https://verify.janoshik.com/tests/213019-bpc_10mg_BP100719_67HAPVVAP6PW",
+      },
     ],
     // Newest batch first — see "Adding a batch" in README.md.
     batches: [
@@ -319,7 +337,8 @@ export const products: Product[] = [
         labName: "Janoshik Analytical",
         // Averaged across the 3 vials Janoshik tested from batch BP10-0719:
         // mass 11.24/11.20/11.07 mg, purity 98.703/98.562/98.633%
-        // (Task #213018). Identity and purity only.
+        // (Task #213018). Endotoxin < 1 EU/vial (#213020); As, Cd, Pb and
+        // Hg not detected (#213019).
         purityPercent: 98.63,
         testedMassMg: 11.17,
         labeledMassMg: 10,
@@ -327,12 +346,22 @@ export const products: Product[] = [
         tests: [
           { label: "Identity", result: "CONFIRMED" },
           { label: "Batch BP10-0719", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Heavy Metals (As, Cd, Pb, Hg)", result: "NOT DETECTED" },
         ],
         reportUrl: "/coas/bpc-157/10mg/BP10-0719/bpc-157-10mg-full-coa.pdf",
         verifyLinks: [
           {
-            label: "Identity & Purity",
+            label: "Identity",
             url: "https://verify.janoshik.com/tests/213018_TE5WQJ8L28H9",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/213020-bpc_10mg_BP100719_YSHV682U69ZE",
+          },
+          {
+            label: "Heavy Metals",
+            url: "https://verify.janoshik.com/tests/213019-bpc_10mg_BP100719_67HAPVVAP6PW",
           },
         ],
         batchCode: "BP10-0719",
