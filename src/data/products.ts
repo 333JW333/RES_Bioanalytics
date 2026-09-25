@@ -44,7 +44,6 @@ export const products: Product[] = [
     images: {
       front: "/products/ep-glp3-r-front.png",
       back: "/products/ep-glp3-r-back.png",
-      backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
           label: "Identity & Purity",
@@ -167,7 +166,6 @@ export const products: Product[] = [
     images: {
       front: "/products/thymosin-alpha-1-front-v2.png",
       back: "/products/thymosin-alpha-1-back.png",
-      backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
           label: "Identity & Purity",
@@ -287,7 +285,6 @@ export const products: Product[] = [
     images: {
       front: "/products/bpc-157-front.png",
       back: "/products/bpc-157-back.png",
-      backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
           label: "Identity & Purity",

@@ -37,7 +37,7 @@ export interface ProductImages {
   /** Vial photos. Leave out until real ones exist; the gallery then shows only `extra`. */
   front?: string;
   back?: string;
-  /** Small note shown under the main image when the Back shot is active. */
+  /** Overrides the note shown under the Back shot (by default, that the current batch's details ship). */
   backCaption?: string;
   /** Extra gallery images shown after front/back, e.g. COA scans. */
   extra?: ProductGalleryImage[];
