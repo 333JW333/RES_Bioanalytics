@@ -85,7 +85,8 @@ in CI) if any of it is broken.
    directly in `public/coas/retatrutide/15mg/`.)
 2. **Vial code**: add a **new** entry to `src/data/vial-codes.ts` with the
    next code, the batch number, and the full COA PDF. EP-GLP3-R uses `R1`,
-   `R2`, `R3`, … (1–3 capital letters or digits). Leave `sha256` empty
+   `R2`, `R3`, … and Thymosin Alpha-1 uses `T1`, `T2`, `T3`, … (1–3
+   capital letters or digits). Leave `sha256` empty
    and the build prints the value to fill in. Never edit or remove an
    existing entry.
 3. **Product page**: add the batch to the **top** of the product's
