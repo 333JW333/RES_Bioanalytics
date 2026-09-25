@@ -15,6 +15,7 @@ export default async function ShopPage(props: PageProps<"/shop">) {
   const category = Array.isArray(categoryParam) ? categoryParam[0] : categoryParam;
   const filtered = category ? products.filter((p) => p.category === category) : products;
   const categories = getCategories();
+  const inStockCount = products.filter((p) => !isSoldOut(p)).length;
 
   return (
     <div className="container-page py-14">
@@ -22,9 +23,11 @@ export default async function ShopPage(props: PageProps<"/shop">) {
         <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy">Research Catalog</h1>
         <p className="text-brand-slate-light mt-2 max-w-2xl">
-          {products.filter((p) => !isSoldOut(p)).length} of {products.length}{" "}
-          products in stock now, each with third-party certificates of
-          analysis for its current batch.
+          {inStockCount} products in stock now, each with third-party
+          certificates of analysis for its current batch
+          {products.length > inStockCount &&
+            `, and ${products.length - inStockCount} coming soon`}
+          .
         </p>
       </div>
 

@@ -29,6 +29,11 @@ export default function ProductCard({ product }: { product: Product }) {
             <VialIcon className="h-16 w-16 transition-transform group-hover:scale-105" />
           </div>
         )}
+        {soldOut && (
+          <span className="absolute left-3 top-3 rounded-full bg-brand-navy px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
+            Coming Soon
+          </span>
+        )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-5">
         <span className="text-[11px] font-semibold uppercase tracking-wide text-brand-teal-dark">
@@ -47,7 +52,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
         <div className="mt-auto flex items-center justify-between pt-3">
           {soldOut ? (
-            <span className="text-sm font-semibold text-brand-slate-light">Out of stock</span>
+            <span className="text-sm font-semibold text-brand-slate-light">Coming soon</span>
           ) : (
             <span className="text-sm font-semibold text-brand-navy">
               From {formatUSD(startingPrice(product))}
