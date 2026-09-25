@@ -6,8 +6,9 @@ import { useState } from "react";
 import CoaTestingPanel from "@/components/CoaTestingPanel";
 import Logo from "@/components/Logo";
 import { writeAgeVerified } from "@/lib/gate";
+import { withReturnTo } from "@/lib/return-to";
 
-export default function EnterClient() {
+export default function EnterClient({ returnTo }: { returnTo: string | null }) {
   const router = useRouter();
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [ruoConfirmed, setRuoConfirmed] = useState(false);
@@ -17,7 +18,7 @@ export default function EnterClient() {
   function handleContinue() {
     if (!canContinue) return;
     writeAgeVerified();
-    router.push("/register");
+    router.push(withReturnTo("/register", returnTo));
   }
 
   return (
@@ -99,7 +100,7 @@ export default function EnterClient() {
           <p className="mt-5 text-center text-sm text-brand-slate-light">
             Already registered?{" "}
             <Link
-              href="/register?mode=signin"
+              href={withReturnTo("/register?mode=signin", returnTo)}
               className="font-medium text-brand-teal-dark hover:underline"
             >
               Sign in

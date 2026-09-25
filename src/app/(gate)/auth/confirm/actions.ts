@@ -1,7 +1,9 @@
 "use server";
 
 import type { EmailOtpType } from "@supabase/supabase-js";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { RETURN_TO_COOKIE, safeReturnPath } from "@/lib/return-to";
 import { createClient } from "@/lib/supabase/server";
 
 export async function confirmEmail(formData: FormData) {
@@ -17,8 +19,14 @@ export async function confirmEmail(formData: FormData) {
     });
     if (!error) {
       // A recovery link signs the user in so they can choose a new
-      // password; every other link type finishes at the catalog.
-      redirect(isRecovery ? "/reset-password" : "/shop");
+      // password; every other link type finishes at the page they were
+      // opening when they signed up (saved on this browser by the sign-up
+      // form, see src/lib/return-to.ts), or else the catalog.
+      if (isRecovery) redirect("/reset-password");
+      const cookieStore = await cookies();
+      const returnTo = safeReturnPath(cookieStore.get(RETURN_TO_COOKIE)?.value);
+      cookieStore.delete(RETURN_TO_COOKIE);
+      redirect(returnTo ?? "/shop");
     }
   }
 

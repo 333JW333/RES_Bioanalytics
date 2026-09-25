@@ -458,7 +458,12 @@ export const products: Product[] = [
     },
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
-    sizes: [{ label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false }],
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-TIRZ-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-TIRZ-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
+    ],
     featured: true,
   },
   {

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { RETURN_TO_PARAM, safeReturnPath } from "@/lib/return-to";
 import RegisterClient from "./RegisterClient";
 
 export const metadata: Metadata = {
@@ -9,6 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function RegisterPage(props: PageProps<"/register">) {
-  const { mode } = await props.searchParams;
-  return <RegisterClient initialMode={mode === "signin" ? "signin" : "register"} />;
+  const searchParams = await props.searchParams;
+  return (
+    <RegisterClient
+      initialMode={searchParams.mode === "signin" ? "signin" : "register"}
+      returnTo={safeReturnPath(searchParams[RETURN_TO_PARAM])}
+    />
+  );
 }

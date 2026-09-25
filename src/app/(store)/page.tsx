@@ -4,13 +4,18 @@ import ProductCard from "@/components/ProductCard";
 import { getFeaturedProducts, getProductBySlug } from "@/data/products";
 import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 import { formatUSD } from "@/lib/format";
-import { startingPrice } from "@/lib/pricing";
+import { isSoldOut, startingPrice } from "@/lib/pricing";
 
 // EP-GLP3-R, our lead product, fronts the hero.
 const HERO_PRODUCT_SLUG = "retatrutide";
 
 export default function Home() {
-  const featured = getFeaturedProducts();
+  // Only what customers can buy today; sold-out products wait in the shop
+  // with their Notify Me buttons.
+  const featured = getFeaturedProducts().filter((p) => !isSoldOut(p));
+  // Four across when the cards fill whole rows of four, so none is left
+  // on its own. Tailwind needs literal class names.
+  const featuredCols = featured.length % 4 === 0 ? "lg:grid-cols-4" : "lg:grid-cols-3";
   const heroProduct = getProductBySlug(HERO_PRODUCT_SLUG);
 
   return (
@@ -103,7 +108,7 @@ export default function Home() {
             View all products →
           </Link>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={`grid gap-6 sm:grid-cols-2 ${featuredCols}`}>
           {featured.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { takeRememberedReturnTo } from "@/lib/return-to";
 import { createClient } from "@/lib/supabase/client";
 
 // Landing point for the "Confirm your email" link Supabase sends on
@@ -23,7 +24,7 @@ export default function AuthCallbackClient() {
         setStatus("error");
         return;
       }
-      router.replace("/shop");
+      router.replace(takeRememberedReturnTo() ?? "/shop");
     });
   }, [router]);
 
