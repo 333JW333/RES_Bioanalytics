@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { refreshSession } from "@/lib/supabase/proxy";
+import { RETURN_TO_PARAM } from "@/lib/return-to";
 
 const PUBLIC_PREFIXES = [
   "/enter",
@@ -71,6 +72,11 @@ export async function proxy(request: NextRequest) {
     const enterUrl = request.nextUrl.clone();
     enterUrl.pathname = "/enter";
     enterUrl.search = "";
+    // Bring them back here once signed in (src/lib/return-to.ts). The home
+    // page is left out so a plain visit still lands on the catalog.
+    if (pathname !== "/") {
+      enterUrl.searchParams.set(RETURN_TO_PARAM, pathname + request.nextUrl.search);
+    }
     const redirectResponse = NextResponse.redirect(enterUrl);
     response.cookies.getAll().forEach((cookie) => {
       redirectResponse.cookies.set(cookie);

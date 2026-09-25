@@ -13,6 +13,7 @@ import {
   type BusinessType,
   type IndustryAffiliation,
 } from "@/lib/gate";
+import { rememberReturnTo, withReturnTo } from "@/lib/return-to";
 import {
   AcknowledgmentBlock,
   TermsScrollBox,
@@ -32,10 +33,14 @@ type View = "form" | "confirmPending";
 
 export default function RegisterClient({
   initialMode = "register",
+  returnTo,
 }: {
   initialMode?: Mode;
+  /** The page they were opening before the gate (src/lib/return-to.ts). */
+  returnTo: string | null;
 }) {
   const router = useRouter();
+  const destination = returnTo ?? "/shop";
   const [mode, setMode] = useState<Mode>(initialMode);
   const [view, setView] = useState<View>("form");
   const [ready, setReady] = useState(false);
@@ -67,12 +72,12 @@ export default function RegisterClient({
     // certified age and research use when they registered, and a new browser
     // or device has no flag, so gating sign-in bounced them back to /enter.
     if (mode === "register" && !readAgeVerified()) {
-      router.replace("/enter");
+      router.replace(withReturnTo("/enter", returnTo));
       return;
     }
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setReady(true);
-  }, [mode, router]);
+  }, [mode, router, returnTo]);
 
   // Supabase rejects auth requests without a Turnstile token once captcha
   // protection is on. Each token is single-use, so the widget is reset
@@ -95,6 +100,7 @@ export default function RegisterClient({
     if (view === "confirmPending") setError(null);
     const token = takeCaptchaToken();
     if (!token) return;
+    rememberReturnTo(returnTo);
     setResending(true);
     const supabase = createClient();
     const { error: resendError } = await supabase.auth.resend({
@@ -160,6 +166,9 @@ export default function RegisterClient({
 
       const token = takeCaptchaToken();
       if (!token) return;
+      // The confirmation email's link can't carry it, so /auth/confirm
+      // reads it from here.
+      rememberReturnTo(returnTo);
       setSubmitting(true);
       const { data, error: signUpError } = await supabase.auth.signUp({
         email: trimmedEmail,
@@ -206,7 +215,7 @@ export default function RegisterClient({
       // signUp never returns an active session — it always needs the
       // confirmation link.
       if (data.session) {
-        router.push("/shop");
+        router.push(destination);
         return;
       }
       setView("confirmPending");
@@ -236,7 +245,7 @@ export default function RegisterClient({
     }
 
     if (data.session) {
-      router.push("/shop");
+      router.push(destination);
     }
   }
 
