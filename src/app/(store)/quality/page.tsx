@@ -44,7 +44,7 @@ export default function QualityPage() {
               <p className="text-xs text-brand-slate-light">{product.purity}</p>
             </div>
             {isSoldOut(product) ? (
-              <span className="text-xs font-medium text-brand-slate-light">Out of stock</span>
+              <span className="text-xs font-medium text-brand-slate-light">Coming soon</span>
             ) : (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-teal-dark">
                 <ShieldCheckIcon className="h-4 w-4" />

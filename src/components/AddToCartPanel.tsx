@@ -52,9 +52,9 @@ export default function AddToCartPanel({ product }: { product: Product }) {
     return (
       <div className="card p-6 space-y-5">
         <div>
-          <span className="text-3xl font-bold text-brand-navy">Out of Stock</span>
+          <span className="text-3xl font-bold text-brand-navy">Coming Soon</span>
           <p className="mt-1 text-sm text-brand-slate-light">
-            Back once the next batch passes third-party COA testing.
+            Available as soon as its batch passes third-party COA testing.
           </p>
         </div>
         <SizeOptions sizes={product.sizes} selected={sizeIndex} onSelect={setSizeIndex} />
