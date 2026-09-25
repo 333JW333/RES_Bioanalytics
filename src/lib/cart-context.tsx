@@ -38,7 +38,7 @@ const STORAGE_KEY = "ecopeps-cart";
 
 // Unit prices always come from the catalog at the line's current quantity,
 // so volume discounts track quantity changes and match what checkout
-// charges. Returns null for SKUs no longer in the catalog.
+// charges. Returns null for SKUs no longer in the catalog or in stock.
 function withCatalogPrice(item: Omit<CartItem, "unitPrice">): CartItem | null {
   const unitPrice = unitPriceForSku(item.sku, item.qty);
   return unitPrice === undefined ? null : { ...item, unitPrice };

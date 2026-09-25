@@ -15,10 +15,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## What's included
 
-- **Product catalog** (`src/data/products.ts`) — 6 research peptide
-  listings with vial photos and sample COAs. The data model is designed
-  to scale past 30+ products; just append new entries to the `products`
-  array.
+- **Product catalog** (`src/data/products.ts`) — research peptide
+  listings with vial photos and lab COAs, all on one product page
+  template. The data model is designed to scale past 30+ products; just
+  append new entries to the `products` array.
+- **Notify me when available** on products with nothing in stock (see
+  [Restock requests](#restock-requests)).
 - **Shop, product detail, cart, and checkout flow**, with a research-use
   attestation required before payment.
 - **RUO compliance UX** — an entry gate modal, disclaimer banners, and
@@ -93,7 +95,8 @@ in CI) if any of it is broken.
    `batches` list in `src/data/products.ts` (lab results, `reportUrl` set
    to the same COA PDF, `verifyLinks`, `batchCode`). The page shows the
    newest batch. Also point the product's `documents` and `images.extra`
-   at the new batch's files.
+   at the new batch's files, and give the batch's size a price and drop
+   its `inStock: false`.
 4. **Vial label**: in Nimbot, encode `HTTPS://ECOPEPS.COM/C/<code>` in
    capitals (e.g. `HTTPS://ECOPEPS.COM/C/R2`). Capitals keep the QR at the
    smallest 21×21 size, which scans on a 3 mL vial. It should have only the
@@ -101,6 +104,27 @@ in CI) if any of it is broken.
 
 Once deployed, check that `https://www.ecopeps.com/C/<code>` opens the
 new COA and that every older code (e.g. `/C/R1`) still opens its own.
+
+## Restock requests
+
+A product with no size in stock shows **Notify Me When Available**
+instead of Add to Cart. Clicking it saves the signed-in customer's
+account and sign-in email to the Supabase `restock_requests` table (one
+row per customer per product; `src/lib/restock.ts`). RLS only lets
+customers add themselves, and they can't read the list.
+
+- **Demand**: the `restock_demand` view shows, per product, how many
+  people are `waiting` (not yet emailed) and the latest request.
+- **Back in stock**: once the batch is added (above) and deployed, email
+  everyone waiting for that product that it has passed its COAs and is
+  ready, then mark them sent so they aren't emailed twice:
+
+  ```sql
+  select id, email from restock_requests
+  where product_slug = 'tb-500' and notified_at is null;
+  -- after the emails go out, for the ids you emailed:
+  update restock_requests set notified_at = now() where id in (...);
+  ```
 
 ## Legal pages
 

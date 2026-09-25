@@ -32,7 +32,7 @@ export default function Home() {
                 Browse Catalog
               </Link>
               <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
-                View Sample COAs
+                View Our COAs
               </Link>
             </div>
           </div>

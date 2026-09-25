@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { getAllProducts } from "@/data/products";
+import { isSoldOut } from "@/lib/pricing";
 import { ShieldCheckIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
   title: "Quality & Certificates of Analysis",
-  description: "Learn about our batch testing process and access sample certificates of analysis (COAs).",
+  description: "Learn about our batch testing process and view each product's certificates of analysis (COAs).",
 };
 
 export default function QualityPage() {
@@ -32,21 +34,29 @@ export default function QualityPage() {
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {products.map((product) => (
-          <div key={product.id} className="card flex items-center justify-between p-5">
+          <Link
+            key={product.id}
+            href={`/shop/${product.slug}#documents`}
+            className="card flex items-center justify-between p-5 transition-shadow hover:shadow-lg"
+          >
             <div>
               <p className="font-semibold text-brand-navy">{product.name}</p>
               <p className="text-xs text-brand-slate-light">{product.purity}</p>
             </div>
-            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-teal-dark">
-              <ShieldCheckIcon className="h-4 w-4" />
-              COA on request
-            </span>
-          </div>
+            {isSoldOut(product) ? (
+              <span className="text-xs font-medium text-brand-slate-light">Out of stock</span>
+            ) : (
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-teal-dark">
+                <ShieldCheckIcon className="h-4 w-4" />
+                View COAs
+              </span>
+            )}
+          </Link>
         ))}
       </div>
       <p className="text-xs text-brand-slate-light mt-6">
-        Batch-specific COAs are issued with each shipment. Contact us if you
-        need a COA for a product before purchasing.
+        Each in-stock product page lists the certificates of analysis for its
+        current batch, and every vial&apos;s QR code opens its own batch&apos;s COAs.
       </p>
     </div>
   );
