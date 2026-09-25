@@ -12,8 +12,8 @@ export default function ProductGallery({
   name: string;
 }) {
   const shots = [
-    { key: "front", label: "Front", src: images.front },
-    { key: "back", label: "Back", src: images.back },
+    ...(images.front ? [{ key: "front", label: "Front", src: images.front }] : []),
+    ...(images.back ? [{ key: "back", label: "Back", src: images.back }] : []),
     ...(images.extra ?? []).map((e, i) => ({
       key: `extra-${i}`,
       label: e.label,

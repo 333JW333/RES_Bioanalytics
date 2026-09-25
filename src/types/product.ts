@@ -34,8 +34,9 @@ export interface ProductGalleryImage {
 }
 
 export interface ProductImages {
-  front: string;
-  back: string;
+  /** Vial photos. Leave out until real ones exist; the gallery then shows only `extra`. */
+  front?: string;
+  back?: string;
   /** Small note shown under the main image when the Back shot is active. */
   backCaption?: string;
   /** Extra gallery images shown after front/back, e.g. COA scans. */
