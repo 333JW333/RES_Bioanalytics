@@ -36,7 +36,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          {heroProduct?.images && (
+          {heroProduct?.images?.front && (
             <Link
               href={`/shop/${heroProduct.slug}`}
               className="group w-full max-w-sm overflow-hidden rounded-2xl bg-white text-brand-navy shadow-2xl lg:w-[22rem] xl:w-[26rem] xl:max-w-none"

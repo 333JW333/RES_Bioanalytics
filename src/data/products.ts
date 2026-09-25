@@ -1,7 +1,7 @@
 import type { Product } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (7 products).
+ * Catalog data for the current EcoPeps shop (8 products).
  * Replace names, sequences, purities, sizes, and pricing with verified
  * COA-backed data before treating listings as final. Add new entries to
  * this array to scale toward 30+ SKUs.
@@ -139,6 +139,122 @@ export const products: Product[] = [
     showUsageNotice: true,
     hideSizesSpec: true,
     seoAlternateNames: ["Retatrutide", "LY3437943"],
+  },
+  {
+    id: "p8",
+    slug: "thymosin-alpha-1",
+    name: "Thymosin Alpha-1",
+    synonym: "Thymalfasin",
+    category: "Peptide",
+    casNumber: "62304-98-7",
+    sequenceOrFormula:
+      "Ac-Ser-Asp-Ala-Ala-Val-Asp-Thr-Ser-Ser-Glu-Ile-Thr-Thr-Lys-Asp-Leu-Lys-Glu-Lys-Lys-Glu-Val-Val-Glu-Glu-Ala-Glu-Asn",
+    molecularFormula: "C129H215N33O55",
+    molecularWeight: "3108.28 g/mol",
+    alsoKnownAs: ["Thymalfasin", "Tα1", "TA1"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
+    shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
+    description:
+      "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+    structuralNotes:
+      "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
+    technicalNotes:
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 8°C) and used promptly.",
+    // No vial photos yet, so the gallery shows just the COA scans. Add
+    // front/back here once they land in public/products/.
+    images: {
+      extra: [
+        {
+          label: "Identity & Purity",
+          src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/identity-purity-227167.png",
+        },
+        { label: "Endotoxin", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/endotoxin-227168.png" },
+        { label: "Sterility", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
+      ],
+    },
+    infoNote: "Each vial has a scannable QR code linking the batch to its respective COAs.",
+    documents: [
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Thymosin Alpha-1 10 mg, Batch PSTA110-2",
+        fileName: "identity-purity-227167.png",
+        fileSizeLabel: "374 KB",
+        url: "/coas/thymosin-alpha-1/10mg/PSTA110-2/identity-purity-227167.png",
+        verifyUrl: "https://verify.janoshik.com/tests/227167_YIZ5IJCCB8AJ",
+      },
+      {
+        label: "Certificate of Analysis — Endotoxin",
+        subLabel: "Janoshik Analytical — Thymosin Alpha-1 10 mg, Batch PSTA110-2",
+        fileName: "endotoxin-227168.png",
+        fileSizeLabel: "352 KB",
+        url: "/coas/thymosin-alpha-1/10mg/PSTA110-2/endotoxin-227168.png",
+        verifyUrl: "https://verify.janoshik.com/tests/227168_9HAXKAJJ5MFX",
+      },
+      {
+        label: "Certificate of Analysis — Sterility",
+        subLabel: "Janoshik Analytical — Thymosin Alpha-1 10 mg, Batch PSTA110-2",
+        fileName: "sterility-227169.png",
+        fileSizeLabel: "350 KB",
+        url: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png",
+        verifyUrl: "https://verify.janoshik.com/tests/227169_2CFUU192I3C4",
+      },
+    ],
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials Janoshik tested from batch PSTA110-2:
+        // mass 11.10/11.09/11.11 mg, purity 99.916/99.920/99.926% (Task #227167).
+        purityPercent: 99.92,
+        testedMassMg: 11.1,
+        labeledMassMg: 10,
+        massVariancePercent: 11,
+        tests: [
+          { label: "Identity", result: "CONFIRMED" },
+          { label: "Batch PSTA110-2", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+          { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        ],
+        reportUrl: "/coas/thymosin-alpha-1/10mg/PSTA110-2/thymosin-alpha-1-10mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity",
+            url: "https://verify.janoshik.com/tests/227167_YIZ5IJCCB8AJ",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/227168_9HAXKAJJ5MFX",
+          },
+          {
+            label: "TAMC/TYMC",
+            url: "https://verify.janoshik.com/tests/227169_2CFUU192I3C4",
+          },
+        ],
+        batchCode: "PSTA110-2",
+      },
+    ],
+    volumeTiers: [
+      { label: "2 vials", minQty: 2, discountPercent: 5 },
+      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
+      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
+      { label: "10+ vials", minQty: 10, discountPercent: 30 },
+    ],
+    // Only 10 mg is in stock (batch PSTA110-2, with a lab-verified COA —
+    // see batches/documents above). 20 mg and 30 mg are listed so customers
+    // know we carry them, but stay disabled with no price set until each has
+    // its own verified COA and goes into stock.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 65, sku: "RES-TA1-10" },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-TA1-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-TA1-30", inStock: false },
+    ],
+    showDisclaimer: true,
+    showUsageNotice: true,
+    hideSizesSpec: true,
   },
   {
     id: "p1",

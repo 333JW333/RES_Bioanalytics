@@ -12,7 +12,7 @@ export default function ProductCard({ product }: { product: Product }) {
       className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
     >
       <div className="relative aspect-square overflow-hidden bg-brand-ice">
-        {product.images ? (
+        {product.images?.front ? (
           <Image
             src={product.images.front}
             alt={`${product.name} vial`}

@@ -25,6 +25,12 @@ export const vialCodes: Record<string, VialCode> = {
     coa: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
     sha256: "7bf01a6fda428ede161900d68c9014e51fe742999ef83c64fcd83e9215561227",
   },
+  // Thymosin Alpha-1 10 mg
+  T1: {
+    batch: "PSTA110-2",
+    coa: "/coas/thymosin-alpha-1/10mg/PSTA110-2/thymosin-alpha-1-10mg-full-coa.pdf",
+    sha256: "846f57444fbfd0770c316cc5d65e510abe5949ee420fc8fa45213eb1edbd18eb",
+  },
 };
 
 /** The COA a vial QR code (or printed batch number) opens, any case. */
