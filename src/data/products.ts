@@ -385,7 +385,7 @@ export const products: Product[] = [
     molecularFormula: "C38H68N10O14",
     molecularWeight: "≈ 889.0 g/mol (calculated from sequence)",
     alsoKnownAs: ["TB-500", "Thymosin Beta-4 Fragment"],
-    purity: "≥ 98% (HPLC)",
+    purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -20°C; reconstituted solution at 2–8°C, use within 14 days.",
     shortDescription: "A synthetic peptide fragment reference compound supplied for laboratory research use.",
