@@ -287,6 +287,7 @@ export const products: Product[] = [
     images: {
       front: "/products/bpc-157-front.png",
       back: "/products/bpc-157-back.png",
+      backCaption: "*Batch and Expiration will be the same as the current batch's COAs",
       extra: [
         {
           label: "Identity & Purity",
@@ -340,6 +341,12 @@ export const products: Product[] = [
         batchCode: "BP10-0719",
       },
     ],
+    volumeTiers: [
+      { label: "2 vials", minQty: 2, discountPercent: 5 },
+      { label: "3–4 vials", minQty: 3, discountPercent: 10 },
+      { label: "5–9 vials", minQty: 5, discountPercent: 20 },
+      { label: "10+ vials", minQty: 10, discountPercent: 30 },
+    ],
     // Only 10 mg is in stock (batch BP10-0719, with a lab-verified COA —
     // see batches/documents above). 20 mg and 40 mg are listed so customers
     // know we carry them, but stay disabled with no price set until each has
@@ -350,6 +357,9 @@ export const products: Product[] = [
       { label: "40 mg", mg: 40, price: 0, sku: "RES-BPC-40", inStock: false },
     ],
     featured: true,
+    showDisclaimer: true,
+    showUsageNotice: true,
+    hideSizesSpec: true,
   },
   {
     id: "p2",
