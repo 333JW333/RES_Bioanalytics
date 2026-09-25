@@ -4,13 +4,17 @@ import type { Product } from "@/types/product";
 import { formatUSD } from "@/lib/format";
 import { isSoldOut, startingPrice } from "@/lib/pricing";
 import { VialIcon } from "@/components/icons";
+import NotifyMeButton from "@/components/NotifyMeButton";
 
 export default function ProductCard({ product }: { product: Product }) {
+  const soldOut = isSoldOut(product);
+
+  // The product name's link is stretched over the whole card (after:inset-0)
+  // so the card still opens the product anywhere it's clicked, while the
+  // Notify Me button sits above it (z-10) and takes its own clicks. A button
+  // can't go inside the link itself.
   return (
-    <Link
-      href={`/shop/${product.slug}`}
-      className="card group flex flex-col overflow-hidden transition-shadow hover:shadow-lg"
-    >
+    <div className="card group relative flex flex-col overflow-hidden transition-shadow hover:shadow-lg">
       <div className="relative aspect-square overflow-hidden bg-brand-ice">
         {product.images?.front ? (
           <Image
@@ -30,12 +34,19 @@ export default function ProductCard({ product }: { product: Product }) {
         <span className="text-[11px] font-semibold uppercase tracking-wide text-brand-teal-dark">
           {product.category}
         </span>
-        <h3 className="text-base font-semibold text-brand-navy">{product.name}</h3>
+        <h3 className="text-base font-semibold text-brand-navy">
+          <Link
+            href={`/shop/${product.slug}`}
+            className="after:absolute after:inset-0 after:content-['']"
+          >
+            {product.name}
+          </Link>
+        </h3>
         <p className="text-sm text-brand-slate-light line-clamp-2">
           {product.shortDescription}
         </p>
         <div className="mt-auto flex items-center justify-between pt-3">
-          {isSoldOut(product) ? (
+          {soldOut ? (
             <span className="text-sm font-semibold text-brand-slate-light">Out of stock</span>
           ) : (
             <span className="text-sm font-semibold text-brand-navy">
@@ -46,7 +57,12 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.purity}
           </span>
         </div>
+        {soldOut && (
+          <div className="relative z-10 pt-2">
+            <NotifyMeButton slug={product.slug} name={product.name} />
+          </div>
+        )}
       </div>
-    </Link>
+    </div>
   );
 }
