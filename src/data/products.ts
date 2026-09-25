@@ -255,6 +255,9 @@ export const products: Product[] = [
       { label: "20 mg", mg: 20, price: 0, sku: "RES-TA1-20", inStock: false },
       { label: "30 mg", mg: 30, price: 0, sku: "RES-TA1-30", inStock: false },
     ],
+    // Featured lists follow this array's order, so it shows second on the
+    // home page, as it does in the shop.
+    featured: true,
     showDisclaimer: true,
     showUsageNotice: true,
     hideSizesSpec: true,
