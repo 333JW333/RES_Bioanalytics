@@ -37,11 +37,12 @@ export const vialCodes: Record<string, VialCode> = {
     coa: "/coas/ss-31/10mg/2S31-0817/ss-31-10mg-full-coa.pdf",
     sha256: "66aa1155b0ed12d59c54454d71f67b2c3e6dfd8ba34ed517b4ee494a8e598090",
   },
-  // BPC-157 10 mg
+  // BPC-157 10 mg. Reissued with this batch's endotoxin and heavy-metal
+  // reports added after the identity/purity one.
   B1: {
     batch: "BP10-0719",
     coa: "/coas/bpc-157/10mg/BP10-0719/bpc-157-10mg-full-coa.pdf",
-    sha256: "ae7d009b4a466a2a86f89e9a7b4417d5b50ec3e6906dd0696a1f8a8f1a4d5d99",
+    sha256: "6b610f0f1c9658429fcc0d332437682d608c48b5fddc8ff13ff480068878fa89",
   },
 };
 

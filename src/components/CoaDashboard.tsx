@@ -19,7 +19,7 @@ function CheckIcon({ className = "h-3.5 w-3.5" }: { className?: string }) {
 // renders in brand-teal. Add new equivalents here (e.g. "CONFORMS") as
 // new test types are added, whatever standard they cite (USP <61>,
 // USP <71>, ...) in the label.
-const POSITIVE_RESULTS = new Set(["PASS", "CONFIRMED"]);
+const POSITIVE_RESULTS = new Set(["PASS", "CONFIRMED", "NOT DETECTED"]);
 
 function isPositiveResult(result: string): boolean {
   return POSITIVE_RESULTS.has(result.trim().toUpperCase());
