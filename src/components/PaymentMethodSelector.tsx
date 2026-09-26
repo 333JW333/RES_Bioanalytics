@@ -6,7 +6,7 @@ import { usePlaidLink } from "react-plaid-link";
 import { useCart } from "@/lib/cart-context";
 import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
 
-type Method = "crypto" | "ach" | "card" | "paypal";
+type Method = "crypto" | "ach" | "card" | "invoice";
 
 interface ContactInfo {
   email: string;
@@ -29,9 +29,11 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
 
   const contactComplete = Boolean(contact.email && contact.firstName && contact.lastName);
 
-  // Crypto (Coinbase Commerce) and card (PayRam) both create a hosted
-  // payment page server-side and redirect the browser to it.
-  async function startHostedCheckout(endpoint: string) {
+  // Crypto (Coinbase Commerce) and card (Stripe Checkout) both create a
+  // hosted payment page server-side and redirect the browser to it. The
+  // payment method selector is only shown once the research-use attestation
+  // on the checkout page is ticked, so it's sent as confirmed.
+  async function startHostedCheckout(endpoint: string, { clearFirst }: { clearFirst: boolean }) {
     setError(null);
     setBusy(true);
     try {
@@ -41,11 +43,14 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
         body: JSON.stringify({
           email: contact.email,
           items: orderItems,
+          ruoAttested: true,
         }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
-      clearCart();
+      // Stripe orders keep the cart until payment succeeds, so a buyer who
+      // backs out of Checkout returns to a full cart (the success page clears it).
+      if (clearFirst) clearCart();
       window.location.href = data.url;
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
@@ -76,7 +81,12 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             icon={<CardIcon className="h-5 w-5" />}
             label="Card"
           />
-          <MethodTab disabled icon={<CardIcon className="h-5 w-5" />} label="PayPal" />
+          <MethodTab
+            active={method === "invoice"}
+            onClick={() => setMethod("invoice")}
+            icon={<BankIcon className="h-5 w-5" />}
+            label="Invoice"
+          />
         </div>
       </div>
 
@@ -103,7 +113,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={() => startHostedCheckout("/api/checkout/crypto")}
+            onClick={() => startHostedCheckout("/api/checkout/crypto", { clearFirst: true })}
           >
             {busy ? "Redirecting…" : "Pay with Crypto"}
           </button>
@@ -126,19 +136,33 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       {method === "card" && (
         <div className="space-y-3">
           <p className="text-sm text-brand-slate-light leading-relaxed">
-            Card payments are processed through PayRam, which settles funds
-            to us in stablecoin — you can pay with Visa or Mastercard
-            without leaving this checkout.
+            You&apos;ll be redirected to a secure Stripe checkout page to pay
+            by card and confirm your U.S. shipping address.
           </p>
           <button
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={() => startHostedCheckout("/api/checkout/card-payram")}
+            onClick={() => startHostedCheckout("/api/checkout/stripe", { clearFirst: false })}
           >
             {busy ? "Redirecting…" : "Pay with Card"}
           </button>
         </div>
+      )}
+
+      {method === "invoice" && (
+        <InvoiceFlow
+          contactComplete={contactComplete}
+          orderItems={orderItems}
+          onError={setError}
+          onSuccess={(orderId, demo) => {
+            clearCart();
+            const params = new URLSearchParams({ method: "invoice" });
+            if (orderId) params.set("order", orderId);
+            if (demo) params.set("demo", "1");
+            router.push(`/checkout/success?${params}`);
+          }}
+        />
       )}
     </div>
   );
@@ -271,6 +295,69 @@ function AchFlow({
         onClick={() => open()}
       >
         {busy ? "Processing…" : linked ? "Bank Linked — Processing…" : "Connect Bank & Pay"}
+      </button>
+    </div>
+  );
+}
+
+function InvoiceFlow({
+  contactComplete,
+  orderItems,
+  onError,
+  onSuccess,
+}: {
+  contactComplete: boolean;
+  orderItems: { sku: string; qty: number }[];
+  onError: (msg: string | null) => void;
+  onSuccess: (orderId: string | null, demo: boolean) => void;
+}) {
+  const [poNumber, setPoNumber] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  async function requestInvoice() {
+    onError(null);
+    setBusy(true);
+    try {
+      const res = await fetch("/api/checkout/invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: orderItems, poNumber, ruoAttested: true }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Invoice request failed.");
+      onSuccess(data.orderId ?? null, Boolean(data.demo));
+    } catch (e) {
+      onError(e instanceof Error ? e.message : "Something went wrong.");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="space-y-3">
+      <p className="text-sm text-brand-slate-light leading-relaxed">
+        For business and institution accounts with an EIN on file. We review
+        your order, then email a Net 30 invoice you can pay by bank transfer
+        or card. Orders ship once the invoice is paid.
+      </p>
+      <label className="block">
+        <span className="block text-xs font-medium text-brand-slate-light mb-1">
+          PO number (optional)
+        </span>
+        <input
+          type="text"
+          value={poNumber}
+          maxLength={100}
+          onChange={(e) => setPoNumber(e.target.value)}
+          className="input"
+        />
+      </label>
+      <button
+        type="button"
+        className="btn-primary w-full disabled:opacity-40"
+        disabled={!contactComplete || orderItems.length === 0 || busy}
+        onClick={requestInvoice}
+      >
+        {busy ? "Submitting…" : "Request Invoice"}
       </button>
     </div>
   );
