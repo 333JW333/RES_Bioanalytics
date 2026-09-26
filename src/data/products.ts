@@ -52,6 +52,37 @@ export const products: Product[] = [
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
       "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+    // Template for the Storage & Handling / Storage Requirements sections —
+    // copy to other products and adjust per compound.
+    handling: [
+      "On receipt, move sealed vials to a freezer at -4°F or colder.",
+      "Let the sealed vial reach room temperature before opening so condensation doesn't form on the powder.",
+      "Reconstitute with sterile water using aseptic technique: add the solvent slowly down the vial wall and swirl gently. Do not shake or vortex.",
+      "Label the vial with the reconstitution date, keep it refrigerated at 36–46°F, and discard any remaining solution after 14 days.",
+      "For longer studies, divide the solution into single-use aliquots rather than freezing and thawing the same vial repeatedly.",
+      "Keep vials tightly sealed and away from light and moisture.",
+      "Handle only in a laboratory setting by qualified personnel wearing gloves, eye protection, and a lab coat.",
+    ],
+    storageRequirements: [
+      {
+        label: "Lyophilized powder — long term",
+        value: "-4°F or colder",
+        note: "Sealed, dry, and protected from light.",
+      },
+      {
+        label: "Lyophilized powder — short term",
+        value: "Room temperature",
+        note: "Acceptable in transit and during brief bench handling while sealed and dry.",
+      },
+      {
+        label: "Reconstituted solution",
+        value: "36–46°F",
+        note: "Use within 14 days.",
+      },
+      { label: "Light", value: "Protect from direct light" },
+      { label: "Moisture", value: "Keep sealed; avoid humidity" },
+      { label: "Freeze–thaw", value: "Avoid repeated cycles" },
+    ],
     images: {
       front: "/products/ep-glp3-r-front.png",
       back: "/products/ep-glp3-r-back.png",

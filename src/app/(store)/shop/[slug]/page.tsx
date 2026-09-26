@@ -169,6 +169,37 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
               </DescriptionBlock>
             )}
 
+            {product.handling && product.handling.length > 0 && (
+              <DescriptionBlock title="Storage & Handling">
+                <ol className="list-decimal pl-5 space-y-1.5 marker:text-brand-teal-dark">
+                  {product.handling.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </DescriptionBlock>
+            )}
+
+            {product.storageRequirements && product.storageRequirements.length > 0 && (
+              <DescriptionBlock title="Storage Requirements">
+                <dl className="mt-1 divide-y divide-brand-line rounded-xl border border-brand-line">
+                  {product.storageRequirements.map((req) => (
+                    <div
+                      key={req.label}
+                      className="grid gap-1 px-4 py-3 sm:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] sm:gap-6"
+                    >
+                      <dt className="text-brand-slate-light">{req.label}</dt>
+                      <dd>
+                        <span className="font-medium text-brand-navy">{req.value}</span>
+                        {req.note && (
+                          <span className="block text-xs text-brand-slate-light mt-0.5">{req.note}</span>
+                        )}
+                      </dd>
+                    </div>
+                  ))}
+                </dl>
+              </DescriptionBlock>
+            )}
+
             <DescriptionBlock title="Compliance">
               <p>
                 For laboratory research use only. Not for human or veterinary
