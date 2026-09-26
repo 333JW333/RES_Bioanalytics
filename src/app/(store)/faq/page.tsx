@@ -34,7 +34,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "How is my order shipped and stored?",
-    a: "Products are shipped in sealed, labeled containers appropriate for laboratory reagents. Most compounds are lyophilized powders that should be stored at -20°C until reconstitution. See individual product pages for compound-specific storage guidance.",
+    a: "Products are shipped in sealed, labeled containers appropriate for laboratory reagents. Most compounds are lyophilized powders that should be stored at -4°F until reconstitution. See individual product pages for compound-specific storage guidance.",
   },
   {
     q: "How long does an ACH payment take to process?",
