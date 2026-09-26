@@ -39,10 +39,10 @@ interface StorageTemplateOptions {
 function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): string[] {
   return [
     "On receipt, move sealed vials to a freezer at -4°F or colder.",
-    "Let the sealed vial reach room temperature before opening so condensation doesn't form on the powder.",
+    "Let the sealed vial reach room temperature before opening. This prevents condensation from forming on the powder.",
     "Reconstitute with sterile water using aseptic technique.",
-    "Label the vial with the reconstitution date and keep it refrigerated at 36–46°F. For best results, use within 28 days.",
-    "For longer studies, divide the solution into single-use aliquots rather than freezing and thawing the same vial repeatedly.",
+    "Label the vial with the reconstitution date and refrigerate at 36–46°F. Best used within 28 days.",
+    "For longer studies, divide the solution into single-use aliquots. Avoid repeated freeze–thaw cycles.",
     lightSensitive
       ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times, before and after reconstitution."
       : "Keep vials tightly sealed and away from light and moisture.",
@@ -102,7 +102,7 @@ export const products: Product[] = [
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements({
       // Based on independent Janoshik testing of refrigerated retatrutide
@@ -110,7 +110,7 @@ export const products: Product[] = [
       // by ~90 days. Keep this note to this compound unless other products
       // get their own stability data.
       reconstitutedNote:
-        "Best used within 28 days. Independent testing of refrigerated samples shows gradual peptide loss by around 90 days.",
+        "Best used within 28 days. Independent testing of refrigerated samples shows gradual peptide loss by approximately 90 days.",
     }),
     images: {
       front: "/products/ep-glp3-r-front.png",
@@ -222,7 +222,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     // "-v2": a replaced photo needs a new filename, or the old one can keep
@@ -336,7 +336,7 @@ export const products: Product[] = [
     structuralNotes:
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
-      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -458,7 +458,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -489,7 +489,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -519,7 +519,7 @@ export const products: Product[] = [
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -556,7 +556,7 @@ export const products: Product[] = [
     structuralNotes:
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
@@ -590,7 +590,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
