@@ -71,6 +71,13 @@ export interface VolumeTier {
   discountPercent: number;
 }
 
+/** One row of a product's Storage Requirements table, e.g. "Reconstituted solution" → "36–46°F". */
+export interface StorageRequirement {
+  label: string;
+  value: string;
+  note?: string;
+}
+
 export interface Product {
   id: string;
   slug: string;
@@ -85,6 +92,10 @@ export interface Product {
   purity: string;
   form: string;
   storage: string;
+  /** Step-by-step lab handling guidance, rendered as the "Storage & Handling" section. Omit to hide the section. */
+  handling?: string[];
+  /** Condition-by-condition storage table, rendered as the "Storage Requirements" section. Omit to hide the section. */
+  storageRequirements?: StorageRequirement[];
   shortDescription: string;
   description: string;
   structuralNotes?: string;
