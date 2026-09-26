@@ -106,11 +106,12 @@ export const products: Product[] = [
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements({
       // Based on independent Janoshik testing of refrigerated retatrutide
-      // samples (PepRecon, 2026): purity held but recoverable mass declined
-      // by ~90 days. Keep this note to this compound unless other products
+      // samples (PepRecon, 2026): purity held while recoverable mass fell
+      // 2.4–9.6% by day 90 across six normal vials (mean ~6.5%); one
+      // outlier vial failed and is excluded. Keep this note to this compound unless other products
       // get their own stability data.
       reconstitutedNote:
-        "Best used within 28 days. Independent testing of refrigerated samples shows gradual peptide loss by approximately 90 days.",
+        "Best used within 28 days. Independent testing of refrigerated samples found gradual peptide loss averaging about 6–7% by day 90.",
     }),
     images: {
       front: "/products/ep-glp3-r-front.png",
