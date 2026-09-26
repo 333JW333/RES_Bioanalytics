@@ -44,7 +44,7 @@ export const products: Product[] = [
     molecularWeight: "4731.42 g/mol",
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, use within 14 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
     shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
       "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
@@ -57,8 +57,8 @@ export const products: Product[] = [
     handling: [
       "On receipt, move sealed vials to a freezer at -4°F or colder.",
       "Let the sealed vial reach room temperature before opening so condensation doesn't form on the powder.",
-      "Reconstitute with sterile water using aseptic technique: add the solvent slowly down the vial wall and swirl gently. Do not shake or vortex.",
-      "Label the vial with the reconstitution date, keep it refrigerated at 36–46°F, and discard any remaining solution after 14 days.",
+      "Reconstitute with sterile water using aseptic technique.",
+      "Label the vial with the reconstitution date and keep it refrigerated at 36–46°F. For best results, use within 28 days.",
       "For longer studies, divide the solution into single-use aliquots rather than freezing and thawing the same vial repeatedly.",
       "Keep vials tightly sealed and away from light and moisture.",
       "Handle only in a laboratory setting by qualified personnel wearing gloves, eye protection, and a lab coat.",
@@ -77,7 +77,7 @@ export const products: Product[] = [
       {
         label: "Reconstituted solution",
         value: "36–46°F",
-        note: "Use within 14 days.",
+        note: "Best used within 28 days. Independent testing of refrigerated samples shows gradual peptide loss by around 90 days.",
       },
       { label: "Light", value: "Protect from direct light" },
       { label: "Moisture", value: "Keep sealed; avoid humidity" },
