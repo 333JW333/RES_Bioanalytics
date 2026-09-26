@@ -5,7 +5,7 @@ import { getAccount } from "@/lib/account";
 export const metadata: Metadata = { title: "Account Details" };
 
 export default async function AccountDetailsPage() {
-  const { email, ein, profile } = await getAccount();
+  const { email, profile } = await getAccount();
   const name = [profile?.first_name, profile?.last_name].filter(Boolean).join(" ");
 
   // Labels match the registration form, where these were entered.
@@ -15,7 +15,8 @@ export default async function AccountDetailsPage() {
     { label: "Phone number", value: profile?.phone },
     { label: "Business website", value: profile?.website },
     { label: "Business type", value: profile?.business_type },
-    ...(ein ? [{ label: "EIN", value: ein }] : []),
+    // Businesses only; researchers registering as individuals have none.
+    ...(profile?.ein ? [{ label: "EIN", value: profile.ein }] : []),
     { label: "Industry / research affiliation", value: profile?.industry },
   ];
 

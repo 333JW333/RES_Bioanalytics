@@ -8,6 +8,7 @@ export interface Profile {
   industry: string | null;
   website: string | null;
   phone: string | null;
+  ein: string | null;
   created_at: string;
 }
 
@@ -24,14 +25,9 @@ export async function getAccount() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("first_name, last_name, business_type, industry, website, phone, created_at")
+    .select("first_name, last_name, business_type, industry, website, phone, ein, created_at")
     .eq("id", claims.sub)
     .maybeSingle<Profile>();
 
-  // The EIN (businesses only) lives in the signup metadata carried on the
-  // session, so it shows here whether or not the profiles row has a column
-  // for it.
-  const ein = claims.user_metadata?.ein;
-
-  return { email: claims.email, ein: typeof ein === "string" ? ein : null, profile };
+  return { email: claims.email, profile };
 }
