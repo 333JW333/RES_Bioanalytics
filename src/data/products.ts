@@ -102,7 +102,7 @@ export const products: Product[] = [
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements({
       // Based on independent Janoshik testing of refrigerated retatrutide
@@ -222,7 +222,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     // "-v2": a replaced photo needs a new filename, or the old one can keep
@@ -336,7 +336,7 @@ export const products: Product[] = [
     structuralNotes:
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
-      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -458,7 +458,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -489,7 +489,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -519,7 +519,7 @@ export const products: Product[] = [
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -556,7 +556,7 @@ export const products: Product[] = [
     structuralNotes:
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
@@ -590,7 +590,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
+      "Soluble in sterile water for research use.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
