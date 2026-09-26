@@ -8,6 +8,9 @@ import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
 
 type Method = "crypto" | "ach" | "card" | "paypal";
 
+const GENERIC_ERROR =
+  "We couldn't complete that. Please try again, or contact us if it keeps happening.";
+
 interface ContactInfo {
   email: string;
   firstName: string;
@@ -48,7 +51,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       clearCart();
       window.location.href = data.url;
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Something went wrong.");
+      setError(e instanceof Error ? e.message : GENERIC_ERROR);
       setBusy(false);
     }
   }
@@ -126,9 +129,8 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       {method === "card" && (
         <div className="space-y-3">
           <p className="text-sm text-brand-slate-light leading-relaxed">
-            Card payments are processed through PayRam, which settles funds
-            to us in stablecoin — you can pay with Visa or Mastercard
-            without leaving this checkout.
+            You&apos;ll be redirected to a secure PayRam checkout to complete
+            payment with Visa or Mastercard.
           </p>
           <button
             type="button"
@@ -244,7 +246,7 @@ function AchFlow({
 
         onSuccess(transferData.orderId, Boolean(exchangeData.demo || transferData.demo));
       } catch (e) {
-        onError(e instanceof Error ? e.message : "Something went wrong.");
+        onError(e instanceof Error ? e.message : GENERIC_ERROR);
       } finally {
         setBusy(false);
       }

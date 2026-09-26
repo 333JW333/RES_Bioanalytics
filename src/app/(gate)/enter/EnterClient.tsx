@@ -109,14 +109,7 @@ export default function EnterClient({ returnTo }: { returnTo: string | null }) {
         </section>
 
         <footer className="mt-auto pt-8 text-center sm:pt-10">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-navy">
-            For research use only
-          </p>
-          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-brand-slate-light">
-            Products are supplied for in vitro laboratory research. Not for
-            human or veterinary use, food, or household use.
-          </p>
-          <nav className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-brand-slate-light">
+          <nav className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs text-brand-slate-light">
             <Link
               href="/quality"
               className="font-medium text-brand-teal-dark hover:underline"

@@ -134,7 +134,7 @@ export default function AccountMenu() {
                 }}
                 className={`${ITEM} text-brand-slate-light hover:text-brand-teal-dark`}
               >
-                Logout
+                Sign out
               </button>
             </li>
           </ul>

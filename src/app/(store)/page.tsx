@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "@/components/ProductCard";
+import UsFlag from "@/components/UsFlag";
 import { getFeaturedProducts, getProductBySlug } from "@/data/products";
 import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 import { formatUSD } from "@/lib/format";
 import { isSoldOut, startingPrice } from "@/lib/pricing";
+
+// Title and social cards fall back to the root layout's defaults.
+export const metadata: Metadata = {
+  description:
+    "Veteran owned and operated in the USA. EcoPeps supplies research peptides with third-party HPLC purity testing and a published certificate of analysis for every batch.",
+};
 
 // EP-GLP3-R, our lead product, fronts the hero.
 const HERO_PRODUCT_SLUG = "retatrutide";
@@ -37,7 +45,7 @@ export default function Home() {
                 Browse Catalog
               </Link>
               <Link href="/quality" className="btn-secondary !bg-transparent !text-white !border-white/30 hover:!border-brand-teal">
-                View Our COAs
+                View COAs
               </Link>
             </div>
           </div>
@@ -116,23 +124,22 @@ export default function Home() {
       </section>
 
       <section className="bg-brand-ice border-t border-brand-line">
-        <div className="container-page py-14 text-center">
+        <div className="container-page flex flex-col items-center py-14 text-center">
+          <UsFlag className="mb-5 h-8 w-auto shadow-sm" />
           <h2 className="text-2xl font-bold text-brand-navy mb-3">
-            For Laboratory &amp; Research Use Only
+            Veteran Owned &amp; Operated
           </h2>
-          <p className="max-w-2xl mx-auto text-brand-slate-light text-sm leading-relaxed">
-            All products offered by EcoPeps are intended strictly
-            for in-vitro laboratory research and are not drugs, supplements,
-            cosmetics, or foods. They are not for human or animal
-            consumption, and are not evaluated by the FDA to diagnose,
-            treat, cure, or prevent any disease. By purchasing, you certify
-            you are a qualified researcher or institution acquiring these
-            materials solely for permitted research purposes. Read our{" "}
-            <Link href="/legal/ruo-policy" className="text-brand-teal-dark underline">
-              full RUO Policy
-            </Link>
-            .
+          <p className="max-w-2xl text-brand-slate-light leading-relaxed">
+            EcoPeps is veteran owned and operated in the United States of
+            America. Every batch is tested by an independent lab before
+            release, and every result is published for you to verify.
           </p>
+          <Link
+            href="/about"
+            className="mt-5 text-sm font-semibold text-brand-teal-dark hover:underline"
+          >
+            About EcoPeps →
+          </Link>
         </div>
       </section>
     </div>

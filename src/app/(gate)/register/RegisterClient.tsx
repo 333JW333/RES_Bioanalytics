@@ -8,7 +8,10 @@ import Turnstile from "@/components/Turnstile";
 import { createClient } from "@/lib/supabase/client";
 import {
   BUSINESS_TYPES,
+  EIN_BUSINESS_TYPE,
   INDUSTRY_AFFILIATIONS,
+  formatEinInput,
+  isValidEin,
   readAgeVerified,
   type BusinessType,
   type IndustryAffiliation,
@@ -57,6 +60,7 @@ export default function RegisterClient({
   const [email, setEmail] = useState("");
   const [confirmEmail, setConfirmEmail] = useState("");
   const [businessType, setBusinessType] = useState<BusinessType | "">("");
+  const [ein, setEin] = useState("");
   const [industry, setIndustry] = useState<IndustryAffiliation | "">("");
   const [website, setWebsite] = useState("");
   const [phone, setPhone] = useState("");
@@ -142,6 +146,11 @@ export default function RegisterClient({
         setError("Select a business type.");
         return;
       }
+      const needsEin = businessType === EIN_BUSINESS_TYPE;
+      if (needsEin && !isValidEin(ein)) {
+        setError("Enter your 9-digit EIN (for example, 12-3456789).");
+        return;
+      }
       if (!industry) {
         setError("Select an industry / research affiliation.");
         return;
@@ -180,6 +189,9 @@ export default function RegisterClient({
             first_name: firstName.trim(),
             last_name: lastName.trim(),
             business_type: businessType,
+            // Only businesses give one; a researcher who switched types
+            // after typing an EIN doesn't send it.
+            ...(needsEin ? { ein } : {}),
             industry,
             website: website.trim(),
             phone: phone.trim(),
@@ -408,17 +420,30 @@ export default function RegisterClient({
                     label="Business type"
                     value={businessType}
                     onChange={(v) => setBusinessType(v as BusinessType | "")}
-                    placeholder="Select Entity Classification"
+                    placeholder="Select business type"
                     options={BUSINESS_TYPES}
                     hint="Researcher if purchasing as a qualified individual professional."
                     required
                   />
+                  {businessType === EIN_BUSINESS_TYPE && (
+                    <Field
+                      id="ein"
+                      label="Employer Identification Number (EIN)"
+                      inputMode="numeric"
+                      autoComplete="off"
+                      placeholder="12-3456789"
+                      hint="Your business's 9-digit federal tax ID."
+                      value={ein}
+                      onChange={(v) => setEin(formatEinInput(v))}
+                      required
+                    />
+                  )}
                   <SelectField
                     id="industry"
                     label="Industry / research affiliation"
                     value={industry}
                     onChange={(v) => setIndustry(v as IndustryAffiliation | "")}
-                    placeholder="--- Select Industry ---"
+                    placeholder="Select industry"
                     options={INDUSTRY_AFFILIATIONS}
                     required
                   />
@@ -587,14 +612,7 @@ export default function RegisterClient({
         )}
 
         <footer className="mt-auto pt-8 text-center sm:pt-10">
-          <p className="text-xs font-bold uppercase tracking-[0.14em] text-brand-navy">
-            For research use only
-          </p>
-          <p className="mx-auto mt-2 max-w-md text-[11px] leading-relaxed text-brand-slate-light">
-            Products are supplied for in vitro laboratory research. Not for
-            human or veterinary use, food, or household use.
-          </p>
-          <p className="mt-4 text-[11px] uppercase tracking-wide text-brand-slate-light">
+          <p className="text-[11px] uppercase tracking-wide text-brand-slate-light">
             © EcoPeps {new Date().getFullYear()}
           </p>
         </footer>

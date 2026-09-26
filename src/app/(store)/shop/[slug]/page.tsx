@@ -10,7 +10,6 @@ import ChemFormula from "@/components/ChemFormula";
 import ProductGallery from "@/components/ProductGallery";
 import CoaDashboard from "@/components/CoaDashboard";
 import ProductDisclaimer from "@/components/ProductDisclaimer";
-import ProductUsageNotice from "@/components/ProductUsageNotice";
 import {
   VialIcon,
   ShieldCheckIcon,
@@ -99,8 +98,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="container-page py-14">
-      <ProductUsageNotice />
-
       <nav className="text-sm text-brand-slate-light mb-8">
         <Link href="/shop" className="hover:text-brand-teal-dark">Shop</Link>
         <span className="mx-2">/</span>
@@ -117,7 +114,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
         )}
 
         <div>
-          <span className="badge-ruo mb-4">Research Use Only</span>
           <h1 className="text-3xl font-bold text-brand-navy mb-1">{product.name}</h1>
           {product.synonym && (
             <p className="text-brand-slate-light mb-4">{product.synonym}</p>
@@ -132,7 +128,7 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
             <ShieldCheckIcon className="h-5 w-5 shrink-0 text-brand-teal-dark mt-0.5" />
             <p className="text-xs text-brand-slate-light leading-relaxed">
               {product.infoNote ??
-                "Each vial has a scannable QR code linking the batch to its respective COAs."}
+                "Each vial has a scannable QR code linking to its batch's COAs."}
             </p>
           </div>
 
@@ -168,14 +164,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 <p>{product.technicalNotes}</p>
               </DescriptionBlock>
             )}
-
-            <DescriptionBlock title="Compliance">
-              <p>
-                For laboratory research use only. Not for human or veterinary
-                use. Not intended for diagnostic, therapeutic, or preventive
-                applications.
-              </p>
-            </DescriptionBlock>
           </div>
         </div>
 

@@ -23,8 +23,9 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
     q: "Do you provide certificates of analysis?",
     a: (
       <>
-        Yes. Every batch is tested by HPLC/MS and ships with a
-        batch-specific certificate of analysis. See our{" "}
+        Yes. Every batch is tested by HPLC/MS before release, and its
+        certificate of analysis is posted on the product page and linked from
+        the QR code on every vial. See our{" "}
         <Link href="/quality" className="text-brand-teal-dark underline">
           Quality &amp; COAs
         </Link>{" "}
@@ -38,7 +39,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "How long does an ACH payment take to process?",
-    a: "ACH bank transfers typically settle within 1-3 business days. Orders ship once payment has cleared.",
+    a: "ACH bank transfers typically settle within 1–3 business days. Orders ship once payment has cleared.",
   },
 ];
 

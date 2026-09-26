@@ -28,5 +28,10 @@ export async function getAccount() {
     .eq("id", claims.sub)
     .maybeSingle<Profile>();
 
-  return { email: claims.email, profile };
+  // The EIN (businesses only) lives in the signup metadata carried on the
+  // session, so it shows here whether or not the profiles row has a column
+  // for it.
+  const ein = claims.user_metadata?.ein;
+
+  return { email: claims.email, ein: typeof ein === "string" ? ein : null, profile };
 }

@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
 import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
+import UsFlag from "@/components/UsFlag";
+import { getAllProducts } from "@/data/products";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "EcoPeps supplies high-purity research peptides and compounds to laboratories and qualified researchers.",
+  description: "EcoPeps is a veteran-owned company operating in the United States, supplying high-purity research peptides and compounds to laboratories and qualified researchers.",
 };
 
 export default function AboutPage() {
+  const productCount = getAllProducts().length;
+
   return (
     <div className="container-page py-16">
       <div className="max-w-3xl">
-        <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy mb-5">About EcoPeps</h1>
+        <p className="mb-5 inline-flex items-center gap-2.5 rounded-lg border border-brand-line bg-white px-4 py-2 text-sm font-semibold text-brand-navy">
+          <UsFlag className="h-3.5 w-auto shrink-0 shadow-sm" />
+          Veteran owned &amp; operated in the United States of America
+        </p>
         <p className="text-brand-slate leading-relaxed mb-4">
           EcoPeps was founded to give laboratories and research
           institutions reliable access to high-purity reference peptides and
@@ -21,12 +28,10 @@ export default function AboutPage() {
           30+ products as we grow.
         </p>
         <p className="text-brand-slate leading-relaxed mb-4">
-          Every compound we offer is manufactured and tested for laboratory,
-          analytical, and non-clinical research use only. We work
-          exclusively with qualified researchers, laboratories, and
-          institutions, and we do not market, promote, or sell our products
-          for human or animal consumption, diagnostic use, or any clinical
-          application.
+          Every compound we offer is sourced, batch-tested by an independent
+          lab, and released for laboratory, analytical, and non-clinical
+          research use. We work exclusively with qualified researchers,
+          laboratories, and institutions.
         </p>
       </div>
 
@@ -44,7 +49,7 @@ export default function AboutPage() {
         <ValueCard
           icon={<DnaIcon className="h-6 w-6" />}
           title="Growing Catalog"
-          body="Launching with 6 core peptides, expanding toward a comprehensive 30+ SKU research line."
+          body={`Launching with ${productCount} core peptides, expanding toward a comprehensive 30+ SKU research line.`}
         />
       </div>
     </div>

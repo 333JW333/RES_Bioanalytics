@@ -17,9 +17,9 @@ export default function AccountCoasPage() {
           </>
         }
       >
-        Batch-specific certificates of analysis are issued with each shipment.
-        If you need a copy of a COA for a batch you&apos;ve received, contact us
-        with your order number.
+        Each batch&apos;s certificates of analysis are posted on its product
+        page and linked from the QR code on every vial. If you need a copy for
+        a batch you&apos;ve received, contact us with your order number.
       </AccountEmptyState>
     </>
   );

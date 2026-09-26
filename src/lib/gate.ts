@@ -23,6 +23,19 @@ export const INDUSTRY_AFFILIATIONS = [
 export type BusinessType = (typeof BUSINESS_TYPES)[number];
 export type IndustryAffiliation = (typeof INDUSTRY_AFFILIATIONS)[number];
 
+/** The business type that must give a federal EIN at registration. */
+export const EIN_BUSINESS_TYPE: BusinessType = BUSINESS_TYPES[0];
+
+/** Formats typed input as an EIN (12-3456789): digits only, dash after the second. */
+export function formatEinInput(value: string): string {
+  const digits = value.replace(/\D/g, "").slice(0, 9);
+  return digits.length > 2 ? `${digits.slice(0, 2)}-${digits.slice(2)}` : digits;
+}
+
+export function isValidEin(value: string): boolean {
+  return /^\d{2}-\d{7}$/.test(value);
+}
+
 function setCookie(name: string, value: string, maxAgeDays = 365) {
   try {
     const maxAge = maxAgeDays * 24 * 60 * 60;

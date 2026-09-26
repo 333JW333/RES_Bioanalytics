@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
 import Logo from "@/components/Logo";
+import UsFlag from "@/components/UsFlag";
 
 export default function Footer() {
   return (
@@ -11,6 +12,10 @@ export default function Footer() {
           <p className="text-sm leading-relaxed text-white/60">
             High-purity reference peptides and research compounds for
             laboratory, analytical, and non-clinical research applications.
+          </p>
+          <p className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-white/80">
+            <UsFlag className="h-3.5 w-auto shrink-0" />
+            Veteran owned &amp; operated in the USA
           </p>
         </div>
 

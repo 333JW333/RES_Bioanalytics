@@ -109,7 +109,9 @@ export function Field({
   onChange,
   type = "text",
   autoComplete,
+  inputMode,
   placeholder,
+  hint,
   required,
 }: {
   id: string;
@@ -118,7 +120,9 @@ export function Field({
   onChange: (v: string) => void;
   type?: string;
   autoComplete?: string;
+  inputMode?: React.HTMLAttributes<HTMLInputElement>["inputMode"];
   placeholder?: string;
+  hint?: string;
   required?: boolean;
 }) {
   return (
@@ -132,12 +136,18 @@ export function Field({
         name={id}
         type={type}
         autoComplete={autoComplete}
+        inputMode={inputMode}
         required={required}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className="input min-h-11"
       />
+      {hint ? (
+        <span className="mt-1.5 block text-xs leading-relaxed text-brand-slate-light">
+          {hint}
+        </span>
+      ) : null}
     </label>
   );
 }

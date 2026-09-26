@@ -5,7 +5,7 @@ import { getAccount } from "@/lib/account";
 export const metadata: Metadata = { title: "Account Details" };
 
 export default async function AccountDetailsPage() {
-  const { email, profile } = await getAccount();
+  const { email, ein, profile } = await getAccount();
   const name = [profile?.first_name, profile?.last_name].filter(Boolean).join(" ");
 
   // Labels match the registration form, where these were entered.
@@ -15,6 +15,7 @@ export default async function AccountDetailsPage() {
     { label: "Phone number", value: profile?.phone },
     { label: "Business website", value: profile?.website },
     { label: "Business type", value: profile?.business_type },
+    ...(ein ? [{ label: "EIN", value: ein }] : []),
     { label: "Industry / research affiliation", value: profile?.industry },
   ];
 
@@ -34,7 +35,7 @@ export default async function AccountDetailsPage() {
 
       <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
         <Link href="/forgot-password" className="btn-secondary text-sm">
-          Reset Password
+          Change Password
         </Link>
         <p className="text-xs text-brand-slate-light">
           Need to change these details?{" "}

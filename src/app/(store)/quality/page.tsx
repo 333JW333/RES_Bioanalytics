@@ -15,13 +15,12 @@ export default function QualityPage() {
   return (
     <div className="container-page py-16">
       <div className="max-w-3xl mb-12">
-        <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy mb-5">Quality &amp; Certificates of Analysis</h1>
         <p className="text-brand-slate leading-relaxed mb-4">
           Every production batch is independently tested by HPLC and mass
-          spectrometry to confirm identity and purity before release. A
-          certificate of analysis (COA) is generated for each batch and made
-          available with your order.
+          spectrometry to confirm identity and purity before release. Each
+          batch&apos;s certificate of analysis (COA) is posted on its product
+          page and linked from the QR code on every vial.
         </p>
         <ol className="list-decimal list-inside space-y-2 text-sm text-brand-slate">
           <li>Raw material sourcing and identity verification</li>

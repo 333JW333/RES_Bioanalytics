@@ -20,7 +20,6 @@ export default async function ShopPage(props: PageProps<"/shop">) {
   return (
     <div className="container-page py-14">
       <div className="mb-10">
-        <span className="badge-ruo mb-4">Research Use Only</span>
         <h1 className="text-3xl font-bold text-brand-navy">Research Catalog</h1>
         <p className="text-brand-slate-light mt-2 max-w-2xl">
           {inStockCount} products in stock now, each with third-party

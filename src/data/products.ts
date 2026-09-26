@@ -1,10 +1,10 @@
-import type { Product, VolumeTier } from "@/types/product";
+import type { CoaPanel, Product, VolumeTier } from "@/types/product";
 
 /**
  * Catalog data for the current EcoPeps shop (8 products). Add new entries
  * to this array to scale toward 30+ SKUs.
  *
- * Every product page uses the same template (usage notice, disclaimer, QR
+ * Every product page uses the same template (disclaimer, QR
  * note, volume pricing). We sell 10 mg vials and up only. A size is in
  * stock only once its batch has a real lab COA (see `batches` and
  * "Adding a batch" in README.md); until then it's listed with
@@ -47,11 +47,11 @@ export const products: Product[] = [
     storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, use within 14 days.",
     shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/ep-glp3-r-front.png",
       back: "/products/ep-glp3-r-back.png",
@@ -158,11 +158,11 @@ export const products: Product[] = [
     storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, use within 14 days.",
     shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
     description:
-      "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     // "-v2": a replaced photo needs a new filename, or the old one can keep
     // showing for hours from Next's image cache (minimumCacheTTL).
     images: {
@@ -274,7 +274,7 @@ export const products: Product[] = [
     structuralNotes:
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
-      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/bpc-157-front.png",
       back: "/products/bpc-157-back.png",
@@ -394,7 +394,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/tb-500-front.png",
       back: "/products/tb-500-back.png",
@@ -423,7 +423,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/ipamorelin-front.png",
       back: "/products/ipamorelin-back.png",
@@ -447,11 +447,11 @@ export const products: Product[] = [
     storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, use within 14 days.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/tirzepatide-front.png",
       back: "/products/tirzepatide-back.png",
@@ -486,7 +486,7 @@ export const products: Product[] = [
     structuralNotes:
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/ghk-cu-front.png",
       back: "/products/ghk-cu-back.png",
@@ -518,7 +518,7 @@ export const products: Product[] = [
     structuralNotes:
       "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (< 46°F) and used promptly.",
+      "Soluble in sterile water for research use. Lyophilized powder is stable at room temperature when protected from light and moisture; reconstituted solution should be refrigerated (36–46°F) and used promptly.",
     images: {
       front: "/products/ss-31-front.png",
       back: "/products/ss-31-back.png",
@@ -585,4 +585,22 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getCategories(): string[] {
   return Array.from(new Set(products.map((p) => p.category)));
+}
+
+/**
+ * The highest-purity real lab result across every batch in the catalog
+ * (sample-data batches are skipped), for the Enter gate's COA panel. Adding
+ * a better batch to `batches` updates the panel automatically.
+ */
+export function getHighestPurityBatch(): { product: Product; batch: CoaPanel } | undefined {
+  let best: { product: Product; batch: CoaPanel } | undefined;
+  for (const product of products) {
+    for (const batch of product.batches ?? []) {
+      if (batch.sampleData) continue;
+      if (!best || batch.purityPercent > best.batch.purityPercent) {
+        best = { product, batch };
+      }
+    }
+  }
+  return best;
 }

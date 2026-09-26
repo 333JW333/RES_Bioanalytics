@@ -40,7 +40,7 @@ export default function AccountNav() {
             onClick={signOut}
             className={`${ITEM} border-transparent text-brand-slate hover:text-brand-teal-dark`}
           >
-            Logout
+            Sign out
           </button>
         </li>
       </ul>
