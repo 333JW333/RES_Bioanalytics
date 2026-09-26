@@ -111,7 +111,7 @@ export const products: Product[] = [
       // outlier vial failed and is excluded. Keep this note to this compound unless other products
       // get their own stability data.
       reconstitutedNote:
-        "Best used within 28 days. Independent testing of refrigerated samples found gradual peptide loss averaging about 6–7% by day 90.",
+        "Best used within 28 days. Independent testing of refrigerated samples found gradual peptide loss of roughly 2–10% by day 90.",
     }),
     images: {
       front: "/products/ep-glp3-r-front.png",
