@@ -122,8 +122,8 @@ export default function Home() {
           </h2>
           <p className="max-w-2xl mx-auto text-brand-slate-light text-sm leading-relaxed">
             All products offered by EcoPeps are intended strictly
-            for in-vitro laboratory research and are not drugs, supplements,
-            cosmetics, or foods. They are not for human or animal
+            for in-vitro laboratory research, not for use as drugs,
+            supplements, cosmetics, or foods. They are not for human or animal
             consumption, and are not evaluated by the FDA to diagnose,
             treat, cure, or prevent any disease. By purchasing, you certify
             you are a qualified researcher or institution acquiring these
