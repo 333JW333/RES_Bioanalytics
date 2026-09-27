@@ -71,7 +71,7 @@ export interface VolumeTier {
   discountPercent: number;
 }
 
-/** One row of a product's Storage Requirements table, e.g. "Reconstituted solution" → "36–46°F". */
+/** One row of a product's Storage Requirements table, e.g. "Lyophilized powder — long term" → "-4°F or colder". */
 export interface StorageRequirement {
   label: string;
   value: string;

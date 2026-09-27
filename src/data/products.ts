@@ -38,10 +38,9 @@ function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): stri
   return [
     "On receipt, move sealed vials to a freezer at -4°F or colder.",
     "Let the sealed vial reach room temperature before opening. This prevents condensation from forming on the powder.",
-    "Reconstitute with sterile water using aseptic technique.",
-    "For longer studies, divide the solution into single-use aliquots. Avoid repeated freeze–thaw cycles.",
+    "Avoid repeated freeze–thaw cycles; divide material into single-use aliquots for longer studies.",
     lightSensitive
-      ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times, before and after reconstitution."
+      ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times."
       : "Keep vials tightly sealed and away from light and moisture.",
     "Handle only in a laboratory setting by qualified personnel wearing gloves, eye protection, and a lab coat.",
   ];
@@ -59,9 +58,8 @@ function standardStorageRequirements({ lightSensitive }: StorageTemplateOptions 
       value: "Room temperature",
       note: "Acceptable in transit and during brief bench handling while sealed and dry.",
     },
-    { label: "Reconstituted solution", value: "36–46°F" },
     lightSensitive
-      ? { label: "Light", value: "Light-sensitive — store in the dark", note: "Protect before and after reconstitution." }
+      ? { label: "Light", value: "Light-sensitive — store in the dark", note: "Protect at all times." }
       : { label: "Light", value: "Protect from direct light" },
     { label: "Moisture", value: "Keep sealed; avoid humidity" },
     { label: "Freeze–thaw", value: "Avoid repeated cycles" },
@@ -89,14 +87,14 @@ export const products: Product[] = [
     molecularWeight: "4731.42 g/mol",
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
       "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -108,7 +106,7 @@ export const products: Product[] = [
           src: "/coas/retatrutide/15mg/identity-purity-214265.png",
         },
         { label: "Endotoxin", src: "/coas/retatrutide/15mg/endotoxin-214266.png" },
-        { label: "Sterility", src: "/coas/retatrutide/15mg/sterility-214267.png" },
+        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/retatrutide/15mg/sterility-214267.png" },
       ],
     },
     documents: [
@@ -129,7 +127,7 @@ export const products: Product[] = [
         verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
       },
       {
-        label: "Certificate of Analysis — Sterility",
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "sterility-214267.png",
         fileSizeLabel: "194 KB",
@@ -202,14 +200,14 @@ export const products: Product[] = [
     alsoKnownAs: ["Thymalfasin", "Tα1", "TA1"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
     description:
       "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     // "-v2": a replaced photo needs a new filename, or the old one can keep
@@ -223,7 +221,7 @@ export const products: Product[] = [
           src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/identity-purity-227167.png",
         },
         { label: "Endotoxin", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/endotoxin-227168.png" },
-        { label: "Sterility", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
+        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
       ],
     },
     documents: [
@@ -244,7 +242,7 @@ export const products: Product[] = [
         verifyUrl: "https://verify.janoshik.com/tests/227168_9HAXKAJJ5MFX",
       },
       {
-        label: "Certificate of Analysis — Sterility",
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
         subLabel: "Janoshik Analytical — Thymosin Alpha-1 10 mg, Batch PSTA110-2",
         fileName: "sterility-227169.png",
         fileSizeLabel: "350 KB",
@@ -316,14 +314,14 @@ export const products: Product[] = [
     // Batch BP10-0719 tested 98.56–98.70% (see batches below).
     purity: "≥ 98% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic pentadecapeptide reference compound supplied for laboratory research use.",
     description:
       "BPC-157 is a synthetic pentadecapeptide sequence, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
-      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use.",
+      "Soluble in water at concentrations up to ~1 mg/mL.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -438,14 +436,14 @@ export const products: Product[] = [
     alsoKnownAs: ["TB-500", "Thymosin Beta-4 Fragment"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic peptide fragment reference compound supplied for laboratory research use.",
     description:
       "TB-500 is a short synthetic peptide fragment derived from the Thymosin Beta-4 sequence, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -469,14 +467,14 @@ export const products: Product[] = [
     alsoKnownAs: ["Ipamorelin", "NNC 26-0161"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic pentapeptide reference compound supplied for laboratory research use.",
     description:
       "Ipamorelin is a synthetic pentapeptide, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -499,14 +497,14 @@ export const products: Product[] = [
     alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
       "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -536,14 +534,14 @@ export const products: Product[] = [
     alsoKnownAs: ["GHK-Cu", "Copper Tripeptide-1", "Copper Tripeptide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F, protected from light.",
     shortDescription: "A copper-binding tripeptide reference compound supplied for laboratory research use.",
     description:
       "GHK-Cu is a copper-binding tripeptide complex, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
@@ -570,14 +568,14 @@ export const products: Product[] = [
     alsoKnownAs: ["SS-31", "Elamipretide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F.",
+    storage: "Store lyophilized powder at -4°F, protected from light.",
     shortDescription: "A synthetic aromatic-cationic tetrapeptide reference compound supplied for laboratory research use.",
     description:
       "SS-31 is a synthetic tetrapeptide incorporating alternating cationic and aromatic residues, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
