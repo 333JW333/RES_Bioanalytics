@@ -75,7 +75,7 @@ This map is where research starts, not a conclusion. **Re-verify each item's cur
 - **21 U.S.C. § 360** covers registration and listing. **§ 381** covers imports and exports.
 
 ### FDA — Title 21 CFR
-- **21 CFR 201.128** defines "intended uses." FDA amended it in 2021 (final rule published Aug. 2, 2021, effective Sept. 1, 2021). Intended use may be shown by labeling, advertising, promotional material, "any other relevant source," and the circumstances surrounding distribution. This is why an RUO label alone does not settle the question.
+- **21 CFR 201.128** defines "intended uses" as the *objective intent* of the people responsible for the labeling. FDA amended it in 2021 (86 FR 41401, Aug. 2, 2021). Under the regulation text, that intent "may be shown by such persons' expressions, the design or composition of the article, or by the circumstances surrounding the distribution of the article," including "labeling claims, advertising matter, or oral or written statements." It also makes a seller responsible for adequate labeling if the seller intends different uses than its supplier did. This is why an RUO label alone does not settle the question. (The phrase "any other relevant source" appears in commentary on the 2021 rule, not in the regulation text. Don't quote it as regulatory language.)
 - **21 CFR 201.125** exempts drugs from § 502(f)(1) when they are shipped to, sold to, or possessed by persons *regularly and lawfully engaged* in research not involving clinical use (or teaching, law enforcement, or analysis), and are used only for that purpose. The exemption depends on who the buyer actually is.
 - **21 CFR 201.100 / 201.105** cover the prescription and veterinary labeling exemptions. They give context for § 201.125.
 - **21 CFR Part 312**:
