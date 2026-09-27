@@ -6,14 +6,14 @@ export default function ProductDisclaimer() {
       </p>
       <p>
         <strong className="text-brand-navy">Research Use Only Disclaimer:</strong>{" "}
-        Products from EcoPeps are strictly for laboratory and research use by
-        qualified professionals. They are not pharmaceuticals, dietary
-        supplements, agricultural products, or household items, and must not
-        be mislabeled as such. These chemicals are not intended for human or
-        veterinary use and are exempt from Title 21, Parts 100–740 of the
-        CFR. The information provided is educational, not evaluated by the
-        FDA, and is not intended to diagnose, treat, cure, or prevent any
-        health condition.{" "}
+        Products from EcoPeps are sold strictly for in-vitro laboratory
+        research by qualified professionals. They are not intended for use
+        as pharmaceuticals, dietary supplements, agricultural products, or
+        household items, and must not be mislabeled as such. These chemicals
+        are not intended for human or veterinary use and have not been
+        approved or evaluated by the FDA. The information provided is
+        educational and is not intended to diagnose, treat, cure, or prevent
+        any health condition.{" "}
         <strong className="text-brand-navy">
           Intellectual Property &amp; Patent Use Disclaimer:
         </strong>{" "}

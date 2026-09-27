@@ -13,7 +13,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "Are these products approved for human or animal use?",
-    a: "No. All products are labeled and sold strictly for research use only (RUO). They are not drugs, dietary supplements, cosmetics, or foods, and are not evaluated or approved by the FDA or any regulatory body for human or animal consumption, diagnosis, treatment, or prevention of disease.",
+    a: "No. All products are labeled and sold strictly for research use only (RUO). They are not intended for use as drugs, dietary supplements, cosmetics, or foods, and have not been evaluated or approved by the FDA or any regulatory body for human or animal consumption, diagnosis, treatment, or prevention of disease.",
   },
   {
     q: "What payment methods do you accept?",

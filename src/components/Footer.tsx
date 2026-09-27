@@ -57,11 +57,12 @@ export default function Footer() {
           <p className="text-[11px] leading-relaxed text-white/40">
             All products sold by EcoPeps are intended strictly for
             laboratory, analytical, and in-vitro research use by qualified
-            professionals and institutions. These products are not drugs,
-            biologics, dietary supplements, cosmetics, or foods, are not
-            approved by the FDA or any regulatory body for human or animal
-            use, and are not intended to diagnose, treat, cure, or prevent
-            any disease. Not for human or animal consumption. See our{" "}
+            professionals and institutions. These products are not intended
+            for use as drugs, biologics, dietary supplements, cosmetics, or
+            foods, are not approved by the FDA or any regulatory body for
+            human or animal use, and are not intended to diagnose, treat,
+            cure, or prevent any disease. Not for human or animal
+            consumption. See our{" "}
             <Link href="/legal/ruo-policy" className="underline hover:text-brand-teal">
               Research Use Only Policy
             </Link>{" "}

@@ -32,8 +32,6 @@ const STANDARD_VOLUME_TIERS: VolumeTier[] = [
 interface StorageTemplateOptions {
   /** Emphasize light protection (e.g. GHK-Cu, SS-31). */
   lightSensitive?: boolean;
-  /** Replaces the default note on the "Reconstituted solution" row. */
-  reconstitutedNote?: string;
 }
 
 function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): string[] {
@@ -41,7 +39,6 @@ function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): stri
     "On receipt, move sealed vials to a freezer at -4°F or colder.",
     "Let the sealed vial reach room temperature before opening. This prevents condensation from forming on the powder.",
     "Reconstitute with sterile water using aseptic technique.",
-    "Label the vial with the reconstitution date and refrigerate at 36–46°F. Best used within 28 days.",
     "For longer studies, divide the solution into single-use aliquots. Avoid repeated freeze–thaw cycles.",
     lightSensitive
       ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times, before and after reconstitution."
@@ -50,10 +47,7 @@ function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): stri
   ];
 }
 
-function standardStorageRequirements({
-  lightSensitive,
-  reconstitutedNote = "Best used within 28 days.",
-}: StorageTemplateOptions = {}): StorageRequirement[] {
+function standardStorageRequirements({ lightSensitive }: StorageTemplateOptions = {}): StorageRequirement[] {
   return [
     {
       label: "Lyophilized powder — long term",
@@ -65,7 +59,7 @@ function standardStorageRequirements({
       value: "Room temperature",
       note: "Acceptable in transit and during brief bench handling while sealed and dry.",
     },
-    { label: "Reconstituted solution", value: "36–46°F", note: reconstitutedNote },
+    { label: "Reconstituted solution", value: "36–46°F" },
     lightSensitive
       ? { label: "Light", value: "Light-sensitive — store in the dark", note: "Protect before and after reconstitution." }
       : { label: "Light", value: "Protect from direct light" },
@@ -95,7 +89,7 @@ export const products: Product[] = [
     molecularWeight: "4731.42 g/mol",
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
       "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
@@ -104,15 +98,7 @@ export const products: Product[] = [
     technicalNotes:
       "Soluble in sterile water for research use.",
     handling: standardHandling(),
-    storageRequirements: standardStorageRequirements({
-      // Based on independent Janoshik testing of refrigerated retatrutide
-      // samples (PepRecon, 2026): purity held while recoverable mass fell
-      // 2.4–9.6% by day 90 across six normal vials (mean ~6.5%); one
-      // outlier vial failed and is excluded. Keep this note to this compound unless other products
-      // get their own stability data.
-      reconstitutedNote:
-        "Best used within 28 days. Independent testing of refrigerated samples found gradual peptide loss of roughly 2–10% by day 90.",
-    }),
+    storageRequirements: standardStorageRequirements(),
     images: {
       front: "/products/ep-glp3-r-front.png",
       back: "/products/ep-glp3-r-back.png",
@@ -216,7 +202,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Thymalfasin", "Tα1", "TA1"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
     description:
       "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
@@ -330,7 +316,7 @@ export const products: Product[] = [
     // Batch BP10-0719 tested 98.56–98.70% (see batches below).
     purity: "≥ 98% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic pentadecapeptide reference compound supplied for laboratory research use.",
     description:
       "BPC-157 is a synthetic pentadecapeptide sequence, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
@@ -452,7 +438,7 @@ export const products: Product[] = [
     alsoKnownAs: ["TB-500", "Thymosin Beta-4 Fragment"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic peptide fragment reference compound supplied for laboratory research use.",
     description:
       "TB-500 is a short synthetic peptide fragment derived from the Thymosin Beta-4 sequence, supplied as a lyophilized powder for laboratory and analytical research use only.",
@@ -483,7 +469,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Ipamorelin", "NNC 26-0161"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic pentapeptide reference compound supplied for laboratory research use.",
     description:
       "Ipamorelin is a synthetic pentapeptide, supplied as a lyophilized powder for laboratory and analytical research use only.",
@@ -513,7 +499,7 @@ export const products: Product[] = [
     alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
       "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
@@ -550,7 +536,7 @@ export const products: Product[] = [
     alsoKnownAs: ["GHK-Cu", "Copper Tripeptide-1", "Copper Tripeptide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F.",
     shortDescription: "A copper-binding tripeptide reference compound supplied for laboratory research use.",
     description:
       "GHK-Cu is a copper-binding tripeptide complex, supplied as a lyophilized powder for laboratory and analytical research use only.",
@@ -584,7 +570,7 @@ export const products: Product[] = [
     alsoKnownAs: ["SS-31", "Elamipretide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F.",
     shortDescription: "A synthetic aromatic-cationic tetrapeptide reference compound supplied for laboratory research use.",
     description:
       "SS-31 is a synthetic tetrapeptide incorporating alternating cationic and aromatic residues, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
