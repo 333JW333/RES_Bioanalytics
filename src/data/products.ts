@@ -1,7 +1,7 @@
 import type { Product, StorageRequirement, VolumeTier } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (8 products). Add new entries
+ * Catalog data for the current EcoPeps shop (7 products). Add new entries
  * to this array to scale toward 30+ SKUs.
  *
  * Every product page uses the same template (usage notice, disclaimer, QR
@@ -67,125 +67,6 @@ function standardStorageRequirements({ lightSensitive }: StorageTemplateOptions 
 }
 
 export const products: Product[] = [
-  {
-    id: "p7",
-    slug: "retatrutide",
-    name: "EP-GLP3-R",
-    // Sold under EcoPeps' internal designation rather than the INN
-    // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
-    // notice). The synonym line and body copy below describe the
-    // pharmacological class (mechanism of action) rather than naming the
-    // compound — "Retatrutide" does not appear anywhere on the rendered
-    // page. It's still searchable via seoAlternateNames in this page's
-    // JSON-LD structured data (invisible, read by search engines only) and
-    // via the /shop/retatrutide URL slug.
-    synonym: "Triple GIP/GLP-1/Glucagon Receptor Agonist",
-    category: "Peptide",
-    casNumber: "2381089-83-2",
-    sequenceOrFormula: "C221H342N46O68",
-    molecularFormula: "C221H342N46O68",
-    molecularWeight: "4731.42 g/mol",
-    purity: "≥ 99% (HPLC)",
-    form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F.",
-    shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
-    description:
-      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
-    structuralNotes:
-      "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
-    technicalNotes:
-      "Soluble in water.",
-    handling: standardHandling(),
-    storageRequirements: standardStorageRequirements(),
-    images: {
-      front: "/products/ep-glp3-r-front.png",
-      back: "/products/ep-glp3-r-back.png",
-      extra: [
-        {
-          label: "Identity & Purity",
-          src: "/coas/retatrutide/15mg/identity-purity-214265.png",
-        },
-        { label: "Endotoxin", src: "/coas/retatrutide/15mg/endotoxin-214266.png" },
-        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/retatrutide/15mg/sterility-214267.png" },
-      ],
-    },
-    documents: [
-      {
-        label: "Certificate of Analysis — Identity & Purity",
-        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
-        fileName: "identity-purity-214265.png",
-        fileSizeLabel: "208 KB",
-        url: "/coas/retatrutide/15mg/identity-purity-214265.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-      },
-      {
-        label: "Certificate of Analysis — Endotoxin",
-        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
-        fileName: "endotoxin-214266.png",
-        fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/endotoxin-214266.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
-      },
-      {
-        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
-        subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
-        fileName: "sterility-214267.png",
-        fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/sterility-214267.png",
-        verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
-      },
-    ],
-    // Newest batch first — see "Adding a batch" in README.md.
-    batches: [
-      {
-        labName: "Janoshik Analytical",
-        // Averaged across the 3 vials Janoshik tested from batch PSRETA15-1:
-        // mass 17.58/17.79/17.86 mg, purity 99.269/99.699/99.618% (Task #214265).
-        purityPercent: 99.53,
-        testedMassMg: 17.74,
-        labeledMassMg: 15,
-        massVariancePercent: 18.3,
-        tests: [
-          { label: "Identity", result: "CONFIRMED" },
-          { label: "Batch PSRETA15-1", result: "CONFIRMED" },
-          { label: "USP <85> Endotoxin", result: "PASS" },
-          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
-          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
-          { label: "USP <61> Microbial Enumeration", result: "PASS" },
-        ],
-        reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
-        verifyLinks: [
-          {
-            label: "Identity",
-            url: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
-          },
-          {
-            label: "Endotoxin",
-            url: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
-          },
-          {
-            label: "TAMC/TYMC",
-            url: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
-          },
-        ],
-        batchCode: "PSRETA15-1",
-      },
-    ],
-    volumeTiers: STANDARD_VOLUME_TIERS,
-    // Only 15 mg is currently in stock (it's the batch we have a real,
-    // lab-verified COA for — see batches/documents above). The other sizes
-    // are listed so customers know we carry them, but stay disabled with no
-    // price set until each has its own verified COA and goes into stock.
-    sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-RETA-10", inStock: false },
-      { label: "15 mg", mg: 15, price: 65, sku: "RES-RETA-15" },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-RETA-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-RETA-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-RETA-60", inStock: false },
-    ],
-    featured: true,
-    seoAlternateNames: ["Retatrutide", "LY3437943"],
-  },
   {
     id: "p8",
     slug: "thymosin-alpha-1",
@@ -296,7 +177,7 @@ export const products: Product[] = [
       { label: "20 mg", mg: 20, price: 0, sku: "RES-TA1-20", inStock: false },
       { label: "30 mg", mg: 30, price: 0, sku: "RES-TA1-30", inStock: false },
     ],
-    // Featured lists follow this array's order, so it shows second on the
+    // Featured lists follow this array's order, so it shows first on the
     // home page, as it does in the shop.
     featured: true,
   },

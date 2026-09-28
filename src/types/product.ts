@@ -61,7 +61,7 @@ export interface CoaPanel {
   reportUrl: string;
   /** One official lab verification link per test/report, e.g. Identity, Endotoxin, TAMC/TYMC. */
   verifyLinks: { label: string; url: string }[];
-  /** Lab batch number (e.g. "PSRETA15-1"). Its vial QR code is in src/data/vial-codes.ts. */
+  /** Lab batch number (e.g. "BP10-0719"). Its vial QR code is in src/data/vial-codes.ts. */
   batchCode?: string;
 }
 
@@ -116,12 +116,4 @@ export interface Product {
   volumeTiers?: VolumeTier[];
   /** Overrides the note shown next to Add to Cart (by default, that each vial's QR code opens its batch's COAs). */
   infoNote?: string;
-  /**
-   * Alternate/generic names surfaced ONLY in JSON-LD structured data for
-   * search engines — never rendered anywhere on the visible page. Use this
-   * (instead of alsoKnownAs, which renders a visible badge list) when a
-   * widely-searched generic name shouldn't appear on-page for legal
-   * reasons but should still help the page get found.
-   */
-  seoAlternateNames?: string[];
 }
