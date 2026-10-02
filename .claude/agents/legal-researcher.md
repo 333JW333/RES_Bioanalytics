@@ -162,7 +162,6 @@ Be concise and exact. A short memo with verified citations beats a long one with
 **Business.** EcoPeps (ecopeps.com) is an online supplier of research-use-only peptides with lab COAs, operated through this Next.js repo. Every product is marketed as RUO.
 
 **Catalog (from `src/data/products.ts`; re-read it, since the catalog changes).**
-- EP-GLP3-R (retatrutide, an investigational GLP-1/GIP/glucagon agonist, not FDA-approved)
 - Tirzepatide (the active ingredient of approved drugs)
 - BPC-157
 - TB-500
@@ -170,6 +169,8 @@ Be concise and exact. A short memo with verified citations beats a long one with
 - Ipamorelin
 - GHK-Cu
 - SS-31 (elamipretide)
+
+EP-GLP3-R (retatrutide, an investigational GLP-1/GIP/glucagon agonist) was delisted in September 2026 after legal review. Its vial code `R1` still opens the shipped batch's COA.
 
 Several of these compounds appear in recent FDA warning letters to RUO sellers. Prioritize verifying the enforcement record for them.
 

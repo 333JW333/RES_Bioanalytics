@@ -61,15 +61,11 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
 
   const primarySize = product.sizes.find((s) => s.inStock !== false) ?? product.sizes[0];
   // Structured data only — search engines read this; nothing here renders
-  // on the visible page. seoAlternateNames lets a product surface for a
-  // widely-searched generic name without that name appearing on-page.
+  // on the visible page.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
-    ...(product.seoAlternateNames && product.seoAlternateNames.length > 0
-      ? { alternateName: product.seoAlternateNames }
-      : {}),
     description: product.shortDescription,
     category: product.category,
     url: `${SITE_URL}/shop/${product.slug}`,
