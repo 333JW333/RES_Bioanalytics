@@ -17,7 +17,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "We currently accept cryptocurrency (via Coinbase Commerce, supporting BTC, ETH, USDC, and more), ACH bank transfers (via Plaid + Dwolla), and card payments (via PayRam, which settles to us in stablecoin). PayPal support is planned as we grow.",
+    a: "We currently accept cryptocurrency (via Coinbase Commerce, supporting BTC, ETH, USDC, and more), ACH bank transfers (via Plaid + Dwolla), and card payments (via Stripe or PayRam). PayPal support is planned as we grow.",
   },
   {
     q: "Do you provide certificates of analysis?",
