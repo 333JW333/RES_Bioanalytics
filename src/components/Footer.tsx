@@ -36,7 +36,7 @@ export default function Footer() {
           <h3 className="text-white font-semibold text-sm mb-3 tracking-wide uppercase">Legal</h3>
           <ul className="space-y-2 text-sm text-white/60">
             <li><Link href="/legal/ruo-policy" className="hover:text-brand-teal">RUO Policy</Link></li>
-            <li><Link href="/legal/terms" className="hover:text-brand-teal">Terms of Sale</Link></li>
+            <li><Link href="/legal/terms" className="hover:text-brand-teal">Terms of Service</Link></li>
             <li><Link href="/legal/privacy" className="hover:text-brand-teal">Privacy Policy</Link></li>
             <li><Link href="/legal/refunds" className="hover:text-brand-teal">Refund Policy</Link></li>
           </ul>

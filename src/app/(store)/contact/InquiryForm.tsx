@@ -86,7 +86,7 @@ export default function InquiryForm() {
           <span>
             I agree to the{" "}
             <Link href="/legal/terms" className="underline">
-              Terms of Sale
+              Terms of Service
             </Link>{" "}
             and understand that all EcoPeps products are supplied strictly for
             in vitro laboratory research. I understand that requesting

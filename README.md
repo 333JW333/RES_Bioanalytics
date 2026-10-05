@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 - **Shop, product detail, cart, and checkout flow**, with a research-use
   attestation required before payment.
 - **RUO compliance UX** — an entry gate modal, disclaimer banners, and
-  dedicated legal pages (RUO Policy, Terms of Sale, Privacy Policy, Refund
+  dedicated legal pages (RUO Policy, Terms of Service, Privacy Policy, Refund
   Policy).
 - **Payments**:
   - **Crypto** via [Coinbase Commerce](https://commerce.coinbase.com/) —
@@ -128,7 +128,7 @@ customers add themselves, and they can't read the list.
 
 ## Legal pages
 
-`src/app/legal/*` contains starting-point Research Use Only, Terms of Sale,
+`src/app/legal/*` contains starting-point Research Use Only, Terms of Service,
 Privacy, and Refund policies. **These are templates, not legal advice** —
 have them reviewed by an attorney familiar with research-chemical
 regulations before launch.
