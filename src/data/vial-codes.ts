@@ -19,7 +19,8 @@ export interface VialCode {
 }
 
 export const vialCodes: Record<string, VialCode> = {
-  // EP-GLP3-R 15 mg
+  // EP-GLP3-R 15 mg. Delisted from the shop; kept so vials already shipped
+  // from this batch still open their COA.
   R1: {
     batch: "PSRETA15-1",
     coa: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",

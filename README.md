@@ -82,15 +82,18 @@ in CI) if any of it is broken.
 
 1. **COA files**: put them in a new folder for the batch,
    `public/coas/<product>/<size>/<batch number>/` (e.g.
-   `public/coas/retatrutide/15mg/PSRETA15-2/`). Never overwrite, rename, or
-   delete an older batch's files. (Batch PSRETA15-1 predates this and sits
-   directly in `public/coas/retatrutide/15mg/`.)
+   `public/coas/bpc-157/10mg/BP10-0719/`). Never overwrite, rename, or
+   delete an older batch's files. (Batch PSRETA15-1 of the delisted
+   EP-GLP3-R predates this and sits directly in
+   `public/coas/retatrutide/15mg/`; it stays so its vials' `R1` code
+   still works.)
 2. **Vial code**: add a **new** entry to `src/data/vial-codes.ts` with the
-   next code, the batch number, and the full COA PDF. EP-GLP3-R uses `R1`,
-   `R2`, `R3`, …, Thymosin Alpha-1 uses `T1`, `T2`, `T3`, …, SS-31 uses
-   `S1`, `S2`, `S3`, … and BPC-157 uses `B1`, `B2`, `B3`, … (1–3 capital
-   letters or digits). Leave `sha256` empty and the build prints the
-   value to fill in. Never edit or remove an existing entry.
+   next code, the batch number, and the full COA PDF. Thymosin Alpha-1
+   uses `T1`, `T2`, `T3`, …, SS-31 uses `S1`, `S2`, `S3`, … and BPC-157
+   uses `B1`, `B2`, `B3`, … (1–3 capital letters or digits). `R` belonged
+   to the delisted EP-GLP3-R, so don't reuse it. Leave `sha256` empty and
+   the build prints the value to fill in. Never edit or remove an
+   existing entry.
 3. **Product page**: add the batch to the **top** of the product's
    `batches` list in `src/data/products.ts` (lab results, `reportUrl` set
    to the same COA PDF, `verifyLinks`, `batchCode`). The page shows the
@@ -98,7 +101,7 @@ in CI) if any of it is broken.
    at the new batch's files, and give the batch's size a price and drop
    its `inStock: false`.
 4. **Vial label**: in Nimbot, encode `HTTPS://ECOPEPS.COM/C/<code>` in
-   capitals (e.g. `HTTPS://ECOPEPS.COM/C/R2`). Capitals keep the QR at the
+   capitals (e.g. `HTTPS://ECOPEPS.COM/C/B2`). Capitals keep the QR at the
    smallest 21×21 size, which scans on a 3 mL vial. It should have only the
    three corner squares; a small fourth square means it came out larger.
 
