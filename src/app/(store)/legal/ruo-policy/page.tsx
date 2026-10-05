@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Research Use Only Policy",
@@ -11,8 +10,6 @@ export default function RuoPolicyPage() {
     <div className="container-page py-16 max-w-3xl">
       <h1 className="text-3xl font-bold text-brand-navy mb-2">Research Use Only (RUO) Policy</h1>
       <p className="text-sm text-brand-slate-light mb-8">Last updated: September 22, 2026</p>
-
-      <LegalNotice />
 
       <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>

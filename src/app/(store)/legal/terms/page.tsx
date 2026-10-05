@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import LegalNotice from "@/components/LegalNotice";
 import TermsBody from "@/components/TermsBody";
 import { TERMS_LAST_UPDATED, TERMS_OF_SERVICE } from "@/lib/terms-of-service";
 
@@ -13,8 +12,6 @@ export default function TermsPage() {
     <div className="container-page py-16 max-w-3xl">
       <h1 className="text-3xl font-bold text-brand-navy mb-2">Terms of Service</h1>
       <p className="text-sm text-brand-slate-light mb-8">Last updated: {TERMS_LAST_UPDATED}</p>
-
-      <LegalNotice />
 
       <div className="space-y-6 text-brand-slate leading-relaxed">
         {TERMS_OF_SERVICE.map((section, i) => (

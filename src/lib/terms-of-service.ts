@@ -79,7 +79,7 @@ export const TERMS_OF_SERVICE: readonly TermsSection[] = [
   {
     title: "Pricing & Payment",
     body: [
-      "Prices are listed in U.S. Dollars and are subject to change without notice. We accept payment by cryptocurrency (processed by Coinbase Commerce), ACH bank transfer (processed via Plaid and Dwolla), and credit or debit card (processed by Stripe or PayRam, depending on the options shown at checkout). Additional payment methods, including PayPal, may be added in the future. Orders are not confirmed or shipped until payment has been received and, where applicable, settled.",
+      "Prices are listed in U.S. Dollars and are subject to change without notice. We accept payment by cryptocurrency (processed by Coinbase Commerce), ACH bank transfer (processed via Plaid and Dwolla), and credit or debit card (processed by Stripe or PayRam). Additional payment methods, including PayPal, may be added in the future. Orders are not confirmed or shipped until payment has been received and, where applicable, settled.",
     ],
   },
   {
@@ -149,7 +149,7 @@ export const TERMS_OF_SERVICE: readonly TermsSection[] = [
   {
     title: "Governing Law",
     body: [
-      "These terms shall be governed by and construed in accordance with the laws of the United States and the state in which EcoPeps maintains its principal place of business, without regard to conflict of law principles. Any legal action related to your access to or use of the site or products shall be brought in a court of competent jurisdiction in that venue.",
+      "These terms shall be governed by and construed in accordance with the laws of the United States and the State of Idaho, without regard to conflict of law principles. Any legal action related to your access to or use of the site or products shall be brought in a court of competent jurisdiction in the State of Idaho.",
     ],
   },
   {

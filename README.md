@@ -128,10 +128,10 @@ customers add themselves, and they can't read the list.
 
 ## Legal pages
 
-`src/app/legal/*` contains starting-point Research Use Only, Terms of Service,
-Privacy, and Refund policies. **These are templates, not legal advice** —
-have them reviewed by an attorney familiar with research-chemical
-regulations before launch.
+`src/app/(store)/legal/*` contains the Research Use Only Policy, Terms of
+Service, Privacy Policy, and Refund Policy, which have been reviewed by an
+attorney. The Terms of Service text lives in `src/lib/terms-of-service.ts`,
+which also feeds the Create Account scroll box.
 
 ## Deploying
 

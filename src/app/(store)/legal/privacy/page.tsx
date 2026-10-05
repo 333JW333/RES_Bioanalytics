@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -13,8 +12,6 @@ export default function PrivacyPage() {
     <div className="container-page py-16 max-w-3xl">
       <h1 className="text-3xl font-bold text-brand-navy mb-2">Privacy Policy</h1>
       <p className="text-sm text-brand-slate-light mb-8">Last updated: October 5, 2026</p>
-
-      <LegalNotice />
 
       <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>

@@ -175,8 +175,8 @@ Several of these compounds appear in recent FDA warning letters to RUO sellers. 
 
 **Where RUO posture lives in the code:**
 - `src/components/ProductDisclaimer.tsx`: the product-page RUO and patent disclaimer. Verify each legal assertion in it against primary text.
-- `src/components/LegalNotice.tsx` and `src/components/ProductUsageNotice.tsx`: notices shown on product and legal pages.
-- `src/app/(store)/legal/ruo-policy/page.tsx`, `terms/`, `privacy/`, `refunds/`: legal pages. The README calls them templates pending attorney review.
+- `src/components/ProductUsageNotice.tsx`: notice shown on product pages.
+- `src/app/(store)/legal/ruo-policy/page.tsx`, `terms/`, `privacy/`, `refunds/`: legal pages, which have been reviewed by an attorney. The Terms of Service text lives in `src/lib/terms-of-service.ts`.
 - `src/app/(gate)/`: the entry gate and registration flow. Buyer screening lives here and is relevant to 201.125 and 312.160 due diligence.
 - `src/app/(store)/checkout/`: the research-use attestation required before payment.
 - `src/data/products.ts`: product names, descriptions, and COA metadata. This is the primary surface for intended-use evidence.
