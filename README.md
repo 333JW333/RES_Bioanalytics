@@ -84,7 +84,12 @@ in CI) if any of it is broken.
    `public/coas/<product>/<size>/<batch number>/` (e.g.
    `public/coas/retatrutide/15mg/PSRETA15-2/`). Never overwrite, rename, or
    delete an older batch's files. (Batch PSRETA15-1 predates this and sits
-   directly in `public/coas/retatrutide/15mg/`.)
+   directly in `public/coas/retatrutide/15mg/`.) When a batch has both the
+   manufacturer's own reports and independent third-party reports, put
+   them in `manufacturer/` and `third-party/` subfolders and keep the
+   combined full-COA PDF at the batch folder's top level (e.g.
+   `public/coas/cartalax/40mg/CARTA40-0730/`). Upload only the report
+   pages; vial photos and spectra stay on Janoshik's verify page.
 2. **Vial code**: add a **new** entry to `src/data/vial-codes.ts` with the
    next code, the batch number, and the full COA PDF. EP-GLP3-R uses `R1`,
    `R2`, `R3`, …, Thymosin Alpha-1 uses `T1`, `T2`, `T3`, …, SS-31 uses
