@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllProducts } from "@/data/products";
-import { isSoldOut } from "@/lib/pricing";
 import { ShieldCheckIcon } from "@/components/icons";
 
 export const metadata: Metadata = {
@@ -43,13 +42,15 @@ export default function QualityPage() {
               <p className="font-semibold text-brand-navy">{product.name}</p>
               <p className="text-xs text-brand-slate-light">{product.purity}</p>
             </div>
-            {isSoldOut(product) ? (
-              <span className="text-xs font-medium text-brand-slate-light">Coming soon</span>
-            ) : (
+            {/* Keyed on COAs, not stock: a product can post its batch's
+                COAs (e.g. Cartalax) before any size goes on sale. */}
+            {product.documents && product.documents.length > 0 ? (
               <span className="inline-flex items-center gap-1.5 text-xs font-medium text-brand-teal-dark">
                 <ShieldCheckIcon className="h-4 w-4" />
                 View COAs
               </span>
+            ) : (
+              <span className="text-xs font-medium text-brand-slate-light">Coming soon</span>
             )}
           </Link>
         ))}
