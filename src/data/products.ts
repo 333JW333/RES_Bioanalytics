@@ -1,7 +1,7 @@
 import type { Product, StorageRequirement, VolumeTier } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (8 products). Add new entries
+ * Catalog data for the current EcoPeps shop (9 products). Add new entries
  * to this array to scale toward 30+ SKUs.
  *
  * Every product page uses the same template (usage notice, disclaimer, QR
@@ -627,6 +627,40 @@ export const products: Product[] = [
     volumeTiers: STANDARD_VOLUME_TIERS,
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
+  },
+  {
+    id: "p9",
+    slug: "cartalax",
+    name: "Cartalax",
+    synonym: "Ala-Glu-Asp Tripeptide",
+    category: "Peptide",
+    // No CAS number listed: none could be confirmed against PubChem
+    // (CID 87815447) — leave undefined rather than guessing.
+    sequenceOrFormula: "Ala-Glu-Asp",
+    molecularFormula: "C12H19N3O8",
+    molecularWeight: "333.29 g/mol",
+    alsoKnownAs: ["Cartalax", "AED", "T-31"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -4°F.",
+    shortDescription: "A synthetic tripeptide reference compound supplied for laboratory research use.",
+    description:
+      "Cartalax is a synthetic tripeptide (alanyl-glutamyl-aspartic acid), supplied as a lyophilized powder for laboratory and analytical research use only.",
+    structuralNotes:
+      "A 3-residue synthetic peptide (Ala-Glu-Asp) from the short-peptide bioregulator family described in the Khavinson research literature.",
+    technicalNotes:
+      "Soluble in water.",
+    handling: standardHandling(),
+    storageRequirements: standardStorageRequirements(),
+    // No vial photos yet — add images.front / images.back once
+    // public/products/cartalax-front.png (and -back) land.
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Not in stock until a batch passes COA testing.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-CART-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-CART-20", inStock: false },
+      { label: "40 mg", mg: 40, price: 0, sku: "RES-CART-40", inStock: false },
+    ],
   },
 ];
 
