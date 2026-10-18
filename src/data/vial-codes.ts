@@ -44,6 +44,12 @@ export const vialCodes: Record<string, VialCode> = {
     coa: "/coas/bpc-157/10mg/BP10-0719/bpc-157-10mg-full-coa.pdf",
     sha256: "6b610f0f1c9658429fcc0d332437682d608c48b5fddc8ff13ff480068878fa89",
   },
+  // Cartalax 40 mg. Manufacturer reports first, then third-party.
+  C1: {
+    batch: "CARTA40-0730",
+    coa: "/coas/cartalax/40mg/CARTA40-0730/cartalax-40mg-full-coa.pdf",
+    sha256: "b6ab3d3de971bf74569c5ff6dc182007883144b84194a81703cd217b7535d953",
+  },
 };
 
 /** The COA a vial QR code (or printed batch number) opens, any case. */
