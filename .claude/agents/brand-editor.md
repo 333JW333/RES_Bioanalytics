@@ -46,7 +46,7 @@ EcoPeps sells research-use-only (RUO) peptides and research compounds to laborat
 - Every product/technical claim should be a falsifiable, specific fact (purity %, test method, CAS number) rather than a vague superlative.
 - RUO disclaimers and safety language should never be softened, shortened, or reworded in a way that changes their legal meaning — flag these for review rather than editing them stylistically.
 
-**Words to always avoid**: any phrasing implying human or animal use, dosing, or therapeutic benefit ("helps," "supports," "boosts," "treats"); approved-drug brand names used as stand-ins for the research compounds sold here (e.g. "Ozempic" for Semaglutide, "Mounjaro" for Tirzepatide).
+**Words to always avoid**: any phrasing implying human or animal use, dosing, or therapeutic benefit ("helps," "supports," "boosts," "treats"); approved-drug brand names used as stand-ins for the research compounds sold here (e.g. "Ozempic" for Semaglutide, "Mounjaro" for EP-GLP2-T).
 
 ## Your Process
 
