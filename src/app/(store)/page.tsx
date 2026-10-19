@@ -6,8 +6,9 @@ import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 import { formatUSD } from "@/lib/format";
 import { isSoldOut, startingPrice } from "@/lib/pricing";
 
-// EP-GLP3-R, our lead product, fronts the hero.
-const HERO_PRODUCT_SLUG = "ep-glp3-r";
+// Thymosin Alpha-1 fronts the hero. Pick an in-stock product with a
+// square front photo, like the other vial shots in public/products.
+const HERO_PRODUCT_SLUG = "thymosin-alpha-1";
 
 export default function Home() {
   // Only what customers can buy today; sold-out products wait in the shop
