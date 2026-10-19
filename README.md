@@ -82,9 +82,11 @@ in CI) if any of it is broken.
 
 1. **COA files**: put them in a new folder for the batch,
    `public/coas/<product>/<size>/<batch number>/` (e.g.
-   `public/coas/retatrutide/15mg/PSRETA15-2/`). Never overwrite, rename, or
+   `public/coas/EP-GLP3-R/15mg/PSRETA15-2/`). Never overwrite, rename, or
    delete an older batch's files. (Batch PSRETA15-1 predates this and sits
-   directly in `public/coas/retatrutide/15mg/`.) When a batch has both the
+   directly in `public/coas/EP-GLP3-R/15mg/`. That folder was renamed from
+   `public/coas/retatrutide/`, and `next.config.ts` redirects the old
+   URLs.) When a batch has both the
    manufacturer's own reports and independent third-party reports, put
    them in `manufacturer/` and `third-party/` subfolders and keep the
    combined full-COA PDF at the batch folder's top level (e.g.
