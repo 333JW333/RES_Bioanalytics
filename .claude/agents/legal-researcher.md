@@ -163,7 +163,7 @@ Be concise and exact. A short memo with verified citations beats a long one with
 
 **Catalog (from `src/data/products.ts`; re-read it, since the catalog changes).**
 - EP-GLP3-R (retatrutide, an investigational GLP-1/GIP/glucagon agonist, not FDA-approved)
-- Tirzepatide (the active ingredient of approved drugs)
+- EP-GLP2-T (tirzepatide, the active ingredient of approved drugs)
 - BPC-157
 - TB-500
 - Thymosin Alpha-1

@@ -487,20 +487,27 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "tirzepatide",
-    name: "Tirzepatide",
+    slug: "ep-glp2-t",
+    name: "EP-GLP2-T",
+    // Sold under EcoPeps' internal designation rather than the INN
+    // "Tirzepatide", set up the same way as EP-GLP3-R: the synonym line and
+    // body copy describe the receptor class instead of naming the compound,
+    // so "Tirzepatide" does not appear anywhere on the rendered page. It's
+    // still searchable via seoAlternateNames in this page's JSON-LD
+    // structured data (invisible, read by search engines only). The old
+    // /shop/tirzepatide URL redirects here (see next.config.ts).
+    synonym: "Dual GIP/GLP-1 Receptor Agonist",
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    shortDescription: "EcoPeps' internal designation for a dual GIP/GLP-1 receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is EcoPeps' internal designation for a synthetic dual GIP/GLP-1 receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -520,6 +527,7 @@ export const products: Product[] = [
       { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
     ],
     featured: true,
+    seoAlternateNames: ["Tirzepatide", "LY3298176"],
   },
   {
     id: "p5",
