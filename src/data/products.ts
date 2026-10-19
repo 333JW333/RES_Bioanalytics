@@ -487,20 +487,22 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "tirzepatide",
-    name: "Tirzepatide",
+    slug: "ep-glp2-t",
+    name: "EP-GLP2-T",
+    // Listed under EcoPeps' internal designation, like EP-GLP3-R above. Its
+    // old product URL redirects here (see next.config.ts).
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["Tirzepatide", "LY3298176"],
+    alsoKnownAs: ["EP-GLP2-T", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -514,10 +516,10 @@ export const products: Product[] = [
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
     sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-TIRZ-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-TIRZ-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-GLP2T-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-GLP2T-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-GLP2T-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-GLP2T-60", inStock: false },
     ],
     featured: true,
   },

@@ -44,6 +44,12 @@ const nextConfig: NextConfig = {
         destination: "/shop/ep-glp3-r",
         permanent: true,
       },
+      // EP-GLP2-T's product page was renamed the same way.
+      {
+        source: "/shop/tirzepatide",
+        destination: "/shop/ep-glp2-t",
+        permanent: true,
+      },
     ];
   },
 };
