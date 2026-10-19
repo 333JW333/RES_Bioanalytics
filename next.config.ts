@@ -23,6 +23,18 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      // EP-GLP3-R's COA folder was renamed from /coas/retatrutide/. Keep
+      // links to the old location (bookmarks, search results, shared links)
+      // opening the same files.
+      {
+        source: "/coas/retatrutide/:path*",
+        destination: "/coas/EP-GLP3-R/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default function config(phase: string): NextConfig {

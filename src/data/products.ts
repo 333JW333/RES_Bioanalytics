@@ -103,10 +103,10 @@ export const products: Product[] = [
       extra: [
         {
           label: "Identity & Purity",
-          src: "/coas/retatrutide/15mg/identity-purity-214265.png",
+          src: "/coas/EP-GLP3-R/15mg/identity-purity-214265.png",
         },
-        { label: "Endotoxin", src: "/coas/retatrutide/15mg/endotoxin-214266.png" },
-        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/retatrutide/15mg/sterility-214267.png" },
+        { label: "Endotoxin", src: "/coas/EP-GLP3-R/15mg/endotoxin-214266.png" },
+        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/EP-GLP3-R/15mg/sterility-214267.png" },
       ],
     },
     documents: [
@@ -115,7 +115,7 @@ export const products: Product[] = [
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "identity-purity-214265.png",
         fileSizeLabel: "208 KB",
-        url: "/coas/retatrutide/15mg/identity-purity-214265.png",
+        url: "/coas/EP-GLP3-R/15mg/identity-purity-214265.png",
         verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
       },
       {
@@ -123,7 +123,7 @@ export const products: Product[] = [
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "endotoxin-214266.png",
         fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/endotoxin-214266.png",
+        url: "/coas/EP-GLP3-R/15mg/endotoxin-214266.png",
         verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
       },
       {
@@ -131,7 +131,7 @@ export const products: Product[] = [
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "sterility-214267.png",
         fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/sterility-214267.png",
+        url: "/coas/EP-GLP3-R/15mg/sterility-214267.png",
         verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
       },
     ],
@@ -153,7 +153,7 @@ export const products: Product[] = [
           { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
           { label: "USP <61> Microbial Enumeration", result: "PASS" },
         ],
-        reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        reportUrl: "/coas/EP-GLP3-R/15mg/retatrutide-15mg-full-coa.pdf",
         verifyLinks: [
           {
             label: "Identity",
