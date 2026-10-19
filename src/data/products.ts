@@ -489,7 +489,8 @@ export const products: Product[] = [
     id: "p4",
     slug: "ep-glp2-t",
     name: "EP-GLP2-T",
-    // Listed under EcoPeps' internal designation, like EP-GLP3-R above.
+    // Listed under EcoPeps' internal designation, like EP-GLP3-R above. Its
+    // old product URL redirects here (see next.config.ts).
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
