@@ -108,7 +108,7 @@ This map is where research starts, not a conclusion. **Re-verify each item's cur
 ### Enforcement record to check first (re-pull the letters and look for newer actions)
 - FDA has repeatedly rejected "research use only" and "not for human consumption" disclaimers when the surrounding marketing context points to human use.
 - The agency reportedly sent warning letters to online GLP-1 and peptide sellers in December 2024.
-- The agency issued a batch of CDER warning letters dated **March 31, 2026** (published April 7, 2026) to RUO peptide sellers. Products named reportedly included retatrutide, tirzepatide, semaglutide, SS-31/elamipretide, tesamorelin, and PT-141. The letters reportedly cited FD&C Act 201(g)(1) intended use and stated that website evidence showed the products were intended as drugs "despite statements on your product labeling."
+- The agency issued a batch of CDER warning letters dated **March 31, 2026** (published April 7, 2026) to RUO peptide sellers. Products named reportedly included retatrutide, the compound listed here as EP-GLP2-T, semaglutide, SS-31/elamipretide, tesamorelin, and PT-141. The letters reportedly cited FD&C Act 201(g)(1) intended use and stated that website evidence showed the products were intended as drugs "despite statements on your product labeling."
 - **Before relying on any of this, fetch the actual letters from fda.gov.**
 - In 2026, the 503A bulks-list status of several peptides (e.g., BPC-157, TB-500, ipamorelin) was under active FDA and advisory-committee review. Check FDA's current lists rather than trusting any summary.
 
@@ -163,7 +163,7 @@ Be concise and exact. A short memo with verified citations beats a long one with
 
 **Catalog (from `src/data/products.ts`; re-read it, since the catalog changes).**
 - EP-GLP3-R (retatrutide, an investigational GLP-1/GIP/glucagon agonist, not FDA-approved)
-- EP-GLP2-T (tirzepatide, the active ingredient of approved drugs)
+- EP-GLP2-T (the active ingredient of approved drugs)
 - BPC-157
 - TB-500
 - Thymosin Alpha-1

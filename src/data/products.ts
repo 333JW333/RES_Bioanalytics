@@ -489,13 +489,12 @@ export const products: Product[] = [
     id: "p4",
     slug: "ep-glp2-t",
     name: "EP-GLP2-T",
-    // Sold under EcoPeps' internal designation rather than the INN
-    // "Tirzepatide", set up the same way as EP-GLP3-R: the synonym line and
-    // body copy describe the receptor class instead of naming the compound,
-    // so "Tirzepatide" does not appear anywhere on the rendered page. It's
-    // still searchable via seoAlternateNames in this page's JSON-LD
-    // structured data (invisible, read by search engines only). The old
-    // /shop/tirzepatide URL redirects here (see next.config.ts).
+    // Listed under EcoPeps' internal designation, set up like EP-GLP3-R
+    // above: the synonym line and body copy describe the receptor class
+    // instead of naming the compound. Unlike EP-GLP3-R, the compound's name
+    // is left out of seoAlternateNames too, so it doesn't appear anywhere in
+    // the page source. Its old product URL redirects here (see
+    // next.config.ts).
     synonym: "Dual GIP/GLP-1 Receptor Agonist",
     category: "Peptide",
     casNumber: "2023788-19-2",
@@ -521,13 +520,13 @@ export const products: Product[] = [
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
     sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-TIRZ-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-TIRZ-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-GLP2T-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-GLP2T-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-GLP2T-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-GLP2T-60", inStock: false },
     ],
     featured: true,
-    seoAlternateNames: ["Tirzepatide", "LY3298176"],
+    seoAlternateNames: ["LY3298176"],
   },
   {
     id: "p5",
