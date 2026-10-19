@@ -90,7 +90,7 @@ export const products: Product[] = [
     storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP3-R is a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
