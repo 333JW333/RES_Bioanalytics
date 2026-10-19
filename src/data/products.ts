@@ -508,8 +508,8 @@ export const products: Product[] = [
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
-      front: "/products/tirzepatide-front.png",
-      back: "/products/tirzepatide-back.png",
+      front: "/products/EP_GLP2_T_Front.png",
+      back: "/products/EP_GLP2_T_back.png",
     },
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
