@@ -88,7 +88,7 @@ export const products: Product[] = [
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
-    shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
+    shortDescription: "A triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
       "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
