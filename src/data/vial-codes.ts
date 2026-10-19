@@ -19,11 +19,12 @@ export interface VialCode {
 }
 
 export const vialCodes: Record<string, VialCode> = {
-  // EP-GLP3-R 15 mg. Folder renamed from /coas/retatrutide/ (same file and
+  // EP-GLP3-R 15 mg. Moved and renamed from
+  // /coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf (same file and
   // sha256); next.config.ts redirects the old path here.
   R1: {
     batch: "PSRETA15-1",
-    coa: "/coas/EP-GLP3-R/15mg/retatrutide-15mg-full-coa.pdf",
+    coa: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
     sha256: "7bf01a6fda428ede161900d68c9014e51fe742999ef83c64fcd83e9215561227",
   },
   // Thymosin Alpha-1 10 mg

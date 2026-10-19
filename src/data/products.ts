@@ -69,7 +69,7 @@ function standardStorageRequirements({ lightSensitive }: StorageTemplateOptions 
 export const products: Product[] = [
   {
     id: "p7",
-    slug: "retatrutide",
+    slug: "ep-glp3-r",
     name: "EP-GLP3-R",
     // Sold under EcoPeps' internal designation rather than the INN
     // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
@@ -77,8 +77,8 @@ export const products: Product[] = [
     // pharmacological class (mechanism of action) rather than naming the
     // compound — "Retatrutide" does not appear anywhere on the rendered
     // page. It's still searchable via seoAlternateNames in this page's
-    // JSON-LD structured data (invisible, read by search engines only) and
-    // via the /shop/retatrutide URL slug.
+    // JSON-LD structured data (invisible, read by search engines only).
+    // The old /shop/retatrutide URL redirects here (see next.config.ts).
     synonym: "Triple GIP/GLP-1/Glucagon Receptor Agonist",
     category: "Peptide",
     casNumber: "2381089-83-2",
@@ -153,7 +153,7 @@ export const products: Product[] = [
           { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
           { label: "USP <61> Microbial Enumeration", result: "PASS" },
         ],
-        reportUrl: "/coas/EP-GLP3-R/15mg/retatrutide-15mg-full-coa.pdf",
+        reportUrl: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
         verifyLinks: [
           {
             label: "Identity",

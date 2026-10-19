@@ -24,13 +24,24 @@ const nextConfig: NextConfig = {
     ];
   },
   async redirects() {
+    // EP-GLP3-R's COA folder, full-COA PDF and product page were renamed
+    // from "retatrutide". Keep links to the old locations (bookmarks, search
+    // results, shared links) opening the same files and page. The PDF's rule
+    // comes before its folder's, since the first match wins.
     return [
-      // EP-GLP3-R's COA folder was renamed from /coas/retatrutide/. Keep
-      // links to the old location (bookmarks, search results, shared links)
-      // opening the same files.
+      {
+        source: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        destination: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
+        permanent: true,
+      },
       {
         source: "/coas/retatrutide/:path*",
         destination: "/coas/EP-GLP3-R/:path*",
+        permanent: true,
+      },
+      {
+        source: "/shop/retatrutide",
+        destination: "/shop/ep-glp3-r",
         permanent: true,
       },
     ];
