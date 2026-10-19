@@ -487,20 +487,21 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "tirzepatide",
-    name: "Tirzepatide",
+    slug: "ep-glp2-t",
+    name: "EP-GLP2-T",
+    // Listed under EcoPeps' internal designation, like EP-GLP3-R above.
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["Tirzepatide", "LY3298176"],
+    alsoKnownAs: ["EP-GLP2-T", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -508,8 +509,8 @@ export const products: Product[] = [
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
-      front: "/products/tirzepatide-front.png",
-      back: "/products/tirzepatide-back.png",
+      front: "/products/EP_GLP2_T_Front.png",
+      back: "/products/EP_GLP2_T_back.png",
     },
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
