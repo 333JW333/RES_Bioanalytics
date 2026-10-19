@@ -24,7 +24,25 @@ const PUBLIC_PREFIXES = [
   "/c",
 ];
 
+// TEMPORARY, for Stripe's website review: signed-out visitors can see the
+// home page, the catalog and every product page, and use the cart, so
+// Stripe can review what we sell without an account. Checkout and /account
+// still send signed-out visitors to /enter, so buying still needs an
+// account. To put the store back behind the gate, revert the PR that added
+// this.
+const STRIPE_REVIEW_PUBLIC_PREFIXES = ["/shop", "/cart"];
+
+function isStripeReviewPath(pathname: string): boolean {
+  return (
+    pathname === "/" ||
+    STRIPE_REVIEW_PUBLIC_PREFIXES.some(
+      (prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`)
+    )
+  );
+}
+
 function isPublicPath(pathname: string): boolean {
+  if (isStripeReviewPath(pathname)) return true;
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/products") ||
