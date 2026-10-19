@@ -489,20 +489,24 @@ export const products: Product[] = [
     id: "p4",
     slug: "ep-glp2-t",
     name: "EP-GLP2-T",
-    // Listed under EcoPeps' internal designation, like EP-GLP3-R above. Its
-    // old product URL redirects here (see next.config.ts).
+    // Listed under EcoPeps' internal designation, set up like EP-GLP3-R
+    // above: the synonym line and body copy describe the receptor class
+    // instead of naming the compound. Unlike EP-GLP3-R, the compound's name
+    // is left out of seoAlternateNames too, so it doesn't appear anywhere in
+    // the page source. Its old product URL redirects here (see
+    // next.config.ts).
+    synonym: "Dual GIP/GLP-1 Receptor Agonist",
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["EP-GLP2-T", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    shortDescription: "A dual GIP/GLP-1 receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "EP-GLP2-T is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is a synthetic dual GIP/GLP-1 receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -522,6 +526,7 @@ export const products: Product[] = [
       { label: "60 mg", mg: 60, price: 0, sku: "RES-GLP2T-60", inStock: false },
     ],
     featured: true,
+    seoAlternateNames: ["LY3298176"],
   },
   {
     id: "p5",
