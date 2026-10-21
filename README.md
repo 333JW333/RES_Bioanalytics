@@ -39,7 +39,32 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
     indexed integration examples, not a verified live API reference —
     confirm field names against your PayRam instance's docs before
     enabling with a real key.
-  - **PayPal** — shown in the UI as "coming soon"; not yet wired up.
+  - **Card** via [Stripe Checkout](https://docs.stripe.com/payments/checkout)
+    (the Card tab). PayRam's route and client remain in the codebase but
+    are no longer linked from checkout.
+  - **Net 30 invoices** via [Stripe Invoicing](https://docs.stripe.com/invoicing)
+    for business/institution accounts with an EIN on file (the Invoice
+    tab). Requests create a *draft* invoice; staff review and send it
+    from the Stripe Dashboard.
+
+## Stripe setup
+
+1. Apply `supabase/migrations/20260926170000_stripe_orders.sql` (creates
+   `orders`, `stripe_customers`, `stripe_events`).
+2. Set `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY` (test key first) and
+   `STRIPE_WEBHOOK_SECRET` in Vercel.
+3. In Stripe → Developers → Webhooks, add
+   `https://www.ecopeps.com/api/webhooks/stripe` with the events listed at
+   the top of `src/app/(store)/api/webhooks/stripe/route.ts`. Locally:
+   `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
+4. In Stripe → Settings → Payment methods, turn on ACH Direct Debit and
+   bank transfers for invoices.
+5. Test with card `4242 4242 4242 4242`, then check the order row moves
+   `pending` → `paid`.
+
+Every Stripe order stores the buyer's research-use attestation (time, IP,
+user agent, policy version) on its `orders` row — use it as evidence if a
+payment is disputed.
 
 ## Environment variables
 
@@ -57,6 +82,10 @@ cp .env.example .env.local
 | `DWOLLA_MASTER_FUNDING_SOURCE_URL` | The verified Dwolla funding source (your business bank account) that receives customer ACH payments. |
 | `PAYRAM_API_BASE_URL` | The base URL of your **self-hosted** PayRam instance (not a shared PayRam domain). |
 | `PAYRAM_API_KEY` | API key generated from your PayRam instance's dashboard. |
+| `SUPABASE_SECRET_KEY` | Supabase secret key (server-only); used to write orders and in the Stripe webhook. |
+| `STRIPE_SECRET_KEY` | Stripe secret or restricted key. Use a test key until Stripe confirms the account in writing. |
+| `STRIPE_WEBHOOK_SECRET` | Signing secret for the `/api/webhooks/stripe` endpoint. |
+| `STRIPE_API_VERSION` | Optional; pins the Stripe API version. |
 
 **Demo mode:** if any of the above are left unset, the checkout API routes
 automatically fall back to a simulated "demo" response instead of failing,
