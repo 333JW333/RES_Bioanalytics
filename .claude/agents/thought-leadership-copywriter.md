@@ -97,7 +97,7 @@ EcoPeps sells research-use-only (RUO) peptides and research compounds to laborat
 **Hard boundaries — never write content that**:
 - Discusses dosing, administration, or any human/animal use of the compounds sold
 - Makes or repeats therapeutic/efficacy claims about specific peptides
-- References approved-drug brand names as substitutes for the research compounds (e.g. Ozempic for Semaglutide, Mounjaro for Tirzepatide)
+- References approved-drug brand names as substitutes for the research compounds (e.g. Ozempic for Semaglutide, Mounjaro for EP-GLP2-T)
 - Targets consumer health search intent rather than a research/laboratory audience
 
 **Words/phrases to avoid**: "boost," "supports," "helps you," "in today's fast-paced world," "at the end of the day," empty superlatives not backed by a verifiable claim.

@@ -59,14 +59,17 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const pubchemQuery = encodeURIComponent(product.casNumber ?? product.name);
   const primarySize = product.sizes.find((s) => s.inStock !== false) ?? product.sizes[0];
   // Structured data only — search engines read this; nothing here renders
-  // on the visible page.
+  // on the visible page. seoAlternateNames lets a product surface for a
+  // widely-searched generic name without that name appearing on-page.
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.name,
+    ...(product.seoAlternateNames && product.seoAlternateNames.length > 0
+      ? { alternateName: product.seoAlternateNames }
+      : {}),
     description: product.shortDescription,
     category: product.category,
     url: `${SITE_URL}/shop/${product.slug}`,
@@ -278,17 +281,6 @@ export default async function ProductPage(props: PageProps<"/shop/[slug]">) {
                 </div>
               </div>
             )}
-
-            <div className="flex flex-wrap gap-4 pt-2 border-t border-brand-line">
-              <a
-                href={`https://pubchem.ncbi.nlm.nih.gov/#query=${pubchemQuery}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-brand-teal-dark hover:underline"
-              >
-                View on PubChem <ExternalLinkIcon />
-              </a>
-            </div>
           </div>
         </Disclosure>
 

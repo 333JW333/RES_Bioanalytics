@@ -1,7 +1,7 @@
 import type { Product, StorageRequirement, VolumeTier } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (7 products). Add new entries
+ * Catalog data for the current EcoPeps shop (8 products). Add new entries
  * to this array to scale toward 30+ SKUs.
  *
  * Every product page uses the same template (usage notice, disclaimer, QR
@@ -368,20 +368,25 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "tirzepatide",
-    name: "Tirzepatide",
+    slug: "ep-glp2-t",
+    name: "EP-GLP2-T",
+    // Listed under EcoPeps' internal designation: the synonym line and body
+    // copy describe the receptor class instead of naming the compound. The
+    // compound's name is left out of seoAlternateNames too, so it doesn't
+    // appear anywhere in the page source. Its old product URL redirects here
+    // (see next.config.ts).
+    synonym: "Dual GIP/GLP-1 Receptor Agonist",
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
     storage: "Store lyophilized powder at -4°F.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    shortDescription: "A dual GIP/GLP-1 receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is a synthetic dual GIP/GLP-1 receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
@@ -389,18 +394,19 @@ export const products: Product[] = [
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
-      front: "/products/tirzepatide-front.png",
-      back: "/products/tirzepatide-back.png",
+      front: "/products/EP_GLP2_T_Front.png",
+      back: "/products/EP_GLP2_T_back.png",
     },
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
     sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-TIRZ-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-TIRZ-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-GLP2T-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-GLP2T-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-GLP2T-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-GLP2T-60", inStock: false },
     ],
     featured: true,
+    seoAlternateNames: ["LY3298176"],
   },
   {
     id: "p5",
@@ -508,6 +514,170 @@ export const products: Product[] = [
     volumeTiers: STANDARD_VOLUME_TIERS,
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
+  },
+  {
+    id: "p9",
+    slug: "cartalax",
+    name: "Cartalax",
+    synonym: "Ala-Glu-Asp Tripeptide",
+    category: "Peptide",
+    // No CAS number listed: none could be confirmed against PubChem
+    // (CID 87815447) — leave undefined rather than guessing.
+    sequenceOrFormula: "Ala-Glu-Asp",
+    molecularFormula: "C12H19N3O8",
+    molecularWeight: "333.29 g/mol",
+    alsoKnownAs: ["Cartalax", "AED", "T-31"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -4°F.",
+    shortDescription: "A synthetic tripeptide reference compound supplied for laboratory research use.",
+    description:
+      "Cartalax is a synthetic tripeptide (alanyl-glutamyl-aspartic acid), supplied as a lyophilized powder for laboratory and analytical research use only.",
+    structuralNotes:
+      "A 3-residue synthetic peptide (Ala-Glu-Asp) from the short-peptide bioregulator family described in the Khavinson research literature.",
+    technicalNotes:
+      "Soluble in water.",
+    handling: standardHandling(),
+    storageRequirements: standardStorageRequirements(),
+    // No back photo yet: add images.back once
+    // public/products/cartalax-back.png lands.
+    images: {
+      front: "/products/cartalax-front.png",
+      extra: [
+        {
+          label: "Identity & Purity (Manufacturer)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/identity-purity-219701.png",
+        },
+        { label: "Endotoxin", src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/endotoxin-219702.png" },
+        { label: "Heavy Metals", src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/heavy-metals-219703.png" },
+        {
+          label: "Identity & Purity (Third-Party)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/third-party/identity-purity-225318.png",
+        },
+        { label: "LC-MS Identity", src: "/coas/cartalax/40mg/CARTA40-0730/third-party/lcms-identity-234655.png" },
+        {
+          label: "Microbial Counts (TAMC/TYMC)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/third-party/microbial-counts-234656.png",
+        },
+      ],
+    },
+    // Batch CARTA40-0730 has two sets of Janoshik reports: three ordered by
+    // the manufacturer and three ordered independently (third-party). All
+    // six are listed, manufacturer first, in the same order as the full-COA
+    // PDF.
+    documents: [
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "identity-purity-219701.png",
+        fileSizeLabel: "211 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/identity-purity-219701.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219701_AK5GBJPRL29L",
+      },
+      {
+        label: "Certificate of Analysis — Endotoxin",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "endotoxin-219702.png",
+        fileSizeLabel: "209 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/endotoxin-219702.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219702_7GJLBSMLNMZL",
+      },
+      {
+        label: "Certificate of Analysis — Heavy Metals",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "heavy-metals-219703.png",
+        fileSizeLabel: "216 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/heavy-metals-219703.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219703_2R2MEFIE99XJ",
+      },
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "identity-purity-225318.png",
+        fileSizeLabel: "208 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/identity-purity-225318.png",
+        verifyUrl: "https://verify.janoshik.com/tests/225318_55PAQBTCNSDV",
+      },
+      {
+        label: "Certificate of Analysis — LC-MS Identity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "lcms-identity-234655.png",
+        fileSizeLabel: "207 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/lcms-identity-234655.png",
+        verifyUrl: "https://verify.janoshik.com/tests/234655_PDI9UGXL5RKB",
+      },
+      {
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "microbial-counts-234656.png",
+        fileSizeLabel: "201 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/microbial-counts-234656.png",
+        verifyUrl: "https://verify.janoshik.com/tests/234656_FZWJF45PHLTS",
+      },
+    ],
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials in the most recent identity & purity
+        // test (third-party, Task #225318): mass 41.76/41.73/41.70 mg,
+        // purity 99.914/99.956/99.922%. The manufacturer's earlier test
+        // (#219701) read 41.67/41.73/41.22 mg, 99.924/99.918/99.923%.
+        // Endotoxin < 1 EU/vial (#219702); As, Cd, Pb and Hg not detected
+        // (#219703); LC-MS identified cartalax and mannitol (#234655);
+        // TAMC and TYMC pass (#234656).
+        purityPercent: 99.93,
+        testedMassMg: 41.73,
+        labeledMassMg: 40,
+        massVariancePercent: 4.3,
+        tests: [
+          { label: "Identity (LC-MS)", result: "CONFIRMED" },
+          { label: "Batch CARTA40-0730", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Heavy Metals (As, Cd, Pb, Hg)", result: "NOT DETECTED" },
+          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+          { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        ],
+        reportUrl: "/coas/cartalax/40mg/CARTA40-0730/cartalax-40mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity (Manufacturer)",
+            url: "https://verify.janoshik.com/tests/219701_AK5GBJPRL29L",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/219702_7GJLBSMLNMZL",
+          },
+          {
+            label: "Heavy Metals",
+            url: "https://verify.janoshik.com/tests/219703_2R2MEFIE99XJ",
+          },
+          {
+            label: "Identity (Third-Party)",
+            url: "https://verify.janoshik.com/tests/225318_55PAQBTCNSDV",
+          },
+          {
+            label: "LC-MS",
+            url: "https://verify.janoshik.com/tests/234655_PDI9UGXL5RKB",
+          },
+          {
+            label: "TAMC/TYMC",
+            url: "https://verify.janoshik.com/tests/234656_FZWJF45PHLTS",
+          },
+        ],
+        batchCode: "CARTA40-0730",
+      },
+    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Batch CARTA40-0730 (40 mg) has its COAs (see batches/documents
+    // above), but no size is on sale yet: all three stay disabled with no
+    // price until each goes into stock.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-CART-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-CART-20", inStock: false },
+      { label: "40 mg", mg: 40, price: 0, sku: "RES-CART-40", inStock: false },
+    ],
   },
 ];
 

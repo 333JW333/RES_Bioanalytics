@@ -23,6 +23,31 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async redirects() {
+    // EP-GLP3-R's COA folder and full-COA PDF were renamed from
+    // "retatrutide". Keep links to the old locations (bookmarks, search
+    // results, shared links) opening the same files. The PDF's rule comes
+    // before its folder's, since the first match wins. EP-GLP3-R itself is
+    // delisted, so its old and new product URLs both 404.
+    return [
+      {
+        source: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        destination: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
+        permanent: true,
+      },
+      {
+        source: "/coas/retatrutide/:path*",
+        destination: "/coas/EP-GLP3-R/:path*",
+        permanent: true,
+      },
+      // EP-GLP2-T's product page was renamed from "tirzepatide".
+      {
+        source: "/shop/tirzepatide",
+        destination: "/shop/ep-glp2-t",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default function config(phase: string): NextConfig {

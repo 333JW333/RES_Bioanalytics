@@ -20,10 +20,12 @@ export interface VialCode {
 
 export const vialCodes: Record<string, VialCode> = {
   // EP-GLP3-R 15 mg. Delisted from the shop; kept so vials already shipped
-  // from this batch still open their COA.
+  // from this batch still open their COA. Moved and renamed from
+  // /coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf (same file and
+  // sha256); next.config.ts redirects the old path here.
   R1: {
     batch: "PSRETA15-1",
-    coa: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+    coa: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
     sha256: "7bf01a6fda428ede161900d68c9014e51fe742999ef83c64fcd83e9215561227",
   },
   // Thymosin Alpha-1 10 mg
@@ -44,6 +46,12 @@ export const vialCodes: Record<string, VialCode> = {
     batch: "BP10-0719",
     coa: "/coas/bpc-157/10mg/BP10-0719/bpc-157-10mg-full-coa.pdf",
     sha256: "6b610f0f1c9658429fcc0d332437682d608c48b5fddc8ff13ff480068878fa89",
+  },
+  // Cartalax 40 mg. Manufacturer reports first, then third-party.
+  C1: {
+    batch: "CARTA40-0730",
+    coa: "/coas/cartalax/40mg/CARTA40-0730/cartalax-40mg-full-coa.pdf",
+    sha256: "b6ab3d3de971bf74569c5ff6dc182007883144b84194a81703cd217b7535d953",
   },
 };
 

@@ -24,7 +24,7 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 - **Shop, product detail, cart, and checkout flow**, with a research-use
   attestation required before payment.
 - **RUO compliance UX** — an entry gate modal, disclaimer banners, and
-  dedicated legal pages (RUO Policy, Terms of Sale, Privacy Policy, Refund
+  dedicated legal pages (RUO Policy, Terms of Service, Privacy Policy, Refund
   Policy).
 - **Payments**:
   - **Crypto** via [Coinbase Commerce](https://commerce.coinbase.com/) —
@@ -85,14 +85,21 @@ in CI) if any of it is broken.
    `public/coas/bpc-157/10mg/BP10-0719/`). Never overwrite, rename, or
    delete an older batch's files. (Batch PSRETA15-1 of the delisted
    EP-GLP3-R predates this and sits directly in
-   `public/coas/retatrutide/15mg/`; it stays so its vials' `R1` code
-   still works.)
+   `public/coas/EP-GLP3-R/15mg/`, renamed from `public/coas/retatrutide/`
+   with `next.config.ts` redirecting the old URLs; its full-COA PDF stays
+   so its vials' `R1` code still works.) When a batch has both the
+   manufacturer's own reports and independent third-party reports, put
+   them in `manufacturer/` and `third-party/` subfolders and keep the
+   combined full-COA PDF at the batch folder's top level (e.g.
+   `public/coas/cartalax/40mg/CARTA40-0730/`). Upload only the report
+   pages; vial photos and spectra stay on Janoshik's verify page.
 2. **Vial code**: add a **new** entry to `src/data/vial-codes.ts` with the
    next code, the batch number, and the full COA PDF. Thymosin Alpha-1
-   uses `T1`, `T2`, `T3`, …, SS-31 uses `S1`, `S2`, `S3`, … and BPC-157
-   uses `B1`, `B2`, `B3`, … (1–3 capital letters or digits). `R` belonged
-   to the delisted EP-GLP3-R, so don't reuse it. Leave `sha256` empty and
-   the build prints the value to fill in. Never edit or remove an
+   uses `T1`, `T2`, `T3`, …, SS-31 uses `S1`, `S2`, `S3`, …, BPC-157 uses
+   `B1`, `B2`, `B3`, … and Cartalax uses `C1`, `C2`, `C3`, … (1–3 capital
+   letters or digits). `R` belonged to the delisted EP-GLP3-R, so don't
+   reuse it. Leave `sha256` empty and the build prints the value to fill
+   in. Never edit or remove an
    existing entry.
 3. **Product page**: add the batch to the **top** of the product's
    `batches` list in `src/data/products.ts` (lab results, `reportUrl` set
@@ -131,10 +138,10 @@ customers add themselves, and they can't read the list.
 
 ## Legal pages
 
-`src/app/legal/*` contains starting-point Research Use Only, Terms of Sale,
-Privacy, and Refund policies. **These are templates, not legal advice** —
-have them reviewed by an attorney familiar with research-chemical
-regulations before launch.
+`src/app/(store)/legal/*` contains the Research Use Only Policy, Terms of
+Service, Privacy Policy, and Refund Policy, which have been reviewed by an
+attorney. The Terms of Service text lives in `src/lib/terms-of-service.ts`,
+which also feeds the Create Account scroll box.
 
 ## Deploying
 

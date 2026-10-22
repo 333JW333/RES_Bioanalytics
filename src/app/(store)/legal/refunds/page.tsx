@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import LegalNotice from "@/components/LegalNotice";
 
 export const metadata: Metadata = {
   title: "Refund Policy",
@@ -10,9 +9,7 @@ export default function RefundsPage() {
   return (
     <div className="container-page py-16 max-w-3xl">
       <h1 className="text-3xl font-bold text-brand-navy mb-2">Refund Policy</h1>
-      <p className="text-sm text-brand-slate-light mb-8">Last updated: September 21, 2026</p>
-
-      <LegalNotice />
+      <p className="text-sm text-brand-slate-light mb-8">Last updated: October 5, 2026</p>
 
       <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>
@@ -52,7 +49,16 @@ export default function RefundsPage() {
           </p>
         </section>
         <section>
-          <h2 className="font-semibold text-brand-navy text-lg mb-2">5. Contact</h2>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">5. Card Refunds</h2>
+          <p>
+            Approved refunds for card payments are issued through the
+            processor that handled your payment (Stripe or PayRam) and are
+            returned to the original card. Depending on your card issuer,
+            refunds may take 5-10 business days to appear.
+          </p>
+        </section>
+        <section>
+          <h2 className="font-semibold text-brand-navy text-lg mb-2">6. Contact</h2>
           <p>To request a refund or replacement, email support@ecopeps.com with your order number.</p>
         </section>
       </div>

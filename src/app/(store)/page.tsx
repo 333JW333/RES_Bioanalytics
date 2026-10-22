@@ -6,7 +6,8 @@ import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 import { formatUSD } from "@/lib/format";
 import { isSoldOut, startingPrice } from "@/lib/pricing";
 
-// Thymosin Alpha-1, first in the catalog, fronts the hero.
+// Thymosin Alpha-1 fronts the hero. Pick an in-stock product with a
+// square front photo, like the other vial shots in public/products.
 const HERO_PRODUCT_SLUG = "thymosin-alpha-1";
 
 export default function Home() {
