@@ -19,7 +19,8 @@ export interface VialCode {
 }
 
 export const vialCodes: Record<string, VialCode> = {
-  // EP-GLP3-R 15 mg. Moved and renamed from
+  // EP-GLP3-R 15 mg. Delisted from the shop; kept so vials already shipped
+  // from this batch still open their COA. Moved and renamed from
   // /coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf (same file and
   // sha256); next.config.ts redirects the old path here.
   R1: {
