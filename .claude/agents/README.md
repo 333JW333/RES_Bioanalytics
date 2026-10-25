@@ -17,6 +17,16 @@ Each agent's project-specific section (brand colors, voice guidelines, site stru
 
 **One shared constraint across every content/copy agent**: EcoPeps sells research-use-only (RUO) peptides. No agent should produce copy implying human/animal use, dosing, or therapeutic claims, or referencing approved-drug brand names (e.g. Ozempic, Mounjaro) as stand-ins for the research compounds sold here. This is called out explicitly in each relevant agent's instructions, but keep it in mind if you extend or rewrite one.
 
+## COA agent
+
+New COAs aren't handled by a subagent: they go through the **coa-agent**
+skill (`.claude/skills/coa-agent/SKILL.md`, run with `/coa-agent` or by
+uploading COAs and asking for it). It runs in the main conversation, so it
+can read the files you upload and ask you questions, such as a price. It
+files the reports, updates the product page, gives the batch its vial code,
+opens a pull request and returns the `HTTPS://ECOPEPS.COM/C/<code>` link
+for Nimbot.
+
 ## legal-researcher
 
 `legal-researcher` is **read-only** (`Read, Grep, Glob, WebSearch, WebFetch`, plus the CourtListener connector's read tools; its alert, docket-subscription, and pray-for-document tools are disallowed). It pulls current statute and CFR text from primary government sources, checks FDA/FTC enforcement, and returns a cited research memo, and it never edits files or gives legal advice. Its output is a starting point for counsel, not a substitute.

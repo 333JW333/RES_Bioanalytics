@@ -80,6 +80,11 @@ arrives, so a code is never reused, repointed, or removed, and a COA file
 is never replaced. `next build` enforces this and fails (on Vercel and
 in CI) if any of it is broken.
 
+The quickest way: upload the COAs in a Claude Code session and ask for
+the COA agent (`/coa-agent`). It follows these steps
+(`.claude/skills/coa-agent/SKILL.md`), opens a pull request, and gives
+you the link to type into Nimbot.
+
 1. **COA files**: put them in a new folder for the batch,
    `public/coas/<product>/<size>/<batch number>/` (e.g.
    `public/coas/EP-GLP3-R/15mg/PSRETA15-2/`). Never overwrite, rename, or
