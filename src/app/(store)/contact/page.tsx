@@ -27,7 +27,7 @@ export default function ContactPage() {
 
       <div className="card mt-8 space-y-4 p-6">
         <ContactRow label="Email" value="support@ecopeps.com" />
-        <ContactRow label="Hours" value="Mon–Fri, 9am–5pm ET" />
+        <ContactRow label="Hours" value="Mon–Fri, 9am–5pm MT" />
         <ContactRow label="Purpose" value="Laboratory & institutional research inquiries only" />
       </div>
 

@@ -6,8 +6,9 @@ import { DnaIcon, FlaskIcon, ShieldCheckIcon } from "@/components/icons";
 import { formatUSD } from "@/lib/format";
 import { isSoldOut, startingPrice } from "@/lib/pricing";
 
-// EP-GLP3-R, our lead product, fronts the hero.
-const HERO_PRODUCT_SLUG = "retatrutide";
+// Thymosin Alpha-1 fronts the hero. Pick an in-stock product with a
+// square front photo, like the other vial shots in public/products.
+const HERO_PRODUCT_SLUG = "thymosin-alpha-1";
 
 export default function Home() {
   // Only what customers can buy today; sold-out products wait in the shop
@@ -122,8 +123,8 @@ export default function Home() {
           </h2>
           <p className="max-w-2xl mx-auto text-brand-slate-light text-sm leading-relaxed">
             All products offered by EcoPeps are intended strictly
-            for in-vitro laboratory research and are not drugs, supplements,
-            cosmetics, or foods. They are not for human or animal
+            for in-vitro laboratory research, not for use as drugs,
+            supplements, cosmetics, or foods. They are not for human or animal
             consumption, and are not evaluated by the FDA to diagnose,
             treat, cure, or prevent any disease. By purchasing, you certify
             you are a qualified researcher or institution acquiring these

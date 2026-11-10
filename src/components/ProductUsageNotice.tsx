@@ -8,8 +8,9 @@ export default function ProductUsageNotice() {
       under any circumstances. All content provided on this site is for
       educational purposes only. This product should only be handled by
       licensed, qualified professionals in a controlled research setting.
-      This product is not a drug, food, or cosmetic, and must not be
-      misbranded, mislabeled, or misused in violation of applicable laws.
+      This product is not intended for use as a drug, food, or cosmetic, has
+      not been approved by the FDA, and must not be misbranded, mislabeled,
+      or misused in violation of applicable laws.
     </div>
   );
 }

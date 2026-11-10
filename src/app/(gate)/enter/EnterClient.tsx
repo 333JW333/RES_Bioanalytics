@@ -3,12 +3,18 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import CoaTestingPanel from "@/components/CoaTestingPanel";
+import CoaTestingPanel, { type CoaSummary } from "@/components/CoaTestingPanel";
 import Logo from "@/components/Logo";
 import { writeAgeVerified } from "@/lib/gate";
 import { withReturnTo } from "@/lib/return-to";
 
-export default function EnterClient({ returnTo }: { returnTo: string | null }) {
+export default function EnterClient({
+  returnTo,
+  coa,
+}: {
+  returnTo: string | null;
+  coa: CoaSummary | null;
+}) {
   const router = useRouter();
   const [ageConfirmed, setAgeConfirmed] = useState(false);
   const [ruoConfirmed, setRuoConfirmed] = useState(false);
@@ -43,7 +49,7 @@ export default function EnterClient({ returnTo }: { returnTo: string | null }) {
           </p>
         </header>
 
-        <CoaTestingPanel />
+        <CoaTestingPanel coa={coa} />
 
         <section className="border border-t-0 border-brand-line bg-white px-4 py-5 sm:px-7 sm:py-7">
           <h1 className="text-xs font-semibold uppercase tracking-[0.16em] text-brand-slate-light">

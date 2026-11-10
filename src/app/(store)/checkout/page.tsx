@@ -80,7 +80,7 @@ export default function CheckoutPage() {
                 </Link>{" "}
                 and{" "}
                 <Link href="/legal/terms" className="text-brand-teal-dark underline">
-                  Terms of Sale
+                  Terms of Service
                 </Link>
                 .
               </span>

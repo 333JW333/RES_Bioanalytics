@@ -1,21 +1,24 @@
-/**
- * Illustrative “latest high-purity COA” panel for the Enter gate.
- * Visual language inspired by Peptide Crafters’ testing readout —
- * not a live instrument feed. Swap sampleLot for real lot data later.
- */
-const sampleLot = {
-  productName: "BPC-157",
-  lotNumber: "EP-BPC-2402",
-  method: "RP-HPLC, UV 214 nm",
-  runTimeMin: "12.00",
-  peakMin: "8.42",
-  purity: "99.76%",
-  msMz: "1419.55",
-  endotoxinSpec: "≤ 5.0 EU/mL",
-  sterilitySpec: "No growth",
-};
+import type { CoaTestResult } from "@/types/product";
 
-export default function CoaTestingPanel() {
+/**
+ * "Latest COA" panel for the Enter gate. Every figure comes from a real
+ * batch in src/data/products.ts (the Enter page passes in the in-stock batch
+ * with the highest purity). The chromatogram is an illustrative trace and is
+ * labeled as one; the lab reports don't include raw instrument data.
+ */
+export interface CoaSummary {
+  productName: string;
+  batchCode: string;
+  labName: string;
+  purityPercent: number;
+  testedMassMg: number;
+  labeledMassMg: number;
+  tests: CoaTestResult[];
+  /** Full COA for this batch, hosted on this site. */
+  reportUrl: string;
+}
+
+export default function CoaTestingPanel({ coa }: { coa: CoaSummary | null }) {
   return (
     <aside className="overflow-hidden border border-brand-line bg-white">
       {/* Trust pillars — stack on phones, 3-up from sm */}
@@ -34,7 +37,7 @@ export default function CoaTestingPanel() {
         <Pillar
           step="02"
           title="Micro Testing"
-          body="Endotoxin & sterility tested"
+          body="Endotoxin & microbial counts"
         />
         <Pillar
           step="03"
@@ -43,65 +46,68 @@ export default function CoaTestingPanel() {
         />
       </div>
 
-      <div className="bg-[#1c2a38] px-3.5 py-5 text-white sm:px-6 sm:py-7">
-        {/* Lot meta */}
-        <div className="flex flex-col gap-1.5 font-mono text-[10px] uppercase tracking-wide text-white/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:text-[11px]">
-          <p className="leading-relaxed break-words">
-            <span className="text-white/80">{sampleLot.productName}</span>
-            <span className="text-white/25"> · </span>
-            Lot {sampleLot.lotNumber}
-            <span className="text-white/25"> · </span>
-            {sampleLot.method}
-          </p>
-          <p className="inline-flex items-center gap-2 text-emerald-400">
-            <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-400" />
-            Run complete · {sampleLot.runTimeMin} min
-          </p>
-        </div>
-
-        {/* Instrument graph */}
-        <div className="mt-3 overflow-hidden rounded border border-cyan-400/20 bg-[#1a2634] p-2.5 sm:mt-4 sm:p-4">
-          <Chromatogram
-            peakLabel={`${sampleLot.peakMin} min`}
-            runTimeMin={sampleLot.runTimeMin}
-            purity={sampleLot.purity}
-          />
-        </div>
-
-        {/* Key metrics */}
-        <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-6">
-          <div className="min-w-0">
-            <p className="text-2xl font-bold tracking-tight text-emerald-400 sm:text-4xl">
-              {sampleLot.purity}
+      {coa && (
+        <div className="bg-[#1c2a38] px-3.5 py-5 text-white sm:px-6 sm:py-7">
+          {/* Lot meta */}
+          <div className="flex flex-col gap-1.5 font-mono text-[10px] uppercase tracking-wide text-white/50 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between sm:gap-2 sm:text-[11px]">
+            <p className="leading-relaxed break-words">
+              <span className="text-white/80">{coa.productName}</span>
+              <span className="text-white/25"> · </span>
+              Batch {coa.batchCode}
+              <span className="text-white/25"> · </span>
+              HPLC
             </p>
-            <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-white/40 sm:text-[10px]">
-              Purity, area %
+            <p className="inline-flex items-center gap-2 text-emerald-400">
+              <span className="h-1.5 w-1.5 shrink-0 animate-pulse rounded-full bg-emerald-400" />
+              Analysis complete · {coa.labName}
             </p>
           </div>
-          <div className="min-w-0">
-            <p className="text-2xl font-bold tracking-tight text-white sm:text-4xl">
-              {sampleLot.msMz}
-            </p>
-            <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-white/40 sm:text-[10px]">
-              MS, m/z observed
-            </p>
-          </div>
-        </div>
 
-        {/* Assay results */}
-        <div className="mt-4 space-y-3 border-t border-white/10 pt-4 sm:mt-5 sm:space-y-2">
-          <ResultRow
-            label="Endotoxin USP <85>"
-            spec={sampleLot.endotoxinSpec}
-            result="PASS"
-          />
-          <ResultRow
-            label="Sterility USP <71>"
-            spec={sampleLot.sterilitySpec}
-            result="PASS"
-          />
+          {/* Instrument graph */}
+          <div className="mt-3 overflow-hidden rounded border border-cyan-400/20 bg-[#1a2634] p-2.5 sm:mt-4 sm:p-4">
+            <Chromatogram purity={`${coa.purityPercent.toFixed(2)}%`} />
+          </div>
+
+          {/* Key metrics */}
+          <div className="mt-4 grid grid-cols-2 gap-3 sm:mt-5 sm:gap-6">
+            <div className="min-w-0">
+              <p className="text-2xl font-bold tracking-tight text-emerald-400 sm:text-4xl">
+                {coa.purityPercent.toFixed(2)}%
+              </p>
+              <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-white/40 sm:text-[10px]">
+                Purity, area %
+              </p>
+            </div>
+            <div className="min-w-0">
+              <p className="text-2xl font-bold tracking-tight text-white sm:text-4xl">
+                {coa.testedMassMg.toFixed(2)} mg
+              </p>
+              <p className="mt-1 font-mono text-[9px] uppercase tracking-wide text-white/40 sm:text-[10px]">
+                Measured content · {coa.labeledMassMg} mg labeled
+              </p>
+            </div>
+          </div>
+
+          {/* Assay results */}
+          <div className="mt-4 space-y-3 border-t border-white/10 pt-4 sm:mt-5 sm:space-y-2">
+            {coa.tests
+              // The batch number is already in the header above.
+              .filter((test) => !test.label.startsWith("Batch "))
+              .map((test) => (
+                <ResultRow key={test.label} label={test.label} result={test.result} />
+              ))}
+          </div>
+
+          <a
+            href={coa.reportUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 inline-block font-mono text-[10px] uppercase tracking-wide text-cyan-300 underline underline-offset-2 hover:text-cyan-200 sm:mt-5 sm:text-[11px]"
+          >
+            View full COA
+          </a>
         </div>
-      </div>
+      )}
     </aside>
   );
 }
@@ -135,21 +141,10 @@ function Pillar({
   );
 }
 
-function ResultRow({
-  label,
-  spec,
-  result,
-}: {
-  label: string;
-  spec: string;
-  result: string;
-}) {
+function ResultRow({ label, result }: { label: string; result: string }) {
   return (
     <div className="flex items-start justify-between gap-3 font-mono text-[10px] sm:items-baseline sm:text-[11px]">
-      <div className="min-w-0 leading-relaxed">
-        <p className="font-medium text-white">{label}</p>
-        <p className="mt-0.5 text-white/45">{spec}</p>
-      </div>
+      <p className="min-w-0 font-medium leading-relaxed text-white">{label}</p>
       <p className="shrink-0 pt-0.5 text-right sm:pt-0">
         <span className="text-white/45">Result </span>
         <span className="font-semibold text-emerald-400">{result}</span>
@@ -158,15 +153,7 @@ function ResultRow({
   );
 }
 
-function Chromatogram({
-  peakLabel,
-  runTimeMin,
-  purity,
-}: {
-  peakLabel: string;
-  runTimeMin: string;
-  purity: string;
-}) {
+function Chromatogram({ purity }: { purity: string }) {
   const peakX = 270;
   const baseline = 168;
   const peakTop = 22;
@@ -174,13 +161,13 @@ function Chromatogram({
   return (
     <div className="relative">
       <div className="mb-2 flex flex-col gap-1 font-mono text-[9px] uppercase tracking-wider text-cyan-300/70 sm:flex-row sm:items-center sm:justify-between sm:text-[10px]">
-        <span>CH1 · UV 214 nm · Abs</span>
-        <span>RT window 0–{runTimeMin} min</span>
+        <span>Illustrative trace</span>
+        <span>Purity by HPLC</span>
       </div>
 
       {/* Peak readout in HTML so labels stay legible when the SVG scales down */}
       <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 rounded border border-amber-400/40 bg-[#0a1622]/80 px-2.5 py-1.5 font-mono text-[10px] sm:text-[11px]">
-        <span className="text-amber-300">PEAK {peakLabel}</span>
+        <span className="text-amber-300">MAIN PEAK</span>
         <span className="text-cyan-300/80">AREA {purity}</span>
       </div>
 
@@ -188,7 +175,7 @@ function Chromatogram({
         viewBox="0 0 640 210"
         className="h-36 w-full sm:h-48"
         role="img"
-        aria-label={`HPLC chromatogram with primary peak at ${peakLabel}`}
+        aria-label={`Illustrative HPLC chromatogram; measured purity ${purity}`}
         preserveAspectRatio="xMidYMid meet"
       >
         <defs>

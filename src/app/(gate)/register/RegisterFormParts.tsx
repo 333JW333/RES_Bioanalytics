@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { REGISTRATION_TERMS } from "@/lib/registration-terms";
+import TermsBody from "@/components/TermsBody";
+import { TERMS_OF_SERVICE } from "@/lib/terms-of-service";
 
 function RequiredMark() {
   return (
@@ -48,7 +49,7 @@ export function AcknowledgmentBlock({
             target="_blank"
             rel="noopener noreferrer"
           >
-            Full Terms &amp; Conditions
+            Terms of Service
           </Link>
           .
         </span>
@@ -83,11 +84,19 @@ export function TermsScrollBox() {
           Terms of Service Agreement
         </p>
         <div className="space-y-3">
-          {REGISTRATION_TERMS.map((section) => (
+          {TERMS_OF_SERVICE.map((section, i) => (
             <div key={section.title}>
-              <p className="font-semibold text-brand-navy">{section.title}</p>
-              <p className="mt-1">{section.body}</p>
-              {"bullets" in section && section.bullets ? (
+              <p className="font-semibold text-brand-navy">
+                {i + 1}. {section.title}
+              </p>
+              <p className="mt-1">
+                <TermsBody
+                  body={section.body}
+                  linkClassName="text-brand-teal-dark underline underline-offset-2"
+                  newTab
+                />
+              </p>
+              {section.bullets ? (
                 <ul className="mt-1.5 list-disc space-y-1 pl-4">
                   {section.bullets.map((item) => (
                     <li key={item}>{item}</li>

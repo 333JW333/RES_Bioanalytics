@@ -13,11 +13,11 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "Are these products approved for human or animal use?",
-    a: "No. All products are labeled and sold strictly for research use only (RUO). They are not drugs, dietary supplements, cosmetics, or foods, and are not evaluated or approved by the FDA or any regulatory body for human or animal consumption, diagnosis, treatment, or prevention of disease.",
+    a: "No. All products are labeled and sold strictly for research use only (RUO). They are not intended for use as drugs, dietary supplements, cosmetics, or foods, and have not been evaluated or approved by the FDA or any regulatory body for human or animal consumption, diagnosis, treatment, or prevention of disease.",
   },
   {
     q: "What payment methods do you accept?",
-    a: "We currently accept cryptocurrency (via Coinbase Commerce, supporting BTC, ETH, USDC, and more), ACH bank transfers (via Plaid + Dwolla), and card payments (via PayRam, which settles to us in stablecoin). PayPal support is planned as we grow.",
+    a: "We currently accept cryptocurrency (via Coinbase Commerce, supporting BTC, ETH, USDC, and more), ACH bank transfers (via Plaid + Dwolla), and card payments (via Stripe or PayRam). PayPal support is planned as we grow.",
   },
   {
     q: "Do you provide certificates of analysis?",
@@ -34,7 +34,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "How is my order shipped and stored?",
-    a: "Products are shipped in sealed, labeled containers appropriate for laboratory reagents. Most compounds are lyophilized powders that should be stored at -4°F until reconstitution. See individual product pages for compound-specific storage guidance.",
+    a: "Products are shipped in sealed, labeled containers appropriate for laboratory reagents. Most compounds are lyophilized powders that should be stored sealed at -4°F or colder. See individual product pages for compound-specific storage guidance.",
   },
   {
     q: "How long does an ACH payment take to process?",

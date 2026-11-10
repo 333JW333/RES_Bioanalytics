@@ -1,7 +1,7 @@
 import type { Product, StorageRequirement, VolumeTier } from "@/types/product";
 
 /**
- * Catalog data for the current EcoPeps shop (8 products). Add new entries
+ * Catalog data for the current EcoPeps shop (9 products). Add new entries
  * to this array to scale toward 30+ SKUs.
  *
  * Every product page uses the same template (usage notice, disclaimer, QR
@@ -32,28 +32,21 @@ const STANDARD_VOLUME_TIERS: VolumeTier[] = [
 interface StorageTemplateOptions {
   /** Emphasize light protection (e.g. GHK-Cu, SS-31). */
   lightSensitive?: boolean;
-  /** Replaces the default note on the "Reconstituted solution" row. */
-  reconstitutedNote?: string;
 }
 
 function standardHandling({ lightSensitive }: StorageTemplateOptions = {}): string[] {
   return [
     "On receipt, move sealed vials to a freezer at -4°F or colder.",
     "Let the sealed vial reach room temperature before opening. This prevents condensation from forming on the powder.",
-    "Reconstitute with sterile water using aseptic technique.",
-    "Label the vial with the reconstitution date and refrigerate at 36–46°F. Best used within 28 days.",
-    "For longer studies, divide the solution into single-use aliquots. Avoid repeated freeze–thaw cycles.",
+    "Avoid repeated freeze–thaw cycles; divide material into single-use aliquots for longer studies.",
     lightSensitive
-      ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times, before and after reconstitution."
+      ? "This compound is light-sensitive: keep vials tightly sealed and protected from light at all times."
       : "Keep vials tightly sealed and away from light and moisture.",
     "Handle only in a laboratory setting by qualified personnel wearing gloves, eye protection, and a lab coat.",
   ];
 }
 
-function standardStorageRequirements({
-  lightSensitive,
-  reconstitutedNote = "Best used within 28 days.",
-}: StorageTemplateOptions = {}): StorageRequirement[] {
+function standardStorageRequirements({ lightSensitive }: StorageTemplateOptions = {}): StorageRequirement[] {
   return [
     {
       label: "Lyophilized powder — long term",
@@ -65,9 +58,8 @@ function standardStorageRequirements({
       value: "Room temperature",
       note: "Acceptable in transit and during brief bench handling while sealed and dry.",
     },
-    { label: "Reconstituted solution", value: "36–46°F", note: reconstitutedNote },
     lightSensitive
-      ? { label: "Light", value: "Light-sensitive — store in the dark", note: "Protect before and after reconstitution." }
+      ? { label: "Light", value: "Light-sensitive — store in the dark", note: "Protect at all times." }
       : { label: "Light", value: "Protect from direct light" },
     { label: "Moisture", value: "Keep sealed; avoid humidity" },
     { label: "Freeze–thaw", value: "Avoid repeated cycles" },
@@ -77,7 +69,7 @@ function standardStorageRequirements({
 export const products: Product[] = [
   {
     id: "p7",
-    slug: "retatrutide",
+    slug: "ep-glp3-r",
     name: "EP-GLP3-R",
     // Sold under EcoPeps' internal designation rather than the INN
     // "Retatrutide" for IP/legal reasons (see ProductDisclaimer's patent-use
@@ -85,8 +77,8 @@ export const products: Product[] = [
     // pharmacological class (mechanism of action) rather than naming the
     // compound — "Retatrutide" does not appear anywhere on the rendered
     // page. It's still searchable via seoAlternateNames in this page's
-    // JSON-LD structured data (invisible, read by search engines only) and
-    // via the /shop/retatrutide URL slug.
+    // JSON-LD structured data (invisible, read by search engines only).
+    // The old /shop/retatrutide URL redirects here (see next.config.ts).
     synonym: "Triple GIP/GLP-1/Glucagon Receptor Agonist",
     category: "Peptide",
     casNumber: "2381089-83-2",
@@ -95,33 +87,26 @@ export const products: Product[] = [
     molecularWeight: "4731.42 g/mol",
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
-    shortDescription: "EcoPeps' internal designation for a triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
+    storage: "Store lyophilized powder at -4°F.",
+    shortDescription: "A triple GIP/GLP-1/glucagon receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "EP-GLP3-R is EcoPeps' internal designation for a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP3-R is a synthetic triple GIP/GLP-1/glucagon receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability, consistent with other incretin-class peptide analogs in this catalog.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
-    storageRequirements: standardStorageRequirements({
-      // Based on independent Janoshik testing of refrigerated retatrutide
-      // samples (PepRecon, 2026): purity held but recoverable mass declined
-      // by ~90 days. Keep this note to this compound unless other products
-      // get their own stability data.
-      reconstitutedNote:
-        "Best used within 28 days. Independent testing of refrigerated samples shows gradual peptide loss by approximately 90 days.",
-    }),
+    storageRequirements: standardStorageRequirements(),
     images: {
       front: "/products/ep-glp3-r-front.png",
       back: "/products/ep-glp3-r-back.png",
       extra: [
         {
           label: "Identity & Purity",
-          src: "/coas/retatrutide/15mg/identity-purity-214265.png",
+          src: "/coas/EP-GLP3-R/15mg/identity-purity-214265.png",
         },
-        { label: "Endotoxin", src: "/coas/retatrutide/15mg/endotoxin-214266.png" },
-        { label: "Sterility", src: "/coas/retatrutide/15mg/sterility-214267.png" },
+        { label: "Endotoxin", src: "/coas/EP-GLP3-R/15mg/endotoxin-214266.png" },
+        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/EP-GLP3-R/15mg/sterility-214267.png" },
       ],
     },
     documents: [
@@ -130,7 +115,7 @@ export const products: Product[] = [
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "identity-purity-214265.png",
         fileSizeLabel: "208 KB",
-        url: "/coas/retatrutide/15mg/identity-purity-214265.png",
+        url: "/coas/EP-GLP3-R/15mg/identity-purity-214265.png",
         verifyUrl: "https://verify.janoshik.com/tests/214265-Reta_15mg_Rd1_5X9DNCQIS949",
       },
       {
@@ -138,15 +123,15 @@ export const products: Product[] = [
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "endotoxin-214266.png",
         fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/endotoxin-214266.png",
+        url: "/coas/EP-GLP3-R/15mg/endotoxin-214266.png",
         verifyUrl: "https://verify.janoshik.com/tests/214266-Reta_15mg_Rd1_FYUBP6FMHX1A",
       },
       {
-        label: "Certificate of Analysis — Sterility",
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
         subLabel: "Janoshik Analytical — EP-GLP3-R 15 mg, Batch PSRETA15-1",
         fileName: "sterility-214267.png",
         fileSizeLabel: "194 KB",
-        url: "/coas/retatrutide/15mg/sterility-214267.png",
+        url: "/coas/EP-GLP3-R/15mg/sterility-214267.png",
         verifyUrl: "https://verify.janoshik.com/tests/214267-Reta_15mg_Rd1_HDTJ2EQMILXB",
       },
     ],
@@ -168,7 +153,7 @@ export const products: Product[] = [
           { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
           { label: "USP <61> Microbial Enumeration", result: "PASS" },
         ],
-        reportUrl: "/coas/retatrutide/15mg/retatrutide-15mg-full-coa.pdf",
+        reportUrl: "/coas/EP-GLP3-R/15mg/EP-GLP3-R-15mg-full-coa.pdf",
         verifyLinks: [
           {
             label: "Identity",
@@ -215,14 +200,14 @@ export const products: Product[] = [
     alsoKnownAs: ["Thymalfasin", "Tα1", "TA1"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic 28-residue acetylated thymic peptide reference compound supplied for laboratory research use.",
     description:
       "Thymosin Alpha-1 is a synthetic 28-amino-acid peptide corresponding to the acetylated thymic peptide originally isolated from thymosin fraction 5, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A 28-residue linear peptide with an acetylated N-terminal serine and a free C-terminal carboxyl. It corresponds to the N-terminal region of prothymosin alpha, and its high proportion of acidic residues (Asp, Glu) gives it a net negative charge at neutral pH.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     // "-v2": a replaced photo needs a new filename, or the old one can keep
@@ -236,7 +221,7 @@ export const products: Product[] = [
           src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/identity-purity-227167.png",
         },
         { label: "Endotoxin", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/endotoxin-227168.png" },
-        { label: "Sterility", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
+        { label: "Microbial Counts (TAMC/TYMC)", src: "/coas/thymosin-alpha-1/10mg/PSTA110-2/sterility-227169.png" },
       ],
     },
     documents: [
@@ -257,7 +242,7 @@ export const products: Product[] = [
         verifyUrl: "https://verify.janoshik.com/tests/227168_9HAXKAJJ5MFX",
       },
       {
-        label: "Certificate of Analysis — Sterility",
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
         subLabel: "Janoshik Analytical — Thymosin Alpha-1 10 mg, Batch PSTA110-2",
         fileName: "sterility-227169.png",
         fileSizeLabel: "350 KB",
@@ -329,14 +314,14 @@ export const products: Product[] = [
     // Batch BP10-0719 tested 98.56–98.70% (see batches below).
     purity: "≥ 98% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic pentadecapeptide reference compound supplied for laboratory research use.",
     description:
       "BPC-157 is a synthetic pentadecapeptide sequence, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "Composed of 15 amino acid residues. Does not derive from a larger parent protein and carries no N-terminal acetylation or C-terminal amidation.",
     technicalNotes:
-      "Soluble in sterile water at concentrations up to ~1 mg/mL for research use.",
+      "Soluble in water at concentrations up to ~1 mg/mL.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -451,14 +436,14 @@ export const products: Product[] = [
     alsoKnownAs: ["TB-500", "Thymosin Beta-4 Fragment"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic peptide fragment reference compound supplied for laboratory research use.",
     description:
       "TB-500 is a short synthetic peptide fragment derived from the Thymosin Beta-4 sequence, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 7-residue acetylated fragment corresponding to the actin-binding region of Thymosin Beta-4, rather than the full 43-residue protein.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -482,14 +467,14 @@ export const products: Product[] = [
     alsoKnownAs: ["Ipamorelin", "NNC 26-0161"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F.",
     shortDescription: "A synthetic pentapeptide reference compound supplied for laboratory research use.",
     description:
       "Ipamorelin is a synthetic pentapeptide, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 5-residue synthetic peptide incorporating non-standard residues (Aib, D-2-Nal, D-Phe) and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
@@ -502,39 +487,46 @@ export const products: Product[] = [
   },
   {
     id: "p4",
-    slug: "tirzepatide",
-    name: "Tirzepatide",
+    slug: "ep-glp2-t",
+    name: "EP-GLP2-T",
+    // Listed under EcoPeps' internal designation, set up like EP-GLP3-R
+    // above: the synonym line and body copy describe the receptor class
+    // instead of naming the compound. Unlike EP-GLP3-R, the compound's name
+    // is left out of seoAlternateNames too, so it doesn't appear anywhere in
+    // the page source. Its old product URL redirects here (see
+    // next.config.ts).
+    synonym: "Dual GIP/GLP-1 Receptor Agonist",
     category: "Peptide",
     casNumber: "2023788-19-2",
     sequenceOrFormula: "C225H348N48O68",
     molecularFormula: "C225H348N48O68",
     molecularWeight: "4813.45 g/mol",
-    alsoKnownAs: ["Tirzepatide", "LY3298176"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F; reconstituted solution at 36–46°F, best used within 28 days.",
-    shortDescription: "A synthetic peptide reference compound supplied for laboratory research use.",
+    storage: "Store lyophilized powder at -4°F.",
+    shortDescription: "A dual GIP/GLP-1 receptor agonist peptide, supplied for laboratory research use.",
     description:
-      "Tirzepatide is a synthetic peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
+      "EP-GLP2-T is a synthetic dual GIP/GLP-1 receptor agonist peptide analog, supplied as a lyophilized powder for laboratory and analytical research use only. Not for human or veterinary use.",
     structuralNotes:
       "A long-chain synthetic peptide analog featuring a fatty-diacid side chain used to extend the parent sequence's stability.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling(),
     storageRequirements: standardStorageRequirements(),
     images: {
-      front: "/products/tirzepatide-front.png",
-      back: "/products/tirzepatide-back.png",
+      front: "/products/EP_GLP2_T_Front.png",
+      back: "/products/EP_GLP2_T_back.png",
     },
     volumeTiers: STANDARD_VOLUME_TIERS,
     // Not in stock until a batch passes COA testing.
     sizes: [
-      { label: "10 mg", mg: 10, price: 0, sku: "RES-TIRZ-10", inStock: false },
-      { label: "20 mg", mg: 20, price: 0, sku: "RES-TIRZ-20", inStock: false },
-      { label: "30 mg", mg: 30, price: 0, sku: "RES-TIRZ-30", inStock: false },
-      { label: "60 mg", mg: 60, price: 0, sku: "RES-TIRZ-60", inStock: false },
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-GLP2T-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-GLP2T-20", inStock: false },
+      { label: "30 mg", mg: 30, price: 0, sku: "RES-GLP2T-30", inStock: false },
+      { label: "60 mg", mg: 60, price: 0, sku: "RES-GLP2T-60", inStock: false },
     ],
     featured: true,
+    seoAlternateNames: ["LY3298176"],
   },
   {
     id: "p5",
@@ -549,14 +541,14 @@ export const products: Product[] = [
     alsoKnownAs: ["GHK-Cu", "Copper Tripeptide-1", "Copper Tripeptide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F, protected from light.",
     shortDescription: "A copper-binding tripeptide reference compound supplied for laboratory research use.",
     description:
       "GHK-Cu is a copper-binding tripeptide complex, supplied as a lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A naturally occurring tripeptide (Gly-His-Lys) coordinated to a divalent copper ion.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
@@ -583,14 +575,14 @@ export const products: Product[] = [
     alsoKnownAs: ["SS-31", "Elamipretide"],
     purity: "≥ 99% (HPLC)",
     form: "Lyophilized powder",
-    storage: "Store lyophilized powder at -4°F, protected from light; reconstituted solution at 36–46°F, best used within 28 days.",
+    storage: "Store lyophilized powder at -4°F, protected from light.",
     shortDescription: "A synthetic aromatic-cationic tetrapeptide reference compound supplied for laboratory research use.",
     description:
       "SS-31 is a synthetic tetrapeptide incorporating alternating cationic and aromatic residues, supplied as a sterile-filtered, lyophilized powder for laboratory and analytical research use only.",
     structuralNotes:
       "A 4-residue synthetic peptide featuring a D-amino acid at the N-terminus, a dimethyltyrosine (Dmt) residue, and a C-terminal amide.",
     technicalNotes:
-      "Soluble in sterile water for research use.",
+      "Soluble in water.",
     handling: standardHandling({ lightSensitive: true }),
     storageRequirements: standardStorageRequirements({ lightSensitive: true }),
     images: {
@@ -642,6 +634,170 @@ export const products: Product[] = [
     volumeTiers: STANDARD_VOLUME_TIERS,
     sizes: [{ label: "10 mg", mg: 10, price: 89, sku: "RES-SS31-10" }],
     featured: true,
+  },
+  {
+    id: "p9",
+    slug: "cartalax",
+    name: "Cartalax",
+    synonym: "Ala-Glu-Asp Tripeptide",
+    category: "Peptide",
+    // No CAS number listed: none could be confirmed against PubChem
+    // (CID 87815447) — leave undefined rather than guessing.
+    sequenceOrFormula: "Ala-Glu-Asp",
+    molecularFormula: "C12H19N3O8",
+    molecularWeight: "333.29 g/mol",
+    alsoKnownAs: ["Cartalax", "AED", "T-31"],
+    purity: "≥ 99% (HPLC)",
+    form: "Lyophilized powder",
+    storage: "Store lyophilized powder at -4°F.",
+    shortDescription: "A synthetic tripeptide reference compound supplied for laboratory research use.",
+    description:
+      "Cartalax is a synthetic tripeptide (alanyl-glutamyl-aspartic acid), supplied as a lyophilized powder for laboratory and analytical research use only.",
+    structuralNotes:
+      "A 3-residue synthetic peptide (Ala-Glu-Asp) from the short-peptide bioregulator family described in the Khavinson research literature.",
+    technicalNotes:
+      "Soluble in water.",
+    handling: standardHandling(),
+    storageRequirements: standardStorageRequirements(),
+    // No back photo yet: add images.back once
+    // public/products/cartalax-back.png lands.
+    images: {
+      front: "/products/cartalax-front.png",
+      extra: [
+        {
+          label: "Identity & Purity (Manufacturer)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/identity-purity-219701.png",
+        },
+        { label: "Endotoxin", src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/endotoxin-219702.png" },
+        { label: "Heavy Metals", src: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/heavy-metals-219703.png" },
+        {
+          label: "Identity & Purity (Third-Party)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/third-party/identity-purity-225318.png",
+        },
+        { label: "LC-MS Identity", src: "/coas/cartalax/40mg/CARTA40-0730/third-party/lcms-identity-234655.png" },
+        {
+          label: "Microbial Counts (TAMC/TYMC)",
+          src: "/coas/cartalax/40mg/CARTA40-0730/third-party/microbial-counts-234656.png",
+        },
+      ],
+    },
+    // Batch CARTA40-0730 has two sets of Janoshik reports: three ordered by
+    // the manufacturer and three ordered independently (third-party). All
+    // six are listed, manufacturer first, in the same order as the full-COA
+    // PDF.
+    documents: [
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "identity-purity-219701.png",
+        fileSizeLabel: "211 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/identity-purity-219701.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219701_AK5GBJPRL29L",
+      },
+      {
+        label: "Certificate of Analysis — Endotoxin",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "endotoxin-219702.png",
+        fileSizeLabel: "209 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/endotoxin-219702.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219702_7GJLBSMLNMZL",
+      },
+      {
+        label: "Certificate of Analysis — Heavy Metals",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (manufacturer report)",
+        fileName: "heavy-metals-219703.png",
+        fileSizeLabel: "216 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/manufacturer/heavy-metals-219703.png",
+        verifyUrl: "https://verify.janoshik.com/tests/219703_2R2MEFIE99XJ",
+      },
+      {
+        label: "Certificate of Analysis — Identity & Purity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "identity-purity-225318.png",
+        fileSizeLabel: "208 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/identity-purity-225318.png",
+        verifyUrl: "https://verify.janoshik.com/tests/225318_55PAQBTCNSDV",
+      },
+      {
+        label: "Certificate of Analysis — LC-MS Identity",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "lcms-identity-234655.png",
+        fileSizeLabel: "207 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/lcms-identity-234655.png",
+        verifyUrl: "https://verify.janoshik.com/tests/234655_PDI9UGXL5RKB",
+      },
+      {
+        label: "Certificate of Analysis — Microbial Counts (TAMC/TYMC)",
+        subLabel: "Janoshik Analytical — Cartalax 40 mg, Batch CARTA40-0730 (third-party report)",
+        fileName: "microbial-counts-234656.png",
+        fileSizeLabel: "201 KB",
+        url: "/coas/cartalax/40mg/CARTA40-0730/third-party/microbial-counts-234656.png",
+        verifyUrl: "https://verify.janoshik.com/tests/234656_FZWJF45PHLTS",
+      },
+    ],
+    // Newest batch first — see "Adding a batch" in README.md.
+    batches: [
+      {
+        labName: "Janoshik Analytical",
+        // Averaged across the 3 vials in the most recent identity & purity
+        // test (third-party, Task #225318): mass 41.76/41.73/41.70 mg,
+        // purity 99.914/99.956/99.922%. The manufacturer's earlier test
+        // (#219701) read 41.67/41.73/41.22 mg, 99.924/99.918/99.923%.
+        // Endotoxin < 1 EU/vial (#219702); As, Cd, Pb and Hg not detected
+        // (#219703); LC-MS identified cartalax and mannitol (#234655);
+        // TAMC and TYMC pass (#234656).
+        purityPercent: 99.93,
+        testedMassMg: 41.73,
+        labeledMassMg: 40,
+        massVariancePercent: 4.3,
+        tests: [
+          { label: "Identity (LC-MS)", result: "CONFIRMED" },
+          { label: "Batch CARTA40-0730", result: "CONFIRMED" },
+          { label: "USP <85> Endotoxin", result: "PASS" },
+          { label: "Heavy Metals (As, Cd, Pb, Hg)", result: "NOT DETECTED" },
+          { label: "Total Aerobic Microbial Count (TAMC)", result: "PASS" },
+          { label: "Total Yeast & Mold Count (TYMC)", result: "PASS" },
+          { label: "USP <61> Microbial Enumeration", result: "PASS" },
+        ],
+        reportUrl: "/coas/cartalax/40mg/CARTA40-0730/cartalax-40mg-full-coa.pdf",
+        verifyLinks: [
+          {
+            label: "Identity (Manufacturer)",
+            url: "https://verify.janoshik.com/tests/219701_AK5GBJPRL29L",
+          },
+          {
+            label: "Endotoxin",
+            url: "https://verify.janoshik.com/tests/219702_7GJLBSMLNMZL",
+          },
+          {
+            label: "Heavy Metals",
+            url: "https://verify.janoshik.com/tests/219703_2R2MEFIE99XJ",
+          },
+          {
+            label: "Identity (Third-Party)",
+            url: "https://verify.janoshik.com/tests/225318_55PAQBTCNSDV",
+          },
+          {
+            label: "LC-MS",
+            url: "https://verify.janoshik.com/tests/234655_PDI9UGXL5RKB",
+          },
+          {
+            label: "TAMC/TYMC",
+            url: "https://verify.janoshik.com/tests/234656_FZWJF45PHLTS",
+          },
+        ],
+        batchCode: "CARTA40-0730",
+      },
+    ],
+    volumeTiers: STANDARD_VOLUME_TIERS,
+    // Batch CARTA40-0730 (40 mg) has its COAs (see batches/documents
+    // above), but no size is on sale yet: all three stay disabled with no
+    // price until each goes into stock.
+    sizes: [
+      { label: "10 mg", mg: 10, price: 0, sku: "RES-CART-10", inStock: false },
+      { label: "20 mg", mg: 20, price: 0, sku: "RES-CART-20", inStock: false },
+      { label: "40 mg", mg: 40, price: 0, sku: "RES-CART-40", inStock: false },
+    ],
   },
 ];
 
