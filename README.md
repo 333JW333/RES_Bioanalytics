@@ -49,13 +49,18 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## Stripe setup
 
-1. Apply `supabase/migrations/20260926170000_stripe_orders.sql` (creates
-   `orders`, `stripe_customers`, `stripe_events`).
+1. Apply `supabase/migrations/20260926170615_stripe_orders.sql` (creates
+   `orders`, `stripe_customers`, `stripe_events`). Already applied to
+   production; the file's version matches the one recorded there, so
+   Supabase doesn't run it again.
 2. Set `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY` (test key first) and
    `STRIPE_WEBHOOK_SECRET` in Vercel.
-3. In Stripe → Developers → Webhooks, add
-   `https://www.ecopeps.com/api/webhooks/stripe` with the events listed at
-   the top of `src/app/(store)/api/webhooks/stripe/route.ts`. Locally:
+3. In Stripe → Webhooks, create an event destination for **Your
+   account** with the **Snapshot** payload (not Thin), pointing at
+   `https://www.ecopeps.com/api/webhooks/stripe`, with the events listed at
+   the top of `src/app/(store)/api/webhooks/stripe/route.ts`. Test mode and
+   live mode each need their own destination, and `STRIPE_WEBHOOK_SECRET`
+   must come from the same mode as `STRIPE_SECRET_KEY`. Locally:
    `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
 4. In Stripe → Settings → Payment methods, turn on ACH Direct Debit and
    bank transfers for invoices.
