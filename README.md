@@ -26,11 +26,17 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 - **RUO compliance UX** — an entry gate modal, disclaimer banners, and
   dedicated legal pages (RUO Policy, Terms of Service, Privacy Policy, Refund
   Policy).
-- **Payments**:
+- **Payments**: checkout shows two tabs, **Card or Bank** (Stripe
+  Checkout) and **Invoice** (Stripe Invoicing). Crypto and ACH via
+  Plaid + Dwolla are built but hidden until those accounts are set up; to
+  show them again, add them to `SHOWN_METHODS` in
+  `src/components/PaymentMethodSelector.tsx`.
   - **Crypto** via [Coinbase Commerce](https://commerce.coinbase.com/) —
-    hosted checkout, supports BTC/ETH/USDC and more.
+    hosted checkout, supports BTC/ETH/USDC and more. *(Hidden.)*
   - **ACH bank transfer** via [Plaid](https://plaid.com/) (bank account
     linking) + [Dwolla](https://www.dwolla.com/) (ACH transfer processing).
+    *(Hidden. Bank payments are taken through Stripe instead: ACH Direct
+    Debit on the Stripe Checkout page.)*
   - **Card** via [PayRam](https://payram.com/) — accepts Visa/Mastercard
     and settles to you in stablecoin, avoiding traditional high-risk
     card-acquirer underwriting. PayRam is **self-hosted**: you run your own
@@ -39,8 +45,10 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
     indexed integration examples, not a verified live API reference —
     confirm field names against your PayRam instance's docs before
     enabling with a real key.
-  - **Card** via [Stripe Checkout](https://docs.stripe.com/payments/checkout)
-    (the Card tab). PayRam's route and client remain in the codebase but
+  - **Card and U.S. bank account** via
+    [Stripe Checkout](https://docs.stripe.com/payments/checkout) (the Card or
+    Bank tab). Stripe's page shows the payment methods turned on in the
+    Stripe Dashboard. PayRam's route and client remain in the codebase but
     are no longer linked from checkout.
   - **Net 30 invoices** via [Stripe Invoicing](https://docs.stripe.com/invoicing)
     for business/institution accounts with an EIN on file (the Invoice
@@ -91,12 +99,15 @@ cp .env.example .env.local
 | `STRIPE_SECRET_KEY` | Stripe secret or restricted key. Use a test key until Stripe confirms the account in writing. |
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for the `/api/webhooks/stripe` endpoint. |
 | `STRIPE_API_VERSION` | Optional; pins the Stripe API version. |
+| `ALLOW_DEMO_PAYMENTS` | Set to `true` locally to turn on demo mode (below). Ignored on the live site. |
 
-**Demo mode:** if any of the above are left unset, the checkout API routes
-automatically fall back to a simulated "demo" response instead of failing,
-so you can click through the full purchase flow before payment credentials
-are configured. Order confirmations generated this way are clearly labeled
-"Demo mode" on the success page.
+**Demo mode:** with `ALLOW_DEMO_PAYMENTS=true`, a checkout route whose
+processor has no keys returns a simulated "demo" payment instead of
+failing, so you can click through the purchase flow before credentials are
+set up. Confirmations made this way are labeled "Demo mode" on the success
+page. Demo mode is always off on the live site (`VERCEL_ENV=production`):
+there, a payment method without keys returns "This payment method isn't
+available right now" instead of a fake "Order Received".
 
 ## Adding products
 

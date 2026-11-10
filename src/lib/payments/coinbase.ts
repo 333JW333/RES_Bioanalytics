@@ -17,6 +17,10 @@ export interface CreateChargeResult {
   demo: boolean;
 }
 
+export function isCoinbaseConfigured(): boolean {
+  return Boolean(process.env.COINBASE_COMMERCE_API_KEY);
+}
+
 export async function createCoinbaseCharge(
   input: CreateChargeInput
 ): Promise<CreateChargeResult> {

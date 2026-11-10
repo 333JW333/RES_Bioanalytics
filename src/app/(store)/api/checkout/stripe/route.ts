@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { priceOrder } from "@/lib/pricing";
 import { createCheckoutSession, isStripeConfigured, toCents } from "@/lib/payments/stripe";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 import {
   attestationEvidence,
   getOrCreateStripeCustomer,
@@ -40,6 +41,7 @@ export async function POST(req: NextRequest) {
     const origin = req.nextUrl.origin;
 
     if (!isStripeConfigured()) {
+      if (!demoPaymentsAllowed()) return paymentMethodUnavailable();
       const demoUrl = new URL(`${origin}/checkout/success`);
       demoUrl.searchParams.set("method", "card");
       demoUrl.searchParams.set("demo", "1");
