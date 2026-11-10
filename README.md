@@ -74,6 +74,12 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
    bank transfers for invoices.
 5. Test with card `4242 4242 4242 4242`, then check the order row moves
    `pending` → `paid`.
+6. Going live: set `STRIPE_SECRET_KEY` to a live restricted key and
+   `STRIPE_WEBHOOK_SECRET` to the **live** endpoint's secret, match live
+   mode's payment methods to test mode, and redeploy. Delete test rows from
+   `orders` and `stripe_events` (test orders have `cs_test_…` session IDs).
+   Customers saved during testing are replaced automatically on their next
+   checkout, because a test-mode Customer doesn't exist for a live key.
 
 Every Stripe order stores the buyer's research-use attestation (time, IP,
 user agent, policy version) on its `orders` row — use it as evidence if a
