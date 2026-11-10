@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { BUSINESS_TYPES } from "@/lib/gate";
-import { createCustomer } from "@/lib/payments/stripe";
+import { createCustomer, isCustomerUsable } from "@/lib/payments/stripe";
 import type { PricedLine } from "@/lib/pricing";
 
 /**
@@ -84,7 +84,11 @@ export function attestationEvidence(req: NextRequest) {
   };
 }
 
-/** Reuses the account's Stripe Customer, creating and saving one on first purchase. */
+/**
+ * Reuses the account's Stripe Customer, creating and saving one on first
+ * purchase. A saved Customer the current key can't use (one made in test
+ * mode, once the site runs on the live key) is replaced with a new one.
+ */
 export async function getOrCreateStripeCustomer(buyer: Buyer): Promise<string> {
   const admin = createAdminClient();
   const { data: existing } = await admin
@@ -92,11 +96,18 @@ export async function getOrCreateStripeCustomer(buyer: Buyer): Promise<string> {
     .select("stripe_customer_id")
     .eq("user_id", buyer.userId)
     .maybeSingle<{ stripe_customer_id: string }>();
-  if (existing) return existing.stripe_customer_id;
+  if (existing && (await isCustomerUsable(existing.stripe_customer_id))) {
+    return existing.stripe_customer_id;
+  }
 
   const name = [buyer.firstName, buyer.lastName].filter(Boolean).join(" ") || undefined;
   // Idempotency key is per user, so a race between two tabs yields the same Customer.
-  const customer = await createCustomer({ email: buyer.email, name, userId: buyer.userId });
+  const customer = await createCustomer({
+    email: buyer.email,
+    name,
+    userId: buyer.userId,
+    replacing: existing?.stripe_customer_id,
+  });
   await admin
     .from("stripe_customers")
     .upsert({ user_id: buyer.userId, stripe_customer_id: customer.id }, { onConflict: "user_id" });

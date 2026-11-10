@@ -134,13 +134,32 @@ export interface StripeEvent<T = unknown> {
 
 // ---- Calls ---------------------------------------------------------------
 
-export function createCustomer(p: { email: string; name?: string; userId: string }) {
+export function createCustomer(p: { email: string; name?: string; userId: string; replacing?: string }) {
   return stripeRequest<{ id: string }>(
     "POST",
     "/customers",
     { email: p.email, name: p.name, metadata: { user_id: p.userId } },
-    { idempotencyKey: `customer-${p.userId}` }
+    // A replacement needs its own key, or Stripe would replay the first create.
+    { idempotencyKey: p.replacing ? `customer-${p.userId}-replaces-${p.replacing}` : `customer-${p.userId}` }
   );
+}
+
+/**
+ * Whether a saved Customer works with the current key. A test-mode Customer
+ * doesn't exist for a live key, and deleting test data in Stripe removes
+ * test Customers, so a saved ID can go stale.
+ */
+export async function isCustomerUsable(id: string): Promise<boolean> {
+  try {
+    const customer = await stripeRequest<{ deleted?: boolean }>(
+      "GET",
+      `/customers/${encodeURIComponent(id)}`
+    );
+    return !customer.deleted;
+  } catch (err) {
+    if (err instanceof StripeApiError && err.status === 404) return false;
+    throw err;
+  }
 }
 
 export function createCheckoutSession(params: Record<string, Param>, idempotencyKey: string) {
