@@ -6,6 +6,7 @@ import {
   isStripeConfigured,
   toCents,
 } from "@/lib/payments/stripe";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 import {
   attestationEvidence,
   getOrCreateStripeCustomer,
@@ -36,7 +37,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json(
         {
           error:
-            "Invoicing is available to business and institution accounts with an EIN on file. Please pay by card, ACH or crypto, or contact us to upgrade your account.",
+            "Invoicing is available to business and institution accounts with an EIN on file. Please pay by card or bank account, or contact us to upgrade your account.",
         },
         { status: 403 }
       );
@@ -58,6 +59,7 @@ export async function POST(req: NextRequest) {
     const amountCents = lines.reduce((sum, l) => sum + toCents(l.unitPrice) * l.qty, 0);
 
     if (!isStripeConfigured()) {
+      if (!demoPaymentsAllowed()) return paymentMethodUnavailable();
       return NextResponse.json({ orderId: null, demo: true });
     }
 

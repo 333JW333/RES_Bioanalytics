@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createCoinbaseCharge } from "@/lib/payments/coinbase";
+import { createCoinbaseCharge, isCoinbaseConfigured } from "@/lib/payments/coinbase";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isCoinbaseConfigured() && !demoPaymentsAllowed()) return paymentMethodUnavailable();
+
     const body = await req.json();
     const email: string | undefined = body.email;
 

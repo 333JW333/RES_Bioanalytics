@@ -8,6 +8,18 @@ import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
 
 type Method = "crypto" | "ach" | "card" | "invoice";
 
+const TABS: { method: Method; label: string; Icon: typeof CardIcon }[] = [
+  { method: "crypto", label: "Crypto", Icon: CoinIcon },
+  { method: "ach", label: "ACH Bank", Icon: BankIcon },
+  { method: "card", label: "Card or Bank", Icon: CardIcon },
+  { method: "invoice", label: "Invoice", Icon: BankIcon },
+];
+
+// Crypto (Coinbase Commerce) and ACH (Plaid + Dwolla) are hidden until those
+// accounts are set up; add them back here to show them again. Shoppers can
+// still pay from a U.S. bank account on Stripe's page, from the Card tab.
+const SHOWN_METHODS: Method[] = ["card", "invoice"];
+
 interface ContactInfo {
   email: string;
   firstName: string;
@@ -17,7 +29,7 @@ interface ContactInfo {
 export default function PaymentMethodSelector({ contact }: { contact: ContactInfo }) {
   const { items, clearCart } = useCart();
   const router = useRouter();
-  const [method, setMethod] = useState<Method>("crypto");
+  const [method, setMethod] = useState<Method>(SHOWN_METHODS[0]);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -62,31 +74,16 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
     <div className="card p-6 space-y-6">
       <div>
         <p className="text-sm font-semibold text-brand-navy mb-3">Payment Method</p>
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-          <MethodTab
-            active={method === "crypto"}
-            onClick={() => setMethod("crypto")}
-            icon={<CoinIcon className="h-5 w-5" />}
-            label="Crypto"
-          />
-          <MethodTab
-            active={method === "ach"}
-            onClick={() => setMethod("ach")}
-            icon={<BankIcon className="h-5 w-5" />}
-            label="ACH Bank"
-          />
-          <MethodTab
-            active={method === "card"}
-            onClick={() => setMethod("card")}
-            icon={<CardIcon className="h-5 w-5" />}
-            label="Card"
-          />
-          <MethodTab
-            active={method === "invoice"}
-            onClick={() => setMethod("invoice")}
-            icon={<BankIcon className="h-5 w-5" />}
-            label="Invoice"
-          />
+        <div className={`grid grid-cols-2 gap-3 ${SHOWN_METHODS.length > 2 ? "sm:grid-cols-4" : ""}`}>
+          {TABS.filter((t) => SHOWN_METHODS.includes(t.method)).map(({ method: m, label, Icon }) => (
+            <MethodTab
+              key={m}
+              active={method === m}
+              onClick={() => setMethod(m)}
+              icon={<Icon className="h-5 w-5" />}
+              label={label}
+            />
+          ))}
         </div>
       </div>
 
@@ -136,8 +133,9 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       {method === "card" && (
         <div className="space-y-3">
           <p className="text-sm text-brand-slate-light leading-relaxed">
-            You&apos;ll be redirected to a secure Stripe checkout page to pay
-            by card and confirm your U.S. shipping address.
+            You&apos;ll be redirected to Stripe&apos;s secure checkout page to
+            pay by card or U.S. bank account and confirm your U.S. shipping
+            address.
           </p>
           <button
             type="button"
@@ -145,7 +143,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
             disabled={!contactComplete || items.length === 0 || busy}
             onClick={() => startHostedCheckout("/api/checkout/stripe", { clearFirst: false })}
           >
-            {busy ? "Redirecting…" : "Pay with Card"}
+            {busy ? "Redirecting…" : "Continue to Secure Checkout"}
           </button>
         </div>
       )}

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createDwollaProcessorToken, isPlaidConfigured } from "@/lib/payments/plaid";
 import { attachFundingSource, findOrCreateCustomer, isDwollaConfigured } from "@/lib/payments/dwolla";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 
 export async function POST(req: NextRequest) {
   try {
@@ -23,6 +24,7 @@ export async function POST(req: NextRequest) {
     const demo = !isPlaidConfigured() || !isDwollaConfigured();
 
     if (demo) {
+      if (!demoPaymentsAllowed()) return paymentMethodUnavailable();
       return NextResponse.json({
         fundingSourceUrl: `https://api-sandbox.dwolla.com/funding-sources/demo-${crypto.randomUUID()}`,
         demo: true,

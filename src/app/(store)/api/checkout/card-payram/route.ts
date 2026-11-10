@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createPayramPayment } from "@/lib/payments/payram";
+import { createPayramPayment, isPayramConfigured } from "@/lib/payments/payram";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   try {
+    if (!isPayramConfigured() && !demoPaymentsAllowed()) return paymentMethodUnavailable();
+
     const body = await req.json();
     const email: string | undefined = body.email;
 

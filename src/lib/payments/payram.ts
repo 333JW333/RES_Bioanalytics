@@ -26,6 +26,10 @@ export interface CreatePayramPaymentResult {
   demo: boolean;
 }
 
+export function isPayramConfigured(): boolean {
+  return Boolean(process.env.PAYRAM_API_BASE_URL && process.env.PAYRAM_API_KEY);
+}
+
 export async function createPayramPayment(
   input: CreatePayramPaymentInput
 ): Promise<CreatePayramPaymentResult> {

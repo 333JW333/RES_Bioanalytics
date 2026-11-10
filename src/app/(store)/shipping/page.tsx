@@ -14,10 +14,10 @@ export default function ShippingPage() {
         <section>
           <h2 className="font-semibold text-brand-navy mb-2">Processing Time</h2>
           <p>
-            Orders paid via cryptocurrency are typically processed and
-            dispatched within 1 business day of payment confirmation. ACH
-            orders ship once the bank transfer has fully settled, usually
-            1-3 business days after checkout.
+            Orders are typically processed and dispatched within 1 business
+            day of payment confirmation. Bank account (ACH) payments usually
+            take up to 4 business days to clear, and invoiced orders ship
+            once the invoice is paid.
           </p>
         </section>
         <section>

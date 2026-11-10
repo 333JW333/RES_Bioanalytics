@@ -45,11 +45,11 @@ export default function Footer() {
 
       <div className="border-t border-white/10">
         <div className="container-page py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/50">
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5"><CoinIcon className="h-4 w-4" /> Crypto</span>
-            <span className="inline-flex items-center gap-1.5"><BankIcon className="h-4 w-4" /> ACH Bank Transfer</span>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <span className="inline-flex items-center gap-1.5"><CardIcon className="h-4 w-4" /> Card</span>
-            <span className="inline-flex items-center gap-1.5 opacity-40"><CardIcon className="h-4 w-4" /> PayPal (coming soon)</span>
+            <span className="inline-flex items-center gap-1.5"><BankIcon className="h-4 w-4" /> U.S. Bank (ACH)</span>
+            <span className="inline-flex items-center gap-1.5"><BankIcon className="h-4 w-4" /> Net 30 Invoice</span>
+            <span className="inline-flex items-center gap-1.5 opacity-40"><CoinIcon className="h-4 w-4" /> Crypto &amp; PayPal (coming soon)</span>
           </div>
           <p>© {new Date().getFullYear()} EcoPeps. All rights reserved.</p>
         </div>

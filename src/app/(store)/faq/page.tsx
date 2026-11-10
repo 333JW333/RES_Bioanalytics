@@ -17,7 +17,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "We currently accept cryptocurrency (via Coinbase Commerce, supporting BTC, ETH, USDC, and more), ACH bank transfers (via Plaid + Dwolla), and card payments (via Stripe or PayRam). PayPal support is planned as we grow.",
+    a: "We accept credit and debit cards and U.S. bank account (ACH) payments through Stripe's secure checkout. Business and institution accounts with an EIN on file can also request a Net 30 invoice. Cryptocurrency and PayPal are planned.",
   },
   {
     q: "Do you provide certificates of analysis?",
@@ -38,7 +38,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "How long does an ACH payment take to process?",
-    a: "ACH bank transfers typically settle within 1-3 business days. Orders ship once payment has cleared.",
+    a: "Bank account (ACH) payments usually take up to 4 business days to clear. Orders ship once payment has cleared.",
   },
 ];
 

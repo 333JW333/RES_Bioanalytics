@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { initiateAchTransfer, isDwollaConfigured } from "@/lib/payments/dwolla";
+import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
 import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
@@ -18,7 +19,10 @@ export async function POST(req: NextRequest) {
 
     const orderId = crypto.randomUUID();
 
+    // The funding source URL comes from the browser, so a "demo-" one is only
+    // honored where demo mode is allowed.
     if (!isDwollaConfigured() || fundingSourceUrl.includes("demo-")) {
+      if (!demoPaymentsAllowed()) return paymentMethodUnavailable();
       return NextResponse.json({
         transferUrl: `https://api-sandbox.dwolla.com/transfers/demo-${orderId}`,
         orderId,
