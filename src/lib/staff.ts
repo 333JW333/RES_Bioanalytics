@@ -30,7 +30,12 @@ export async function getStaffUser(): Promise<StaffUser | null> {
   return { id: claims.sub, email };
 }
 
-/** For staff pages: anyone else gets a plain 404, so the pages don't advertise themselves. */
+/**
+ * For staff pages: anyone else gets a plain 404, so the pages don't advertise
+ * themselves. Call it at the top of every staff page, before loading data:
+ * a page renders alongside its layout, so a check in the layout alone
+ * doesn't keep the page's data out of the response.
+ */
 export async function requireStaff(): Promise<StaffUser> {
   const staff = await getStaffUser();
   if (!staff) notFound();

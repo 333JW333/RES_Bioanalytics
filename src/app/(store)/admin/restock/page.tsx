@@ -6,6 +6,7 @@ import { mountainTime } from "@/lib/email/account-emails";
 import { isSoldOut } from "@/lib/pricing";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { emailBackInStock } from "../actions";
+import { requireStaff } from "@/lib/staff";
 
 export const metadata: Metadata = { title: { absolute: "Back in stock | Staff | EcoPeps" } };
 
@@ -45,6 +46,9 @@ function noticeFor(params: Record<string, string | string[] | undefined>) {
 }
 
 export default async function StaffRestockPage(props: PageProps<"/admin/restock">) {
+  // Checked here, before any data loads: the layout's check doesn't stop the
+  // page rendering alongside it.
+  await requireStaff();
   const params = await props.searchParams;
   const admin = createAdminClient();
   const { data, error } = await admin.from("restock_requests").select("product_slug, notified_at");
