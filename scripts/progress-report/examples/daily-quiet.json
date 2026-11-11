@@ -1,0 +1,46 @@
+{
+  "kind": "daily",
+  "subject": "EcoPeps daily: nothing shipped, 4 tasks waiting",
+  "preheader": "A quiet day. 2 of 6 active days so far this week.",
+  "eyebrow": "Thursday · Day 6 of the week",
+  "title": "November 12, 2026",
+  "summary": "Nothing shipped today. You have 2 active days so far, and 2 days left to add to them.",
+  "stats": [
+    { "value": 0, "label": "Shipped" },
+    { "value": 2, "label": "Decisions", "tone": "amber" },
+    { "value": 4, "label": "Up next" }
+  ],
+  "activeDays": { "done": 2, "goal": 6 },
+  "chart": {
+    "right": "15 shipped",
+    "today": 5,
+    "days": [
+      { "label": "Sat", "count": 0 },
+      { "label": "Sun", "count": 0 },
+      { "label": "Mon", "count": 0 },
+      { "label": "Tue", "count": 5 },
+      { "label": "Wed", "count": 10 },
+      { "label": "Thu", "count": 0 },
+      { "label": "Fri", "count": null }
+    ]
+  },
+  "decisions": [
+    { "question": "Delist EP-GLP3-R from the shop: merge or close?", "prs": [61], "waiting": "Waiting 45 days" },
+    { "question": "Crypto and ACH payments: bring back or remove?", "waiting": "Waiting 1 day" }
+  ],
+  "tasks": {
+    "title": "Tomorrow",
+    "right": "Pick one",
+    "top": 1,
+    "items": [
+      { "text": "Set up two-step sign-in on the support@ecopeps.com staff account", "note": "About five minutes with an authenticator app.", "owner": "you" },
+      { "text": "Update the “Change email address” template in Supabase", "owner": "you" },
+      { "text": "Confirm the account-details database change is live", "owner": "claude" },
+      { "text": "Place one real card order end to end on the live site", "owner": "you" }
+    ]
+  },
+  "health": [
+    { "label": "Live site", "value": "Up. No deploys today", "status": "ok" },
+    { "label": "Stripe today", "value": "0 payments · 0 disputes · 0 payouts" }
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "weekly",
+  "subject": "EcoPeps weekly: 15 shipped, 2 decisions waiting",
+  "preheader": "15 things shipped across 8 pull requests. 2 decisions are waiting on you.",
+  "eyebrow": "Week of Saturday, Nov 7 to Friday, Nov 13",
+  "title": "Card checkout merged and the store got its back office",
+  "summary": "Stripe card checkout and Net 30 invoicing merged on Tuesday. Wednesday added order tracking for customers, staff pages for shipping, and three security fixes. No earlier week to compare with yet.",
+  "stats": [
+    { "value": 15, "label": "Shipped", "tone": "teal" },
+    { "value": 8, "label": "Pull requests" },
+    { "value": "8/8", "label": "Deploys OK", "tone": "green" },
+    { "value": "$0", "label": "Payments" }
+  ],
+  "activeDays": { "done": 2, "goal": 6 },
+  "chart": {
+    "right": "Shipped items",
+    "days": [
+      { "label": "Sat", "count": 0 },
+      { "label": "Sun", "count": 0 },
+      { "label": "Mon", "count": 0 },
+      { "label": "Tue", "count": 5 },
+      { "label": "Wed", "count": 10 },
+      { "label": "Thu", "count": 0 },
+      { "label": "Fri", "count": 0 }
+    ]
+  },
+  "highlights": [
+    { "title": "Stripe card checkout and Net 30 invoicing", "detail": "Open since September; merged Tuesday.", "prs": [56] },
+    { "title": "Staff pages closed to customers", "detail": "Fixed a leak of order data on staff pages, and added two-step sign-in.", "prs": [81] },
+    { "title": "My Orders and shipping emails", "detail": "Customers can follow an order from payment to tracking link.", "prs": [79] }
+  ],
+  "areas": [
+    { "area": "Payments", "items": ["Stripe card checkout", "Net 30 invoicing", "Crypto and ACH hidden at checkout", "Never fake a payment on the live site", "Saved Stripe customers repaired", "Processor-neutral payments"] },
+    { "area": "Security", "items": ["Staff-page data check", "Two-step sign-in for staff", "Switched-off payment methods refused"] },
+    { "area": "Customers", "items": ["My Orders and shipped emails", "Editable account details"] },
+    { "area": "Staff tools", "items": ["Orders-to-ship and back-in-stock pages", "Daily and weekly activity summaries", "New-account alerts and page-view tracking"] },
+    { "area": "Infrastructure", "items": ["68 automated tests on every change"] }
+  ],
+  "decisions": [
+    { "question": "Delist EP-GLP3-R from the shop: merge or close?", "prs": [61], "waiting": "Waiting 46 days" },
+    { "question": "Crypto and ACH payments: bring back or remove?", "context": "Switched off; code still in the site.", "waiting": "Waiting 2 days" }
+  ],
+  "tasks": {
+    "title": "Carried into next week",
+    "right": "3 of 4 planned",
+    "top": 3,
+    "items": [
+      { "text": "Set up two-step sign-in on the support@ecopeps.com staff account", "owner": "you", "carried": "On the list 3 days" },
+      { "text": "Update the “Change email address” template in Supabase", "owner": "you", "carried": "On the list 3 days" },
+      { "text": "Place one real card order end to end on the live site", "owner": "you", "carried": "On the list 3 days" }
+    ]
+  },
+  "health": [
+    { "label": "Live site", "value": "Up all week. 8 deploys, 0 failed", "status": "ok" },
+    { "label": "Stripe", "value": "0 payments ($0) · 0 refunds · 0 disputes · 0 payouts" }
+  ]
+}
