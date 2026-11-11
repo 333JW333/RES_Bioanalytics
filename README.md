@@ -28,9 +28,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
   Policy).
 - **Payments**: checkout shows two tabs, **Card or Bank** (Stripe
   Checkout) and **Invoice** (Stripe Invoicing). Crypto and ACH via
-  Plaid + Dwolla are built but hidden until those accounts are set up; to
-  show them again, add them to `SHOWN_METHODS` in
-  `src/components/PaymentMethodSelector.tsx`.
+  Plaid + Dwolla are built but turned off until those accounts are set up:
+  checkout doesn't show them and their routes refuse requests. To turn one
+  on, add it to `ENABLED_METHODS` in `src/lib/payments/methods.ts`, after
+  giving its route the sign-in, research-use attestation and order record
+  the card and invoice routes have.
   - **Crypto** via [Coinbase Commerce](https://commerce.coinbase.com/) —
     hosted checkout, supports BTC/ETH/USDC and more. *(Hidden.)*
   - **ACH bank transfer** via [Plaid](https://plaid.com/) (bank account

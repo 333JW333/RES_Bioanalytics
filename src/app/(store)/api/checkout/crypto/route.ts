@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createCoinbaseCharge, isCoinbaseConfigured } from "@/lib/payments/coinbase";
 import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
+import { isMethodEnabled } from "@/lib/payments/methods";
 import { priceOrder } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
+  // Turned off until this method is set up (src/lib/payments/methods.ts).
+  if (!isMethodEnabled("crypto")) return paymentMethodUnavailable();
+
   try {
     if (!isCoinbaseConfigured() && !demoPaymentsAllowed()) return paymentMethodUnavailable();
 
