@@ -17,7 +17,7 @@ const FAQS: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: "What payment methods do you accept?",
-    a: "We accept credit and debit cards and U.S. bank account (ACH) payments through Stripe's secure checkout. Business and institution accounts with an EIN on file can also request a Net 30 invoice. Cryptocurrency and PayPal are planned.",
+    a: "We accept credit and debit cards and U.S. bank account (ACH) payments through our secure checkout. Business and institution accounts with an EIN on file can also request a Net 30 invoice. Cryptocurrency and PayPal are planned.",
   },
   {
     q: "Do you provide certificates of analysis?",

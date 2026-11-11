@@ -121,6 +121,7 @@ export interface StripeCharge {
 
 export interface StripeDispute {
   id: string;
+  amount?: number;
   charge: string;
   payment_intent: string | null;
 }

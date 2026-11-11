@@ -55,35 +55,73 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
     tab). Requests create a *draft* invoice; staff review and send it
     from the Stripe Dashboard.
 
-## Stripe setup
+## Payments: how it fits together
 
-1. Apply `supabase/migrations/20260926170615_stripe_orders.sql` (creates
-   `orders`, `stripe_customers`, `stripe_events`). Already applied to
-   production; the file's version matches the one recorded there, so
-   Supabase doesn't run it again.
-2. Set `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY` (test key first) and
-   `STRIPE_WEBHOOK_SECRET` in Vercel.
-3. In Stripe → Webhooks, create an event destination for **Your
+Everything about an order that isn't specific to one payment processor lives
+in code that doesn't know which processor is in use:
+
+- **Orders** (`orders` table, `src/lib/orders.ts`): the items, total, the
+  buyer's research-use attestation (time, IP, user agent, policy version),
+  shipping address and status. `orders.processor` names the processor that
+  took the payment, and `processor_checkout_id` / `processor_payment_id` /
+  `processor_invoice_id` hold its own reference IDs.
+- **What happens after checkout** (`src/lib/order-lifecycle.ts`): processors
+  report what happened (paid, processing, failed, refunded, disputed…) and
+  this file moves the order's status forward and sends the emails.
+- **Order emails** (`src/lib/email/`): every customer email comes from
+  EcoPeps (`orders@ecopeps.com`, replies to `support@ecopeps.com`) through
+  Resend, never from the processor. Customers get: order confirmed, bank
+  payment processing, payment didn't go through, refund issued, and invoice
+  request received. Staff (`support@ecopeps.com`) get: new paid order ready
+  to ship, invoice request to review, and payment disputed. Each email is
+  sent once per order (`orders.notifications_sent`).
+- **Checkout pages and copy** say "our secure payment page", not a
+  processor's name. The success page reads our own order record.
+
+Each processor plugs in through one adapter implementing `PaymentProcessor`
+(`src/lib/payments/types.ts`). Stripe's is `src/lib/payments/stripe-processor.ts`
+(with its API client in `stripe.ts`). `PAYMENT_PROCESSOR` picks which one new
+orders use (default `stripe`). Webhooks arrive at `/api/webhooks/<processor>`.
+
+### Switching payment processors
+
+1. Write an adapter for the new processor implementing `PaymentProcessor`:
+   create a hosted payment page for an order, optionally create invoices,
+   and translate its webhooks into `PaymentUpdate`s. Use
+   `stripe-processor.ts` as the model.
+2. List it in `src/lib/payments/processors.ts`. Keep Stripe listed so
+   refunds and disputes on earlier Stripe orders still arrive.
+3. Add the new processor's keys to Vercel, point its webhooks at
+   `https://www.ecopeps.com/api/webhooks/<its id>`, set
+   `PAYMENT_PROCESSOR=<its id>`, and redeploy.
+4. Update the Privacy Policy, Terms of Service and Refund Policy, which name
+   the processors that handle customer data. Have counsel review the change.
+
+No database change, email change or page change is needed.
+
+### Stripe setup
+
+1. Set `SUPABASE_SECRET_KEY`, `STRIPE_SECRET_KEY` (test key first),
+   `STRIPE_WEBHOOK_SECRET` and `RESEND_API_KEY` in Vercel.
+2. In Stripe → Webhooks, create an event destination for **Your
    account** with the **Snapshot** payload (not Thin), pointing at
-   `https://www.ecopeps.com/api/webhooks/stripe`, with the events listed at
-   the top of `src/app/(store)/api/webhooks/stripe/route.ts`. Test mode and
+   `https://www.ecopeps.com/api/webhooks/stripe`, with the events listed in
+   `WEBHOOK_EVENTS` in `src/lib/payments/stripe-processor.ts`. Test mode and
    live mode each need their own destination, and `STRIPE_WEBHOOK_SECRET`
    must come from the same mode as `STRIPE_SECRET_KEY`. Locally:
    `stripe listen --forward-to localhost:3000/api/webhooks/stripe`.
-4. In Stripe → Settings → Payment methods, turn on ACH Direct Debit and
+3. In Stripe → Settings → Payment methods, turn on ACH Direct Debit and
    bank transfers for invoices.
+4. In Stripe → Settings → Business → Customer emails, leave **Successful
+   payments** and **Refunds** off: EcoPeps sends those emails itself.
 5. Test with card `4242 4242 4242 4242`, then check the order row moves
-   `pending` → `paid`.
+   `pending` → `paid` and the confirmation email arrives.
 6. Going live: set `STRIPE_SECRET_KEY` to a live restricted key and
    `STRIPE_WEBHOOK_SECRET` to the **live** endpoint's secret, match live
    mode's payment methods to test mode, and redeploy. Delete test rows from
-   `orders` and `stripe_events` (test orders have `cs_test_…` session IDs).
-   Customers saved during testing are replaced automatically on their next
-   checkout, because a test-mode Customer doesn't exist for a live key.
-
-Every Stripe order stores the buyer's research-use attestation (time, IP,
-user agent, policy version) on its `orders` row — use it as evidence if a
-payment is disputed.
+   `orders` and `payment_events` (test orders have `cs_test_…` checkout
+   IDs). Customers saved during testing are replaced automatically on their
+   next checkout, because a test-mode Customer doesn't exist for a live key.
 
 ## Environment variables
 
@@ -102,6 +140,7 @@ cp .env.example .env.local
 | `PAYRAM_API_BASE_URL` | The base URL of your **self-hosted** PayRam instance (not a shared PayRam domain). |
 | `PAYRAM_API_KEY` | API key generated from your PayRam instance's dashboard. |
 | `SUPABASE_SECRET_KEY` | Supabase secret key (server-only); used to write orders and in the Stripe webhook. |
+| `PAYMENT_PROCESSOR` | Which payment processor new orders use (default `stripe`). See [Switching payment processors](#switching-payment-processors). |
 | `STRIPE_SECRET_KEY` | Stripe secret or restricted key. Use a test key until Stripe confirms the account in writing. |
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for the `/api/webhooks/stripe` endpoint. |
 | `STRIPE_API_VERSION` | Optional; pins the Stripe API version. |

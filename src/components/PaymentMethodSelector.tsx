@@ -17,7 +17,7 @@ const TABS: { method: Method; label: string; Icon: typeof CardIcon }[] = [
 
 // Crypto (Coinbase Commerce) and ACH (Plaid + Dwolla) are hidden until those
 // accounts are set up; add them back here to show them again. Shoppers can
-// still pay from a U.S. bank account on Stripe's page, from the Card tab.
+// still pay from a U.S. bank account on the processor's page, from the Card tab.
 const SHOWN_METHODS: Method[] = ["card", "invoice"];
 
 interface ContactInfo {
@@ -41,7 +41,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
 
   const contactComplete = Boolean(contact.email && contact.firstName && contact.lastName);
 
-  // Crypto (Coinbase Commerce) and card (Stripe Checkout) both create a
+  // Crypto (Coinbase Commerce) and card (the active payment processor) both create a
   // hosted payment page server-side and redirect the browser to it. The
   // payment method selector is only shown once the research-use attestation
   // on the checkout page is ticked, so it's sent as confirmed.
@@ -60,7 +60,7 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error ?? "Checkout failed.");
-      // Stripe orders keep the cart until payment succeeds, so a buyer who
+      // Card orders keep the cart until payment succeeds, so a buyer who
       // backs out of Checkout returns to a full cart (the success page clears it).
       if (clearFirst) clearCart();
       window.location.href = data.url;
@@ -133,15 +133,14 @@ export default function PaymentMethodSelector({ contact }: { contact: ContactInf
       {method === "card" && (
         <div className="space-y-3">
           <p className="text-sm text-brand-slate-light leading-relaxed">
-            You&apos;ll be redirected to Stripe&apos;s secure checkout page to
-            pay by card or U.S. bank account and confirm your U.S. shipping
-            address.
+            You&apos;ll be redirected to our secure payment page to pay by
+            card or U.S. bank account and confirm your U.S. shipping address.
           </p>
           <button
             type="button"
             className="btn-primary w-full disabled:opacity-40"
             disabled={!contactComplete || items.length === 0 || busy}
-            onClick={() => startHostedCheckout("/api/checkout/stripe", { clearFirst: false })}
+            onClick={() => startHostedCheckout("/api/checkout/card", { clearFirst: false })}
           >
             {busy ? "Redirecting…" : "Continue to Secure Checkout"}
           </button>
