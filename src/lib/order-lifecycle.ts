@@ -4,6 +4,7 @@ import { formatOrderRef, type OrderStatus } from "@/lib/orders";
 import { getProcessor } from "@/lib/payments/processors";
 import type { OrderRef, PaymentProcessor, PaymentUpdate, ShippingAddress } from "@/lib/payments/types";
 import type { PricedLine } from "@/lib/pricing";
+import { trackingUrl } from "@/lib/shipping";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
@@ -133,6 +134,110 @@ export async function notifyInvoiceRequested(processor: PaymentProcessor, orderI
   } catch (err) {
     console.error(`Invoice request emails for order ${orderId} failed`, err);
   }
+}
+
+// ---- Shipping ------------------------------------------------------------------
+
+/** Orders in these statuses have been paid for and can ship. */
+export const SHIPPABLE: OrderStatus[] = ["paid", "partially_refunded"];
+
+export interface ShipmentResult {
+  /** "updated": the order had already shipped; its tracking details were corrected. */
+  saved: "shipped" | "updated" | "not_shippable";
+  email: EmailOutcome;
+}
+
+/** "skipped": nothing to send, or email isn't set up (RESEND_API_KEY). */
+export type EmailOutcome = "sent" | "failed" | "skipped";
+
+/**
+ * Records an order's shipment from the staff Orders page and emails the buyer
+ * the tracking details. On an order that already shipped, it corrects the
+ * carrier and tracking number, and the buyer gets the new details. Each
+ * tracking number is emailed once. If the email fails, the shipment stays
+ * saved and resendShipmentEmail() can send it.
+ */
+export async function recordShipment(
+  orderId: string,
+  carrier: string,
+  trackingNumber: string,
+  admin: Admin = createAdminClient()
+): Promise<ShipmentResult> {
+  const fields = { carrier, tracking_number: trackingNumber };
+  // updated_at is left alone: it tracks payment-status changes.
+  const first = await admin
+    .from("orders")
+    .update({ ...fields, shipped_at: new Date().toISOString() })
+    .eq("id", orderId)
+    .in("status", SHIPPABLE)
+    .is("shipped_at", null)
+    .select(SHIPPED_COLUMNS)
+    .maybeSingle<ShippedOrderRow>();
+  if (first.error) throw new Error(`Could not mark order ${orderId} shipped: ${first.error.message}`);
+  if (first.data) return { saved: "shipped", email: await sendShippedEmail(admin, first.data) };
+
+  const fix = await admin
+    .from("orders")
+    .update(fields)
+    .eq("id", orderId)
+    .not("shipped_at", "is", null)
+    .select(SHIPPED_COLUMNS)
+    .maybeSingle<ShippedOrderRow>();
+  if (fix.error) throw new Error(`Could not update tracking for order ${orderId}: ${fix.error.message}`);
+  if (!fix.data) return { saved: "not_shippable", email: "skipped" };
+  return { saved: "updated", email: await sendShippedEmail(admin, fix.data) };
+}
+
+/** Sends the shipped email again, e.g. when the buyer says it never arrived. */
+export async function resendShipmentEmail(orderId: string, admin: Admin = createAdminClient()): Promise<EmailOutcome> {
+  const { data: order, error } = await admin
+    .from("orders")
+    .select(SHIPPED_COLUMNS)
+    .eq("id", orderId)
+    .not("shipped_at", "is", null)
+    .maybeSingle<ShippedOrderRow>();
+  if (error) throw new Error(`Could not load order ${orderId}: ${error.message}`);
+  if (!order?.carrier || !order.tracking_number) return "skipped";
+
+  const { error: releaseError } = await admin.rpc("release_order_notification", {
+    p_order_id: order.id,
+    p_key: shippedNoticeKey(order.carrier, order.tracking_number),
+  });
+  if (releaseError) throw new Error(`Could not reset the shipped email for order ${orderId}: ${releaseError.message}`);
+  return sendShippedEmail(admin, order);
+}
+
+async function sendShippedEmail(admin: Admin, order: ShippedOrderRow): Promise<EmailOutcome> {
+  if (!isEmailConfigured() || !order.carrier || !order.tracking_number) return "skipped";
+  try {
+    await notify(admin, order.id, [shippedNotice(order)]);
+    return "sent";
+  } catch (err) {
+    console.error(`Shipped email for order ${order.id} failed`, err);
+    return "failed";
+  }
+}
+
+/** The record key for a shipped email, so each tracking number is emailed once. */
+export function shippedNoticeKey(carrier: string | null, trackingNumber: string | null): string {
+  return `order_shipped:${carrier ?? ""}:${trackingNumber ?? ""}`;
+}
+
+interface ShippedOrderRow extends OrderRow {
+  shipped_at: string | null;
+  carrier: string | null;
+  tracking_number: string | null;
+}
+
+const SHIPPED_COLUMNS = `${ORDER_COLUMNS}, shipped_at, carrier, tracking_number`;
+
+function shippedNotice(order: ShippedOrderRow): Notice {
+  const carrier = order.carrier ?? "";
+  const tracking = order.tracking_number ?? "";
+  return {
+    key: shippedNoticeKey(carrier, tracking),
+    build: () => emails.orderShippedEmail(emailData(order), carrier, tracking, trackingUrl(carrier, tracking)),
+  };
 }
 
 /**

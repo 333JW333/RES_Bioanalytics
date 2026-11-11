@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createLinkToken, isPlaidConfigured } from "@/lib/payments/plaid";
 import { isDwollaConfigured } from "@/lib/payments/dwolla";
 import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
+import { isMethodEnabled } from "@/lib/payments/methods";
 
 export async function POST(req: NextRequest) {
+  // Turned off until this method is set up (src/lib/payments/methods.ts).
+  if (!isMethodEnabled("ach")) return paymentMethodUnavailable();
+
   try {
     if (!(isPlaidConfigured() && isDwollaConfigured()) && !demoPaymentsAllowed()) {
       return paymentMethodUnavailable();

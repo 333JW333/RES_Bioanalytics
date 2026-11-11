@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { usePlaidLink } from "react-plaid-link";
 import { useCart } from "@/lib/cart-context";
 import { CoinIcon, BankIcon, CardIcon } from "@/components/icons";
+import { isMethodEnabled } from "@/lib/payments/methods";
 
 type Method = "crypto" | "ach" | "card" | "invoice";
 
@@ -15,10 +16,11 @@ const TABS: { method: Method; label: string; Icon: typeof CardIcon }[] = [
   { method: "invoice", label: "Invoice", Icon: BankIcon },
 ];
 
-// Crypto (Coinbase Commerce) and ACH (Plaid + Dwolla) are hidden until those
-// accounts are set up; add them back here to show them again. Shoppers can
-// still pay from a U.S. bank account on the processor's page, from the Card tab.
-const SHOWN_METHODS: Method[] = ["card", "invoice"];
+// Only the methods enabled in src/lib/payments/methods.ts. Crypto (Coinbase
+// Commerce) and ACH (Plaid + Dwolla) are off until those accounts are set up;
+// shoppers can still pay from a U.S. bank account on the processor's page,
+// from the Card tab.
+const SHOWN_METHODS: Method[] = TABS.map((t) => t.method).filter(isMethodEnabled);
 
 interface ContactInfo {
   email: string;

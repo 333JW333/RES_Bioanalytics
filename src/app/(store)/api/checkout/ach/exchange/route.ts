@@ -2,8 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { createDwollaProcessorToken, isPlaidConfigured } from "@/lib/payments/plaid";
 import { attachFundingSource, findOrCreateCustomer, isDwollaConfigured } from "@/lib/payments/dwolla";
 import { demoPaymentsAllowed, paymentMethodUnavailable } from "@/lib/payments/demo-mode";
+import { isMethodEnabled } from "@/lib/payments/methods";
 
 export async function POST(req: NextRequest) {
+  // Turned off until this method is set up (src/lib/payments/methods.ts).
+  if (!isMethodEnabled("ach")) return paymentMethodUnavailable();
+
   try {
     const body = await req.json();
     const { publicToken, accountId, email, firstName, lastName } = body as {

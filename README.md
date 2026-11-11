@@ -28,9 +28,11 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
   Policy).
 - **Payments**: checkout shows two tabs, **Card or Bank** (Stripe
   Checkout) and **Invoice** (Stripe Invoicing). Crypto and ACH via
-  Plaid + Dwolla are built but hidden until those accounts are set up; to
-  show them again, add them to `SHOWN_METHODS` in
-  `src/components/PaymentMethodSelector.tsx`.
+  Plaid + Dwolla are built but turned off until those accounts are set up:
+  checkout doesn't show them and their routes refuse requests. To turn one
+  on, add it to `ENABLED_METHODS` in `src/lib/payments/methods.ts`, after
+  giving its route the sign-in, research-use attestation and order record
+  the card and invoice routes have.
   - **Crypto** via [Coinbase Commerce](https://commerce.coinbase.com/) —
     hosted checkout, supports BTC/ETH/USDC and more. *(Hidden.)*
   - **ACH bank transfer** via [Plaid](https://plaid.com/) (bank account
@@ -145,6 +147,9 @@ cp .env.example .env.local
 | `STRIPE_WEBHOOK_SECRET` | Signing secret for the `/api/webhooks/stripe` endpoint. |
 | `STRIPE_API_VERSION` | Optional; pins the Stripe API version. |
 | `ALLOW_DEMO_PAYMENTS` | Set to `true` locally to turn on demo mode (below). Ignored on the live site. |
+| `RESEND_API_KEY` | Sends EcoPeps' own emails (orders, shipping, staff alerts) from orders@ecopeps.com. |
+| `STAFF_EMAILS` | Comma-separated sign-in emails that can open the staff pages at `/admin` (default `support@ecopeps.com`). See [Staff pages](#staff-pages). |
+| `CRON_SECRET` | Any long random string. When set, only Vercel's scheduler can trigger the daily and weekly summary emails. |
 
 **Demo mode:** with `ALLOW_DEMO_PAYMENTS=true`, a checkout route whose
 processor has no keys returns a simulated "demo" payment instead of
@@ -213,16 +218,48 @@ customers add themselves, and they can't read the list.
 
 - **Demand**: the `restock_demand` view shows, per product, how many
   people are `waiting` (not yet emailed) and the latest request.
-- **Back in stock**: once the batch is added (above) and deployed, email
-  everyone waiting for that product that it has passed its COAs and is
-  ready, then mark them sent so they aren't emailed twice:
+- **Back in stock**: once the batch is added (above) and deployed, open
+  [Staff → Back in stock](#staff-pages) and click **Email N people** next
+  to the product. The button only appears once the live site shows the
+  product in stock. Each person gets one email (`src/lib/restock-notify.ts`)
+  and is marked `notified_at`, so nobody is emailed twice; if a send fails,
+  those people stay on the list for the next try.
 
-  ```sql
-  select id, email from restock_requests
-  where product_slug = 'tb-500' and notified_at is null;
-  -- after the emails go out, for the ids you emailed:
-  update restock_requests set notified_at = now() where id in (...);
-  ```
+## Staff pages
+
+`/admin` is for EcoPeps staff only: sign in with your normal EcoPeps
+account, using an email listed in `STAFF_EMAILS` (everyone else gets a "page
+not found"). Signed-in staff also see a **Staff tools** button on My Account.
+
+- **Overview** (`/admin`): the last 7 days at a glance (orders to ship,
+  sales, new accounts, traffic, restock demand), and buttons to email a
+  summary now.
+- **Orders to ship** (`/admin/orders`): every paid order that hasn't
+  shipped, with what to pack and where to send it. Pick the carrier, enter
+  the tracking number and click **Mark shipped & email buyer**: the buyer
+  gets a "Your order has shipped" email with a tracking link, and My Orders
+  shows the order as shipped. Recently shipped orders can have their
+  tracking corrected (the buyer is emailed the new details) or the email
+  resent. Orders still waiting on a bank payment or an invoice are listed
+  separately; don't ship those yet. The "new paid order" alert email links
+  here.
+- **Back in stock** (`/admin/restock`): how many people are waiting for
+  each product, and the button that emails them.
+- **Summary emails** to support@ecopeps.com, each with an **Open the staff
+  dashboard** button (`src/lib/staff-reports.ts`):
+  - **Daily at 5 p.m. Mountain Time:** everything new in the 24 hours
+    before: orders (paid, invoice requests, shipped, refunded, disputed),
+    new accounts, contact-form messages, restock sign-ups, traffic and top
+    products, and what needs attention. Vercel's schedule runs on UTC, so
+    `vercel.json` calls `/api/cron/daily-summary` at both 23:00 and 00:00
+    UTC (5 p.m. in summer and in winter); whichever call lands after 5 p.m.
+    sends it.
+  - **Weekly on Monday** at 14:00 UTC (7 or 8 a.m. Mountain):
+    `/api/cron/weekly-summary`, the same for the week before (Monday to
+    Sunday, Mountain Time).
+  - Each summary is sent once (`staff_reports` table); a failed send is
+    retried by the next call. With `CRON_SECRET` set, only Vercel's
+    scheduler can trigger them.
 
 ## Customer accounts and activity
 
