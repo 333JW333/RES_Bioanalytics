@@ -10,6 +10,7 @@ import type { EmailMessage } from "./send";
  */
 
 export type Block =
+  | { h: string }
   | { p: string }
   | { items: { lines: PricedLine[]; totalCents: number } }
   | { facts: [string, string][] }
@@ -58,7 +59,10 @@ export function renderEmail(spec: EmailSpec): EmailMessage {
   const text: string[] = [spec.heading, ""];
 
   for (const block of spec.blocks) {
-    if ("p" in block) {
+    if ("h" in block) {
+      html.push(`<h2 style="margin:24px 0 8px;font-size:16px;line-height:1.3;color:${NAVY}">${esc(block.h)}</h2>`);
+      text.push(block.h.toUpperCase());
+    } else if ("p" in block) {
       html.push(`<p style="margin:0 0 16px;font-size:15px;line-height:1.55;color:${NAVY}">${esc(block.p)}</p>`);
       text.push(block.p, "");
     } else if ("items" in block) {

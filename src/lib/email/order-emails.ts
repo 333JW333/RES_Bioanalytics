@@ -122,7 +122,28 @@ export function staffNewOrderEmail(o: OrderEmailData, processorName: string, das
       { facts: orderFacts(o, processorName) },
       itemsOf(o),
       ...shipTo(o),
-      ...(dashboardUrl ? [{ link: { label: `View payment in ${processorName}`, url: dashboardUrl } }] : []),
+      { link: { label: "Mark it shipped", url: `${SITE_URL}/admin/orders` } },
+      ...(dashboardUrl ? [{ p: `Payment in ${processorName}: ${dashboardUrl}` }] : []),
+    ],
+  });
+}
+
+export function orderShippedEmail(
+  o: OrderEmailData,
+  carrier: string,
+  trackingNumber: string,
+  trackingLink: string | null
+): EmailMessage {
+  return render(o, {
+    audience: "customer",
+    subject: `Your EcoPeps order ${o.ref} has shipped`,
+    heading: "Your order is on its way.",
+    blocks: [
+      { p: `Order ${o.ref} shipped via ${carrier}.` },
+      { facts: [["Carrier", carrier], ["Tracking number", trackingNumber]] },
+      ...(trackingLink ? [{ link: { label: "Track your package", url: trackingLink } }] : []),
+      itemsOf(o),
+      ...shipTo(o),
     ],
   });
 }
