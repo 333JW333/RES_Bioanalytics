@@ -5,19 +5,20 @@ import { recordShipment, resendShipmentEmail } from "@/lib/order-lifecycle";
 import { formatOrderRef } from "@/lib/orders";
 import { sendBackInStockEmails } from "@/lib/restock-notify";
 import { cleanTrackingNumber, isCarrier } from "@/lib/shipping";
-import { getStaffUser } from "@/lib/staff";
+import { requireVerifiedStaff } from "@/lib/staff";
 import { lastHours, sendStaffReport } from "@/lib/staff-reports";
 
 /**
- * Staff page actions. Each checks the caller is staff (actions can be called
- * directly, not just from the pages), then returns to the page with a
- * ?notice= code the page turns into a message.
+ * Staff page actions. Each checks the caller is staff and has entered their
+ * authenticator code this session (actions can be called directly, not just
+ * from the pages), then returns to the page with a ?notice= code the page
+ * turns into a message.
  */
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 async function assertStaff(): Promise<void> {
-  if (!(await getStaffUser())) throw new Error("Not authorized");
+  await requireVerifiedStaff();
 }
 
 function back(path: string, params: Record<string, string | number>): never {

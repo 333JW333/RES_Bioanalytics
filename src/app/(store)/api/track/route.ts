@@ -1,5 +1,5 @@
 import { NextResponse, after, type NextRequest } from "next/server";
-import { cleanPath, cleanReferrer, RETENTION_DAYS } from "@/lib/page-views";
+import { cleanPath, cleanReferrer } from "@/lib/page-views";
 import { requestOrigin } from "@/lib/request-origin";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
@@ -38,13 +38,8 @@ export async function POST(req: NextRequest) {
       const { error } = await admin
         .from("page_views")
         .insert({ user_id: userId, path, referrer, city, region, country });
+      // Records past the retention limit are deleted daily (src/lib/cron.ts).
       if (error) console.error("Could not record page view", error.message);
-
-      // Retention: now and then, delete records past the disclosed limit.
-      if (Math.random() < 0.01) {
-        const cutoff = new Date(Date.now() - RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString();
-        await admin.from("page_views").delete().lt("viewed_at", cutoff);
-      }
     } catch (err) {
       console.error("Could not record page view", err);
     }

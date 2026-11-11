@@ -7,6 +7,8 @@ import { formatUSD } from "@/lib/format";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { lastHours, loadActivity, type ReportWindow } from "@/lib/staff-reports";
 import { sendSummaryNow } from "./actions";
+import { requireStaff } from "@/lib/staff";
+import StaffTwoStep from "./StaffTwoStep";
 
 export const metadata: Metadata = { title: { absolute: "Overview | Staff | EcoPeps" } };
 
@@ -18,6 +20,10 @@ const NOTICES: Record<string, { tone: "good" | "bad"; text: string }> = {
 };
 
 export default async function StaffOverviewPage(props: PageProps<"/admin">) {
+  // Checked here, before any data loads: the layout's check doesn't stop the
+  // page rendering alongside it.
+  const staff = await requireStaff();
+  if (!staff.twoStepVerified) return <StaffTwoStep returnTo="/admin" />;
   const { notice } = await props.searchParams;
   const admin = createAdminClient();
   const window = lastHours("weekly");

@@ -10,6 +10,8 @@ import type { PricedLine } from "@/lib/pricing";
 import { CARRIERS, trackingUrl } from "@/lib/shipping";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { resendShipped, shipOrder } from "../actions";
+import { requireStaff } from "@/lib/staff";
+import StaffTwoStep from "../StaffTwoStep";
 
 export const metadata: Metadata = { title: { absolute: "Orders to ship | Staff | EcoPeps" } };
 
@@ -64,6 +66,10 @@ function noticeFor(code: unknown, ref: unknown) {
 }
 
 export default async function StaffOrdersPage(props: PageProps<"/admin/orders">) {
+  // Checked here, before any data loads: the layout's check doesn't stop the
+  // page rendering alongside it.
+  const staff = await requireStaff();
+  if (!staff.twoStepVerified) return <StaffTwoStep returnTo="/admin/orders" />;
   const { notice, ref } = await props.searchParams;
   const admin = createAdminClient();
   const shippedSince = shippedListStart();

@@ -1,49 +1,43 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getAccount } from "@/lib/account";
+import AccountDetailsForms from "./AccountDetailsForms";
 
 export const metadata: Metadata = { title: "Account Details" };
 
-export default async function AccountDetailsPage() {
-  const { email, profile } = await getAccount();
-  const name = [profile?.first_name, profile?.last_name].filter(Boolean).join(" ");
+// Set by /auth/confirm after an email-change link (src/app/(gate)/auth/confirm/actions.ts).
+const EMAIL_NOTICES: Record<string, string> = {
+  changed: "Your email address is updated. Sign in with the new address from now on.",
+  pending:
+    "Thanks, that link is confirmed. If we also emailed your other address, click the link there too; your email changes once both are confirmed.",
+  expired: "That email-change link has expired or was already used. You can request a new one below.",
+};
 
-  // Labels match the registration form, where these were entered.
-  const rows = [
-    { label: "Name", value: name },
-    { label: "Email", value: email },
-    { label: "Phone number", value: profile?.phone },
-    { label: "Business website", value: profile?.website },
-    { label: "Business type", value: profile?.business_type },
-    { label: "Industry / research affiliation", value: profile?.industry },
-  ];
+export default async function AccountDetailsPage(props: PageProps<"/account/details">) {
+  const { email: emailNotice } = await props.searchParams;
+  const { email, profile } = await getAccount();
+  const notice = typeof emailNotice === "string" ? EMAIL_NOTICES[emailNotice] : undefined;
 
   return (
     <>
-      <h2 className="mb-4 text-xl font-semibold text-brand-navy">Account Details</h2>
-      <dl className="card divide-y divide-brand-line">
-        {rows.map((row) => (
-          <div key={row.label} className="grid gap-1 px-5 py-3.5 sm:grid-cols-3 sm:gap-4">
-            <dt className="text-xs font-medium text-brand-slate-light sm:text-sm">{row.label}</dt>
-            <dd className="break-words text-sm text-brand-navy sm:col-span-2">
-              {row.value || "—"}
-            </dd>
-          </div>
-        ))}
-      </dl>
-
-      <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <Link href="/forgot-password" className="btn-secondary text-sm">
-          Reset Password
-        </Link>
-        <p className="text-xs text-brand-slate-light">
-          Need to change these details?{" "}
-          <Link href="/contact" className="text-brand-teal-dark underline">
-            Contact us
-          </Link>
-          .
+      <h2 className="mb-1 text-xl font-semibold text-brand-navy">Account Details</h2>
+      <p className="mb-5 text-sm text-brand-slate">Keep your details up to date. Changes save right away.</p>
+      {notice && (
+        <p role="status" className="mb-5 rounded-md border border-brand-teal/30 bg-brand-teal/10 px-3 py-2 text-sm text-brand-teal-dark">
+          {notice}
         </p>
-      </div>
+      )}
+      <AccountDetailsForms
+        email={email ?? ""}
+        details={{
+          firstName: profile?.first_name ?? "",
+          lastName: profile?.last_name ?? "",
+          phone: profile?.phone ?? "",
+          website: profile?.website ?? "",
+          businessType: profile?.business_type ?? "",
+          industry: profile?.industry ?? "",
+          ein: profile?.ein ?? "",
+        }}
+      />
     </>
   );
 }

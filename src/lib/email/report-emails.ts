@@ -41,7 +41,12 @@ export interface ActivityData {
   }[];
   restockRequests: { email: string; product: string }[];
   inquiries: { email: string; name: string | null; subject: string }[];
+  /** Customers' own changes on My Account -> Account Details. */
+  profileChanges: { email: string; field: string; oldValue: string | null; newValue: string | null }[];
 }
+
+/** Changes worth a second look when screening accounts. */
+export const SCREENING_FIELDS = ["business type", "industry", "EIN", "email (change requested)"];
 
 /** Longer lists are cut here, with a count of the rest. */
 const MAX_ROWS = 25;
@@ -86,6 +91,8 @@ export function staffActivityEmail(s: ActivityData, period: ReportPeriod, supaba
   if (s.invoiceRequests) todo.push(["Invoices to review", `${s.invoiceRequests} new request${s.invoiceRequests === 1 ? "" : "s"}`]);
   if (s.disputed) todo.push(["Disputes", `${s.disputed} to respond to`]);
   if (s.inquiries.length) todo.push(["Contact form", plural(s.inquiries.length, "new message")]);
+  const screening = s.profileChanges.filter((c) => SCREENING_FIELDS.includes(c.field)).length;
+  if (screening) todo.push(["Account changes", `${screening} to business type, industry, EIN or email`]);
   if (todo.length) {
     blocks.push({ h: "Needs attention" }, { facts: todo });
     if (s.awaitingShipment) blocks.push({ link: { label: "Open orders to ship", url: `${SITE_URL}/admin/orders` } });
@@ -123,6 +130,14 @@ export function staffActivityEmail(s: ActivityData, period: ReportPeriod, supaba
   if (s.inquiries.length) {
     blocks.push({ h: "Contact form messages" });
     list(blocks, s.inquiries, (i) => [i.email, [i.name, i.subject].filter(Boolean).join(" · ")]);
+  }
+
+  if (s.profileChanges.length) {
+    blocks.push({ h: "Account details changed" });
+    list(blocks, s.profileChanges, (c) => [
+      c.email,
+      c.field === "password" ? "changed their password" : `${c.field}: ${c.oldValue ?? "(blank)"} → ${c.newValue ?? "(blank)"}`,
+    ]);
   }
 
   if (s.restockRequests.length) {
