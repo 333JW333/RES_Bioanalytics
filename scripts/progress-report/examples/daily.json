@@ -1,0 +1,76 @@
+{
+  "kind": "daily",
+  "subject": "EcoPeps daily: 10 shipped, 2 decisions waiting",
+  "preheader": "10 things shipped, 2 decisions waiting on you, 4 tasks lined up for tomorrow.",
+  "eyebrow": "Wednesday · Day 5 of the week",
+  "title": "November 11, 2026",
+  "summary": "The biggest day this week. Staff pages are locked down, customers can now track orders and edit their accounts, and the store no longer depends on a single payment processor.",
+  "stats": [
+    { "value": 10, "label": "Shipped", "tone": "teal" },
+    { "value": 2, "label": "Decisions", "tone": "amber" },
+    { "value": 4, "label": "Up next" },
+    { "value": "5/5", "label": "Deploys OK", "tone": "green" }
+  ],
+  "activeDays": { "done": 2, "goal": 6 },
+  "problems": [],
+  "chart": {
+    "right": "15 shipped",
+    "today": 4,
+    "days": [
+      { "label": "Sat", "count": 0 },
+      { "label": "Sun", "count": 0 },
+      { "label": "Mon", "count": 0 },
+      { "label": "Tue", "count": 5 },
+      { "label": "Wed", "count": 10 },
+      { "label": "Thu", "count": null },
+      { "label": "Fri", "count": null }
+    ]
+  },
+  "decisions": [
+    {
+      "question": "Delist EP-GLP3-R from the shop: merge or close?",
+      "context": "The change is written and sitting as a draft. Nothing happens until you pick one.",
+      "prs": [61],
+      "waiting": "Waiting 44 days"
+    },
+    {
+      "question": "Crypto and ACH payments: bring back or remove?",
+      "context": "Both are switched off and refused by the server. The code is still in the site.",
+      "waiting": "New today"
+    }
+  ],
+  "tasks": {
+    "title": "Tomorrow",
+    "right": "Top 3 first",
+    "top": 3,
+    "items": [
+      { "text": "Set up two-step sign-in on the support@ecopeps.com staff account", "note": "Staff pages show only the setup screen until this is done.", "owner": "you" },
+      { "text": "Update the “Change email address” template in Supabase", "note": "Until then, customers can’t finish changing their email.", "owner": "you" },
+      { "text": "Confirm the account-details database change is live", "owner": "claude" },
+      { "text": "Place one real card order end to end on the live site", "note": "Stripe shows no live payments yet.", "owner": "you" }
+    ]
+  },
+  "shipped": {
+    "right": "10 items · 5 pull requests",
+    "items": [
+      { "area": "Security", "title": "Staff pages now check for staff before loading anything", "why": "A signed-in customer could previously receive order data on a “not found” page.", "prs": [81] },
+      { "area": "Security", "title": "Two-step sign-in for staff pages", "why": "Matches the promise in the Privacy Policy.", "prs": [81] },
+      { "area": "Security", "title": "Switched-off payment methods are refused by the server", "why": "Crypto and ACH were hidden at checkout but still reachable directly.", "prs": [79] },
+      { "area": "Customers", "title": "My Orders page and a “Your order has shipped” email", "why": "Customers see status, items and a tracking link.", "prs": [79] },
+      { "area": "Customers", "title": "Customers can edit their details, email and password", "why": "No more support requests for simple account changes.", "prs": [81] },
+      { "area": "Staff tools", "title": "Orders-to-ship and back-in-stock pages", "why": "Mark an order shipped and email the buyer in one click.", "prs": [79, 80] },
+      { "area": "Staff tools", "title": "5 p.m. daily and Monday weekly activity summaries", "why": "Orders, new accounts and traffic, emailed to support.", "prs": [79] },
+      { "area": "Staff tools", "title": "New-account alerts and page-view tracking", "why": "See who signed up and what they looked at.", "prs": [78] },
+      { "area": "Payments", "title": "Payments no longer tied to one processor", "why": "Order emails now come from EcoPeps whichever processor takes the payment.", "prs": [77] },
+      { "area": "Infrastructure", "title": "68 automated tests run on every change", "why": "Problems are caught before they reach the live site.", "prs": [81] }
+    ]
+  },
+  "inProgress": [
+    { "text": "Daily and weekly progress reports: generator and backlog ready, test emails going out.", "prs": [82] }
+  ],
+  "health": [
+    { "label": "Live site", "value": "Up. Latest deploy ready at 1:42 p.m. MT", "status": "ok" },
+    { "label": "Stripe today", "value": "0 payments · 0 disputes · 0 payouts" },
+    { "label": "Stripe this week", "value": "0 payments ($0)" }
+  ]
+}

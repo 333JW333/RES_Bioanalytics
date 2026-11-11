@@ -2,37 +2,42 @@
 
 The to-do list for www.ecopeps.com. The daily (9 p.m. MT) and weekly
 (Saturday 7 a.m. MT) progress reports emailed to support@ecopeps.com read
-this file for their "Tomorrow" and "Next week" sections, and read the day's
-merged pull requests for what shipped.
+this file for their task and decision sections. How the reports are built:
+[PROGRESS_REPORTS.md](PROGRESS_REPORTS.md).
 
 How to use it:
 
-- Add a line under the right heading. Put the most important items first.
+- One line per task: `- [ ] What to do. (you|claude, added YYYY-MM-DD)`.
+  `you` is the owner of the business; `claude` is work Claude can do alone.
+  Put the most important first: the report shows them in this order.
+- The date is what lets the report mark a task that has sat for three days
+  or more, so keep it when you reword a line.
 - When something is done, delete the line (the pull request is the record).
   For work with no pull request, move the line to **Done outside the code**
-  with the date so the next report picks it up.
+  with the date it was done, so the next report counts it.
 - **Needs a decision** is for anything waiting on the owner.
 
 ## Up next
 
-- [ ] Confirm two-step sign-in is set up on the support@ecopeps.com staff account (from pull request 81).
-- [ ] Point Supabase's "Change email address" template at `/auth/confirm` with `type=email_change`, so customers can change their email (from pull request 81).
-- [ ] Confirm the account-details migration from pull request 81 is applied to production.
-- [ ] Place one real card order end to end on the live site: Stripe shows no live payments yet.
-- [ ] Finish setting up the daily and weekly progress reports (format agreed, test email sent, schedules on).
+- [ ] Set up two-step sign-in on the support@ecopeps.com staff account. Staff pages show only the setup screen until this is done. (you, added 2026-11-11)
+- [ ] Update the "Change email address" template in Supabase to point at `/auth/confirm` with `type=email_change`. Until then, customers can't finish changing their email. (you, added 2026-11-11)
+- [ ] Confirm the account-details database change from pull request 81 is live in production. (claude, added 2026-11-11)
+- [ ] Place one real card order end to end on the live site. Stripe shows no live payments yet. (you, added 2026-11-11)
 
 ## Needs a decision
 
-- [ ] Pull request 61 (delist EP-GLP3-R from the shop) has been open as a draft since September 28: merge it or close it?
-- [ ] Crypto and ACH are hidden at checkout and refused by the server. Bring either back, or remove the code?
+- [ ] Delist EP-GLP3-R from the shop (pull request 61, a draft): merge or close? (added 2026-09-28)
+- [ ] Crypto and ACH payments are switched off and refused by the server: bring either back, or remove the code? (added 2026-11-11)
 
 ## Later
 
-- [ ] Resend: the click-tracking DNS record for `updates.ecopeps.com` failed. Sending works without it. Add the record or turn click tracking off.
+- [ ] Resend: the click-tracking DNS record for `updates.ecopeps.com` failed. Sending works without it. Add the record or turn click tracking off. (you, added 2026-11-11)
 
 ## Done outside the code
 
 Things finished that leave no trace in the repo (supplier, payment
-processor, legal, DNS). Add the date; the weekly report clears this list.
+processor, legal, DNS). One line each with the date done:
+`- 2026-11-12: what was done.` The reports count these as shipped. Lines
+older than two weeks can be deleted.
 
 ## Notes
