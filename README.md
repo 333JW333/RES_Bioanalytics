@@ -224,6 +224,28 @@ customers add themselves, and they can't read the list.
   update restock_requests set notified_at = now() where id in (...);
   ```
 
+## Customer accounts and activity
+
+- **New-account alert:** when someone confirms their email
+  (`src/app/(gate)/auth/confirm/actions.ts`), support@ecopeps.com gets an
+  email with their registration details, approximate location, IP address
+  and browser (`src/lib/account-notifications.ts`). Location comes from
+  Vercel's IP lookup and is approximate.
+- **Page views:** `<PageViewTracker />` (root layout) reports each page a
+  visitor opens to `/api/track`, which saves the path only (never the query
+  string), the referring site on the first page of a visit, and approximate
+  location in `page_views`. Signed-in views are linked to the account (from
+  the session, not the browser). Records older than 12 months are deleted.
+  No cookies. Disclosed in the Privacy Policy, sections 1, 2, 7 and 9.
+- **Views in Supabase** (Table Editor → schema `staff`; dashboard only, not
+  reachable from the website):
+  - `customer_activity`: one row per account (details, sign-up and last
+    sign-in, page views and products viewed, orders, unpaid checkouts,
+    restock requests, inquiries, last activity).
+  - `customer_timeline`: everything each person has done. Filter by email
+    and sort by `at`.
+  - `popular_pages` and `traffic_by_country`: views in the last 30 days.
+
 ## Legal pages
 
 `src/app/(store)/legal/*` contains the Research Use Only Policy, Terms of

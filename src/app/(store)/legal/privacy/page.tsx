@@ -11,7 +11,7 @@ export default function PrivacyPage() {
   return (
     <div className="container-page py-16 max-w-3xl">
       <h1 className="text-3xl font-bold text-brand-navy mb-2">Privacy Policy</h1>
-      <p className="text-sm text-brand-slate-light mb-8">Last updated: October 5, 2026</p>
+      <p className="text-sm text-brand-slate-light mb-8">Last updated: November 11, 2026</p>
 
       <div className="space-y-6 text-brand-slate leading-relaxed">
         <section>
@@ -22,6 +22,10 @@ export default function PrivacyPage() {
               <strong>Account registration:</strong> your name, email
               address, password, phone number, business type, industry
               affiliation, website, and the date you accepted our terms.
+              When you confirm your email address, we also note the IP
+              address, approximate location (city, region, and country,
+              based on that IP address), and browser it was confirmed from,
+              to help us spot fraudulent accounts.
             </li>
             <li>
               <strong>Orders:</strong> your name, email address, the items
@@ -37,6 +41,14 @@ export default function PrivacyPage() {
             <li>
               <strong>Restock notifications:</strong> your email address and
               the product you asked to be notified about.
+            </li>
+            <li>
+              <strong>Pages you visit:</strong> which pages of our site you
+              view and when, the website that linked you to us, and your
+              approximate location (city, region, and country, based on your
+              IP address). When you are signed in, these records are linked
+              to your account. We record only the page&apos;s address, not
+              search terms or other information in the link.
             </li>
             <li>
               <strong>Technical information:</strong> when you visit the
@@ -63,7 +75,9 @@ export default function PrivacyPage() {
             We use your information to create and manage your account,
             process and fulfill orders, issue invoices, respond to
             inquiries and provide customer support, notify you when
-            products you requested are back in stock, prevent fraud and
+            products you requested are back in stock, understand how
+            customers use our site and which products interest them,
+            prevent fraud and
             automated abuse, keep records of research-use attestations,
             comply with legal and regulatory obligations, and communicate
             with you about your order.
@@ -88,11 +102,13 @@ export default function PrivacyPage() {
             <li>
               <strong>Supabase</strong>, which provides our account sign-in
               and database, and stores your account details, orders,
-              contact-form inquiries, and restock requests.
+              contact-form inquiries, restock requests, and page-view
+              records.
             </li>
             <li>
-              <strong>Resend</strong>, which delivers contact-form messages
-              and order notifications to our team.
+              <strong>Resend</strong>, which delivers our emails to you
+              about your orders, and contact-form messages and order and
+              new-account notifications to our team.
             </li>
             <li>
               <strong>Cloudflare</strong>, whose Turnstile service checks
@@ -218,7 +234,7 @@ export default function PrivacyPage() {
             We retain account information while your account is active, and
             order, transaction, and research-use attestation records as
             required for accounting, tax, and regulatory compliance
-            purposes.
+            purposes. Page-view records are deleted after 12 months.
           </p>
         </section>
         <section>
@@ -238,8 +254,10 @@ export default function PrivacyPage() {
             use browser local storage to remember your shopping cart and
             research-use confirmation; that data stays on your device. When
             you pay through Stripe, Stripe may set its own cookies to
-            prevent fraud, as described in section 4. We do not use
-            advertising or third-party analytics cookies.
+            prevent fraud, as described in section 4. We record the pages
+            you visit with our own systems, as described in section 1,
+            without any additional cookies. We do not use advertising or
+            third-party analytics cookies.
           </p>
         </section>
         <section>
