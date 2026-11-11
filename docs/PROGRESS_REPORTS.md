@@ -3,10 +3,11 @@
 Two emails go to support@ecopeps.com from `EcoPeps Reports
 <reports@ecopeps.com>` (replies go to support@ecopeps.com):
 
-- **Daily**, every night at 9 p.m. Mountain Time: what shipped today, what
+- **Daily**, every night at about 8:30 p.m. Mountain Time, to be in the
+  inbox by 9: what shipped today, what
   needs a decision, and the task list for tomorrow.
-- **Weekly**, Saturday at 7 a.m. Mountain Time: the week from Saturday
-  through Friday night.
+- **Weekly**, Saturday at about 6:30 a.m. Mountain Time, to be in the
+  inbox by 7: the week from Saturday through Friday night.
 
 They are about work on the site. The store's own activity (orders, new
 accounts, traffic) is in the 5 p.m. staff summary the site sends itself.
@@ -31,9 +32,12 @@ report looks the same. Examples of the data file are in
 
 ## The week
 
-A week runs Saturday 00:00 to Friday 23:59 Mountain Time. Saturday's work
-belongs to the week that follows the Saturday-morning report. The chart
-always shows seven days, Sat to Fri. The goal is **6 active days** a week.
+A report day runs from one evening report to the next (about 8:30 p.m. to
+8:30 p.m. Mountain Time), so work done late in the evening is counted in
+the next day's report and never lost. A week is the seven report days
+named Saturday to Friday: it ends with Friday evening's report, and
+anything after that belongs to the following week. The chart always shows
+seven days, Sat to Fri. The goal is **6 active days** a week.
 An active day is one where at least one item shipped.
 
 ## What counts as shipped
@@ -89,7 +93,8 @@ otherwise, so the red box means something. Check:
 
 ## Daily report
 
-Period: today, 00:00 to now. Use `examples/daily.json` as the pattern.
+Period: from 8:30 p.m. yesterday to now. Use `examples/daily.json` as the
+pattern.
 
 - `eyebrow`: "Wednesday · Day 5 of the week". `title`: the date.
 - `summary`: two sentences on what kind of day it was.
@@ -109,7 +114,8 @@ shipped, N tasks waiting".
 
 ## Weekly report
 
-Period: the Saturday-to-Friday week that ended last night. Use
+Period: the week that ended with last night's daily report (8:30 p.m.
+the Friday before last to 8:30 p.m. yesterday). Use
 `examples/weekly.json` as the pattern.
 
 - `title`: a headline for the week. `summary`: two or three sentences,
