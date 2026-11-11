@@ -6,6 +6,7 @@ import AccountMenu from "@/components/AccountMenu";
 import { CartIcon } from "@/components/icons";
 import Logo from "@/components/Logo";
 import { useCart } from "@/lib/cart-context";
+import { useIsStaff } from "@/lib/use-is-staff";
 
 const NAV_LINKS = [
   { href: "/shop", label: "Shop" },
@@ -15,9 +16,13 @@ const NAV_LINKS = [
   { href: "/contact", label: "Contact" },
 ];
 
+// Shown after Contact, only to staff (STAFF_EMAILS).
+const STAFF_LINK = { href: "/admin", label: "Staff tools" };
+
 export default function Header() {
   const { itemCount } = useCart();
   const [open, setOpen] = useState(false);
+  const isStaff = useIsStaff();
 
   return (
     <header className="sticky top-0 z-40 border-b border-brand-line bg-white/95 backdrop-blur">
@@ -39,6 +44,11 @@ export default function Header() {
               {link.label}
             </Link>
           ))}
+          {isStaff && (
+            <Link href={STAFF_LINK.href} className="text-brand-teal-dark hover:text-brand-navy transition-colors">
+              {STAFF_LINK.label}
+            </Link>
+          )}
         </nav>
 
         {/* relative: the account dropdown anchors here on phones. */}
@@ -87,6 +97,15 @@ export default function Header() {
                 {link.label}
               </Link>
             ))}
+            {isStaff && (
+              <Link
+                href={STAFF_LINK.href}
+                className="py-2.5 text-sm font-medium text-brand-teal-dark hover:text-brand-navy"
+                onClick={() => setOpen(false)}
+              >
+                {STAFF_LINK.label}
+              </Link>
+            )}
           </div>
         </nav>
       )}

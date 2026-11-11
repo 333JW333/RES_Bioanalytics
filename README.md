@@ -229,7 +229,8 @@ customers add themselves, and they can't read the list.
 
 `/admin` is for EcoPeps staff only: sign in with your normal EcoPeps
 account, using an email listed in `STAFF_EMAILS` (everyone else gets a "page
-not found"). Signed-in staff also see a **Staff tools** button on My Account.
+not found"). Signed-in staff also see a **Staff tools** link in the header
+(after Contact, on every page) and a **Staff tools** button on My Account.
 
 - **Overview** (`/admin`): the last 7 days at a glance (orders to ship,
   sales, new accounts, traffic, restock demand), and buttons to email a
