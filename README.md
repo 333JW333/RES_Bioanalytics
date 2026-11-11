@@ -13,6 +13,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the site.
 
+Run the automated tests with `npm test` (`tests/*.test.mts`, Node's test
+runner). They also run on every pull request, with lint and the build
+(`.github/workflows/ci.yml`).
+
 ## What's included
 
 - **Product catalog** (`src/data/products.ts`) — research peptide
@@ -232,6 +236,20 @@ account, using an email listed in `STAFF_EMAILS` (everyone else gets a "page
 not found"). Signed-in staff also see a **Staff tools** link in the header
 (after Contact, on every page) and a **Staff tools** button on My Account.
 
+**Two-step sign-in.** The staff pages show customer information, so after
+the password they ask for a 6-digit code from an authenticator app (Google
+Authenticator, Microsoft Authenticator, 1Password, Authy). The first visit
+walks you through setup (scan a QR code); after that, enter the code once
+each time you sign in. Until then the pages show only that screen, and the
+staff buttons refuse to work (`src/lib/staff.ts`, Supabase Auth TOTP).
+
+- **Lost phone or new phone:** someone with Supabase access opens
+  Authentication → Users, finds the staff account, and deletes its
+  authenticator factor ("EcoPeps staff pages"). The next visit to `/admin`
+  sets it up again.
+- If setup says it can't start, check Authentication → Multi-Factor in
+  Supabase: "Authenticator app (TOTP)" must be enabled.
+
 - **Overview** (`/admin`): the last 7 days at a glance (orders to ship,
   sales, new accounts, traffic, restock demand), and buttons to email a
   summary now.
@@ -273,7 +291,8 @@ not found"). Signed-in staff also see a **Staff tools** link in the header
   visitor opens to `/api/track`, which saves the path only (never the query
   string), the referring site on the first page of a visit, and approximate
   location in `page_views`. Signed-in views are linked to the account (from
-  the session, not the browser). Records older than 12 months are deleted.
+  the session, not the browser). Records older than 12 months are deleted
+  every day by the 5 p.m. scheduled job (`src/lib/cron.ts`).
   No cookies. Disclosed in the Privacy Policy, sections 1, 2, 7 and 9.
 - **Views in Supabase** (Table Editor → schema `staff`; dashboard only, not
   reachable from the website):
@@ -283,6 +302,30 @@ not found"). Signed-in staff also see a **Staff tools** link in the header
   - `customer_timeline`: everything each person has done. Filter by email
     and sort by `at`.
   - `popular_pages` and `traffic_by_country`: views in the last 30 days.
+
+## Account Details (customers)
+
+On My Account → Account Details, customers change their own details
+without contacting us (`src/app/(store)/account/details`):
+
+- **Name, phone, website, business type, industry and EIN.** Same choices
+  as registration (`src/lib/account-details.ts`). An EIN with the
+  Business / Institution type makes the account eligible to request Net 30
+  invoices, which staff still review before sending. The database only lets
+  customers change these columns of their own profile; the research-use
+  certification record (`terms_accepted_at`) can't be changed.
+- **Email address.** Supabase emails a confirmation link; the address
+  changes once it's clicked (with "Secure email change" on, at both the old
+  and new addresses). The link must land on our confirm page, so the
+  **Change email address** template in Supabase (Authentication → Emails)
+  should link to:
+  `https://www.ecopeps.com/auth/confirm?token_hash={{ .TokenHash }}&type=email_change`
+- **Password**, or a reset link by email.
+
+Every change is recorded in `profile_changes` (the EIN only by its last 4
+digits) and shows on `staff.customer_timeline` and in the daily staff
+email, which flags changes to business type, industry, EIN or email for a
+second look.
 
 ## Legal pages
 
