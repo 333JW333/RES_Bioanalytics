@@ -27,6 +27,14 @@ export async function confirmEmail(formData: FormData) {
       // form, see src/lib/return-to.ts), or else the catalog.
       if (isRecovery) redirect("/reset-password");
 
+      // An email change from My Account. With secure email change on, both
+      // the old and new addresses get a link; the change is finished once
+      // the user no longer has a pending new_email.
+      if (type === "email_change") {
+        const finished = Boolean(data.user) && !data.user?.new_email;
+        redirect(`/account/details?email=${finished ? "changed" : "pending"}`);
+      }
+
       // A sign-up confirmation: tell support@ecopeps.com about the new
       // account, after the customer's redirect has been sent.
       const userId = data.user?.id;
@@ -49,5 +57,6 @@ export async function confirmEmail(formData: FormData) {
   // Expired, already used, or malformed. For signup links, with no
   // session the callback page shows its "link expired" screen (and a
   // visitor who is already signed in is sent on to /shop).
+  if (type === "email_change") redirect("/account/details?email=expired");
   redirect(isRecovery ? "/forgot-password?expired=1" : "/auth/callback");
 }

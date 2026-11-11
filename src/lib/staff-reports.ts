@@ -133,6 +133,7 @@ export interface RawActivity {
   }[];
   restock_requests: { email: string; slug: string }[];
   inquiries: { email: string; name: string | null; subject: string }[];
+  profile_changes?: { email: string; field: string; old_value: string | null; new_value: string | null }[];
 }
 
 export function toActivityData(raw: RawActivity, window: Pick<ReportWindow, "label" | "range">): ActivityData {
@@ -173,6 +174,12 @@ export function toActivityData(raw: RawActivity, window: Pick<ReportWindow, "lab
     })),
     restockRequests: (raw.restock_requests ?? []).map((r) => ({ email: r.email, product: productName(r.slug) })),
     inquiries: raw.inquiries ?? [],
+    profileChanges: (raw.profile_changes ?? []).map((c) => ({
+      email: c.email,
+      field: c.field,
+      oldValue: c.old_value,
+      newValue: c.new_value,
+    })),
   };
 }
 

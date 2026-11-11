@@ -8,6 +8,7 @@ export interface Profile {
   industry: string | null;
   website: string | null;
   phone: string | null;
+  ein: string | null;
   created_at: string;
 }
 
@@ -24,7 +25,7 @@ export async function getAccount() {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("first_name, last_name, business_type, industry, website, phone, created_at")
+    .select("first_name, last_name, business_type, industry, website, phone, ein, created_at")
     .eq("id", claims.sub)
     .maybeSingle<Profile>();
 
