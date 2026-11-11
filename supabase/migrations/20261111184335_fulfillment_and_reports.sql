@@ -1,4 +1,5 @@
--- Shipping, the weekly staff summary, and shipments on the customer timeline.
+-- Shipping, the daily and weekly staff summaries, and shipments on the
+-- customer timeline.
 
 -- orders: shipping details --------------------------------------------------------
 -- Filled in from the staff Orders page (/admin/orders) when an order ships.
@@ -13,8 +14,8 @@ create index orders_to_ship_idx on public.orders (paid_at)
   where shipped_at is null and status in ('paid', 'partially_refunded');
 
 -- staff_reports: reports already sent ---------------------------------------------
--- e.g. 'weekly:2026-11-16', so the weekly summary goes out once even if its
--- scheduled job runs twice. Server-side only.
+-- e.g. 'daily:2026-11-11' or 'weekly:2026-11-16', so each summary goes out
+-- once even if its scheduled job runs twice. Server-side only.
 
 create table public.staff_reports (
   id text primary key check (char_length(id) <= 100),
@@ -25,10 +26,12 @@ alter table public.staff_reports enable row level security;
 revoke all on public.staff_reports from anon, authenticated;
 grant select, insert, delete on public.staff_reports to service_role;
 
--- weekly_summary: the numbers for the weekly staff email -------------------------
--- Reads auth.users, so it runs as its owner; only the server may call it.
+-- activity_summary: what happened between two times, for the staff emails --------
+-- Counts, plus lists of the new orders, accounts, restock sign-ups and
+-- contact-form messages. Reads auth.users, so it runs as its owner; only the
+-- server may call it.
 
-create function public.weekly_summary(p_since timestamptz, p_until timestamptz)
+create function public.activity_summary(p_since timestamptz, p_until timestamptz)
 returns jsonb
 language sql
 stable
@@ -107,12 +110,53 @@ as $$
         where notified_at is null
         group by 1
       ) r
+    ),
+    -- Orders with news in the period: placed, paid, shipped, or a payment
+    -- status change. Unpaid checkouts are only counted (above).
+    'orders', (
+      select coalesce(jsonb_agg(o order by o.at), '[]'::jsonb)
+      from (
+        select id, email, amount_cents, status, payment_flow, created_at, paid_at, shipped_at,
+               greatest(created_at, paid_at, shipped_at, updated_at) as at
+        from public.orders
+        where status not in ('pending', 'canceled')
+          and (
+            (created_at >= p_since and created_at < p_until)
+            or (paid_at >= p_since and paid_at < p_until)
+            or (shipped_at >= p_since and shipped_at < p_until)
+            or (updated_at >= p_since and updated_at < p_until)
+          )
+        order by at
+        limit 100
+      ) o
+    ),
+    'restock_requests', (
+      select coalesce(jsonb_agg(jsonb_build_object('email', r.email, 'slug', r.product_slug) order by r.created_at), '[]'::jsonb)
+      from (
+        select email, product_slug, created_at from public.restock_requests
+        where created_at >= p_since and created_at < p_until
+        order by created_at
+        limit 100
+      ) r
+    ),
+    'inquiries', (
+      select coalesce(jsonb_agg(jsonb_build_object(
+        'email', i.email,
+        'name', nullif(concat_ws(' ', i.first_name, i.last_name), ''),
+        'subject', i.subject
+      ) order by i.created_at), '[]'::jsonb)
+      from (
+        select email, first_name, last_name, subject, created_at from public.inquiries
+        where created_at >= p_since and created_at < p_until
+        order by created_at
+        limit 100
+      ) i
     )
   );
 $$;
 
-revoke all on function public.weekly_summary(timestamptz, timestamptz) from public, anon, authenticated;
-grant execute on function public.weekly_summary(timestamptz, timestamptz) to service_role;
+revoke all on function public.activity_summary(timestamptz, timestamptz) from public, anon, authenticated;
+grant execute on function public.activity_summary(timestamptz, timestamptz) to service_role;
 
 -- customer_timeline: add shipments -------------------------------------------------
 

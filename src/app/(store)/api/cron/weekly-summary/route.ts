@@ -1,24 +1,8 @@
-import { NextResponse, type NextRequest } from "next/server";
-import { lastFullWeek, sendWeeklySummary } from "@/lib/weekly-summary";
+import type { NextRequest } from "next/server";
+import { runScheduledReport } from "@/lib/cron";
+import { lastFullWeek } from "@/lib/staff-reports";
 
-/**
- * Emails last week's summary to support@ecopeps.com. Vercel calls this every
- * Monday morning (vercel.json). With CRON_SECRET set in Vercel, only Vercel's
- * scheduler can call it. Repeated calls are harmless: each week's summary
- * is sent once.
- */
+/** Emails support@ecopeps.com last week's summary. Vercel calls this every Monday morning (vercel.json). */
 export async function GET(req: NextRequest) {
-  const secret = process.env.CRON_SECRET;
-  if (secret && req.headers.get("authorization") !== `Bearer ${secret}`) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
-  try {
-    const result = await sendWeeklySummary(lastFullWeek());
-    return NextResponse.json({ result });
-  } catch (err) {
-    console.error("Weekly summary failed", err);
-    // A failed run isn't recorded as sent, so calling again retries it.
-    return NextResponse.json({ error: "Weekly summary failed" }, { status: 500 });
-  }
+  return runScheduledReport(req, "weekly", lastFullWeek());
 }

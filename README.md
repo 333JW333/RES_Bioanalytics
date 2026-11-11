@@ -149,7 +149,7 @@ cp .env.example .env.local
 | `ALLOW_DEMO_PAYMENTS` | Set to `true` locally to turn on demo mode (below). Ignored on the live site. |
 | `RESEND_API_KEY` | Sends EcoPeps' own emails (orders, shipping, staff alerts) from orders@ecopeps.com. |
 | `STAFF_EMAILS` | Comma-separated sign-in emails that can open the staff pages at `/admin` (default `support@ecopeps.com`). See [Staff pages](#staff-pages). |
-| `CRON_SECRET` | Any long random string. When set, only Vercel's scheduler can trigger the weekly summary email. |
+| `CRON_SECRET` | Any long random string. When set, only Vercel's scheduler can trigger the daily and weekly summary emails. |
 
 **Demo mode:** with `ALLOW_DEMO_PAYMENTS=true`, a checkout route whose
 processor has no keys returns a simulated "demo" payment instead of
@@ -232,8 +232,8 @@ account, using an email listed in `STAFF_EMAILS` (everyone else gets a "page
 not found"). Signed-in staff also see a **Staff tools** button on My Account.
 
 - **Overview** (`/admin`): the last 7 days at a glance (orders to ship,
-  sales, new accounts, traffic, restock demand), and a button to email the
-  weekly summary now.
+  sales, new accounts, traffic, restock demand), and buttons to email a
+  summary now.
 - **Orders to ship** (`/admin/orders`): every paid order that hasn't
   shipped, with what to pack and where to send it. Pick the carrier, enter
   the tracking number and click **Mark shipped & email buyer**: the buyer
@@ -245,10 +245,21 @@ not found"). Signed-in staff also see a **Staff tools** button on My Account.
   here.
 - **Back in stock** (`/admin/restock`): how many people are waiting for
   each product, and the button that emails them.
-- **Weekly summary:** every Monday at 14:00 UTC (7 or 8 a.m. Mountain),
-  Vercel calls `/api/cron/weekly-summary` (`vercel.json`), which emails
-  support@ecopeps.com last week's numbers (Monday to Sunday, Mountain
-  Time). Each week's summary is sent once (`staff_reports` table).
+- **Summary emails** to support@ecopeps.com, each with an **Open the staff
+  dashboard** button (`src/lib/staff-reports.ts`):
+  - **Daily at 5 p.m. Mountain Time:** everything new in the 24 hours
+    before: orders (paid, invoice requests, shipped, refunded, disputed),
+    new accounts, contact-form messages, restock sign-ups, traffic and top
+    products, and what needs attention. Vercel's schedule runs on UTC, so
+    `vercel.json` calls `/api/cron/daily-summary` at both 23:00 and 00:00
+    UTC (5 p.m. in summer and in winter); whichever call lands after 5 p.m.
+    sends it.
+  - **Weekly on Monday** at 14:00 UTC (7 or 8 a.m. Mountain):
+    `/api/cron/weekly-summary`, the same for the week before (Monday to
+    Sunday, Mountain Time).
+  - Each summary is sent once (`staff_reports` table); a failed send is
+    retried by the next call. With `CRON_SECRET` set, only Vercel's
+    scheduler can trigger them.
 
 ## Customer accounts and activity
 

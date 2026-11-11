@@ -5,13 +5,13 @@ import { supabaseDashboardUrl } from "@/lib/account-notifications";
 import { mountainTime } from "@/lib/email/account-emails";
 import { formatUSD } from "@/lib/format";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { last7Days, toSummaryData, type RawSummary } from "@/lib/weekly-summary";
+import { lastHours, loadActivity, type ReportWindow } from "@/lib/staff-reports";
 import { sendSummaryNow } from "./actions";
 
 export const metadata: Metadata = { title: { absolute: "Overview | Staff | EcoPeps" } };
 
 const NOTICES: Record<string, { tone: "good" | "bad"; text: string }> = {
-  summary_sent: { tone: "good", text: "The summary for the last 7 days is on its way to support@ecopeps.com." },
+  summary_sent: { tone: "good", text: "The summary is on its way to support@ecopeps.com." },
   summary_already_sent: { tone: "good", text: "That summary was just sent." },
   summary_email_off: { tone: "bad", text: "Email isn't set up (RESEND_API_KEY), so nothing was sent." },
   summary_failed: { tone: "bad", text: "The summary didn't send. Please try again in a minute." },
@@ -20,14 +20,13 @@ const NOTICES: Record<string, { tone: "good" | "bad"; text: string }> = {
 export default async function StaffOverviewPage(props: PageProps<"/admin">) {
   const { notice } = await props.searchParams;
   const admin = createAdminClient();
-  const window = last7Days();
+  const window = lastHours("weekly");
 
-  const [summary, lastReport] = await Promise.all([
-    admin.rpc("weekly_summary", { p_since: window.since.toISOString(), p_until: window.until.toISOString() }),
-    admin.from("staff_reports").select("id, sent_at").order("sent_at", { ascending: false }).limit(1).maybeSingle(),
+  const [s, lastDaily, lastWeekly] = await Promise.all([
+    loadOrNull(window, admin),
+    lastSent(admin, "daily:"),
+    lastSent(admin, "weekly:"),
   ]);
-  if (summary.error) console.error("weekly_summary failed", summary.error.message);
-  const s = summary.data ? toSummaryData(summary.data as RawSummary, window.label) : null;
   const dashboard = supabaseDashboardUrl();
 
   return (
@@ -102,17 +101,31 @@ export default async function StaffOverviewPage(props: PageProps<"/admin">) {
       )}
 
       <section className="card mt-10 p-5">
-        <h2 className="font-semibold text-brand-navy">Weekly summary email</h2>
-        <p className="mt-1 text-sm text-brand-slate">
-          Every Monday morning, support@ecopeps.com gets these numbers for the week before (Monday to Sunday,
-          Mountain Time).
-          {lastReport.data ? ` Last sent ${mountainTime(lastReport.data.sent_at)}.` : ""}
-        </p>
-        <form action={sendSummaryNow} className="mt-4">
-          <button type="submit" className="btn-secondary text-sm">
-            Email the last 7 days now
-          </button>
-        </form>
+        <h2 className="font-semibold text-brand-navy">Summary emails to support@ecopeps.com</h2>
+        <ul className="mt-2 space-y-1 text-sm text-brand-slate">
+          <li>
+            <strong className="text-brand-navy">Daily, 5 p.m. Mountain Time:</strong> everything new since 5 p.m.
+            the day before.{lastDaily ? ` Last sent ${mountainTime(lastDaily)}.` : ""}
+          </li>
+          <li>
+            <strong className="text-brand-navy">Weekly, Monday morning:</strong> the week before, Monday to Sunday.
+            {lastWeekly ? ` Last sent ${mountainTime(lastWeekly)}.` : ""}
+          </li>
+        </ul>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <form action={sendSummaryNow}>
+            <input type="hidden" name="period" value="daily" />
+            <button type="submit" className="btn-secondary text-sm">
+              Email the last 24 hours now
+            </button>
+          </form>
+          <form action={sendSummaryNow}>
+            <input type="hidden" name="period" value="weekly" />
+            <button type="submit" className="btn-secondary text-sm">
+              Email the last 7 days now
+            </button>
+          </form>
+        </div>
       </section>
 
       {dashboard && (
@@ -187,4 +200,25 @@ function Rows({ rows }: { rows: [string, string | number][] }) {
       ))}
     </dl>
   );
+}
+
+async function loadOrNull(window: ReportWindow, admin: ReturnType<typeof createAdminClient>) {
+  try {
+    return await loadActivity(window, admin);
+  } catch (err) {
+    console.error("Loading the staff overview failed", err);
+    return null;
+  }
+}
+
+/** When the latest scheduled summary of a kind went out. */
+async function lastSent(admin: ReturnType<typeof createAdminClient>, prefix: string): Promise<string | null> {
+  const { data } = await admin
+    .from("staff_reports")
+    .select("sent_at")
+    .like("id", `${prefix}%`)
+    .order("sent_at", { ascending: false })
+    .limit(1)
+    .maybeSingle<{ sent_at: string }>();
+  return data?.sent_at ?? null;
 }

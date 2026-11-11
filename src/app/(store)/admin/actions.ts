@@ -6,7 +6,7 @@ import { formatOrderRef } from "@/lib/orders";
 import { sendBackInStockEmails } from "@/lib/restock-notify";
 import { cleanTrackingNumber, isCarrier } from "@/lib/shipping";
 import { getStaffUser } from "@/lib/staff";
-import { last7Days, sendWeeklySummary } from "@/lib/weekly-summary";
+import { lastHours, sendStaffReport } from "@/lib/staff-reports";
 
 /**
  * Staff page actions. Each checks the caller is staff (actions can be called
@@ -79,13 +79,14 @@ export async function emailBackInStock(formData: FormData): Promise<void> {
   back("/admin/restock", params);
 }
 
-export async function sendSummaryNow(): Promise<void> {
+export async function sendSummaryNow(formData: FormData): Promise<void> {
   await assertStaff();
+  const period = formData.get("period") === "weekly" ? "weekly" : "daily";
   let notice: string;
   try {
-    notice = await sendWeeklySummary(last7Days());
+    notice = await sendStaffReport(period, lastHours(period));
   } catch (err) {
-    console.error("Sending the weekly summary failed", err);
+    console.error(`Sending the ${period} summary failed`, err);
     notice = "failed";
   }
   back("/admin", { notice: `summary_${notice}` });
