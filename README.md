@@ -264,6 +264,11 @@ staff buttons refuse to work (`src/lib/staff.ts`, Supabase Auth TOTP).
   here.
 - **Back in stock** (`/admin/restock`): how many people are waiting for
   each product, and the button that emails them.
+- **Progress** (`/admin/progress`): the to-do list (`docs/BACKLOG.md`: what's
+  next, what's waiting on a decision), the week's active days, and every past
+  daily and weekly progress report, each shown as the email that was sent
+  (table `progress_reports`). A button opens the Claude session that writes
+  the reports. How they're built: `docs/PROGRESS_REPORTS.md`.
 - **Summary emails** to support@ecopeps.com, each with an **Open the staff
   dashboard** button (`src/lib/staff-reports.ts`):
   - **Daily at 5 p.m. Mountain Time:** everything new in the 24 hours

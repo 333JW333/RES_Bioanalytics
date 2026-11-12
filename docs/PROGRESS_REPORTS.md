@@ -21,7 +21,8 @@ report looks the same. Examples of the data file are in
 ## Rules for the session writing a report
 
 - Read only. Do not change the repo, the site, Stripe, Supabase or Vercel.
-  The one outward action is sending one email to support@ecopeps.com.
+  The two outward actions are sending one email to support@ecopeps.com and
+  saving that report's row in `progress_reports` (below).
 - Send exactly one email per run. If something is missing (a connector
   that will not answer, for example), still send the report, and say what
   is missing under `problems`.
@@ -147,10 +148,34 @@ connector's send-email tool:
   `progress-weekly-YYYY-MM-DD` (the report's date), so a retry cannot
   send it twice
 
+## Saving the report for the staff page
+
+Staff -> Progress (`/admin/progress`) shows the backlog and every past
+report. After the email is sent, save the same data file with the Supabase
+connector's execute_sql tool, in the project the site uses
+(`udxfcoqrvbdnvjublwuo`):
+
+```sql
+insert into public.progress_reports (kind, report_date, data)
+values ('daily', '2026-11-11', $report$ ...the data file's JSON... $report$::jsonb)
+on conflict (kind, report_date) do update
+  set data = excluded.data, sent_at = now();
+```
+
+`kind` is `daily` or `weekly`; `report_date` is the report's date in
+Mountain Time (for a weekly report, the Saturday it is sent). Run only this
+one statement. If it fails, say so in the run's summary: the email has
+already gone, and the page is simply missing that day.
+
+The page rebuilds each report from its saved data with `render.mjs`, so a
+past report always looks like the email that was sent.
+
 ## Changing the reports
 
 - Look and layout: `scripts/progress-report/render.mjs`
   (`tests/progress-report.test.mts` covers it).
 - What goes in them: this page.
+- The staff page: `src/app/(store)/admin/progress/` and `src/lib/progress/`
+  (`tests/progress-page.test.mts`).
 - When they run: the two scheduled tasks named "EcoPeps daily progress
   report" and "EcoPeps weekly progress report" in Claude Code.

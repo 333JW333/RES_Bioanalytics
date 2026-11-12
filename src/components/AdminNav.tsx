@@ -7,6 +7,7 @@ const LINKS = [
   { href: "/admin", label: "Overview" },
   { href: "/admin/orders", label: "Orders to ship" },
   { href: "/admin/restock", label: "Back in stock" },
+  { href: "/admin/progress", label: "Progress" },
 ] as const;
 
 export default function AdminNav() {
