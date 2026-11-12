@@ -22,10 +22,13 @@ How to use it:
 - [ ] Set up two-step sign-in on the support@ecopeps.com staff account. Staff pages show only the setup screen until this is done. (you, added 2026-11-11)
 - [ ] Update the "Change email address" template in Supabase to point at `/auth/confirm` with `type=email_change`. Until then, customers can't finish changing their email. (you, added 2026-11-11)
 - [ ] Place one real card order end to end on the live site. Stripe shows no live payments yet. (you, added 2026-11-11)
+- [ ] Finish the QA staff test account (the sign-in exists): add it to the staff list and set up its authenticator. The staff list is currently shared by the live site and previews, so this gives it access to the live staff pages. (you, added 2026-11-11)
+- [ ] Save the two new test passwords in the cloud environment's settings (environment menu in the session title bar, then Edit) as `QA_CUSTOMER_PASSWORD` and `QA_STAFF_PASSWORD`, not in chat or the repo. (you, added 2026-11-11)
 
 ## Needs a decision
 
 - [ ] Delist EP-GLP3-R from the shop (pull request 61, a draft): merge or close? (added 2026-09-28)
+- [ ] Preview deployments use the live database and sign-ins, and have no database secret key, email key or captcha key, so checkout, staff actions and the contact form can't be tested there. Set up a separate Supabase test project for previews (recommended), or keep QA to public pages and signed-in browsing? (added 2026-11-12)
 - [ ] Crypto and ACH payments are switched off and refused by the server: bring either back, or remove the code? (added 2026-11-11)
 
 ## Later
@@ -38,5 +41,10 @@ Things finished that leave no trace in the repo (supplier, payment
 processor, legal, DNS). One line each with the date done:
 `- 2026-11-12: what was done.` The reports count these as shipped. Lines
 older than two weeks can be deleted.
+
+- 2026-11-12: Created the QA tester's customer and staff test sign-ins.
+- 2026-11-12: Changed the passwords on both QA test sign-ins.
+- 2026-11-12: Confirmed the account-details database change from pull request 81 is live.
+- 2026-11-12: Checked where preview deployments point: the live database (see Needs a decision).
 
 ## Notes
