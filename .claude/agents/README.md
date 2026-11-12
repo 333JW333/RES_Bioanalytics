@@ -52,8 +52,8 @@ Every technology agent follows these.
 
 | Environment | What it is | Agents may |
 |---|---|---|
-| Local | `npm run dev` with `.env.local`, sandbox or demo payments | Read, edit, run, and test freely |
-| Preview | Vercel preview deployments, with a Supabase branch or local stack | Read and test |
+| Local | `npm run dev`, or `scripts/qa-local.sh` for a throwaway database and sign-in system, with sandbox or demo payments | Read, edit, run, and test freely |
+| Preview | Vercel preview deployments. These use the **live** database and sign-ins | Look at pages that need no sign-in. Submit nothing |
 | Production | `ecopeps.com`, the live Supabase project, live payment accounts | Read only where the agent's tools allow it. Never test against it and never change it |
 
 **Permissions**
@@ -117,7 +117,8 @@ Findings from any technology agent use the same shape: severity (Critical, High,
 
 `qa-tester` uses the site in a real browser on the local dev server or a preview deployment and reports what it saw, with steps to reproduce and screenshots. It may add tests in `tests/` but does not change application code; each bug is assigned to the agent that owns the area.
 
-- **It needs test accounts.** Registration requires email confirmation and a captcha, so give it a test customer sign-in and, for `/admin`, a test staff sign-in. It never uses a real customer's account.
-- **No real payments or emails.** It confirms the environment is in Stripe test or demo mode before checking out, and says so when it can't.
-- **Browser:** Claude Code cloud sessions include one. Elsewhere it falls back to requests and the automated tests, and lists what it couldn't check.
-- **Typical requests:** "test this branch before we merge", "run the full release check on the preview", "try to break the checkout form on a phone".
+- **It tests against a throwaway local backend.** `scripts/qa-local.sh` starts a private copy of the database and sign-in system from `supabase/migrations`, creates a test customer and a test staff account, and runs the site against it with captcha test keys. Nothing it does reaches the live database, real email, or Stripe, and it needs no accounts or passwords from you.
+- **Previews are look-only.** Preview deployments use the live database and sign-ins, so on a preview it only views pages that need no sign-in.
+- **What the local backend can't show:** anything specific to the deployed site (Vercel settings, the live captcha, Stripe's real pages, email delivery). It lists those as not tested.
+- **Needs:** Docker and a browser. Claude Code cloud sessions have both.
+- **Typical requests:** "test this branch before we merge", "run the full release check", "try to break the checkout form on a phone".

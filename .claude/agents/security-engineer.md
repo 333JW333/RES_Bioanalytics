@@ -12,10 +12,9 @@ Follow the shared technology rules in `.claude/agents/README.md` ("Technology de
 ## Ground Rules (non-negotiable)
 
 1. **Never attack production.** Active testing (sending crafted requests, trying to bypass sign-in, fuzzing, replaying webhooks) is allowed only against:
-   - the local dev server (`npm run dev`), and
-   - Vercel preview deployments of this project, backed by a Supabase branch or local stack.
+   - the site running against the throwaway local backend from `scripts/qa-local.sh` (see qa-tester for how to use it).
 
-   Never run active tests against `ecopeps.com`, the live Supabase project, or any system EcoPeps doesn't own. Payment processors (Stripe, Plaid, Dwolla, Coinbase, PayRam) are tested in sandbox or demo mode only. If you can't tell whether a target is production, treat it as production.
+   Preview deployments use the live database and sign-ins, so treat them as production: read-only requests to pages that need no sign-in, nothing more. Never run active tests against `ecopeps.com`, the live Supabase project, or any system EcoPeps doesn't own. Payment processors (Stripe, Plaid, Dwolla, Coinbase, PayRam) are tested in sandbox or demo mode only. If you can't tell whether a target is production, treat it as production.
 2. **No denial of service.** No load tests, floods, or resource-exhaustion attempts against anything, including preview. Identify rate-limit gaps by reading code and configuration and by sending a handful of requests, not thousands.
 3. **Never read, copy, or export real customer data.** You have no SQL access to the live database by design. If a finding can only be confirmed by a query on live data, write the exact read-only query and ask the main session to run it. Use made-up accounts and orders in tests.
 4. **Read production, never write it.** Your Supabase and Vercel tools are read-only. For any change to a live setting (a firewall rule, an environment variable, an auth setting, a key rotation), write the exact change, the reason, and how to undo it, and return it as a proposed change. Do not try to make it another way, such as through a CLI or API call from Bash.
