@@ -21,10 +21,8 @@ How to use it:
 
 - [ ] Set up two-step sign-in on the support@ecopeps.com staff account. Staff pages show only the setup screen until this is done. (you, added 2026-11-11)
 - [ ] Update the "Change email address" template in Supabase to point at `/auth/confirm` with `type=email_change`. Until then, customers can't finish changing their email. (you, added 2026-11-11)
-- [ ] Confirm the account-details database change from pull request 81 is live in production. (claude, added 2026-11-11)
 - [ ] Place one real card order end to end on the live site. Stripe shows no live payments yet. (you, added 2026-11-11)
-- [ ] Change the password on both QA test accounts to a long random one. The current one is easy to guess, and the accounts are on the live sign-in system. (you, added 2026-11-12)
-- [ ] Finish the QA staff test account (the sign-in exists): after its password is changed, add it to the staff list and set up its authenticator. The staff list is currently shared by the live site and previews, so this gives it access to the live staff pages. (you, added 2026-11-11)
+- [ ] Finish the QA staff test account (the sign-in exists): add it to the staff list and set up its authenticator. The staff list is currently shared by the live site and previews, so this gives it access to the live staff pages. (you, added 2026-11-11)
 - [ ] Save the two new test passwords in the cloud environment's settings (environment menu in the session title bar, then Edit) as `QA_CUSTOMER_PASSWORD` and `QA_STAFF_PASSWORD`, not in chat or the repo. (you, added 2026-11-11)
 
 ## Needs a decision
@@ -45,6 +43,8 @@ processor, legal, DNS). One line each with the date done:
 older than two weeks can be deleted.
 
 - 2026-11-12: Created the QA tester's customer and staff test sign-ins.
+- 2026-11-12: Changed the passwords on both QA test sign-ins.
+- 2026-11-12: Confirmed the account-details database change from pull request 81 is live.
 - 2026-11-12: Checked where preview deployments point: the live database (see Needs a decision).
 
 ## Notes
