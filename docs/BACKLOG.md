@@ -21,7 +21,6 @@ How to use it:
 
 - [ ] Set up two-step sign-in on the support@ecopeps.com staff account. Staff pages show only the setup screen until this is done. (you, added 2026-11-11)
 - [ ] Update the "Change email address" template in Supabase to point at `/auth/confirm` with `type=email_change`. Until then, customers can't finish changing their email. (you, added 2026-11-11)
-- [ ] Confirm the account-details database change from pull request 81 is live in production. (claude, added 2026-11-11)
 - [ ] Place one real card order end to end on the live site. Stripe shows no live payments yet. (you, added 2026-11-11)
 
 ## Needs a decision

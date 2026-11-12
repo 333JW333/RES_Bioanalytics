@@ -15,6 +15,10 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Staff -> Progress reads the backlog file at request time.
+  outputFileTracingIncludes: {
+    "/admin/progress": ["./docs/BACKLOG.md"],
+  },
   async headers() {
     return [
       {
