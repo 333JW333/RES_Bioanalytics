@@ -23,6 +23,10 @@ How to use it:
 - [ ] Update the "Change email address" template in Supabase to point at `/auth/confirm` with `type=email_change`. Until then, customers can't finish changing their email. (you, added 2026-11-11)
 - [ ] Confirm the account-details database change from pull request 81 is live in production. (claude, added 2026-11-11)
 - [ ] Place one real card order end to end on the live site. Stripe shows no live payments yet. (you, added 2026-11-11)
+- [ ] Check whether preview deployments use the live database. This decides how carefully the QA tester's staff testing has to be set up. (claude, added 2026-11-11)
+- [ ] Register a test customer account for the QA tester: a new email alias (for example `333jw333+qa@gmail.com`) and a throwaway password used nowhere else. (you, added 2026-11-11)
+- [ ] Create a test staff account for the QA tester: a second new email, added to the staff list for preview deployments only, with its own authenticator setup. Don't share the support@ecopeps.com sign-in. (you, added 2026-11-11)
+- [ ] Save the two test passwords in the cloud environment's settings, not in chat or the repo, so the QA tester can read them. Claude will give the exact steps. (you, added 2026-11-11)
 
 ## Needs a decision
 
