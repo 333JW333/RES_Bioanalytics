@@ -6,11 +6,12 @@ import {
   createDraftInvoice,
   createInvoiceItem,
   findInvoiceIdForPaymentIntent,
-  isCustomerUsable,
   isStripeConfigured,
   retrieveCharge,
   retrieveCheckoutSession,
+  retrieveUsableCustomer,
   toCents,
+  updateCustomerEmail,
   type StripeCharge,
   type StripeCheckoutSession,
   type StripeDispute,
@@ -256,7 +257,14 @@ async function getOrCreateCustomer(buyer: CheckoutBuyer): Promise<string> {
     .eq("user_id", buyer.userId)
     .eq("processor", ID)
     .maybeSingle<{ customer_id: string }>();
-  if (existing && (await isCustomerUsable(existing.customer_id))) return existing.customer_id;
+  const saved = existing ? await retrieveUsableCustomer(existing.customer_id) : null;
+  if (saved) {
+    // Stripe emails invoices to the Customer's address, so it must follow
+    // the account: after an email change, the old inbox (maybe no longer
+    // the buyer's) would otherwise get their invoices.
+    if (saved.email !== buyer.email) await updateCustomerEmail(saved.id, buyer.email);
+    return saved.id;
+  }
 
   // Idempotency key is per user, so a race between two tabs yields the same Customer.
   const customer = await createCustomer({

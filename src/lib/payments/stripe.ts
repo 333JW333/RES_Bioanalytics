@@ -146,21 +146,25 @@ export function createCustomer(p: { email: string; name?: string; userId: string
 }
 
 /**
- * Whether a saved Customer works with the current key. A test-mode Customer
- * doesn't exist for a live key, and deleting test data in Stripe removes
- * test Customers, so a saved ID can go stale.
+ * A saved Customer, or null if it doesn't work with the current key. A
+ * test-mode Customer doesn't exist for a live key, and deleting test data in
+ * Stripe removes test Customers, so a saved ID can go stale.
  */
-export async function isCustomerUsable(id: string): Promise<boolean> {
+export async function retrieveUsableCustomer(id: string): Promise<{ id: string; email: string | null } | null> {
   try {
-    const customer = await stripeRequest<{ deleted?: boolean }>(
+    const customer = await stripeRequest<{ id: string; email?: string | null; deleted?: boolean }>(
       "GET",
       `/customers/${encodeURIComponent(id)}`
     );
-    return !customer.deleted;
+    return customer.deleted ? null : { id: customer.id, email: customer.email ?? null };
   } catch (err) {
-    if (err instanceof StripeApiError && err.status === 404) return false;
+    if (err instanceof StripeApiError && err.status === 404) return null;
     throw err;
   }
+}
+
+export function updateCustomerEmail(id: string, email: string) {
+  return stripeRequest<{ id: string }>("POST", `/customers/${encodeURIComponent(id)}`, { email });
 }
 
 export function createCheckoutSession(params: Record<string, Param>, idempotencyKey: string) {

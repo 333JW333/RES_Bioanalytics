@@ -153,7 +153,7 @@ cp .env.example .env.local
 | `ALLOW_DEMO_PAYMENTS` | Set to `true` locally to turn on demo mode (below). Ignored on the live site. |
 | `RESEND_API_KEY` | Sends EcoPeps' own emails (orders, shipping, staff alerts) from orders@ecopeps.com. |
 | `STAFF_EMAILS` | Comma-separated sign-in emails that can open the staff pages at `/admin` (default `support@ecopeps.com`). See [Staff pages](#staff-pages). |
-| `CRON_SECRET` | Any long random string. When set, only Vercel's scheduler can trigger the daily and weekly summary emails. |
+| `CRON_SECRET` | Any long random string. Required in Vercel: only Vercel's scheduler can trigger the daily and weekly jobs, and without it a deployed site refuses every call. |
 
 **Demo mode:** with `ALLOW_DEMO_PAYMENTS=true`, a checkout route whose
 processor has no keys returns a simulated "demo" payment instead of
@@ -282,8 +282,9 @@ staff buttons refuse to work (`src/lib/staff.ts`, Supabase Auth TOTP).
     `/api/cron/weekly-summary`, the same for the week before (Monday to
     Sunday, Mountain Time).
   - Each summary is sent once (`staff_reports` table); a failed send is
-    retried by the next call. With `CRON_SECRET` set, only Vercel's
-    scheduler can trigger them.
+    retried by the next call. Only Vercel's scheduler can trigger them; it
+    sends `CRON_SECRET`, which must be set in Vercel (without it, the jobs
+    refuse every call).
 
 ## Customer accounts and activity
 
