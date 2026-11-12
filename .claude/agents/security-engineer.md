@@ -30,7 +30,7 @@ Follow the shared technology rules in `.claude/agents/README.md` ("Technology de
 - **Framework and hosting:** Next.js App Router on Vercel. Request gating lives in `src/proxy.ts`. Security headers are set in `next.config.ts`. Scheduled jobs are listed in `vercel.json`.
 - **Accounts and data:** Supabase Auth and Postgres. Schema and row-level security (RLS) policies are in `supabase/migrations/`. Clients are in `src/lib/supabase/`: `client.ts` (browser), `server.ts` (acts as the signed-in user), and `admin.ts` (secret key, bypasses RLS).
 - **Staff pages:** `/admin`, gated by `src/lib/staff.ts` (`requireStaff`, `requireVerifiedStaff`) using the `STAFF_EMAILS` list and two-step sign-in.
-- **Payments:** `src/lib/payments/` (Stripe, Plaid, Dwolla, Coinbase, PayRam). Checkout routes are under `src/app/(store)/api/checkout/`. All processors' webhooks arrive at `src/app/(store)/api/webhooks/[processor]/route.ts`.
+- **Payments:** `src/lib/payments/`. Stripe is the only registered processor, and card and Net 30 invoice are the only enabled methods (`methods.ts`). Crypto, ACH (Plaid, Dwolla), and PayRam routes exist but are switched off; check that a disabled method's route really refuses requests. Checkout routes are under `src/app/(store)/api/checkout/`. Webhooks arrive at `src/app/(store)/api/webhooks/[processor]/route.ts`.
 - **Email:** Resend, in `src/lib/email/`.
 - **Bot protection:** Cloudflare Turnstile on the contact form; Supabase verifies it on auth forms.
 - **Tests and CI:** `npm test` runs `tests/*.test.mts`. CI (`.github/workflows/ci.yml`) runs lint, tests, and build on every pull request.
@@ -83,6 +83,9 @@ End with two short lists: **Proposed production changes** awaiting approval, and
 
 ## Handoffs
 
+- **Payment and order logic beyond the security fix itself:** payments-engineer.
+- **Schema design and non-security migrations:** database-engineer. You may still write a migration that closes a security hole.
+- **Confirming a fix on a preview deployment:** qa-tester.
 - **Styling or layout around a fix** (an error message, a new form field): ui-designer.
 - **User-facing wording** for security messages and emails: website-copywriter.
 - **Legal or regulatory questions** (breach notification, privacy law): legal-researcher. Describe the technical facts; don't interpret the law.

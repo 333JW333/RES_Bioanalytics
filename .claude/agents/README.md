@@ -13,6 +13,9 @@ Specialized Claude Code subagents for working on this site, each scoped to one d
 | **thought-leadership-copywriter** | Long-form articles, research, outlines | opus |
 | **legal-researcher** | Research-only U.S. federal law / CFR questions (FDA, FTC, DEA), RUO enforcement tracking, intended-use audits of site copy | opus |
 | **security-engineer** | Security audits, attack-testing in local and preview environments, fixing vulnerabilities, data-protection review | opus |
+| **payments-engineer** | Checkout, Stripe, invoices, payment webhooks, order status, refunds and disputes, adding a processor | opus |
+| **database-engineer** | Tables, migrations, row-level security policies and grants, indexes, slow queries | opus |
+| **qa-tester** | Browser click-throughs of the real site before a release, bug reports, new automated tests | sonnet |
 
 Each agent's project-specific section (brand colors, voice guidelines, site structure, etc.) has already been filled in for EcoPeps — update it if the brand, design system, or product catalog changes materially, so the agents stay accurate.
 
@@ -27,9 +30,19 @@ Each agent's project-specific section (brand colors, voice guidelines, site stru
 
 ## Technology department
 
-The technology agents are the ones that read or change how the site works: **security-engineer**, **ui-designer**, **accessibility-consultant**, and **seo-expert**. The main Claude Code session acts as tech lead: it does general engineering itself, calls a specialist when a task needs one, and is the only one that ships. Agents don't talk to each other; each does one job and reports back to the main session.
+The technology agents are the ones that read or change how the site works: **security-engineer**, **payments-engineer**, **database-engineer**, **qa-tester**, **ui-designer**, **accessibility-consultant**, and **seo-expert**. The main Claude Code session acts as tech lead: it does general engineering itself, calls a specialist when a task needs one, and is the only one that ships. Agents don't talk to each other; each does one job and reports back to the main session.
 
-Add a new specialist only when it would carry knowledge the main session has to rediscover every time, or when it needs different permissions from everyone else. Likely next additions are a payments engineer and a QA tester.
+Add a new specialist only when it would carry knowledge the main session has to rediscover every time, or when it needs different permissions from everyone else.
+
+### How a typical change flows
+
+1. The main session plans the change and writes the general code itself.
+2. It calls **database-engineer** for any new table, column, or policy, and **payments-engineer** for anything that touches checkout, orders, or money.
+3. **security-engineer** reviews the result when it touches sign-in, access, customer data, or payments.
+4. **qa-tester** walks the affected flows on the local server or the preview deployment.
+5. The main session opens the pull request. The owner approves the merge and any change to a live setting.
+
+Small changes skip the steps they don't need. A copy edit needs none of them.
 
 ### Shared rules
 
@@ -60,7 +73,10 @@ Every technology agent follows these.
 
 | Area | Owner |
 |---|---|
-| Authentication, authorization, RLS policies, secrets, webhooks, security headers, data protection | security-engineer |
+| Authentication, authorization, secrets, security headers, data protection; review of every RLS policy and webhook signature check | security-engineer |
+| Checkout routes, payment processors, webhook handling, order status and lifecycle, pricing, refunds, disputes, invoices | payments-engineer |
+| Schema, migrations, RLS policies and grants, indexes, query performance | database-engineer |
+| Release testing, bug reports, the automated tests in `tests/` that cover gaps it finds | qa-tester |
 | Component styling and layout | ui-designer |
 | WCAG compliance, keyboard and screen-reader behavior | accessibility-consultant |
 | Metadata, structured data, sitemap, robots | seo-expert |
@@ -80,3 +96,28 @@ Findings from any technology agent use the same shape: severity (Critical, High,
 - **Connectors:** Supabase and Vercel tools are listed as `mcp__Supabase__…` / `mcp__Vercel__…` for cloud sessions and as `mcp__claude_ai_…` for claude.ai connectors in the local CLI. Without the connectors it still audits the repo and says which live settings it couldn't check.
 - **Typical requests:** "audit the checkout routes", "check the RLS policies on orders", "try to read another customer's order on the dev server", "review this branch before we merge", "what personal data do we store and is it protected?"
 - For a quick review of only the changes on the current branch, the built-in `/security-review` command is faster; use this agent for anything deeper.
+
+## payments-engineer
+
+`payments-engineer` builds and changes the code that handles money. It knows how this store's payments fit together (one `PaymentProcessor` interface, Stripe as the only registered processor, card and Net 30 invoice as the only enabled methods) and works through the failure cases before writing code: duplicate and out-of-order webhooks, abandoned checkouts, partial refunds, disputes.
+
+- **Test mode only.** It has no Stripe tools beyond documentation search and is told never to use a live key. Keep live payment keys out of the environments where it runs.
+- **Changes outside the repo** (webhook events, keys, dashboard settings, legal pages that name processors) come back as proposals for you to approve.
+- **Typical requests:** "add partial refunds to the staff pages", "why did this order stay pending?", "get the ACH route ready to enable", "add a second processor".
+
+## database-engineer
+
+`database-engineer` designs tables and writes migration files, policies, and grants. It reads the live project's structure and advisors but has **no tool to run SQL or apply a migration**. Migrations are tested on a local stack or a preview branch and applied to the live database by the main session with your approval.
+
+- Anything destructive (dropping a column, changing a type, deleting rows) is flagged for approval with a statement of what would be lost.
+- When it needs a fact about live data, it writes a read-only query that returns counts, not rows, for the main session to run.
+- **Typical requests:** "add a table for saved addresses", "is this policy right?", "the orders page is slow", "check the schema matches the code".
+
+## qa-tester
+
+`qa-tester` uses the site in a real browser on the local dev server or a preview deployment and reports what it saw, with steps to reproduce and screenshots. It may add tests in `tests/` but does not change application code; each bug is assigned to the agent that owns the area.
+
+- **It needs test accounts.** Registration requires email confirmation and a captcha, so give it a test customer sign-in and, for `/admin`, a test staff sign-in. It never uses a real customer's account.
+- **No real payments or emails.** It confirms the environment is in Stripe test or demo mode before checking out, and says so when it can't.
+- **Browser:** Claude Code cloud sessions include one. Elsewhere it falls back to requests and the automated tests, and lists what it couldn't check.
+- **Typical requests:** "test this branch before we merge", "run the full release check on the preview", "try to break the checkout form on a phone".
