@@ -30,7 +30,11 @@ export function safeReturnPath(value: unknown): string | null {
   if (GATE_PATHS.some((p) => url.pathname === p || url.pathname.startsWith(`${p}/`))) {
     return null;
   }
-  return url.pathname + url.search;
+  // "/.//evil.com" normalizes to the path "//evil.com", which a browser
+  // reads as another site.
+  const path = url.pathname + url.search;
+  if (path.startsWith("//")) return null;
+  return path;
 }
 
 /** `path` with the return-to page added, e.g. "/register?mode=signin&next=%2Fshop%2Ftb-500". */

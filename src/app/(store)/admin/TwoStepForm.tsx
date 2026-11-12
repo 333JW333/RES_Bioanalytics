@@ -5,7 +5,16 @@ import { startTwoStepSetup, verifyTwoStep, type SetupResult, type VerifyState } 
 
 const idle: VerifyState = { status: "idle" };
 
-export default function TwoStepForm({ mode, returnTo }: { mode: "setup" | "verify"; returnTo: string }) {
+export default function TwoStepForm({
+  mode,
+  returnTo,
+  needsEmailProof = false,
+}: {
+  mode: "setup" | "verify";
+  returnTo: string;
+  /** Setup only: this session hasn't opened an emailed link recently. */
+  needsEmailProof?: boolean;
+}) {
   const [setup, setSetup] = useState<SetupResult | null>(null);
   const [starting, startTransition] = useTransition();
   const [state, verify, verifying] = useActionState(verifyTwoStep, idle);
@@ -39,7 +48,16 @@ export default function TwoStepForm({ mode, returnTo }: { mode: "setup" | "verif
             <li>Click the button below, then scan the QR code with the app.</li>
             <li>Enter the 6-digit code the app shows.</li>
           </ol>
-          {!ready && (
+          {needsEmailProof && (
+            <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-brand-navy">
+              <p className="font-semibold">First, confirm this is your email address</p>
+              <p className="mt-1">
+                Sign out, choose &quot;Forgot password&quot; on the sign-in page, and open the link we email you.
+                Then come back to this page within 15 minutes to finish the steps above.
+              </p>
+            </div>
+          )}
+          {!ready && !needsEmailProof && (
             <button
               type="button"
               disabled={starting}

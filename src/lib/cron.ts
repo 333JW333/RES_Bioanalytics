@@ -5,14 +5,16 @@ import { sendStaffReport, type ReportWindow } from "@/lib/staff-reports";
 import { createAdminClient } from "@/lib/supabase/admin";
 
 /**
- * The scheduled jobs in vercel.json. With CRON_SECRET set in Vercel, only
- * Vercel's scheduler can call them. Repeated calls are harmless: each
+ * The scheduled jobs in vercel.json. Only Vercel's scheduler, which sends
+ * CRON_SECRET, can call them; a deployment without the secret refuses. Repeated calls are harmless: each
  * summary is sent once (staff_reports), and the cleanup is idempotent.
  */
 
 export function isCronAuthorized(req: NextRequest): boolean {
   const secret = process.env.CRON_SECRET;
-  return !secret || req.headers.get("authorization") === `Bearer ${secret}`;
+  // Without a secret, only a developer's own machine may run the jobs.
+  if (!secret) return process.env.NODE_ENV === "development";
+  return req.headers.get("authorization") === `Bearer ${secret}`;
 }
 
 export const unauthorized = () => NextResponse.json({ error: "Unauthorized" }, { status: 401 });
