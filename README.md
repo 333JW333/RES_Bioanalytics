@@ -17,6 +17,13 @@ Run the automated tests with `npm test` (`tests/*.test.mts`, Node's test
 runner). They also run on every pull request, with lint and the build
 (`.github/workflows/ci.yml`).
 
+To try sign-in, checkout and the staff pages without touching the live
+site, `scripts/qa-local.sh start` then `scripts/qa-local.sh dev` runs the
+site on [http://localhost:3100](http://localhost:3100) against a throwaway
+local database and sign-in system (needs Docker). It creates a test
+customer and a test staff account, uses captcha test keys, and fakes
+payments in demo mode. `scripts/qa-local.sh stop` deletes it.
+
 ## What's included
 
 - **Product catalog** (`src/data/products.ts`) — research peptide
@@ -153,7 +160,7 @@ cp .env.example .env.local
 | `ALLOW_DEMO_PAYMENTS` | Set to `true` locally to turn on demo mode (below). Ignored on the live site. |
 | `RESEND_API_KEY` | Sends EcoPeps' own emails (orders, shipping, staff alerts) from orders@ecopeps.com. |
 | `STAFF_EMAILS` | Comma-separated sign-in emails that can open the staff pages at `/admin` (default `support@ecopeps.com`). See [Staff pages](#staff-pages). |
-| `CRON_SECRET` | Any long random string. When set, only Vercel's scheduler can trigger the daily and weekly summary emails. |
+| `CRON_SECRET` | Any long random string. Only Vercel's scheduler, which sends it, can trigger the daily and weekly summary emails; a deployment without it refuses every call. |
 
 **Demo mode:** with `ALLOW_DEMO_PAYMENTS=true`, a checkout route whose
 processor has no keys returns a simulated "demo" payment instead of
@@ -243,6 +250,12 @@ walks you through setup (scan a QR code); after that, enter the code once
 each time you sign in. Until then the pages show only that screen, and the
 staff buttons refuse to work (`src/lib/staff.ts`, Supabase Auth TOTP).
 
+Setting it up needs more than the password: the staff member must first
+open a link emailed to the staff address ("Forgot password" on the sign-in
+page), then return to `/admin` within 15 minutes. That way someone who
+only learned a staff password can't add their own authenticator.
+support@ecopeps.com is emailed whenever a staff account gains one.
+
 - **Lost phone or new phone:** someone with Supabase access opens
   Authentication → Users, finds the staff account, and deletes its
   authenticator factor ("EcoPeps staff pages"). The next visit to `/admin`
@@ -282,8 +295,8 @@ staff buttons refuse to work (`src/lib/staff.ts`, Supabase Auth TOTP).
     `/api/cron/weekly-summary`, the same for the week before (Monday to
     Sunday, Mountain Time).
   - Each summary is sent once (`staff_reports` table); a failed send is
-    retried by the next call. With `CRON_SECRET` set, only Vercel's
-    scheduler can trigger them.
+    retried by the next call. Only Vercel's scheduler, which sends
+    `CRON_SECRET`, can trigger them.
 
 ## Customer accounts and activity
 

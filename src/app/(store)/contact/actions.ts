@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export type InquiryState =
@@ -124,18 +125,27 @@ export async function submitInquiry(
   const { data: claims } = await supabase.auth.getClaims();
   const userId = claims?.claims?.sub ?? null;
 
-  const { error } = await supabase.from("inquiries").insert({
-    user_id: userId,
-    first_name: firstName,
-    last_name: lastName || null,
-    email,
-    subject,
-    order_number: orderNumber || null,
-    message,
-    terms_accepted_at: new Date().toISOString(),
-  });
-  if (error) {
-    console.error("Saving inquiry failed", error);
+  // Saved with the server-only key: the table accepts no writes from
+  // browsers, so the security check above can't be skipped by writing to
+  // the database directly.
+  let saveError: string | null = null;
+  try {
+    const { error } = await createAdminClient().from("inquiries").insert({
+      user_id: userId,
+      first_name: firstName,
+      last_name: lastName || null,
+      email,
+      subject,
+      order_number: orderNumber || null,
+      message,
+      terms_accepted_at: new Date().toISOString(),
+    });
+    saveError = error ? `${error.code}: ${error.message}` : null;
+  } catch (err) {
+    saveError = err instanceof Error ? err.message : "unknown error";
+  }
+  if (saveError) {
+    console.error("Saving inquiry failed", saveError);
     return {
       status: "error",
       message: `We couldn't send your inquiry. Please try again, or email ${SUPPORT_EMAIL}.`,

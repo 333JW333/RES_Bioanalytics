@@ -6,9 +6,11 @@
  *
  * Before enabling crypto, ACH (Plaid + Dwolla) or PayRam: their routes don't
  * yet require sign-in or the research-use attestation, and don't save an
- * order, the way the card and invoice routes do (src/lib/orders.ts). Add
- * those first, and have the legal pages reviewed (README: Switching payment
- * processors).
+ * order, the way the card and invoice routes do (src/lib/orders.ts). The ACH
+ * routes also trust the browser for whose bank account to charge
+ * (fundingSourceUrl, userId); those must come from the signed-in buyer's own
+ * records on the server. Fix all of that first, and have the legal pages
+ * reviewed (README: Switching payment processors).
  */
 export type PaymentMethod = "card" | "invoice" | "crypto" | "ach" | "payram";
 

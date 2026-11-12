@@ -13,9 +13,9 @@ import { createClient } from "@/lib/supabase/server";
 export async function POST(req: NextRequest) {
   const done = new NextResponse(null, { status: 204 });
 
-  // Only our own pages send these.
-  const site = req.headers.get("sec-fetch-site");
-  if (site && site !== "same-origin") return done;
+  // Only our own pages send these. Browsers add this header themselves and
+  // page scripts can't change it; a request without it didn't come from a page.
+  if (req.headers.get("sec-fetch-site") !== "same-origin") return done;
 
   let body: { path?: unknown; referrer?: unknown };
   try {
