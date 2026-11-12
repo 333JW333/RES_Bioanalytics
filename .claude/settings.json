@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Resend__send-email",
+      "mcp__Resend__list-emails",
+      "mcp__Vercel__list_deployments",
+      "mcp__Vercel__get_runtime_errors",
+      "mcp__Stripe__stripe_api_read",
+      "mcp__Stripe__list_available_accounts_or_orgs",
+      "mcp__github__list_pull_requests",
+      "mcp__github__pull_request_read",
+      "mcp__Supabase__execute_sql"
+    ]
+  }
+}
