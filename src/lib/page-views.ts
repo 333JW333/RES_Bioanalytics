@@ -13,11 +13,17 @@ export function retentionCutoff(now = Date.now()): string {
   return new Date(now - RETENTION_DAYS * 24 * 60 * 60 * 1000).toISOString();
 }
 
-/** A path like "/shop/bpc-157", or null for anything we don't record. */
+/**
+ * A path like "/shop/bpc-157", or null for anything we don't record.
+ * Browsers percent-encode paths, so a real page view only holds URL path
+ * characters; anything else (spaces, line breaks, other scripts) was typed
+ * by hand into a request to /api/track, which anyone can call.
+ */
 export function cleanPath(value: unknown): string | null {
   if (typeof value !== "string" || !value.startsWith("/") || value.startsWith("//")) return null;
   const path = value.split(/[?#]/)[0].slice(0, 300);
   if (path.startsWith("/api/") || path.startsWith("/_next/")) return null;
+  if (!/^[A-Za-z0-9\-._~!$&'()*+,;=:@%/]+$/.test(path)) return null;
   return path;
 }
 

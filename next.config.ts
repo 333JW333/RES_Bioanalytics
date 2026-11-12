@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import { PHASE_PRODUCTION_BUILD } from "next/constants";
 import { checkVialCodes } from "./src/data/check-vial-codes";
+import { CSP_REPORT_GROUP, CSP_REPORT_PATH, contentSecurityPolicy } from "./src/lib/csp";
 
 const securityHeaders = [
   { key: "X-Frame-Options", value: "DENY" },
@@ -11,6 +12,17 @@ const securityHeaders = [
     value: "camera=(), microphone=(), geolocation=(), payment=()",
   },
   { key: "X-DNS-Prefetch-Control", value: "on" },
+  // Report-only: browsers report what the policy would block to
+  // /api/csp-report and block nothing. See src/lib/csp.ts before enforcing.
+  {
+    key: "Content-Security-Policy-Report-Only",
+    value: contentSecurityPolicy({
+      dev: process.env.NODE_ENV === "development",
+      preview: process.env.VERCEL_ENV === "preview",
+      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
+    }),
+  },
+  { key: "Reporting-Endpoints", value: `${CSP_REPORT_GROUP}="${CSP_REPORT_PATH}"` },
 ];
 
 const nextConfig: NextConfig = {

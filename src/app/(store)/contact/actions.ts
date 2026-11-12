@@ -1,6 +1,7 @@
 "use server";
 
 import { headers } from "next/headers";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { createClient } from "@/lib/supabase/server";
 
 export type InquiryState =
@@ -124,16 +125,24 @@ export async function submitInquiry(
   const { data: claims } = await supabase.auth.getClaims();
   const userId = claims?.claims?.sub ?? null;
 
-  const { error } = await supabase.from("inquiries").insert({
-    user_id: userId,
-    first_name: firstName,
-    last_name: lastName || null,
-    email,
-    subject,
-    order_number: orderNumber || null,
-    message,
-    terms_accepted_at: new Date().toISOString(),
-  });
+  // Saved with the secret key, only after the captcha passed: the API roles
+  // can't insert into inquiries (migration 20261112090000), so the Turnstile
+  // check can't be skipped by writing to the table directly.
+  let error: unknown = null;
+  try {
+    ({ error } = await createAdminClient().from("inquiries").insert({
+      user_id: userId,
+      first_name: firstName,
+      last_name: lastName || null,
+      email,
+      subject,
+      order_number: orderNumber || null,
+      message,
+      terms_accepted_at: new Date().toISOString(),
+    }));
+  } catch (err) {
+    error = err;
+  }
   if (error) {
     console.error("Saving inquiry failed", error);
     return {

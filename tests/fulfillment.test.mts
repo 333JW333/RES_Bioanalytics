@@ -406,7 +406,8 @@ const dayWindow = ws.lastDay(new Date("2026-11-12T00:30:00Z"));
 
 await test("Summary data: product and country names, order refs, numbers", () => {
   const s = ws.toActivityData(raw, dayWindow);
-  assert.deepEqual(s.topProducts.map((p) => p.name), ["BPC-157", "gone-product"]);
+  // Slugs not in the catalog are left out: anyone can record a view of any path.
+  assert.deepEqual(s.topProducts.map((p) => p.name), ["BPC-157"]);
   assert.deepEqual(s.countries.map((c) => c.name), ["United States", "Unknown"]);
   assert.deepEqual(s.restockWaiting, [{ name: "TB-500", waiting: 5 }]);
   assert.deepEqual(s.restockRequests, [{ email: "w@lab.org", product: "TB-500" }]);
