@@ -138,6 +138,11 @@ export interface RawActivity {
 
 export function toActivityData(raw: RawActivity, window: Pick<ReportWindow, "label" | "range">): ActivityData {
   const productName = (slug: string) => getProductBySlug(slug)?.name ?? slug;
+  // Page views come from /api/track, which anyone can call with any path, so
+  // only catalog products are listed: otherwise an outsider could put their
+  // own text (say, a fake "verify your account at ..." link) into the staff
+  // emails and Overview page as a "product".
+  const inCatalog = (r: { slug: string }) => getProductBySlug(r.slug) !== undefined;
   return {
     label: window.label,
     range: window.range,
@@ -157,13 +162,13 @@ export function toActivityData(raw: RawActivity, window: Pick<ReportWindow, "lab
     refunded: Number(raw.refunded),
     disputed: Number(raw.disputed),
     pageViews: Number(raw.page_views),
-    topProducts: raw.top_products.map((p) => ({
+    topProducts: raw.top_products.filter(inCatalog).map((p) => ({
       name: productName(p.slug),
       views: Number(p.views),
       signedInViewers: Number(p.signed_in_viewers),
     })),
     countries: raw.countries.map((c) => ({ name: countryName(c.country), views: Number(c.views) })),
-    restockWaiting: raw.restock_waiting.map((r) => ({ name: productName(r.slug), waiting: Number(r.waiting) })),
+    restockWaiting: raw.restock_waiting.filter(inCatalog).map((r) => ({ name: productName(r.slug), waiting: Number(r.waiting) })),
     orders: (raw.orders ?? []).map((o) => ({
       ref: formatOrderRef(o.id),
       email: o.email,
@@ -172,7 +177,7 @@ export function toActivityData(raw: RawActivity, window: Pick<ReportWindow, "lab
       paymentFlow: o.payment_flow,
       shipped: Boolean(o.shipped_at),
     })),
-    restockRequests: (raw.restock_requests ?? []).map((r) => ({ email: r.email, product: productName(r.slug) })),
+    restockRequests: (raw.restock_requests ?? []).filter(inCatalog).map((r) => ({ email: r.email, product: productName(r.slug) })),
     inquiries: raw.inquiries ?? [],
     profileChanges: (raw.profile_changes ?? []).map((c) => ({
       email: c.email,
