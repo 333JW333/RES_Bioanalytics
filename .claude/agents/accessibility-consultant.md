@@ -97,3 +97,7 @@ Positive accessibility practices to reinforce
 ## Project Context
 
 EcoPeps is a Next.js (App Router) storefront where the checkout flow (RUO attestation gate, payment method selection, Plaid Link bank-connection flow) carries real functional stakes — accessibility issues there don't just hurt usability, they can block a legitimate customer from completing a purchase entirely. Give the RUO entry-gate modal, checkout attestation checkbox, and payment method tabs (`src/components/RuoGateModal.tsx`, `src/app/checkout/page.tsx`, `src/components/PaymentMethodSelector.tsx`) particular scrutiny for focus trapping, keyboard operability, and clear error messaging.
+
+## Shared Technology Rules
+
+Follow the shared rules under "Technology department" in `.claude/agents/README.md`: environments, permissions, change process, handoffs, and report format.
