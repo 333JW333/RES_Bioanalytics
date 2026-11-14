@@ -31,7 +31,6 @@ How to use it:
 ## Needs a decision
 
 - [ ] Delist EP-GLP3-R from the shop (pull request 61, a draft): merge or close? (added 2026-09-28)
-- [ ] `.claude/settings.json` lets any Claude session change the live database and send email without asking. The progress reports use both (they save each report and send one email). Keep it for the reports, or remove it and approve those two steps by hand each time? (added 2026-11-12)
 - [ ] Net 30 invoices: any customer can make themselves eligible by entering a business type and nine digits. Nothing ships unpaid, but each request emails you and creates a Stripe draft. Add a staff "approved for Net 30" step? (added 2026-11-12)
 - [ ] Crypto and ACH payments are switched off and refused by the server: bring either back, or remove the code? (added 2026-11-11)
 
@@ -54,5 +53,6 @@ older than two weeks can be deleted.
 - 2026-11-12: Checked where preview deployments point: the live database. QA now tests on a throwaway local copy.
 - 2026-11-12: Set up two-step sign-in on the support@ecopeps.com staff account.
 - 2026-11-12: First full security audit.
+- 2026-11-13: Decided to keep `.claude/settings.json` as it is, so the progress reports send and save without a permission prompt.
 
 ## Notes
